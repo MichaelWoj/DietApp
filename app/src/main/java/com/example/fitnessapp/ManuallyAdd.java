@@ -37,7 +37,7 @@ public class ManuallyAdd extends AppCompatActivity {
                 @Override
                 public void onClick(View view) {
 
-                    if (caloriesManual.getText().toString().equals("") || proteinManual.getText().toString().equals("") || fatManual.getText().toString().equals("") || carbsManual.getText().toString().equals("")){
+                    if (caloriesManual.getText().toString().isEmpty() || proteinManual.getText().toString().isEmpty() || fatManual.getText().toString().isEmpty() || carbsManual.getText().toString().isEmpty()){
                         Toast.makeText(ManuallyAdd.this, "Please insert all info", Toast.LENGTH_SHORT).show();
                     }else{
 
@@ -59,6 +59,7 @@ public class ManuallyAdd extends AppCompatActivity {
                         int carbsManualInt = Integer.parseInt(carbsM);
                         intent.putExtra("carbsManual", carbsManualInt);
 
+                        setResult(RESULT_OK, intent);
                         finish();
                     }
 

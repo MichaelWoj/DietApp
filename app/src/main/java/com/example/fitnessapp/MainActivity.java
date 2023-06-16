@@ -24,11 +24,17 @@ import android.widget.TextView;
     ActivityResultLauncher<Intent> startForResult = registerForActivityResult(new ActivityResultContracts.StartActivityForResult(), new ActivityResultCallback<ActivityResult>() {
         @Override
         public void onActivityResult(ActivityResult result) {
-            if(result != null && result.getResultCode() == RESULT_OK){
-                if(result.getData() != null && result.getData().getIntExtra("caloriesManual", R.id.car) != null){
-                    int newCalories = getIntent().getExtras().getInt()
-                    newCalories = setCalories + result.getData().getIntExtra("caloriesManual",caloriesManualInt);
-                    setCalories.setText(String.valueOf())
+            if(result.getResultCode() == RESULT_OK){
+                Intent intent = result.getData();
+                if(intent != null){
+                    int caloriesManualInt = intent.getIntExtra("caloriesManual", 0);
+                    setCalories.setText(String.valueOf(caloriesManualInt));
+                    int proteinManualInt = intent.getIntExtra("proteinManual", 0);
+                    setProtein.setText(String.valueOf(proteinManualInt));
+                    int fatManualInt = intent.getIntExtra("fatManual", 0);
+                    setFat.setText(String.valueOf(caloriesManualInt));
+                    int carbsManualInt = intent.getIntExtra("carbsManual", 0);
+                    setCarbs.setText(String.valueOf(carbsManualInt));
                 }
             }
         }
