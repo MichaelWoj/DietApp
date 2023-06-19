@@ -65,7 +65,8 @@ import android.widget.TextView;
         addFoodBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                openFoodSearch();
+                Intent intent = new Intent(MainActivity.this, EnterFood.class);
+                startActivity(intent);
             }
         });
 
@@ -77,13 +78,20 @@ import android.widget.TextView;
                 startForResult.launch(intent);
             }
         });
-    }
-    public void openFoodSearch(){
-        Intent intent = new Intent(this, EnterFood.class);
-        startActivity(intent);
-    }
-    public void openManualAdd(){
-        Intent intent = new Intent(this, ManuallyAdd.class);
-        startActivity(intent);
+        resetAllBtn = (Button) findViewById(R.id.resetAll);
+        resetAllBtn.setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick (View v) {
+                 caloriesVal = 0;
+                 proteinVal = 0;
+                 fatVal = 0;
+                 carbsVal = 0;
+
+                setCalories.setText(String.valueOf(caloriesVal));
+                setProtein.setText(String.valueOf(proteinVal));
+                setFat.setText(String.valueOf(fatVal));
+                setCarbs.setText(String.valueOf(carbsVal));
+            }
+        });
     }
 }
