@@ -29,16 +29,17 @@ import android.widget.TextView;
                 if(intent != null){
                     int caloriesManualInt = intent.getIntExtra("caloriesManual", 0);
                     caloriesVal = caloriesVal + caloriesManualInt;
-                    setCalories.setText(String.valueOf(caloriesVal));
+
                     int proteinManualInt = intent.getIntExtra("proteinManual", 0);
                     proteinVal = proteinVal + proteinManualInt;
-                    setProtein.setText(String.valueOf(proteinVal));
+
                     int fatManualInt = intent.getIntExtra("fatManual", 0);
                     fatVal = fatVal + fatManualInt;
-                    setFat.setText(String.valueOf(fatVal));
+
                     int carbsManualInt = intent.getIntExtra("carbsManual", 0);
                     carbsVal = carbsVal + carbsManualInt;
-                    setCarbs.setText(String.valueOf(carbsVal));
+
+                    setValues();
                 }
             }
         }
@@ -78,6 +79,17 @@ import android.widget.TextView;
                 startForResult.launch(intent);
             }
         });
+
+        undoFoodBtn = (Button) findViewById(R.id.undoFood);
+        undoFoodBtn.setOnClickListener(new View.OnClickListener(){
+            @Override
+
+            public void onClick(View v) {
+            // Add functionality
+            }
+        });
+
+
         resetAllBtn = (Button) findViewById(R.id.resetAll);
         resetAllBtn.setOnClickListener(new View.OnClickListener(){
             @Override
@@ -87,11 +99,17 @@ import android.widget.TextView;
                  fatVal = 0;
                  carbsVal = 0;
 
-                setCalories.setText(String.valueOf(caloriesVal));
-                setProtein.setText(String.valueOf(proteinVal));
-                setFat.setText(String.valueOf(fatVal));
-                setCarbs.setText(String.valueOf(carbsVal));
+                 setValues();
+
             }
         });
     }
-}
+
+        private void setValues() {
+            setCalories.setText(String.valueOf(caloriesVal));
+            setProtein.setText(String.valueOf(proteinVal));
+            setFat.setText(String.valueOf(fatVal));
+            setCarbs.setText(String.valueOf(carbsVal));
+        }
+
+    }
