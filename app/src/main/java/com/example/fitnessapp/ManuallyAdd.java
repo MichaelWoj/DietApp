@@ -55,7 +55,7 @@ public class ManuallyAdd extends AppCompatActivity {
                         int fatManualInt = Integer.parseInt(fatM);
                         intent.putExtra("fatManual", fatManualInt);
 
-                        String carbsM = fatManual.getText().toString();
+                        String carbsM = carbsManual.getText().toString();
                         int carbsManualInt = Integer.parseInt(carbsM);
                         intent.putExtra("carbsManual", carbsManualInt);
 

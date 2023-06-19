@@ -28,13 +28,17 @@ import android.widget.TextView;
                 Intent intent = result.getData();
                 if(intent != null){
                     int caloriesManualInt = intent.getIntExtra("caloriesManual", 0);
-                    setCalories.setText(String.valueOf(caloriesManualInt));
+                    caloriesVal = caloriesVal + caloriesManualInt;
+                    setCalories.setText(String.valueOf(caloriesVal));
                     int proteinManualInt = intent.getIntExtra("proteinManual", 0);
-                    setProtein.setText(String.valueOf(proteinManualInt));
+                    proteinVal = proteinVal + proteinManualInt;
+                    setProtein.setText(String.valueOf(proteinVal));
                     int fatManualInt = intent.getIntExtra("fatManual", 0);
-                    setFat.setText(String.valueOf(caloriesManualInt));
+                    fatVal = fatVal + fatManualInt;
+                    setFat.setText(String.valueOf(fatVal));
                     int carbsManualInt = intent.getIntExtra("carbsManual", 0);
-                    setCarbs.setText(String.valueOf(carbsManualInt));
+                    carbsVal = carbsVal + carbsManualInt;
+                    setCarbs.setText(String.valueOf(carbsVal));
                 }
             }
         }
