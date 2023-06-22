@@ -21,16 +21,9 @@ public class ManuallyAdd extends AppCompatActivity {
         setContentView(R.layout.activity_manually_add);
 
         caloriesManual = findViewById(R.id.manualMealCalories);
-        caloriesManual.setInputType(InputType.TYPE_CLASS_NUMBER);
-
         proteinManual = findViewById(R.id.manualMealProtein);
-        proteinManual.setInputType(InputType.TYPE_CLASS_NUMBER);
-
         fatManual = findViewById(R.id.manualMealFat);
-        fatManual.setInputType(InputType.TYPE_CLASS_NUMBER);
-
         carbsManual = findViewById(R.id.manualMealCarbs);
-        carbsManual.setInputType(InputType.TYPE_CLASS_NUMBER);
 
         submit = findViewById(R.id.manualAddFood);
         submit.setOnClickListener(new View.OnClickListener(){
@@ -44,19 +37,19 @@ public class ManuallyAdd extends AppCompatActivity {
                         Intent intent = new Intent(ManuallyAdd.this, MainActivity.class);
 
                         String calM = caloriesManual.getText().toString();
-                        int caloriesManualInt = Integer.parseInt(calM);
+                        double caloriesManualInt = Double.parseDouble(calM);
                         intent.putExtra("caloriesManual", caloriesManualInt);
 
                         String protM = proteinManual.getText().toString();
-                        int proteinManualInt = Integer.parseInt(protM);
+                        double proteinManualInt = Double.parseDouble(protM);
                         intent.putExtra("proteinManual", proteinManualInt);
 
                         String fatM = fatManual.getText().toString();
-                        int fatManualInt = Integer.parseInt(fatM);
+                        double fatManualInt = Double.parseDouble(fatM);
                         intent.putExtra("fatManual", fatManualInt);
 
                         String carbsM = carbsManual.getText().toString();
-                        int carbsManualInt = Integer.parseInt(carbsM);
+                        double carbsManualInt = Double.parseDouble(carbsM);
                         intent.putExtra("carbsManual", carbsManualInt);
 
                         setResult(RESULT_OK, intent);

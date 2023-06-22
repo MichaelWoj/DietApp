@@ -16,10 +16,16 @@ import android.widget.TextView;
     private TextView setCalories, setProtein, setFat, setCarbs ;
     private Button addFoodBtn, manualFoodBtn, undoFoodBtn, resetAllBtn;
 
-    int caloriesVal = 0;
-    int proteinVal = 0;
-    int fatVal = 0;
-    int carbsVal = 0;
+    double caloriesVal = 0;
+    double proteinVal = 0;
+    double fatVal = 0;
+    double carbsVal = 0;
+
+    double caloriesManualInt = 0;
+    double proteinManualInt = 0;
+    double fatManualInt = 0;
+    double carbsManualInt = 0;
+
 
     ActivityResultLauncher<Intent> startForResult = registerForActivityResult(new ActivityResultContracts.StartActivityForResult(), new ActivityResultCallback<ActivityResult>() {
         @Override
@@ -27,16 +33,16 @@ import android.widget.TextView;
             if(result.getResultCode() == RESULT_OK){
                 Intent intent = result.getData();
                 if(intent != null){
-                    int caloriesManualInt = intent.getIntExtra("caloriesManual", 0);
+                    caloriesManualInt = intent.getDoubleExtra("caloriesManual", 0);
                     caloriesVal = caloriesVal + caloriesManualInt;
 
-                    int proteinManualInt = intent.getIntExtra("proteinManual", 0);
+                    proteinManualInt = intent.getDoubleExtra("proteinManual", 0);
                     proteinVal = proteinVal + proteinManualInt;
 
-                    int fatManualInt = intent.getIntExtra("fatManual", 0);
+                    fatManualInt = intent.getDoubleExtra("fatManual", 0);
                     fatVal = fatVal + fatManualInt;
 
-                    int carbsManualInt = intent.getIntExtra("carbsManual", 0);
+                    carbsManualInt = intent.getDoubleExtra("carbsManual", 0);
                     carbsVal = carbsVal + carbsManualInt;
 
                     setValues();
@@ -85,7 +91,17 @@ import android.widget.TextView;
             @Override
 
             public void onClick(View v) {
-            // Add functionality
+                caloriesVal = caloriesVal- caloriesManualInt;
+                proteinVal = proteinVal- proteinManualInt;
+                fatVal = fatVal- fatManualInt;
+                carbsVal = carbsVal- carbsManualInt;
+
+                setValues();
+
+                caloriesManualInt = 0;
+                proteinManualInt = 0;
+                fatManualInt = 0;
+                carbsManualInt = 0;
             }
         });
 

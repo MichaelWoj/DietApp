@@ -69,7 +69,8 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-
+            android:maxLines="1"
+            android:maxLength="8"
             android:textColor="#000000"
             android:textSize="24sp" />
 
@@ -78,6 +79,8 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
+            android:maxLines="1"
+            android:maxLength="5"
             android:textColor="#000000"
             android:textSize="24sp" />
 
@@ -86,6 +89,8 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
+            android:maxLines="1"
+            android:maxLength="5"
             android:textColor="#000000"
             android:textSize="24sp" />
 
@@ -94,6 +99,8 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
+            android:maxLines="1"
+            android:maxLength="5"
             android:textColor="#000000"
             android:textSize="24sp" />
 
@@ -138,7 +145,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:text="Undo Last Food" />
+            android:text="Undo Previous Food" />
     </LinearLayout>
 
     <LinearLayout
