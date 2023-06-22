@@ -37,20 +37,20 @@ public class ManuallyAdd extends AppCompatActivity {
                         Intent intent = new Intent(ManuallyAdd.this, MainActivity.class);
 
                         String calM = caloriesManual.getText().toString();
-                        double caloriesManualInt = Double.parseDouble(calM);
-                        intent.putExtra("caloriesManual", caloriesManualInt);
+                        double caloriesManualVal = Double.parseDouble(calM);
+                        intent.putExtra("caloriesManual", caloriesManualVal);
 
                         String protM = proteinManual.getText().toString();
-                        double proteinManualInt = Double.parseDouble(protM);
-                        intent.putExtra("proteinManual", proteinManualInt);
+                        double proteinManualVal = Double.parseDouble(protM);
+                        intent.putExtra("proteinManual", proteinManualVal);
 
                         String fatM = fatManual.getText().toString();
-                        double fatManualInt = Double.parseDouble(fatM);
-                        intent.putExtra("fatManual", fatManualInt);
+                        double fatManualVal = Double.parseDouble(fatM);
+                        intent.putExtra("fatManual", fatManualVal);
 
                         String carbsM = carbsManual.getText().toString();
-                        double carbsManualInt = Double.parseDouble(carbsM);
-                        intent.putExtra("carbsManual", carbsManualInt);
+                        double carbsManualVal = Double.parseDouble(carbsM);
+                        intent.putExtra("carbsManual", carbsManualVal);
 
                         setResult(RESULT_OK, intent);
                         finish();
