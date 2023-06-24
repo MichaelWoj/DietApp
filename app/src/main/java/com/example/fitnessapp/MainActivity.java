@@ -35,15 +35,19 @@ import android.widget.TextView;
                 if(intent != null){
                     caloriesManualVal = intent.getDoubleExtra("caloriesManual", 0);
                     caloriesVal = caloriesVal + caloriesManualVal;
+                    caloriesVal = Math.round(caloriesVal * 100.0) / 100.0;
 
                     proteinManualVal = intent.getDoubleExtra("proteinManual", 0);
                     proteinVal = proteinVal + proteinManualVal;
+                    proteinVal = Math.round(proteinVal * 100.0) / 100.0;
 
                     fatManualVal = intent.getDoubleExtra("fatManual", 0);
                     fatVal = fatVal + fatManualVal;
+                    fatVal = Math.round(fatVal * 100.0) / 100.0;
 
                     carbsManualVal = intent.getDoubleExtra("carbsManual", 0);
                     carbsVal = carbsVal + carbsManualVal;
+                    carbsVal = Math.round(carbsVal * 100.0) / 100.0;
 
                     setValues();
                 }
@@ -92,9 +96,16 @@ import android.widget.TextView;
 
             public void onClick(View v) {
                 caloriesVal = caloriesVal- caloriesManualVal;
+                caloriesVal = Math.floor(caloriesVal * 100) / 100;
+
                 proteinVal = proteinVal- proteinManualVal;
+                proteinVal = Math.floor(proteinVal * 100) / 100;
+
                 fatVal = fatVal- fatManualVal;
+                fatVal = Math.floor(fatVal * 100) / 100;
+
                 carbsVal = carbsVal- carbsManualVal;
+                carbsVal = Math.floor(carbsVal * 100) / 100;
 
                 setValues();
 
