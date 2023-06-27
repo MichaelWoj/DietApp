@@ -8,12 +8,14 @@ import android.text.InputType;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Switch;
 import android.widget.Toast;
 
 public class ManuallyAdd extends AppCompatActivity {
 
     private EditText caloriesManual, proteinManual, fatManual, carbsManual;
     private Button submit;
+    private Switch db_switch;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -24,6 +26,7 @@ public class ManuallyAdd extends AppCompatActivity {
         proteinManual = findViewById(R.id.manualMealProtein);
         fatManual = findViewById(R.id.manualMealFat);
         carbsManual = findViewById(R.id.manualMealCarbs);
+        db_switch = findViewById(R.id.saveToDBSwitch);
 
         submit = findViewById(R.id.manualAddFood);
         submit.setOnClickListener(new View.OnClickListener(){
@@ -51,6 +54,11 @@ public class ManuallyAdd extends AppCompatActivity {
                         String carbsM = carbsManual.getText().toString();
                         double carbsManualVal = Double.parseDouble(carbsM);
                         intent.putExtra("carbsManual", carbsManualVal);
+
+                        if(db_switch.isChecked()){
+                        DataBaseHelper dataBaseHelper = new DataBaseHelper(ManuallyAdd.this);
+
+                        }
 
                         setResult(RESULT_OK, intent);
                         finish();
