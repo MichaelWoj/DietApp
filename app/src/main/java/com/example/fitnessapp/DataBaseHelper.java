@@ -1,5 +1,7 @@
 package com.example.fitnessapp;
 
+
+import android.content.ContentValues;
 import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
@@ -30,5 +32,22 @@ public class DataBaseHelper extends SQLiteOpenHelper {
 
     }
 
-    //public boolean addOne()
+    public boolean addOne(FoodModel foodModel){
+        SQLiteDatabase db = this.getWritableDatabase();
+        ContentValues cv = new ContentValues();
+
+        cv.put(COLUMN_FOOD_NAME, foodModel.getName());
+        cv.put(COLUMN_FOOD_CALORIES, foodModel.getCalories());
+        cv.put(COLUMN_FOOD_PROTEIN, foodModel.getProtein());
+        cv.put(COLUMN_FOOD_FAT, foodModel.getFat());
+        cv.put(COLUMN_FOOD_CARBS, foodModel.getCarbs());
+
+        long insert = db.insert(FOOD_TABLE, null, cv);
+        if (insert == -1) {
+            return false;
+        }
+        else {
+            return true;
+        }
+    }
 }

@@ -56,8 +56,14 @@ public class ManuallyAdd extends AppCompatActivity {
                         intent.putExtra("carbsManual", carbsManualVal);
 
                         if(db_switch.isChecked()){
-                        DataBaseHelper dataBaseHelper = new DataBaseHelper(ManuallyAdd.this);
+                            FoodModel foodModel;
 
+                            try{
+                                foodModel = new FoodModel()
+                            }
+
+                            DataBaseHelper dataBaseHelper = new DataBaseHelper(ManuallyAdd.this);
+                            dataBaseHelper.addOne()
                         }
 
                         setResult(RESULT_OK, intent);
