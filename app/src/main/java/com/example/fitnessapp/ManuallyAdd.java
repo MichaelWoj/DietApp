@@ -4,7 +4,6 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.text.InputType;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -13,7 +12,7 @@ import android.widget.Toast;
 
 public class ManuallyAdd extends AppCompatActivity {
 
-    private EditText caloriesManual, proteinManual, fatManual, carbsManual;
+    private EditText nameManual, caloriesManual, proteinManual, fatManual, carbsManual;
     private Button submit;
     private Switch db_switch;
 
@@ -22,6 +21,7 @@ public class ManuallyAdd extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_manually_add);
 
+        nameManual = findViewById(R.id.manualMealName);
         caloriesManual = findViewById(R.id.manualMealCalories);
         proteinManual = findViewById(R.id.manualMealProtein);
         fatManual = findViewById(R.id.manualMealFat);
@@ -38,6 +38,8 @@ public class ManuallyAdd extends AppCompatActivity {
                     }else{
 
                         Intent intent = new Intent(ManuallyAdd.this, MainActivity.class);
+
+                        String nameM = nameManual.getText().toString();
 
                         String calM = caloriesManual.getText().toString();
                         double caloriesManualVal = Double.parseDouble(calM);
@@ -56,14 +58,21 @@ public class ManuallyAdd extends AppCompatActivity {
                         intent.putExtra("carbsManual", carbsManualVal);
 
                         if(db_switch.isChecked()){
+
                             FoodModel foodModel;
 
                             try{
-                                foodModel = new FoodModel()
+                                foodModel = new FoodModel(-1, nameM, caloriesManualVal, proteinManualVal, fatManualVal, carbsManualVal);
+                                Toast.makeText(ManuallyAdd.this, foodModel.toString(), Toast.LENGTH_SHORT).show();
+                            }
+                            catch (Exception e){
+                                Toast.makeText(ManuallyAdd.this, "Error adding food to the database", Toast.LENGTH_SHORT).show();
+                                foodModel = new FoodModel(-1,"Error",0.0,0.0,0.0,0.0);
                             }
 
                             DataBaseHelper dataBaseHelper = new DataBaseHelper(ManuallyAdd.this);
-                            dataBaseHelper.addOne()
+                            boolean success = dataBaseHelper.addOne(foodModel);
+                            Toast.makeText(ManuallyAdd.this, "Success = " + success, Toast.LENGTH_SHORT).show();
                         }
 
                         setResult(RESULT_OK, intent);
