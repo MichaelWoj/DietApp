@@ -26,19 +26,21 @@
             app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toEndOf="@+id/manualMealCarbs"
             app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.662" />
+            app:layout_constraintVertical_bias="0.522" />
 
         <TextView
             android:id="@+id/textView9"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginEnd="16dp"
-            android:layout_marginRight="16dp"
+            android:layout_marginEnd="8dp"
+            android:layout_marginRight="8dp"
             android:text="g"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toEndOf="@+id/manualMealFat"
             app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.518" />
+            app:layout_constraintVertical_bias="0.39" />
 
         <TextView
             android:id="@+id/textView8"
@@ -49,6 +51,8 @@
             android:text="g"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toEndOf="@+id/manualMealCalories"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintVertical_bias="0.244" />
 
@@ -86,23 +90,23 @@
             android:textSize="38sp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.046"
+            app:layout_constraintHorizontal_bias="0.049"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.344" />
+            app:layout_constraintVertical_bias="0.66" />
 
         <TextView
             android:id="@+id/textView5"
-            android:layout_width="162dp"
-            android:layout_height="59dp"
+            android:layout_width="64dp"
+            android:layout_height="50dp"
             android:text="Fat:"
             android:textSize="38sp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.052"
+            app:layout_constraintHorizontal_bias="0.037"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.489" />
+            app:layout_constraintVertical_bias="0.362" />
 
         <TextView
             android:id="@+id/textView6"
@@ -112,14 +116,14 @@
             android:textSize="38sp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.052"
+            app:layout_constraintHorizontal_bias="0.043"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.647" />
+            app:layout_constraintVertical_bias="0.507" />
 
         <EditText
             android:id="@+id/manualMealCalories"
-            android:layout_width="48dp"
+            android:layout_width="60dp"
             android:layout_height="46dp"
             android:layout_marginStart="32dp"
             android:layout_marginLeft="32dp"
@@ -127,49 +131,49 @@
             android:inputType="numberDecimal"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.828"
+            app:layout_constraintHorizontal_bias="0.821"
             app:layout_constraintStart_toEndOf="@+id/textView2"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintVertical_bias="0.214" />
 
         <EditText
             android:id="@+id/manualMealProtein"
-            android:layout_width="48dp"
+            android:layout_width="60dp"
             android:layout_height="46dp"
             android:ems="10"
             android:inputType="numberDecimal"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.872"
+            app:layout_constraintHorizontal_bias="0.869"
             app:layout_constraintStart_toEndOf="@+id/textView4"
             app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.348" />
+            app:layout_constraintVertical_bias="0.662" />
 
         <EditText
             android:id="@+id/manualMealFat"
-            android:layout_width="48dp"
+            android:layout_width="60dp"
             android:layout_height="46dp"
             android:ems="10"
             android:inputType="numberDecimal"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.861"
+            app:layout_constraintHorizontal_bias="0.902"
             app:layout_constraintStart_toEndOf="@+id/textView5"
             app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.499" />
+            app:layout_constraintVertical_bias="0.366" />
 
         <EditText
             android:id="@+id/manualMealCarbs"
-            android:layout_width="48dp"
+            android:layout_width="60dp"
             android:layout_height="46dp"
             android:ems="10"
             android:inputType="numberDecimal"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.888"
+            app:layout_constraintHorizontal_bias="0.882"
             app:layout_constraintStart_toEndOf="@+id/textView6"
             app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.649" />
+            app:layout_constraintVertical_bias="0.503" />
 
         <TextView
             android:id="@+id/textView7"
@@ -183,7 +187,7 @@
             app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toEndOf="@+id/manualMealProtein"
             app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.366" />
+            app:layout_constraintVertical_bias="0.676" />
 
         <TextView
             android:id="@+id/textView11"

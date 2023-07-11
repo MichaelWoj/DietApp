@@ -12,7 +12,7 @@ import android.widget.Toast;
 
 public class ManuallyAdd extends AppCompatActivity {
 
-    private EditText nameManual, caloriesManual, proteinManual, fatManual, carbsManual;
+    private EditText nameManual, caloriesManual, fatManual, carbsManual, proteinManual;
     private Button submit;
     private Switch db_switch;
 
@@ -23,9 +23,9 @@ public class ManuallyAdd extends AppCompatActivity {
 
         nameManual = findViewById(R.id.manualMealName);
         caloriesManual = findViewById(R.id.manualMealCalories);
-        proteinManual = findViewById(R.id.manualMealProtein);
         fatManual = findViewById(R.id.manualMealFat);
         carbsManual = findViewById(R.id.manualMealCarbs);
+        proteinManual = findViewById(R.id.manualMealProtein);
         db_switch = findViewById(R.id.saveToDBSwitch);
 
         submit = findViewById(R.id.manualAddFood);
@@ -33,7 +33,7 @@ public class ManuallyAdd extends AppCompatActivity {
                 @Override
                 public void onClick(View view) {
 
-                    if (caloriesManual.getText().toString().isEmpty() || proteinManual.getText().toString().isEmpty() || fatManual.getText().toString().isEmpty() || carbsManual.getText().toString().isEmpty()){
+                    if (caloriesManual.getText().toString().isEmpty() || fatManual.getText().toString().isEmpty() || carbsManual.getText().toString().isEmpty() || proteinManual.getText().toString().isEmpty()){
                         Toast.makeText(ManuallyAdd.this, "Please insert all info", Toast.LENGTH_SHORT).show();
                     }else{
 
@@ -45,10 +45,6 @@ public class ManuallyAdd extends AppCompatActivity {
                         double caloriesManualVal = Double.parseDouble(calM);
                         intent.putExtra("caloriesManual", caloriesManualVal);
 
-                        String protM = proteinManual.getText().toString();
-                        double proteinManualVal = Double.parseDouble(protM);
-                        intent.putExtra("proteinManual", proteinManualVal);
-
                         String fatM = fatManual.getText().toString();
                         double fatManualVal = Double.parseDouble(fatM);
                         intent.putExtra("fatManual", fatManualVal);
@@ -57,12 +53,16 @@ public class ManuallyAdd extends AppCompatActivity {
                         double carbsManualVal = Double.parseDouble(carbsM);
                         intent.putExtra("carbsManual", carbsManualVal);
 
+                        String protM = proteinManual.getText().toString();
+                        double proteinManualVal = Double.parseDouble(protM);
+                        intent.putExtra("proteinManual", proteinManualVal);
+
                         if(db_switch.isChecked()){
 
                             FoodModel foodModel;
 
                             try{
-                                foodModel = new FoodModel(-1, nameM, caloriesManualVal, proteinManualVal, fatManualVal, carbsManualVal);
+                                foodModel = new FoodModel(-1, nameM, caloriesManualVal, fatManualVal, carbsManualVal,proteinManualVal);
                                 Toast.makeText(ManuallyAdd.this, foodModel.toString(), Toast.LENGTH_SHORT).show();
                             }
                             catch (Exception e){

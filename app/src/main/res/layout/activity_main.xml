@@ -30,14 +30,6 @@
             android:textSize="16sp" />
 
         <TextView
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:text="Protein"
-            android:textColor="#000000"
-            android:textSize="16sp" />
-
-        <TextView
             android:id="@+id/fatTitle"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
@@ -52,6 +44,15 @@
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:text="Carbs"
+            android:textColor="#000000"
+            android:textSize="16sp" />
+
+        <TextView
+            android:id="@+id/proteinTitle"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="Protein"
             android:textColor="#000000"
             android:textSize="16sp" />
 
@@ -75,27 +76,27 @@
             android:textSize="24sp" />
 
         <TextView
-            android:id="@+id/protein"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:maxLines="1"
-            android:maxLength="5"
-            android:textColor="#000000"
-            android:textSize="24sp" />
-
-        <TextView
             android:id="@+id/fat"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:maxLines="1"
             android:maxLength="5"
+            android:maxLines="1"
             android:textColor="#000000"
             android:textSize="24sp" />
 
         <TextView
             android:id="@+id/carbs"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:maxLength="5"
+            android:maxLines="1"
+            android:textColor="#000000"
+            android:textSize="24sp" />
+
+        <TextView
+            android:id="@+id/protein"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
