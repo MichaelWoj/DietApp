@@ -230,7 +230,9 @@
                 android:id="@+id/manualAddFood"
                 android:layout_width="186dp"
                 android:layout_height="62dp"
-                android:text="Add Food" />
+                android:text="Add Food"
+                android:textColor="#E4E3D3"
+                app:backgroundTint="#337357" />
 
             <Button
                 android:id="@+id/manualCancel"
@@ -238,7 +240,9 @@
                 android:layout_height="62dp"
                 android:layout_marginStart="10sp"
                 android:layout_marginLeft="10sp"
-                android:text="Cancel" />
+                android:text="Cancel"
+                android:textColor="#E4E3D3"
+                app:backgroundTint="#337357" />
         </LinearLayout>
 
         <EditText

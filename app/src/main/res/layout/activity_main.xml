@@ -1,7 +1,9 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical">
+    android:orientation="vertical"
+    android:background="@drawable/green_mountain_background">
 
     <!-- Header -->
     <TextView
@@ -118,7 +120,9 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:text="Search Food" />
+            android:text="Search Food"
+            android:textColor="#E4E3D3"
+            app:backgroundTint="#337357" />
     </LinearLayout>
 
     <LinearLayout
@@ -132,7 +136,9 @@
             android:layout_height="wrap_content"
             android:layout_margin="100px"
             android:layout_weight="1"
-            android:text="Manually Add Nutrition" />
+            android:text="Manually Add Nutrition"
+            android:textColor="#E4E3D3"
+            app:backgroundTint="#337357" />
     </LinearLayout>
 
     <LinearLayout
@@ -146,7 +152,9 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:text="Undo Last Food" />
+            android:text="Undo Last Food"
+            android:textColor="#E4E3D3"
+            app:backgroundTint="#337357" />
     </LinearLayout>
 
     <LinearLayout
@@ -160,7 +168,9 @@
             android:layout_height="wrap_content"
             android:layout_margin="100px"
             android:layout_weight="1"
-            android:text="Reset All Nutrition" />
+            android:text="Reset All Nutrition"
+            android:textColor="#E4E3D3"
+            app:backgroundTint="#337357" />
     </LinearLayout>
 
 </LinearLayout>

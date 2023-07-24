@@ -76,7 +76,7 @@ public class DataBaseHelper extends SQLiteOpenHelper {
                 FoodModel newFood = new FoodModel(foodID, foodName, foodCalories, foodFat, foodCarbs, foodProtein);
                 returnList.add(newFood);
 
-            }while (cursor.moveToFirst());
+            }while (cursor.moveToNext());
         }
         else {
 

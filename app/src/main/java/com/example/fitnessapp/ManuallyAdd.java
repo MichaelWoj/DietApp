@@ -63,16 +63,13 @@ public class ManuallyAdd extends AppCompatActivity {
 
                             try{
                                 foodModel = new FoodModel(-1, nameM, caloriesManualVal, fatManualVal, carbsManualVal,proteinManualVal);
-                                Toast.makeText(ManuallyAdd.this, foodModel.toString(), Toast.LENGTH_SHORT).show();
                             }
                             catch (Exception e){
-                                Toast.makeText(ManuallyAdd.this, "Error adding food to the database", Toast.LENGTH_SHORT).show();
                                 foodModel = new FoodModel(-1,"Error",0.0,0.0,0.0,0.0);
                             }
 
                             DataBaseHelper dataBaseHelper = new DataBaseHelper(ManuallyAdd.this);
                             boolean success = dataBaseHelper.addOne(foodModel);
-                            Toast.makeText(ManuallyAdd.this, "Success = " + success, Toast.LENGTH_SHORT).show();
                         }
 
                         setResult(RESULT_OK, intent);
