@@ -51,11 +51,11 @@ public class EnterFood extends AppCompatActivity {
         }
         else{
             while (cursor.moveToNext()){
-                foodName.add(cursor.getString(0));
-                foodCaloriesNum.add(cursor.getString(1));
-                foodFatNum.add(cursor.getString(2));
-                foodCarbsNum.add(cursor.getString(3));
-                foodProteinNum.add(cursor.getString(4));
+                foodName.add(cursor.getString(1));
+                foodCaloriesNum.add(cursor.getString(2));
+                foodFatNum.add(cursor.getString(3));
+                foodCarbsNum.add(cursor.getString(4));
+                foodProteinNum.add(cursor.getString(5));
 
             }
         }

@@ -55,8 +55,8 @@ public class DataBaseHelper extends SQLiteOpenHelper {
             return true;
 
     };
-    public List<FoodModel> getAllFoods(){
-        List<FoodModel> returnList = new ArrayList<>();
+    public Cursor getAllFoods(){
+
 
         String queryString = "SELECT * FROM " + FOOD_TABLE;
 
@@ -64,25 +64,6 @@ public class DataBaseHelper extends SQLiteOpenHelper {
 
         Cursor cursor = db.rawQuery(queryString, null);
 
-        if (cursor.moveToFirst()){
-            do{
-                int foodID = cursor.getInt(0);
-                String foodName = cursor.getString(1);
-                double foodCalories = cursor.getDouble(2);
-                double foodFat = cursor.getDouble(3);
-                double foodCarbs = cursor.getDouble(4);
-                double foodProtein = cursor.getDouble(5);
-
-                FoodModel newFood = new FoodModel(foodID, foodName, foodCalories, foodFat, foodCarbs, foodProtein);
-                returnList.add(newFood);
-
-            }while (cursor.moveToNext());
-        }
-        else {
-
-        }
-        cursor.close();
-        db.close();
-        return returnList;
+        return cursor;
     }
 }
