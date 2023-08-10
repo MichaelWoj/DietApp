@@ -11,7 +11,7 @@
         android:theme="@style/Theme.FitnessApp">
         <activity android:name=".ManuallyAdd"></activity>
         <activity android:name=".FoodInfo" />
-        <activity android:name=".EnterFood" />
+        <activity android:name=".FoodDBDisplay" />
         <activity android:name=".MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

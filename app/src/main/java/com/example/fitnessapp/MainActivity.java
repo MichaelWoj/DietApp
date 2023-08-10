@@ -1,4 +1,4 @@
-package com.example.fitnessapp;
+    package com.example.fitnessapp;
 
 import androidx.activity.result.ActivityResult;
 import androidx.activity.result.ActivityResultCallback;
@@ -7,6 +7,7 @@ import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -16,16 +17,17 @@ import android.widget.TextView;
     private TextView setCalories, setProtein, setFat, setCarbs ;
     private Button addFoodBtn, manualFoodBtn, undoFoodBtn, resetAllBtn;
 
-    double caloriesVal = 0;
-    double proteinVal = 0;
-    double fatVal = 0;
-    double carbsVal = 0;
+    private double caloriesVal = 0;
+    private double proteinVal = 0;
+    private double fatVal = 0;
+    private double carbsVal = 0;
 
-    double caloriesManualVal = 0;
-    double proteinManualVal = 0;
-    double fatManualVal = 0;
-    double carbsManualVal = 0;
+    private double caloriesManualVal = 0;
+    private double proteinManualVal = 0;
+    private double fatManualVal = 0;
+    private double carbsManualVal = 0;
 
+    private UserNutrientValues values;
 
     ActivityResultLauncher<Intent> startForResult = registerForActivityResult(new ActivityResultContracts.StartActivityForResult(), new ActivityResultCallback<ActivityResult>() {
         @Override
@@ -50,6 +52,7 @@ import android.widget.TextView;
                     carbsVal = Math.round(carbsVal * 100.0) / 100.0;
 
                     setValues();
+                    values.getNutrientVals(caloriesVal, proteinVal, fatVal, carbsVal);
                 }
             }
         }
@@ -59,6 +62,8 @@ import android.widget.TextView;
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        values = (UserNutrientValues) getApplication();
 
         setCalories = findViewById(R.id.calories);
         setCalories.setText(String.valueOf(caloriesVal));
@@ -76,7 +81,7 @@ import android.widget.TextView;
         addFoodBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(MainActivity.this, EnterFood.class);
+                Intent intent = new Intent(MainActivity.this, FoodDBDisplay.class);
                 startActivity(intent);
             }
         });
@@ -108,6 +113,7 @@ import android.widget.TextView;
                 carbsVal = Math.floor(carbsVal * 100) / 100;
 
                 setValues();
+                values.getNutrientVals(caloriesVal, proteinVal, fatVal, carbsVal);
 
                 caloriesManualVal = 0;
                 proteinManualVal = 0;
@@ -127,16 +133,21 @@ import android.widget.TextView;
                  carbsVal = 0;
 
                  setValues();
+                 values.getNutrientVals(caloriesVal, proteinVal, fatVal, carbsVal);
 
             }
         });
     }
+        public void saveData(){
+            SharedPreferences sharedPreferences = getSharedPreferences(values.SET_VALUES, MODE_PRIVATE);
+            SharedPreferences.Editor editor = sharedPreferences.edit();
+        }
 
         private void setValues() {
-            setCalories.setText(String.valueOf(caloriesVal));
-            setProtein.setText(String.valueOf(proteinVal));
-            setFat.setText(String.valueOf(fatVal));
-            setCarbs.setText(String.valueOf(carbsVal));
+            setCalories.setText(String.valueOf(values.returnCaloriesValSettings()));
+            setProtein.setText(String.valueOf(values.returnProteinValSettings()));
+            setFat.setText(String.valueOf(values.returnFatValSettings()));
+            setCarbs.setText(String.valueOf(values.returnCarbsValSettings()));
         }
 
     }

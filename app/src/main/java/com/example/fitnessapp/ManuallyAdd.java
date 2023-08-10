@@ -13,7 +13,7 @@ import android.widget.Toast;
 public class ManuallyAdd extends AppCompatActivity {
 
     private EditText nameManual, caloriesManual, fatManual, carbsManual, proteinManual;
-    private Button submit;
+    private Button submit, back;
     private Switch db_switch;
 
     @Override
@@ -77,6 +77,13 @@ public class ManuallyAdd extends AppCompatActivity {
                     }
 
         }
+        });
+        back = findViewById(R.id.manualCancel);
+        back.setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View v) {
+                finish();
+            }
         });
     }
 }
