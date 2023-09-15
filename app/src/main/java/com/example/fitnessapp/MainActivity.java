@@ -1,4 +1,4 @@
-    package com.example.fitnessapp;
+        package com.example.fitnessapp;
 
 import androidx.activity.result.ActivityResult;
 import androidx.activity.result.ActivityResultCallback;
@@ -63,19 +63,19 @@ import android.widget.TextView;
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        values = (UserNutrientValues) getApplication();
+        values = new UserNutrientValues();
 
         setCalories = findViewById(R.id.calories);
-        setCalories.setText(String.valueOf(caloriesVal));
+        setCalories.setText(String.valueOf(UserNutrientValues.caloriesValSettings));
 
         setProtein = findViewById(R.id.protein);
-        setProtein.setText(String.valueOf(proteinVal));
+        setProtein.setText(String.valueOf(UserNutrientValues.proteinValSettings));
 
         setFat = findViewById(R.id.fat);
-        setFat.setText(String.valueOf(fatVal));
+        setFat.setText(String.valueOf(UserNutrientValues.fatValSettings));
 
         setCarbs =  findViewById(R.id.carbs);
-        setCarbs.setText(String.valueOf(carbsVal));
+        setCarbs.setText(String.valueOf(UserNutrientValues.carbsValSettings));
 
         addFoodBtn = (Button) findViewById(R.id.searchFood);
         addFoodBtn.setOnClickListener(new View.OnClickListener() {
@@ -100,25 +100,26 @@ import android.widget.TextView;
             @Override
 
             public void onClick(View v) {
-                caloriesVal = caloriesVal- caloriesManualVal;
-                caloriesVal = Math.floor(caloriesVal * 100) / 100;
+                if (caloriesVal != 0 ){
+                    caloriesVal = caloriesVal - caloriesManualVal;
+                    caloriesVal = Math.floor(caloriesVal * 100) / 100;
 
-                proteinVal = proteinVal- proteinManualVal;
-                proteinVal = Math.floor(proteinVal * 100) / 100;
+                    proteinVal = proteinVal - proteinManualVal;
+                    proteinVal = Math.floor(proteinVal * 100) / 100;
 
-                fatVal = fatVal- fatManualVal;
-                fatVal = Math.floor(fatVal * 100) / 100;
+                    fatVal = fatVal - fatManualVal;
+                    fatVal = Math.floor(fatVal * 100) / 100;
 
-                carbsVal = carbsVal- carbsManualVal;
-                carbsVal = Math.floor(carbsVal * 100) / 100;
+                    carbsVal = carbsVal - carbsManualVal;
+                    carbsVal = Math.floor(carbsVal * 100) / 100;
 
-                setValues();
-                values.getNutrientVals(caloriesVal, proteinVal, fatVal, carbsVal);
+                    setValues();
 
-                caloriesManualVal = 0;
-                proteinManualVal = 0;
-                fatManualVal = 0;
-                carbsManualVal = 0;
+                    caloriesManualVal = 0;
+                    proteinManualVal = 0;
+                    fatManualVal = 0;
+                    carbsManualVal = 0;
+                };
             }
         });
 
@@ -133,21 +134,23 @@ import android.widget.TextView;
                  carbsVal = 0;
 
                  setValues();
-                 values.getNutrientVals(caloriesVal, proteinVal, fatVal, carbsVal);
+                 //values.getNutrientVals(caloriesVal, proteinVal, fatVal, carbsVal);
 
             }
         });
     }
-        public void saveData(){
-            SharedPreferences sharedPreferences = getSharedPreferences(values.SET_VALUES, MODE_PRIVATE);
+        public void saveSharedPreferences(){
+            SharedPreferences sharedPreferences = getSharedPreferences("SetValues", MODE_PRIVATE);
             SharedPreferences.Editor editor = sharedPreferences.edit();
-        }
 
+
+            editor.apply();
+        }
         private void setValues() {
-            setCalories.setText(String.valueOf(values.returnCaloriesValSettings()));
-            setProtein.setText(String.valueOf(values.returnProteinValSettings()));
-            setFat.setText(String.valueOf(values.returnFatValSettings()));
-            setCarbs.setText(String.valueOf(values.returnCarbsValSettings()));
+            setCalories.setText(String.valueOf(caloriesVal));
+            setProtein.setText(String.valueOf(proteinVal));
+            setFat.setText(String.valueOf(fatVal));
+            setCarbs.setText(String.valueOf(carbsVal));
         }
 
     }

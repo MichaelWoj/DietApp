@@ -2,14 +2,16 @@
 
 import android.app.Application;
 
-public class UserNutrientValues extends Application {
+import androidx.appcompat.app.AppCompatActivity;
+
+    public class UserNutrientValues extends AppCompatActivity {
 
     public static final String SET_VALUES = "setValues";
 
-    public static double caloriesValSettings = 0;
-    public static double proteinValSettings = 0;
-    public static double fatValSettings = 0;
-    public static double carbsValSettings = 0;
+    public static final double caloriesValSettings = 0;
+    public static final double proteinValSettings = 0;
+    public static final double fatValSettings = 0;
+    public static final double carbsValSettings = 0;
 
     public static double caloriesTargetVal = 0;
     public static double proteinTargetVal = 0;
