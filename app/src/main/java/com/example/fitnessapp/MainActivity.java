@@ -17,15 +17,15 @@ import android.widget.TextView;
     private TextView setCalories, setProtein, setFat, setCarbs ;
     private Button addFoodBtn, manualFoodBtn, undoFoodBtn, resetAllBtn;
 
-    private double caloriesVal = 0;
-    private double proteinVal = 0;
-    private double fatVal = 0;
-    private double carbsVal = 0;
+    private float caloriesVal = 0.0f;
+    private float proteinVal = 0.0f;
+    private float fatVal = 0.0f;
+    private float carbsVal = 0.0f;
 
-    private double caloriesManualVal = 0;
-    private double proteinManualVal = 0;
-    private double fatManualVal = 0;
-    private double carbsManualVal = 0;
+    private float caloriesManualVal = 0.0f;
+    private float proteinManualVal = 0.0f;
+    private float fatManualVal = 0.0f;
+    private float carbsManualVal = 0.0f;
 
     private UserNutrientValues values;
 
@@ -35,24 +35,25 @@ import android.widget.TextView;
             if(result.getResultCode() == RESULT_OK){
                 Intent intent = result.getData();
                 if(intent != null){
-                    caloriesManualVal = intent.getDoubleExtra("caloriesManual", 0);
+                    caloriesManualVal = intent.getFloatExtra("caloriesManual", 0);
                     caloriesVal = caloriesVal + caloriesManualVal;
-                    caloriesVal = Math.round(caloriesVal * 100.0) / 100.0;
+                    caloriesVal = (float) (Math.round(caloriesVal * 100.0) / 100.0);
 
-                    proteinManualVal = intent.getDoubleExtra("proteinManual", 0);
+                    proteinManualVal = intent.getFloatExtra("proteinManual", 0);
                     proteinVal = proteinVal + proteinManualVal;
-                    proteinVal = Math.round(proteinVal * 100.0) / 100.0;
+                    proteinVal = (float) (Math.round(proteinVal * 100.0) / 100.0);
 
-                    fatManualVal = intent.getDoubleExtra("fatManual", 0);
+                    fatManualVal = intent.getFloatExtra("fatManual", 0);
                     fatVal = fatVal + fatManualVal;
-                    fatVal = Math.round(fatVal * 100.0) / 100.0;
+                    fatVal = (float) (Math.round(fatVal * 100.0) / 100.0);
 
-                    carbsManualVal = intent.getDoubleExtra("carbsManual", 0);
+                    carbsManualVal = intent.getFloatExtra("carbsManual", 0);
                     carbsVal = carbsVal + carbsManualVal;
-                    carbsVal = Math.round(carbsVal * 100.0) / 100.0;
+                    carbsVal = (float) (Math.round(carbsVal * 100.0) / 100.0);
 
                     setValues();
-                    values.getNutrientVals(caloriesVal, proteinVal, fatVal, carbsVal);
+                    values.getNutrientVals(caloriesVal,proteinVal, fatVal, carbsVal);
+                    //saveSharedPreferences();
                 }
             }
         }
@@ -102,18 +103,19 @@ import android.widget.TextView;
             public void onClick(View v) {
                 if (caloriesVal != 0 ){
                     caloriesVal = caloriesVal - caloriesManualVal;
-                    caloriesVal = Math.floor(caloriesVal * 100) / 100;
+                    caloriesVal = (float) (Math.floor(caloriesVal * 100) / 100);
 
                     proteinVal = proteinVal - proteinManualVal;
-                    proteinVal = Math.floor(proteinVal * 100) / 100;
+                    proteinVal = (float) (Math.floor(proteinVal * 100) / 100);
 
                     fatVal = fatVal - fatManualVal;
-                    fatVal = Math.floor(fatVal * 100) / 100;
+                    fatVal = (float) (Math.floor(fatVal * 100) / 100);
 
                     carbsVal = carbsVal - carbsManualVal;
-                    carbsVal = Math.floor(carbsVal * 100) / 100;
+                    carbsVal = (float) (Math.floor(carbsVal * 100) / 100);
 
                     setValues();
+                    //saveSharedPreferences();
 
                     caloriesManualVal = 0;
                     proteinManualVal = 0;
@@ -134,15 +136,19 @@ import android.widget.TextView;
                  carbsVal = 0;
 
                  setValues();
-                 //values.getNutrientVals(caloriesVal, proteinVal, fatVal, carbsVal);
+                 //saveSharedPreferences();
 
             }
         });
     }
         public void saveSharedPreferences(){
-            SharedPreferences sharedPreferences = getSharedPreferences("SetValues", MODE_PRIVATE);
+            SharedPreferences sharedPreferences = getSharedPreferences("SET_VALUES", MODE_PRIVATE);
             SharedPreferences.Editor editor = sharedPreferences.edit();
 
+            editor.putFloat(UserNutrientValues.caloriesValSettings, caloriesVal);
+            editor.putFloat(UserNutrientValues.proteinValSettings, proteinVal);
+            editor.putFloat(UserNutrientValues.fatValSettings, fatVal);
+            editor.putFloat(UserNutrientValues.carbsValSettings, carbsVal);
 
             editor.apply();
         }

@@ -42,19 +42,19 @@ public class ManuallyAdd extends AppCompatActivity {
                         String nameM = nameManual.getText().toString();
 
                         String calM = caloriesManual.getText().toString();
-                        double caloriesManualVal = Double.parseDouble(calM);
+                        float caloriesManualVal = Float.parseFloat(calM);
                         intent.putExtra("caloriesManual", caloriesManualVal);
 
                         String fatM = fatManual.getText().toString();
-                        double fatManualVal = Double.parseDouble(fatM);
+                        float fatManualVal = Float.parseFloat(fatM);
                         intent.putExtra("fatManual", fatManualVal);
 
                         String carbsM = carbsManual.getText().toString();
-                        double carbsManualVal = Double.parseDouble(carbsM);
+                        float carbsManualVal = Float.parseFloat(carbsM);
                         intent.putExtra("carbsManual", carbsManualVal);
 
                         String protM = proteinManual.getText().toString();
-                        double proteinManualVal = Double.parseDouble(protM);
+                        float proteinManualVal = Float.parseFloat(protM);
                         intent.putExtra("proteinManual", proteinManualVal);
 
                         if(db_switch.isChecked()){
@@ -65,7 +65,7 @@ public class ManuallyAdd extends AppCompatActivity {
                                 foodModel = new FoodModel(-1, nameM, caloriesManualVal, fatManualVal, carbsManualVal,proteinManualVal);
                             }
                             catch (Exception e){
-                                foodModel = new FoodModel(-1,"Error",0.0,0.0,0.0,0.0);
+                                foodModel = new FoodModel(-1,"Error",0.0f,0.0f,0.0f,0.0f);
                             }
 
                             DataBaseHelper dataBaseHelper = new DataBaseHelper(ManuallyAdd.this);

@@ -1,6 +1,8 @@
     package com.example.fitnessapp;
 
 import android.app.Application;
+import android.content.SharedPreferences;
+import android.preference.PreferenceManager;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -8,36 +10,41 @@ import androidx.appcompat.app.AppCompatActivity;
 
     public static final String SET_VALUES = "setValues";
 
-    public static final double caloriesValSettings = 0;
-    public static final double proteinValSettings = 0;
-    public static final double fatValSettings = 0;
-    public static final double carbsValSettings = 0;
+    public static final String caloriesValSettings = "0";
+    public static final String proteinValSettings = "0";
+    public static final String fatValSettings = "0";
+    public static final String carbsValSettings = "0";
 
-    public static double caloriesTargetVal = 0;
-    public static double proteinTargetVal = 0;
-    public static double fatTargetVal = 0;
-    public static double carbsTargetVal = 0;
+    public static final String caloriesTargetVal = "0";
+    public static final String proteinTargetVal = "0";
+    public static final String fatTargetVal = "0";
+    public static final String carbsTargetVal = "0";
 
 
-    public void getNutrientVals(double calories, double protein, double fat, double carbs){
-        caloriesValSettings = calories;
-        proteinValSettings = protein;
-        fatValSettings = fat;
-        carbsValSettings = carbs;
+    public void getNutrientVals(float calories, float protein, float fat, float carbs){
+        SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(this);
+        SharedPreferences.Editor editor = sharedPreferences.edit();
+
+        editor.putFloat(caloriesValSettings, calories);
+        editor.putFloat(proteinValSettings, protein);
+        editor.putFloat(fatValSettings, fat);
+        editor.putFloat(carbsValSettings, carbs);
+
+        editor.apply();
     }
-    public Double returnCaloriesValSettings(){
+    public String returnCaloriesValSettings(){
         return caloriesValSettings;
     }
 
-    public Double returnProteinValSettings(){
+    public String returnProteinValSettings(){
         return proteinValSettings;
     }
 
-    public Double returnFatValSettings(){
+    public String returnFatValSettings(){
         return fatValSettings;
     }
 
-    public Double returnCarbsValSettings(){
+    public String returnCarbsValSettings(){
         return carbsValSettings;
     }
 

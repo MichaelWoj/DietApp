@@ -3,12 +3,12 @@ package com.example.fitnessapp;
 public class FoodModel {
     private int id;
     private String name;
-    private Double calories;
-    private Double protein;
-    private Double fat;
-    private Double carbs;
+    private Float calories;
+    private Float protein;
+    private Float fat;
+    private Float carbs;
 
-    public FoodModel(int id, String name, Double calories, Double protein, Double fat, Double carbs) {
+    public FoodModel(int id, String name, Float calories, Float protein, Float fat, Float carbs) {
         this.id = id;
         this.name = name;
         this.calories = calories;
@@ -48,35 +48,35 @@ public class FoodModel {
         this.name = name;
     }
 
-    public Double getCalories() {
+    public Float getCalories() {
         return calories;
     }
 
-    public void setCalories(Double calories) {
+    public void setCalories(Float calories) {
         this.calories = calories;
     }
 
-    public Double getProtein() {
+    public Float getProtein() {
         return protein;
     }
 
-    public void setProtein(Double protein) {
+    public void setProtein(Float protein) {
         this.protein = protein;
     }
 
-    public Double getFat() {
+    public Float getFat() {
         return fat;
     }
 
-    public void setFat(Double fat) {
+    public void setFat(Float fat) {
         this.fat = fat;
     }
 
-    public Double getCarbs() {
+    public Float getCarbs() {
         return carbs;
     }
 
-    public void setCarbs(Double carbs) {
+    public void setCarbs(Float carbs) {
         this.carbs = carbs;
     }
 }
