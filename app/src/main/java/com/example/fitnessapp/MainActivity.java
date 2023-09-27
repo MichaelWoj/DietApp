@@ -1,4 +1,4 @@
-        package com.example.fitnessapp;
+            package com.example.fitnessapp;
 
 import androidx.activity.result.ActivityResult;
 import androidx.activity.result.ActivityResultCallback;
@@ -17,17 +17,20 @@ import android.widget.TextView;
     private TextView setCalories, setProtein, setFat, setCarbs ;
     private Button addFoodBtn, manualFoodBtn, undoFoodBtn, resetAllBtn;
 
-    private float caloriesVal = 0.0f;
-    private float proteinVal = 0.0f;
-    private float fatVal = 0.0f;
-    private float carbsVal = 0.0f;
+    private float caloriesVal = 0f;
+    private float proteinVal = 0f;
+    private float fatVal = 0f;
+    private float carbsVal = 0f;
 
-    private float caloriesManualVal = 0.0f;
-    private float proteinManualVal = 0.0f;
-    private float fatManualVal = 0.0f;
-    private float carbsManualVal = 0.0f;
+    public static final String savedValCalories = "calories";
+    public static final String savedValProtein = "protein";
+    public static final String savedValFat = "fat";
+    public static final String savedValCarbs = "carbs";
 
-    private UserNutrientValues values;
+    private float caloriesManualVal;
+    private float proteinManualVal;
+    private float fatManualVal;
+    private float carbsManualVal;
 
     ActivityResultLauncher<Intent> startForResult = registerForActivityResult(new ActivityResultContracts.StartActivityForResult(), new ActivityResultCallback<ActivityResult>() {
         @Override
@@ -35,25 +38,24 @@ import android.widget.TextView;
             if(result.getResultCode() == RESULT_OK){
                 Intent intent = result.getData();
                 if(intent != null){
-                    caloriesManualVal = intent.getFloatExtra("caloriesManual", 0);
+                    caloriesManualVal = intent.getFloatExtra("caloriesManual", 0f);
                     caloriesVal = caloriesVal + caloriesManualVal;
                     caloriesVal = (float) (Math.round(caloriesVal * 100.0) / 100.0);
 
-                    proteinManualVal = intent.getFloatExtra("proteinManual", 0);
+                    proteinManualVal = intent.getFloatExtra("proteinManual", 0f);
                     proteinVal = proteinVal + proteinManualVal;
                     proteinVal = (float) (Math.round(proteinVal * 100.0) / 100.0);
 
-                    fatManualVal = intent.getFloatExtra("fatManual", 0);
+                    fatManualVal = intent.getFloatExtra("fatManual", 0f);
                     fatVal = fatVal + fatManualVal;
                     fatVal = (float) (Math.round(fatVal * 100.0) / 100.0);
 
-                    carbsManualVal = intent.getFloatExtra("carbsManual", 0);
+                    carbsManualVal = intent.getFloatExtra("carbsManual", 0f);
                     carbsVal = carbsVal + carbsManualVal;
                     carbsVal = (float) (Math.round(carbsVal * 100.0) / 100.0);
 
                     setValues();
-                    values.getNutrientVals(caloriesVal,proteinVal, fatVal, carbsVal);
-                    //saveSharedPreferences();
+                    saveSharedPreferences();
                 }
             }
         }
@@ -64,19 +66,18 @@ import android.widget.TextView;
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        values = new UserNutrientValues();
-
+        loadData();
         setCalories = findViewById(R.id.calories);
-        setCalories.setText(String.valueOf(UserNutrientValues.caloriesValSettings));
+        setCalories.setText(String.valueOf(caloriesVal));
 
         setProtein = findViewById(R.id.protein);
-        setProtein.setText(String.valueOf(UserNutrientValues.proteinValSettings));
+        setProtein.setText(String.valueOf(proteinVal));
 
         setFat = findViewById(R.id.fat);
-        setFat.setText(String.valueOf(UserNutrientValues.fatValSettings));
+        setFat.setText(String.valueOf(fatVal));
 
         setCarbs =  findViewById(R.id.carbs);
-        setCarbs.setText(String.valueOf(UserNutrientValues.carbsValSettings));
+        setCarbs.setText(String.valueOf(carbsVal));
 
         addFoodBtn = (Button) findViewById(R.id.searchFood);
         addFoodBtn.setOnClickListener(new View.OnClickListener() {
@@ -115,7 +116,7 @@ import android.widget.TextView;
                     carbsVal = (float) (Math.floor(carbsVal * 100) / 100);
 
                     setValues();
-                    //saveSharedPreferences();
+                    saveSharedPreferences();
 
                     caloriesManualVal = 0;
                     proteinManualVal = 0;
@@ -136,21 +137,29 @@ import android.widget.TextView;
                  carbsVal = 0;
 
                  setValues();
-                 //saveSharedPreferences();
+                 saveSharedPreferences();
 
             }
         });
     }
         public void saveSharedPreferences(){
-            SharedPreferences sharedPreferences = getSharedPreferences("SET_VALUES", MODE_PRIVATE);
+            SharedPreferences sharedPreferences = getSharedPreferences("SHARED_PREFS", MODE_PRIVATE);
             SharedPreferences.Editor editor = sharedPreferences.edit();
 
-            editor.putFloat(UserNutrientValues.caloriesValSettings, caloriesVal);
-            editor.putFloat(UserNutrientValues.proteinValSettings, proteinVal);
-            editor.putFloat(UserNutrientValues.fatValSettings, fatVal);
-            editor.putFloat(UserNutrientValues.carbsValSettings, carbsVal);
+            editor.putFloat(savedValCalories, caloriesVal);
+            editor.putFloat(savedValProtein, proteinVal);
+            editor.putFloat(savedValFat, fatVal);
+            editor.putFloat(savedValCarbs, carbsVal);
 
             editor.apply();
+        }
+
+        public void loadData() {
+            SharedPreferences sharedPreferences = getSharedPreferences("SHARED_PREFS", MODE_PRIVATE);
+            caloriesVal = sharedPreferences.getFloat(savedValCalories,0f);
+            proteinVal = sharedPreferences.getFloat(savedValProtein,0f);
+            fatVal = sharedPreferences.getFloat(savedValFat,0f);
+            carbsVal  = sharedPreferences.getFloat(savedValCarbs,0f);
         }
         private void setValues() {
             setCalories.setText(String.valueOf(caloriesVal));
