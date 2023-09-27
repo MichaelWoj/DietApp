@@ -103,15 +103,19 @@ import android.widget.TextView;
 
             public void onClick(View v) {
                 if (caloriesVal != 0 ){
+                    caloriesManualVal = (float) (Math.floor(caloriesManualVal * 100) / 100);
                     caloriesVal = caloriesVal - caloriesManualVal;
                     caloriesVal = (float) (Math.floor(caloriesVal * 100) / 100);
 
+                    proteinManualVal = (float) (Math.floor(proteinManualVal * 100) / 100);
                     proteinVal = proteinVal - proteinManualVal;
                     proteinVal = (float) (Math.floor(proteinVal * 100) / 100);
 
+                    fatManualVal = (float) (Math.floor(fatManualVal * 100) / 100);
                     fatVal = fatVal - fatManualVal;
                     fatVal = (float) (Math.floor(fatVal * 100) / 100);
 
+                    carbsManualVal = (float) (Math.floor(carbsManualVal * 100) / 100);
                     carbsVal = carbsVal - carbsManualVal;
                     carbsVal = (float) (Math.floor(carbsVal * 100) / 100);
 
