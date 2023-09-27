@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@drawable/green_mountain_background"
     tools:context=".ManuallyAdd">
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -71,8 +72,8 @@
 
         <TextView
             android:id="@+id/textView2"
-            android:layout_width="155dp"
-            android:layout_height="46dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
             android:text="Calories:"
             android:textSize="38sp"
             app:layout_constraintBottom_toBottomOf="parent"
@@ -97,7 +98,7 @@
 
         <TextView
             android:id="@+id/textView5"
-            android:layout_width="64dp"
+            android:layout_width="wrap_content"
             android:layout_height="50dp"
             android:text="Fat:"
             android:textSize="38sp"
@@ -139,7 +140,7 @@
         <EditText
             android:id="@+id/manualMealProtein"
             android:layout_width="60dp"
-            android:layout_height="46dp"
+            android:layout_height="wrap_content"
             android:ems="10"
             android:inputType="numberDecimal"
             app:layout_constraintBottom_toBottomOf="parent"
@@ -191,8 +192,8 @@
 
         <TextView
             android:id="@+id/textView11"
-            android:layout_width="307dp"
-            android:layout_height="61dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
             android:text="Save to Database:"
             android:textSize="38sp"
             app:layout_constraintBottom_toBottomOf="parent"
@@ -204,50 +205,32 @@
 
         <Switch
             android:id="@+id/saveToDBSwitch"
-            android:layout_width="51dp"
-            android:layout_height="57dp"
-            android:layout_marginEnd="4dp"
-            android:layout_marginRight="4dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.416"
+            app:layout_constraintHorizontal_bias="0.577"
             app:layout_constraintStart_toEndOf="@+id/textView11"
             app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.81" />
+            app:layout_constraintVertical_bias="0.795" />
 
         <LinearLayout
-            android:layout_width="391dp"
-            android:layout_height="61dp"
+            android:id="@+id/linearLayout"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
             android:orientation="horizontal"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.675"
+            app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.937">
+            app:layout_constraintVertical_bias="0.893">
 
-            <Button
-                android:id="@+id/manualAddFood"
-                android:layout_width="186dp"
-                android:layout_height="62dp"
-                android:text="Add Food"
-                android:textColor="#E4E3D3"
-                app:backgroundTint="#337357" />
-
-            <Button
-                android:id="@+id/manualCancel"
-                android:layout_width="186dp"
-                android:layout_height="62dp"
-                android:layout_marginStart="10sp"
-                android:layout_marginLeft="10sp"
-                android:text="Cancel"
-                android:textColor="#E4E3D3"
-                app:backgroundTint="#337357" />
         </LinearLayout>
 
         <EditText
             android:id="@+id/manualMealName"
-            android:layout_width="158dp"
+            android:layout_width="wrap_content"
             android:layout_height="47dp"
             android:ems="10"
             android:inputType="textPersonName"
@@ -257,6 +240,42 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintVertical_bias="0.078" />
+
+        <Button
+            android:id="@+id/manualCancel"
+            android:layout_width="186dp"
+            android:layout_height="0dp"
+            android:text="Cancel"
+            android:textColor="#E4E3D3"
+            app:backgroundTint="#337357"
+            app:layout_constraintBottom_toBottomOf="@+id/linearLayout2"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/manualAddFood"
+            app:layout_constraintTop_toBottomOf="@+id/linearLayout" />
+
+        <Button
+            android:id="@+id/manualAddFood"
+            android:layout_width="186dp"
+            android:layout_height="0dp"
+            android:text="Add Food"
+            android:textColor="#E4E3D3"
+            app:backgroundTint="#337357"
+            app:layout_constraintBottom_toBottomOf="@+id/linearLayout2"
+            app:layout_constraintEnd_toStartOf="@+id/manualCancel"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/linearLayout" />
+
+        <LinearLayout
+            android:id="@+id/linearLayout2"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.978"></LinearLayout>
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
