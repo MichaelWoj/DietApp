@@ -4,6 +4,7 @@ import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -11,24 +12,28 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import java.util.ArrayList;
 
-public class FdbRecycleViewAdapter extends RecyclerView.Adapter<FdbRecycleViewAdapter.MyViewHolder> {
+public class FdbRecycleViewAdapter extends RecyclerView.Adapter<FdbRecycleViewAdapter.MyViewHolder> implements RecyclerViewInterface{
     private Context context;
     private ArrayList rvDBFoodName, rvDBCaloriesNum, rvDBFatNum, rvDBCarbsNum , rvDBProteinNum;
+    private AdapterView.OnItemClickListener rvClickableCard;
+    private final RecyclerViewInterface recyclerViewInterface;
 
-    public FdbRecycleViewAdapter(Context context, ArrayList rvDBFoodName, ArrayList rvDBCaloriesNum, ArrayList rvDBFatNum, ArrayList rvDBCarbsNum, ArrayList rvDBProteinNum){
+    public FdbRecycleViewAdapter(Context context, ArrayList rvDBFoodName, ArrayList rvDBCaloriesNum, ArrayList rvDBFatNum, ArrayList rvDBCarbsNum, ArrayList rvDBProteinNum, AdapterView.OnItemClickListener rvClickableCard, RecyclerViewInterface recyclerViewInterface){
         this.context = context;
         this.rvDBFoodName = rvDBFoodName;
         this.rvDBCaloriesNum = rvDBCaloriesNum;
         this.rvDBFatNum = rvDBFatNum;
         this.rvDBCarbsNum = rvDBCarbsNum;
         this.rvDBProteinNum = rvDBProteinNum;
+        this.rvClickableCard = rvClickableCard;
+        this.recyclerViewInterface = recyclerViewInterface;
     }
 
     @NonNull
     @Override
     public MyViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View v = LayoutInflater.from(context).inflate(R.layout.recycler_view_row,parent,false);
-        return new MyViewHolder(v);
+        return new MyViewHolder(v, recyclerViewInterface);
     }
 
     @Override
@@ -38,8 +43,6 @@ public class FdbRecycleViewAdapter extends RecyclerView.Adapter<FdbRecycleViewAd
         holder.rvDBFatNum.setText(String.valueOf(rvDBFatNum.get(position)));
         holder.rvDBCarbsNum.setText(String.valueOf(rvDBCarbsNum.get(position)));
         holder.rvDBProteinNum.setText(String.valueOf(rvDBProteinNum.get(position)));
-
-
     }
 
     @Override
@@ -47,11 +50,16 @@ public class FdbRecycleViewAdapter extends RecyclerView.Adapter<FdbRecycleViewAd
         return rvDBFoodName.size();
     }
 
+    @Override
+    public void onItemClick(int position) {
+
+    }
+
     public static class MyViewHolder extends RecyclerView.ViewHolder{
 
         TextView rvDBFoodName, rvDBCaloriesNum, rvDBFatNum, rvDBCarbsNum , rvDBProteinNum;
 
-        public MyViewHolder(@NonNull View itemView) {
+        public MyViewHolder(@NonNull View itemView, RecyclerViewInterface recyclerViewInterface) {
             super(itemView);
 
             rvDBFoodName = itemView.findViewById(R.id.recyclerViewFoodName);
@@ -59,6 +67,19 @@ public class FdbRecycleViewAdapter extends RecyclerView.Adapter<FdbRecycleViewAd
             rvDBFatNum = itemView.findViewById(R.id.recyclerViewFatNum);
             rvDBCarbsNum = itemView.findViewById(R.id.recyclerViewCarbsNum);
             rvDBProteinNum = itemView.findViewById(R.id.recyclerViewProteinNum);
+
+            itemView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    if (recyclerViewInterface != null){
+                        int pos = getAdapterPosition();
+
+                        if (pos != RecyclerView.NO_POSITION ){
+                            recyclerViewInterface.onItemClick(pos);
+                        }
+                    }
+                }
+            });
         }
     }
 }
