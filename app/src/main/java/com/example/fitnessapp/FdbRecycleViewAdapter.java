@@ -12,20 +12,18 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import java.util.ArrayList;
 
-public class FdbRecycleViewAdapter extends RecyclerView.Adapter<FdbRecycleViewAdapter.MyViewHolder> implements RecyclerViewInterface{
+public class FdbRecycleViewAdapter extends RecyclerView.Adapter<FdbRecycleViewAdapter.MyViewHolder> {
     private Context context;
     private ArrayList rvDBFoodName, rvDBCaloriesNum, rvDBFatNum, rvDBCarbsNum , rvDBProteinNum;
-    private AdapterView.OnItemClickListener rvClickableCard;
     private final RecyclerViewInterface recyclerViewInterface;
 
-    public FdbRecycleViewAdapter(Context context, ArrayList rvDBFoodName, ArrayList rvDBCaloriesNum, ArrayList rvDBFatNum, ArrayList rvDBCarbsNum, ArrayList rvDBProteinNum, AdapterView.OnItemClickListener rvClickableCard, RecyclerViewInterface recyclerViewInterface){
+    public FdbRecycleViewAdapter(Context context, ArrayList rvDBFoodName, ArrayList rvDBCaloriesNum, ArrayList rvDBFatNum, ArrayList rvDBCarbsNum, ArrayList rvDBProteinNum, RecyclerViewInterface recyclerViewInterface){
         this.context = context;
         this.rvDBFoodName = rvDBFoodName;
         this.rvDBCaloriesNum = rvDBCaloriesNum;
         this.rvDBFatNum = rvDBFatNum;
         this.rvDBCarbsNum = rvDBCarbsNum;
         this.rvDBProteinNum = rvDBProteinNum;
-        this.rvClickableCard = rvClickableCard;
         this.recyclerViewInterface = recyclerViewInterface;
     }
 
@@ -48,11 +46,6 @@ public class FdbRecycleViewAdapter extends RecyclerView.Adapter<FdbRecycleViewAd
     @Override
     public int getItemCount() {
         return rvDBFoodName.size();
-    }
-
-    @Override
-    public void onItemClick(int position) {
-
     }
 
     public static class MyViewHolder extends RecyclerView.ViewHolder{

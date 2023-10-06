@@ -1,6 +1,6 @@
 package com.example.fitnessapp;
 
-public class    FoodModel {
+public class FoodModel {
     private int id;
     private String name;
     private Float calories;

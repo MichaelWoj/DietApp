@@ -15,13 +15,14 @@ import android.widget.Toast;
 
 import java.util.ArrayList;
 
-public class FoodDBDisplay extends AppCompatActivity {
+public class FoodDBDisplay extends AppCompatActivity implements RecyclerViewInterface {
 
     private RecyclerView recyclerView;
     private ArrayList<String> foodName, foodCaloriesNum, foodFatNum, foodCarbsNum, foodProteinNum;
     private DataBaseHelper dataBaseHelper;
     private FdbRecycleViewAdapter adapter;
     private Button addBtn, cancelBtn;
+    private FoodDBItemPage foodDBItemPage;
 
     @SuppressLint("WrongViewCast")
     @Override
@@ -37,7 +38,7 @@ public class FoodDBDisplay extends AppCompatActivity {
         foodProteinNum = new ArrayList<>();
 
         recyclerView = findViewById(R.id.recyclerViewFoodList);
-        adapter = new FdbRecycleViewAdapter(this, foodName, foodCaloriesNum, foodFatNum, foodCarbsNum, foodProteinNum);
+        adapter = new FdbRecycleViewAdapter(this, foodName, foodCaloriesNum, foodFatNum, foodCarbsNum, foodProteinNum, this);
         recyclerView.setAdapter(adapter);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
         displayData();
@@ -67,5 +68,18 @@ public class FoodDBDisplay extends AppCompatActivity {
 
             }
         }
+    }
+
+    @Override
+    public void onItemClick(int position) {
+        Intent intent = new Intent(FoodDBDisplay.this, FoodDBItemPage.class);
+
+        intent.putExtra("Name", foodName.get(position));
+        intent.putExtra("Calories", foodCaloriesNum.get(position));
+        intent.putExtra("Fat", foodFatNum.get(position));
+        intent.putExtra("Carbs", foodCarbsNum.get(position));
+        intent.putExtra("Protein", foodProteinNum.get(position));
+
+        startActivity(intent);
     }
 }

@@ -12,6 +12,7 @@
         <activity android:name=".ManuallyAdd"></activity>
         <activity android:name=".FoodInfo" />
         <activity android:name=".FoodDBDisplay" />
+        <activity android:name=".FoodDBItemPage"/>
         <activity android:name=".MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
