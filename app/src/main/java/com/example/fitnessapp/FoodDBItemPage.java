@@ -40,8 +40,29 @@ public class FoodDBItemPage extends AppCompatActivity {
         submit = findViewById(R.id.itemAddFood);
         submit.setOnClickListener(new View.OnClickListener(){
             @Override
-            public void onClick(View v) {
-                finish();
+            public void onClick(View v){
+            Intent intent = new Intent(FoodDBItemPage.this, MainActivity.class);
+
+            String nameM = nameDB.getText().toString();
+
+            String calM = caloriesDB.getText().toString();
+            float caloriesManualVal = Float.parseFloat(calM);
+            intent.putExtra("caloriesManual", caloriesManualVal);
+
+            String fatM = fatDB.getText().toString();
+            float fatManualVal = Float.parseFloat(fatM);
+            intent.putExtra("fatManual", fatManualVal);
+
+            String carbsM = carbsDB.getText().toString();
+            float carbsManualVal = Float.parseFloat(carbsM);
+            intent.putExtra("carbsManual", carbsManualVal);
+
+            String protM = proteinDB.getText().toString();
+            float proteinManualVal = Float.parseFloat(protM);
+            intent.putExtra("proteinManual", proteinManualVal);
+
+            setResult(RESULT_OK, intent);
+            finish();
             }
         });
 

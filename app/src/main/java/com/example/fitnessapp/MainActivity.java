@@ -84,7 +84,7 @@ import android.widget.TextView;
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(MainActivity.this, FoodDBDisplay.class);
-                startActivity(intent);
+                startForResult.launch(intent);
             }
         });
 

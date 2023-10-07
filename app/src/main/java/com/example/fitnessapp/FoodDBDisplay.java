@@ -22,7 +22,6 @@ public class FoodDBDisplay extends AppCompatActivity implements RecyclerViewInte
     private DataBaseHelper dataBaseHelper;
     private FdbRecycleViewAdapter adapter;
     private Button addBtn, cancelBtn;
-    private FoodDBItemPage foodDBItemPage;
 
     @SuppressLint("WrongViewCast")
     @Override
@@ -73,7 +72,7 @@ public class FoodDBDisplay extends AppCompatActivity implements RecyclerViewInte
     @Override
     public void onItemClick(int position) {
         Intent intent = new Intent(FoodDBDisplay.this, FoodDBItemPage.class);
-
+        intent.addFlags(Intent.FLAG_ACTIVITY_FORWARD_RESULT);
         intent.putExtra("Name", foodName.get(position));
         intent.putExtra("Calories", foodCaloriesNum.get(position));
         intent.putExtra("Fat", foodFatNum.get(position));
@@ -81,5 +80,6 @@ public class FoodDBDisplay extends AppCompatActivity implements RecyclerViewInte
         intent.putExtra("Protein", foodProteinNum.get(position));
 
         startActivity(intent);
+        finish();
     }
 }
