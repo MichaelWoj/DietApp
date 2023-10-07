@@ -12,7 +12,7 @@ import android.widget.Toast;
 
 public class ManuallyAdd extends AppCompatActivity {
 
-    private EditText nameManual, caloriesManual, fatManual, carbsManual, proteinManual;
+    private EditText foodName, foodCalories, foodFat, foodCarbs, foodProtein;
     private Button submit, back;
     private Switch db_switch;
 
@@ -21,11 +21,11 @@ public class ManuallyAdd extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_manually_add);
 
-        nameManual = findViewById(R.id.manualMealName);
-        caloriesManual = findViewById(R.id.manualMealCalories);
-        fatManual = findViewById(R.id.manualMealFat);
-        carbsManual = findViewById(R.id.manualMealCarbs);
-        proteinManual = findViewById(R.id.manualMealProtein);
+        foodName = findViewById(R.id.manualMealName);
+        foodCalories = findViewById(R.id.manualMealCalories);
+        foodFat = findViewById(R.id.manualMealFat);
+        foodCarbs = findViewById(R.id.manualMealCarbs);
+        foodProtein = findViewById(R.id.manualMealProtein);
         db_switch = findViewById(R.id.saveToDBSwitch);
 
         submit = findViewById(R.id.manualAddFood);
@@ -33,36 +33,36 @@ public class ManuallyAdd extends AppCompatActivity {
                 @Override
                 public void onClick(View view) {
 
-                    if (nameManual.getText().toString().isEmpty()||caloriesManual.getText().toString().isEmpty() || fatManual.getText().toString().isEmpty() || carbsManual.getText().toString().isEmpty() || proteinManual.getText().toString().isEmpty()){
+                    if (foodName.getText().toString().isEmpty()||foodCalories.getText().toString().isEmpty() || foodFat.getText().toString().isEmpty() || foodCarbs.getText().toString().isEmpty() || foodProtein.getText().toString().isEmpty()){
                         Toast.makeText(ManuallyAdd.this, "Please insert all info", Toast.LENGTH_SHORT).show();
                     }else{
 
                         Intent intent = new Intent(ManuallyAdd.this, MainActivity.class);
 
-                        String nameM = nameManual.getText().toString();
+                        String foodNameToString = foodName.getText().toString();
 
-                        String calM = caloriesManual.getText().toString();
-                        float caloriesManualVal = Float.parseFloat(calM);
-                        intent.putExtra("caloriesManual", caloriesManualVal);
+                        String foodCaloriesToString = foodCalories.getText().toString();
+                        float foodCaloriesVal = Float.parseFloat(foodCaloriesToString);
+                        intent.putExtra("foodCalories", foodCaloriesVal);
 
-                        String fatM = fatManual.getText().toString();
-                        float fatManualVal = Float.parseFloat(fatM);
-                        intent.putExtra("fatManual", fatManualVal);
+                        String foodFatToString = foodFat.getText().toString();
+                        float foodFatVal = Float.parseFloat(foodFatToString);
+                        intent.putExtra("foodFat", foodFatVal);
 
-                        String carbsM = carbsManual.getText().toString();
-                        float carbsManualVal = Float.parseFloat(carbsM);
-                        intent.putExtra("carbsManual", carbsManualVal);
+                        String foodCarbsToString = foodCarbs.getText().toString();
+                        float foodCarbsVal = Float.parseFloat(foodCarbsToString);
+                        intent.putExtra("foodCarbs", foodCarbsVal);
 
-                        String protM = proteinManual.getText().toString();
-                        float proteinManualVal = Float.parseFloat(protM);
-                        intent.putExtra("proteinManual", proteinManualVal);
+                        String foodProteinToString = foodProtein.getText().toString();
+                        float foodProteinVal = Float.parseFloat(foodProteinToString);
+                        intent.putExtra("foodProtein", foodProteinVal);
 
                         if(db_switch.isChecked()){
 
                             FoodModel foodModel;
 
                             try{
-                                foodModel = new FoodModel(-1, nameM, caloriesManualVal, fatManualVal, carbsManualVal,proteinManualVal);
+                                foodModel = new FoodModel(-1, foodNameToString, foodCaloriesVal, foodFatVal, foodCarbsVal,foodProteinVal);
                             }
                             catch (Exception e){
                                 foodModel = new FoodModel(-1,"Error",0f,0f,0f,0f);

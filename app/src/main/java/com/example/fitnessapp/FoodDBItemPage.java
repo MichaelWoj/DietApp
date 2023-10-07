@@ -43,23 +43,23 @@ public class FoodDBItemPage extends AppCompatActivity {
             public void onClick(View v){
             Intent intent = new Intent(FoodDBItemPage.this, MainActivity.class);
 
-            String nameM = nameDB.getText().toString();
+            String foodNameToString = nameDB.getText().toString();
 
-            String calM = caloriesDB.getText().toString();
-            float caloriesManualVal = Float.parseFloat(calM);
-            intent.putExtra("caloriesManual", caloriesManualVal);
+            String foodCaloriesToString = caloriesDB.getText().toString();
+            float foodCaloriesVal = Float.parseFloat(foodCaloriesToString);
+            intent.putExtra("foodCalories", foodCaloriesVal);
 
-            String fatM = fatDB.getText().toString();
-            float fatManualVal = Float.parseFloat(fatM);
-            intent.putExtra("fatManual", fatManualVal);
+            String foodFatToString = fatDB.getText().toString();
+            float foodFatVal = Float.parseFloat(foodFatToString);
+            intent.putExtra("foodFat", foodFatVal);
 
-            String carbsM = carbsDB.getText().toString();
-            float carbsManualVal = Float.parseFloat(carbsM);
-            intent.putExtra("carbsManual", carbsManualVal);
+            String foodCarbsToString = carbsDB.getText().toString();
+            float foodCarbsVal = Float.parseFloat(foodCarbsToString);
+            intent.putExtra("foodCarbs", foodCarbsVal);
 
-            String protM = proteinDB.getText().toString();
-            float proteinManualVal = Float.parseFloat(protM);
-            intent.putExtra("proteinManual", proteinManualVal);
+            String foodProteinToString = proteinDB.getText().toString();
+            float foodProteinVal = Float.parseFloat(foodProteinToString);
+            intent.putExtra("foodProtein", foodProteinVal);
 
             setResult(RESULT_OK, intent);
             finish();
