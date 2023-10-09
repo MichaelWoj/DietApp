@@ -42,6 +42,16 @@ public class FoodDBDisplay extends AppCompatActivity implements RecyclerViewInte
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
         displayData();
 
+        addBtn = (Button) findViewById(R.id.dbAddFood);
+        addBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(FoodDBDisplay.this, FoodDBAddItem.class);
+                intent.addFlags(Intent.FLAG_ACTIVITY_FORWARD_RESULT);
+                startActivity(intent);
+            }
+        });
+
         cancelBtn = (Button) findViewById(R.id.dbCancel);
         cancelBtn.setOnClickListener(new View.OnClickListener() {
             @Override
