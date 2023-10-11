@@ -10,7 +10,6 @@ import android.database.Cursor;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
-import android.widget.SearchView;
 import android.widget.Toast;
 
 import java.util.ArrayList;
@@ -20,7 +19,7 @@ public class FoodDBDisplay extends AppCompatActivity implements RecyclerViewInte
     private RecyclerView recyclerView;
     private ArrayList<String> foodNameDB, foodCaloriesNum, foodFatNum, foodCarbsNum, foodProteinNum;
     private DataBaseHelper dataBaseHelper;
-    private FdbRecycleViewAdapter adapter;
+    private FoodDBRecycleViewAdapter adapter;
     private Button addBtn, cancelBtn;
 
     @SuppressLint("WrongViewCast")
@@ -37,7 +36,7 @@ public class FoodDBDisplay extends AppCompatActivity implements RecyclerViewInte
         foodProteinNum = new ArrayList<>();
 
         recyclerView = findViewById(R.id.recyclerViewFoodList);
-        adapter = new FdbRecycleViewAdapter(this, foodNameDB, foodCaloriesNum, foodFatNum, foodCarbsNum, foodProteinNum, this);
+        adapter = new FoodDBRecycleViewAdapter(this, foodNameDB, foodCaloriesNum, foodFatNum, foodCarbsNum, foodProteinNum, this);
         recyclerView.setAdapter(adapter);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
         displayData();

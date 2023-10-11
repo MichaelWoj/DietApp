@@ -4,7 +4,6 @@ import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.AdapterView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -12,12 +11,12 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import java.util.ArrayList;
 
-public class FdbRecycleViewAdapter extends RecyclerView.Adapter<FdbRecycleViewAdapter.MyViewHolder> {
+public class FoodDBRecycleViewAdapter extends RecyclerView.Adapter<FoodDBRecycleViewAdapter.MyViewHolder> {
     private Context context;
     private ArrayList rvDBFoodName, rvDBCaloriesNum, rvDBFatNum, rvDBCarbsNum , rvDBProteinNum;
     private final RecyclerViewInterface recyclerViewInterface;
 
-    public FdbRecycleViewAdapter(Context context, ArrayList rvDBFoodName, ArrayList rvDBCaloriesNum, ArrayList rvDBFatNum, ArrayList rvDBCarbsNum, ArrayList rvDBProteinNum, RecyclerViewInterface recyclerViewInterface){
+    public FoodDBRecycleViewAdapter(Context context, ArrayList rvDBFoodName, ArrayList rvDBCaloriesNum, ArrayList rvDBFatNum, ArrayList rvDBCarbsNum, ArrayList rvDBProteinNum, RecyclerViewInterface recyclerViewInterface){
         this.context = context;
         this.rvDBFoodName = rvDBFoodName;
         this.rvDBCaloriesNum = rvDBCaloriesNum;

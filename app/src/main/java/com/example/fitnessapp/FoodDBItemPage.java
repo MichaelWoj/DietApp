@@ -1,10 +1,18 @@
 package com.example.fitnessapp;
 
+import android.app.Dialog;
 import android.content.Intent;
+import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
+import android.view.Gravity;
 import android.view.View;
+import android.view.ViewGroup;
+import android.view.Window;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageButton;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -13,6 +21,7 @@ public class FoodDBItemPage extends AppCompatActivity {
 
     private TextView nameDB, caloriesDB, fatDB, carbsDB, proteinDB;
     private Button submit, back;
+    private ImageButton settings;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -66,6 +75,15 @@ public class FoodDBItemPage extends AppCompatActivity {
             }
         });
 
+        settings = findViewById(R.id.settingsBtn);
+        settings.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                showDialog();
+
+            }
+        });
         back = findViewById(R.id.itemCancel);
         back.setOnClickListener(new View.OnClickListener(){
             @Override
@@ -74,5 +92,39 @@ public class FoodDBItemPage extends AppCompatActivity {
             }
         });
     }
+    private void showDialog() {
 
+        final Dialog dialog = new Dialog(this);
+        dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
+        dialog.setContentView(R.layout.activity_db_settings_popup);
+
+        LinearLayout editLayout = dialog.findViewById(R.id.layoutEdit);
+        LinearLayout deleteLayout = dialog.findViewById(R.id.layoutDelete);
+
+
+        editLayout.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                dialog.dismiss();
+
+            }
+        });
+
+        deleteLayout.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                dialog.dismiss();
+
+            }
+        });
+
+        dialog.show();
+        dialog.getWindow().setLayout(ViewGroup.LayoutParams.MATCH_PARENT,ViewGroup.LayoutParams.WRAP_CONTENT);
+        dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+        dialog.getWindow().getAttributes().windowAnimations = R.style.DialogAnimation;
+        dialog.getWindow().setGravity(Gravity.BOTTOM);
+
+    }
 }

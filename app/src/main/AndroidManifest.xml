@@ -10,7 +10,6 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.FitnessApp">
         <activity android:name=".ManuallyAdd"></activity>
-        <activity android:name=".FoodInfo" />
         <activity android:name=".FoodDBDisplay" />
         <activity android:name=".FoodDBItemPage"/>
         <activity android:name=".FoodDBAddItem"/>
