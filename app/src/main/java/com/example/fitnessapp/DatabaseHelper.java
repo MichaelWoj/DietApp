@@ -12,7 +12,7 @@ import androidx.annotation.Nullable;
 import java.util.ArrayList;
 import java.util.List;
 
-public class DataBaseHelper extends SQLiteOpenHelper {
+public class DatabaseHelper extends SQLiteOpenHelper {
     public static final String FOOD_TABLE = "FOOD_TABLE";
     public static final String COLUMN_FOOD_NAME = "FOOD_NAME";
     public static final String COLUMN_FOOD_CALORIES = "FOOD_CALORIES";
@@ -20,7 +20,7 @@ public class DataBaseHelper extends SQLiteOpenHelper {
     public static final String COLUMN_FOOD_CARBS = "FOOD_CARBS";
     public static final String COLUMN_FOOD_PROTEIN = "FOOD_PROTEIN";
 
-    public DataBaseHelper(@Nullable Context context) {
+    public DatabaseHelper(@Nullable Context context) {
         super(context, "food.db", null, 1);
     }
 
@@ -55,6 +55,7 @@ public class DataBaseHelper extends SQLiteOpenHelper {
             return true;
 
     };
+
     public Cursor getAllFoods(){
 
 
@@ -65,5 +66,11 @@ public class DataBaseHelper extends SQLiteOpenHelper {
         Cursor cursor = db.rawQuery(queryString, null);
 
         return cursor;
+    }
+
+    public void deleteEntry(FoodModel foodModel){
+        SQLiteDatabase db = this.getWritableDatabase();
+        db.delete(FOOD_TABLE,"id = "+foodModel.getId(),null);
+
     }
 }

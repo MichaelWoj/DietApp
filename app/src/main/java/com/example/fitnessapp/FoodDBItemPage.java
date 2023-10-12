@@ -1,10 +1,11 @@
-package com.example.fitnessapp;
+    package com.example.fitnessapp;
 
 import android.app.Dialog;
 import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
+import android.provider.ContactsContract;
 import android.view.Gravity;
 import android.view.View;
 import android.view.ViewGroup;
@@ -22,11 +23,15 @@ public class FoodDBItemPage extends AppCompatActivity {
     private TextView nameDB, caloriesDB, fatDB, carbsDB, proteinDB;
     private Button submit, back;
     private ImageButton settings;
+    private DatabaseHelper databaseHelper;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_food_db_item_page_layout);
+
+        databaseHelper = new DatabaseHelper(getApplicationContext());
+        
         nameDB = findViewById(R.id.itemMealName);
         caloriesDB = findViewById(R.id.itemMealCalories);
         fatDB = findViewById(R.id.itemMealFat);
@@ -114,7 +119,6 @@ public class FoodDBItemPage extends AppCompatActivity {
         deleteLayout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
                 dialog.dismiss();
 
             }

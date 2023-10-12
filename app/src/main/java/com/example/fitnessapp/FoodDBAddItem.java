@@ -58,11 +58,12 @@ public class FoodDBAddItem extends AppCompatActivity {
                         foodModel = new FoodModel(-1, "Error", 0f, 0f, 0f, 0f);
                     }
 
-                    DataBaseHelper dataBaseHelper = new DataBaseHelper(FoodDBAddItem.this);
+                    DatabaseHelper dataBaseHelper = new DatabaseHelper(FoodDBAddItem.this);
                     dataBaseHelper.addOne(foodModel);
 
                     setResult(RESULT_OK, intent);
                     finish();
+                    startActivity(intent);
                 }
 
             }
@@ -71,7 +72,9 @@ public class FoodDBAddItem extends AppCompatActivity {
         back.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View v) {
+                Intent intent = new Intent(FoodDBAddItem.this, FoodDBDisplay.class);
                 finish();
+                startActivity(intent);
             }
         });
     }

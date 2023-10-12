@@ -18,7 +18,7 @@ public class FoodDBDisplay extends AppCompatActivity implements RecyclerViewInte
 
     private RecyclerView recyclerView;
     private ArrayList<String> foodNameDB, foodCaloriesNum, foodFatNum, foodCarbsNum, foodProteinNum;
-    private DataBaseHelper dataBaseHelper;
+    private DatabaseHelper dataBaseHelper;
     private FoodDBRecycleViewAdapter adapter;
     private Button addBtn, cancelBtn;
 
@@ -27,7 +27,7 @@ public class FoodDBDisplay extends AppCompatActivity implements RecyclerViewInte
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_seach_food);
-        dataBaseHelper = new DataBaseHelper(FoodDBDisplay.this);
+        dataBaseHelper = new DatabaseHelper(FoodDBDisplay.this);
 
         foodNameDB = new ArrayList<>();
         foodCaloriesNum = new ArrayList<>();
@@ -47,6 +47,7 @@ public class FoodDBDisplay extends AppCompatActivity implements RecyclerViewInte
             public void onClick(View v) {
                 Intent intent = new Intent(FoodDBDisplay.this, FoodDBAddItem.class);
                 intent.addFlags(Intent.FLAG_ACTIVITY_FORWARD_RESULT);
+                finish();
                 startActivity(intent);
             }
         });

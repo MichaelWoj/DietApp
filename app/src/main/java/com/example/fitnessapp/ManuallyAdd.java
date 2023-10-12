@@ -68,7 +68,7 @@ public class ManuallyAdd extends AppCompatActivity {
                                 foodModel = new FoodModel(-1,"Error",0f,0f,0f,0f);
                             }
 
-                            DataBaseHelper dataBaseHelper = new DataBaseHelper(ManuallyAdd.this);
+                            DatabaseHelper dataBaseHelper = new DatabaseHelper(ManuallyAdd.this);
                             boolean success = dataBaseHelper.addOne(foodModel);
                         }
 
