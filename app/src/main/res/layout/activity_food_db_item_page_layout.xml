@@ -231,18 +231,24 @@
 
         <TextView
             android:id="@+id/itemMealName"
-            android:layout_width="185dp"
-            android:layout_height="50dp"
-            android:backgroundTint="@color/black"
+            android:layout_width="240dp"
+            android:layout_height="51dp"
+            android:layout_marginStart="20dp"
+            android:layout_marginLeft="20dp"
+            android:layout_marginEnd="24dp"
+            android:layout_marginRight="24dp"
             android:ems="10"
             android:gravity="end"
-            android:inputType="textPersonName"
             android:textColor="@color/black"
-            android:textSize="38sp"
+            app:autoSizeMaxTextSize="38sp"
+            app:autoSizeMinTextSize="22sp"
+            app:autoSizeStepGranularity="1sp"
+            app:autoSizeTextType="uniform"
+            app:layout_constrainedWidth="true"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.925"
-            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/manualAddName"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintVertical_bias="0.179" />
 
@@ -290,18 +296,16 @@
 
         <ImageButton
             android:id="@+id/settingsBtn"
-            android:layout_width="33dp"
-            android:layout_height="33dp"
-            android:layout_marginTop="16dp"
+            android:layout_width="38dp"
+            android:layout_height="39dp"
+            android:layout_marginTop="28dp"
             android:background="@null"
             android:scaleType="fitCenter"
             android:src="@drawable/ic_settings"
-            app:layout_constraintBottom_toTopOf="@+id/manualMealName"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.955"
+            app:layout_constraintHorizontal_bias="0.957"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.172" />
+            app:layout_constraintTop_toTopOf="parent" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

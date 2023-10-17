@@ -17,7 +17,7 @@ public class FoodDBAddItem extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activitiy_db_manually_add);
+        setContentView(R.layout.activitiy_db_save_food);
 
         foodName = findViewById(R.id.itemAddMealName);
         foodCalories = findViewById(R.id.itemAddMealCalories);
@@ -73,6 +73,7 @@ public class FoodDBAddItem extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(FoodDBAddItem.this, FoodDBDisplay.class);
+                intent.addFlags(Intent.FLAG_ACTIVITY_FORWARD_RESULT);
                 finish();
                 startActivity(intent);
             }

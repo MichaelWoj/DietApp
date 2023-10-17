@@ -93,7 +93,10 @@ public class FoodDBItemPage extends AppCompatActivity {
         back.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View v) {
+                Intent intent = new Intent(FoodDBItemPage.this, FoodDBDisplay.class);
+                intent.addFlags(Intent.FLAG_ACTIVITY_FORWARD_RESULT);
                 finish();
+                startActivity(intent);
             }
         });
     }
