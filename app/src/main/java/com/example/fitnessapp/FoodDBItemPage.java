@@ -24,6 +24,7 @@ public class FoodDBItemPage extends AppCompatActivity {
     private Button submit, back;
     private ImageButton settings;
     private DatabaseHelper databaseHelper;
+    private int entryID;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -39,11 +40,14 @@ public class FoodDBItemPage extends AppCompatActivity {
         proteinDB = findViewById(R.id.itemMealProtein);
 
         Intent intent = getIntent();
+        String id = intent.getStringExtra("ID");
         String name = intent.getStringExtra("Name");
         String calories = intent.getStringExtra("Calories");
         String fat = intent.getStringExtra("Fat");
         String carbs = intent.getStringExtra("Carbs");
         String protein = intent.getStringExtra("Protein");
+
+        entryID = Integer.parseInt(id);
 
         nameDB.setText(name);
         caloriesDB.setText(calories);
@@ -122,7 +126,12 @@ public class FoodDBItemPage extends AppCompatActivity {
         deleteLayout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                Intent intent = new Intent(FoodDBItemPage.this, FoodDBDisplay.class);
+                intent.addFlags(Intent.FLAG_ACTIVITY_FORWARD_RESULT);
+                databaseHelper.deleteEntry(entryID);
                 dialog.dismiss();
+                finish();
+                startActivity(intent);
 
             }
         });

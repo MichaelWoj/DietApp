@@ -17,7 +17,7 @@ import java.util.ArrayList;
 public class FoodDBDisplay extends AppCompatActivity implements RecyclerViewInterface {
 
     private RecyclerView recyclerView;
-    private ArrayList<String> foodNameDB, foodCaloriesNum, foodFatNum, foodCarbsNum, foodProteinNum;
+    private ArrayList<String> foodID,foodNameDB, foodCaloriesNum, foodFatNum, foodCarbsNum, foodProteinNum;
     private DatabaseHelper dataBaseHelper;
     private FoodDBRecycleViewAdapter adapter;
     private Button addBtn, cancelBtn;
@@ -29,6 +29,7 @@ public class FoodDBDisplay extends AppCompatActivity implements RecyclerViewInte
         setContentView(R.layout.activity_seach_food);
         dataBaseHelper = new DatabaseHelper(FoodDBDisplay.this);
 
+        foodID = new ArrayList<>();
         foodNameDB = new ArrayList<>();
         foodCaloriesNum = new ArrayList<>();
         foodFatNum = new ArrayList<>();
@@ -36,7 +37,7 @@ public class FoodDBDisplay extends AppCompatActivity implements RecyclerViewInte
         foodProteinNum = new ArrayList<>();
 
         recyclerView = findViewById(R.id.recyclerViewFoodList);
-        adapter = new FoodDBRecycleViewAdapter(this, foodNameDB, foodCaloriesNum, foodFatNum, foodCarbsNum, foodProteinNum, this);
+        adapter = new FoodDBRecycleViewAdapter(this,foodNameDB, foodCaloriesNum, foodFatNum, foodCarbsNum, foodProteinNum, this);
         recyclerView.setAdapter(adapter);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
         displayData();
@@ -69,6 +70,7 @@ public class FoodDBDisplay extends AppCompatActivity implements RecyclerViewInte
         }
         else{
             while (cursor.moveToNext()){
+                foodID.add(cursor.getString(0));
                 foodNameDB.add(cursor.getString(1));
                 foodCaloriesNum.add(cursor.getString(2));
                 foodFatNum.add(cursor.getString(3));
@@ -83,6 +85,7 @@ public class FoodDBDisplay extends AppCompatActivity implements RecyclerViewInte
     public void onItemClick(int position) {
         Intent intent = new Intent(FoodDBDisplay.this, FoodDBItemPage.class);
         intent.addFlags(Intent.FLAG_ACTIVITY_FORWARD_RESULT);
+        intent.putExtra("ID", foodID.get(position));
         intent.putExtra("Name", foodNameDB.get(position));
         intent.putExtra("Calories", foodCaloriesNum.get(position));
         intent.putExtra("Fat", foodFatNum.get(position));

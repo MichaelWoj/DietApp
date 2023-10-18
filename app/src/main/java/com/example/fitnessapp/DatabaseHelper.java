@@ -68,9 +68,9 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         return cursor;
     }
 
-    public void deleteEntry(FoodModel foodModel){
+    public void deleteEntry(int foodId){
         SQLiteDatabase db = this.getWritableDatabase();
-        db.delete(FOOD_TABLE,"id = "+foodModel.getId(),null);
+        db.delete(FOOD_TABLE,"id = "+ foodId,null);
 
     }
 }

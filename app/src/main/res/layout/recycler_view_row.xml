@@ -133,6 +133,23 @@
                 app:layout_constraintStart_toEndOf="@+id/recyclerViewCarbsNum"
                 app:layout_constraintTop_toBottomOf="@+id/recyclerViewProtein" />
 
+            <TextView
+                android:id="@+id/recyclerViewId"
+                android:layout_width="1dp"
+                android:layout_height="1dp"
+                android:layout_marginStart="124dp"
+                android:layout_marginLeft="124dp"
+                android:layout_marginTop="62dp"
+                android:layout_marginEnd="286dp"
+                android:layout_marginRight="286dp"
+                android:layout_marginBottom="39dp"
+                android:text="TextView"
+                android:textColor="#337357"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
         </androidx.constraintlayout.widget.ConstraintLayout>
     </androidx.cardview.widget.CardView>
 </androidx.constraintlayout.widget.ConstraintLayout>

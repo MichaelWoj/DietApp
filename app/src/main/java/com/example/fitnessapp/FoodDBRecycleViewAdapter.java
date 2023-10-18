@@ -18,6 +18,7 @@ public class FoodDBRecycleViewAdapter extends RecyclerView.Adapter<FoodDBRecycle
 
     public FoodDBRecycleViewAdapter(Context context, ArrayList rvDBFoodName, ArrayList rvDBCaloriesNum, ArrayList rvDBFatNum, ArrayList rvDBCarbsNum, ArrayList rvDBProteinNum, RecyclerViewInterface recyclerViewInterface){
         this.context = context;
+
         this.rvDBFoodName = rvDBFoodName;
         this.rvDBCaloriesNum = rvDBCaloriesNum;
         this.rvDBFatNum = rvDBFatNum;
@@ -35,6 +36,7 @@ public class FoodDBRecycleViewAdapter extends RecyclerView.Adapter<FoodDBRecycle
 
     @Override
     public void onBindViewHolder(@NonNull MyViewHolder holder, int position) {
+
         holder.rvDBFoodName.setText(String.valueOf(rvDBFoodName.get(position)));
         holder.rvDBCaloriesNum.setText(String.valueOf(rvDBCaloriesNum.get(position)));
         holder.rvDBFatNum.setText(String.valueOf(rvDBFatNum.get(position)));
@@ -53,6 +55,7 @@ public class FoodDBRecycleViewAdapter extends RecyclerView.Adapter<FoodDBRecycle
 
         public MyViewHolder(@NonNull View itemView, RecyclerViewInterface recyclerViewInterface) {
             super(itemView);
+
 
             rvDBFoodName = itemView.findViewById(R.id.recyclerViewFoodName);
             rvDBCaloriesNum = itemView.findViewById(R.id.recyclerViewCaloriesNum);
