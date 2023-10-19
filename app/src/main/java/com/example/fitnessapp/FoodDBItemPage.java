@@ -25,6 +25,7 @@ public class FoodDBItemPage extends AppCompatActivity {
     private ImageButton settings;
     private DatabaseHelper databaseHelper;
     private int entryID;
+    private String entryIDString;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -48,6 +49,7 @@ public class FoodDBItemPage extends AppCompatActivity {
         String protein = intent.getStringExtra("Protein");
 
         entryID = Integer.parseInt(id);
+        entryIDString =id;
 
         nameDB.setText(name);
         caloriesDB.setText(calories);
@@ -117,7 +119,27 @@ public class FoodDBItemPage extends AppCompatActivity {
         editLayout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                Intent intent = new Intent(FoodDBItemPage.this, FoodDBEditItem.class);
+                intent.addFlags(Intent.FLAG_ACTIVITY_FORWARD_RESULT);
 
+                intent.putExtra("editId",entryIDString);
+
+                String editFoodNameToString = nameDB.getText().toString();
+                intent.putExtra("editName", editFoodNameToString);
+
+                String editFoodCaloriesToString = caloriesDB.getText().toString();
+                intent.putExtra("editCalories", editFoodCaloriesToString);
+
+                String editFoodFatToString = fatDB.getText().toString();
+                intent.putExtra("editFat", editFoodFatToString);
+
+                String editFoodCarbsToString = carbsDB.getText().toString();
+                intent.putExtra("editCarbs", editFoodCarbsToString);
+
+                String editFoodProteinToString = proteinDB.getText().toString();
+                intent.putExtra("editProtein", editFoodProteinToString);
+
+                startActivity(intent);
                 dialog.dismiss();
 
             }
