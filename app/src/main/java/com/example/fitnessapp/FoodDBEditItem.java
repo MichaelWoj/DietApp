@@ -5,7 +5,6 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -14,14 +13,16 @@ public class FoodDBEditItem extends AppCompatActivity {
     private int idForEdit;
     private DatabaseHelper databaseHelper;
     private Button submitEdit, backEdit;
-    private String editFoodName;
     private float editFoodCalories, editFoodFat, editFoodCarbs, editFoodProtein;
+
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_db_edit_item);
+
+        databaseHelper = new DatabaseHelper(getApplicationContext());
 
         itemName = findViewById(R.id.itemEditMealName);
         itemCalories = findViewById(R.id.itemEditMealCalories);
@@ -44,16 +45,26 @@ public class FoodDBEditItem extends AppCompatActivity {
         itemprotein.setText(protein);
 
         idForEdit = Integer.parseInt(id);
-        editFoodName = name;
-        editFoodCalories = Float.parseFloat(calories);
-        editFoodFat = Float.parseFloat(fat);
-        editFoodCarbs = Float.parseFloat(carbs);
-        editFoodProtein = Float.parseFloat(protein);
 
         submitEdit = findViewById(R.id.itemEditFoodToDB);
         submitEdit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+
+                String editFoodName = itemName.getText().toString();
+
+                String editFoodCaloriesToString = itemCalories.getText().toString();
+                editFoodCalories = Float.parseFloat(editFoodCaloriesToString);
+
+                String editFoodFatToString = itemfat.getText().toString();
+                editFoodFat = Float.parseFloat(editFoodFatToString);
+
+                String editFoodCarbsToString = itemcarbs.getText().toString();
+                editFoodCarbs = Float.parseFloat(editFoodCarbsToString);
+
+                String editFoodProteinToString = itemprotein.getText().toString();
+                editFoodProtein = Float.parseFloat(editFoodProteinToString);
+
                 databaseHelper.editEntry(idForEdit, editFoodName, editFoodCalories, editFoodFat, editFoodCarbs, editFoodProtein);
                 finish();
             }

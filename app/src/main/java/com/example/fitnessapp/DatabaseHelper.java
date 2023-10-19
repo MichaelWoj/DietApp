@@ -70,13 +70,15 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
     public void editEntry(int id, String name, float calories, float protein, float fat, float carbs){
         SQLiteDatabase db = this.getWritableDatabase();
-        db.execSQL("UPDATE "+FOOD_TABLE+
-                " SET FOOD_NAME = " + name +
-                ", FOOD_CALORIES = " + calories +
-                ", FOOD_PROTEIN = " + protein +
-                ", FOOD_FAT = " + fat +
-                ", FOOD_CARBS = " + carbs +
-                " WHERE ID = "+ id);
+        ContentValues values = new ContentValues();
+
+        values.put(COLUMN_FOOD_NAME, name);
+        values.put(COLUMN_FOOD_CALORIES, calories);
+        values.put(COLUMN_FOOD_PROTEIN, protein);
+        values.put(COLUMN_FOOD_FAT, fat);
+        values.put(COLUMN_FOOD_CARBS,carbs);
+
+        db.update(FOOD_TABLE, values, "id = "+ id, null);
     }
 
     public void deleteEntry(int foodId){
