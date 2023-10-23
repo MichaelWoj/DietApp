@@ -27,10 +27,10 @@ import android.widget.TextView;
     public static final String savedValFat = "fat";
     public static final String savedValCarbs = "carbs";
 
-    private float caloriesManualVal;
-    private float proteinManualVal;
-    private float fatManualVal;
-    private float carbsManualVal;
+    private float foodCaloriesVal;
+    private float foodProteinVal;
+    private float foodFatVal;
+    private float foodCarbsVal;
 
     ActivityResultLauncher<Intent> startForResult = registerForActivityResult(new ActivityResultContracts.StartActivityForResult(), new ActivityResultCallback<ActivityResult>() {
         @Override
@@ -38,20 +38,20 @@ import android.widget.TextView;
             if(result.getResultCode() == RESULT_OK){
                 Intent intent = result.getData();
                 if(intent != null){
-                    caloriesManualVal = intent.getFloatExtra("caloriesManual", 0f);
-                    caloriesVal = caloriesVal + caloriesManualVal;
+                    foodCaloriesVal = intent.getFloatExtra("foodCalories", 0f);
+                    caloriesVal = caloriesVal + foodCaloriesVal;
                     caloriesVal = (float) (Math.round(caloriesVal * 100.0) / 100.0);
 
-                    proteinManualVal = intent.getFloatExtra("proteinManual", 0f);
-                    proteinVal = proteinVal + proteinManualVal;
+                    foodProteinVal = intent.getFloatExtra("foodProtein", 0f);
+                    proteinVal = proteinVal + foodProteinVal;
                     proteinVal = (float) (Math.round(proteinVal * 100.0) / 100.0);
 
-                    fatManualVal = intent.getFloatExtra("fatManual", 0f);
-                    fatVal = fatVal + fatManualVal;
+                    foodFatVal = intent.getFloatExtra("foodFat", 0f);
+                    fatVal = fatVal + foodFatVal;
                     fatVal = (float) (Math.round(fatVal * 100.0) / 100.0);
 
-                    carbsManualVal = intent.getFloatExtra("carbsManual", 0f);
-                    carbsVal = carbsVal + carbsManualVal;
+                    foodCarbsVal = intent.getFloatExtra("foodCarbs", 0f);
+                    carbsVal = carbsVal + foodCarbsVal;
                     carbsVal = (float) (Math.round(carbsVal * 100.0) / 100.0);
 
                     setValues();
@@ -84,7 +84,7 @@ import android.widget.TextView;
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(MainActivity.this, FoodDBDisplay.class);
-                startActivity(intent);
+                startForResult.launch(intent);
             }
         });
 
@@ -103,29 +103,29 @@ import android.widget.TextView;
 
             public void onClick(View v) {
                 if (caloriesVal != 0 ){
-                    caloriesManualVal = (float) (Math.floor(caloriesManualVal * 100) / 100);
-                    caloriesVal = caloriesVal - caloriesManualVal;
+                    foodCaloriesVal = (float) (Math.floor(foodCaloriesVal * 100) / 100);
+                    caloriesVal = caloriesVal - foodCaloriesVal;
                     caloriesVal = (float) (Math.floor(caloriesVal * 100) / 100);
 
-                    proteinManualVal = (float) (Math.floor(proteinManualVal * 100) / 100);
-                    proteinVal = proteinVal - proteinManualVal;
+                    foodProteinVal = (float) (Math.floor(foodProteinVal * 100) / 100);
+                    proteinVal = proteinVal - foodProteinVal;
                     proteinVal = (float) (Math.floor(proteinVal * 100) / 100);
 
-                    fatManualVal = (float) (Math.floor(fatManualVal * 100) / 100);
-                    fatVal = fatVal - fatManualVal;
+                    foodFatVal = (float) (Math.floor(foodFatVal * 100) / 100);
+                    fatVal = fatVal - foodFatVal;
                     fatVal = (float) (Math.floor(fatVal * 100) / 100);
 
-                    carbsManualVal = (float) (Math.floor(carbsManualVal * 100) / 100);
-                    carbsVal = carbsVal - carbsManualVal;
+                    foodCarbsVal = (float) (Math.floor(foodCarbsVal * 100) / 100);
+                    carbsVal = carbsVal - foodCarbsVal;
                     carbsVal = (float) (Math.floor(carbsVal * 100) / 100);
 
                     setValues();
                     saveSharedPreferences();
 
-                    caloriesManualVal = 0;
-                    proteinManualVal = 0;
-                    fatManualVal = 0;
-                    carbsManualVal = 0;
+                    foodCaloriesVal = 0;
+                    foodProteinVal = 0;
+                    foodFatVal = 0;
+                    foodCarbsVal = 0;
                 };
             }
         });

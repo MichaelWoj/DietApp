@@ -7,31 +7,39 @@
     android:background="@drawable/green_mountain_background"
     tools:context=".FoodDBDisplay">
 
-    <Button
-        android:id="@+id/dbAddFood"
-        android:layout_width="186dp"
-        android:layout_height="62dp"
-        android:layout_marginBottom="8dp"
-        android:text="Add Food"
-        android:textColor="#E4E3D3"
-        app:backgroundTint="#337357"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toStartOf="@+id/dbCancel"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/recyclerViewFoodList" />
-
-    <Button
-        android:id="@+id/dbCancel"
-        android:layout_width="186dp"
-        android:layout_height="62dp"
-        android:layout_marginBottom="8dp"
-        android:layout_weight="1"
-        android:text="Cancel"
-        android:textColor="#E4E3D3"
-        app:backgroundTint="#337357"
+    <LinearLayout
+        android:id="@+id/linearLayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/dbAddFood" />
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/recyclerViewFoodList"
+        app:layout_constraintVertical_bias="0.96">
+
+        <Button
+            android:id="@+id/dbAddFood"
+            android:layout_width="186dp"
+            android:layout_height="62dp"
+            android:layout_marginStart="16dp"
+            android:layout_marginLeft="16dp"
+            android:layout_marginBottom="8dp"
+            android:text="Add Food"
+            android:textColor="#E4E3D3"
+            app:backgroundTint="#337357" />
+
+        <Button
+            android:id="@+id/dbCancel"
+            android:layout_width="186dp"
+            android:layout_height="62dp"
+            android:layout_marginStart="12dp"
+            android:layout_marginLeft="12dp"
+            android:text="Cancel"
+            android:textColor="#E4E3D3"
+            app:backgroundTint="#337357" />
+    </LinearLayout>
 
     <SearchView
         android:id="@+id/searchView"
@@ -43,6 +51,7 @@
         android:layout_marginEnd="5sp"
         android:layout_marginRight="5sp"
         android:background="@drawable/search_view_background"
+        app:layout_constraintBottom_toTopOf="@+id/recyclerViewFoodList"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
@@ -54,7 +63,7 @@
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_marginTop="5dp"
-        app:layout_constraintBottom_toTopOf="@+id/dbCancel"
+        app:layout_constraintBottom_toTopOf="@+id/linearLayout"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/searchView" />

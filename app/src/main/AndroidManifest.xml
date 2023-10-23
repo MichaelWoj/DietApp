@@ -8,10 +8,12 @@
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
-        android:theme="@style/Theme.FitnessApp">
-        <activity android:name=".ManuallyAdd"></activity>
-        <activity android:name=".FoodInfo" />
+        android:theme="@style/Theme.AppCompat.NoActionBar">
+        <activity android:name=".ManuallyAdd"/>
         <activity android:name=".FoodDBDisplay" />
+        <activity android:name=".FoodDBItemPage"/>
+        <activity android:name=".FoodDBAddItem"/>
+        <activity android:name=".FoodDBEditItem"/>
         <activity android:name=".MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

@@ -5,22 +5,22 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@drawable/green_mountain_background"
-    tools:context=".ManuallyAdd">
+    tools:context=".FoodDBEditItem">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/constraintLayout"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         tools:context=".FoodInfo"
-        tools:layout_editor_absoluteX="0dp"
+        tools:layout_editor_absoluteX="-68dp"
         tools:layout_editor_absoluteY="0dp">
 
         <TextView
             android:id="@+id/textView10"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginEnd="9dp"
-            android:layout_marginRight="9dp"
+            android:layout_marginEnd="24dp"
+            android:layout_marginRight="24dp"
             android:text="g"
             android:textColor="@color/black"
             app:layout_constraintBottom_toBottomOf="parent"
@@ -28,14 +28,14 @@
             app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toEndOf="@+id/manualMealCarbs"
             app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.522" />
+            app:layout_constraintVertical_bias="0.606" />
 
         <TextView
             android:id="@+id/textView9"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginEnd="8dp"
-            android:layout_marginRight="8dp"
+            android:layout_marginEnd="24dp"
+            android:layout_marginRight="24dp"
             android:text="g"
             android:textColor="@color/black"
             app:layout_constraintBottom_toBottomOf="parent"
@@ -43,14 +43,14 @@
             app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toEndOf="@+id/manualMealFat"
             app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.39" />
+            app:layout_constraintVertical_bias="0.481" />
 
         <TextView
             android:id="@+id/textView8"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginEnd="9dp"
-            android:layout_marginRight="9dp"
+            android:layout_marginEnd="24dp"
+            android:layout_marginRight="24dp"
             android:text="g"
             android:textColor="@color/black"
             app:layout_constraintBottom_toBottomOf="parent"
@@ -58,10 +58,10 @@
             app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toEndOf="@+id/manualMealCalories"
             app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.244" />
+            app:layout_constraintVertical_bias="0.338" />
 
         <TextView
-            android:id="@+id/mealName"
+            android:id="@+id/manualEditName"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Name:"
@@ -69,24 +69,10 @@
             android:textSize="38sp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.051"
+            app:layout_constraintHorizontal_bias="0.053"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.073" />
-
-        <TextView
-            android:id="@+id/textView2"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Calories:"
-            android:textColor="@color/black"
-            android:textSize="38sp"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.05"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.214" />
+            app:layout_constraintVertical_bias="0.18" />
 
         <TextView
             android:id="@+id/textView4"
@@ -97,24 +83,10 @@
             android:textSize="38sp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.049"
+            app:layout_constraintHorizontal_bias="0.053"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.66" />
-
-        <TextView
-            android:id="@+id/textView5"
-            android:layout_width="wrap_content"
-            android:layout_height="50dp"
-            android:text="Fat:"
-            android:textColor="@color/black"
-            android:textSize="38sp"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.037"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.362" />
+            app:layout_constraintVertical_bias="0.767" />
 
         <TextView
             android:id="@+id/textView6"
@@ -125,83 +97,111 @@
             android:textSize="38sp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.043"
+            app:layout_constraintHorizontal_bias="0.046"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.507" />
+            app:layout_constraintVertical_bias="0.614" />
+
+        <TextView
+            android:id="@+id/textView5"
+            android:layout_width="wrap_content"
+            android:layout_height="50dp"
+            android:text="Fat:"
+            android:textColor="@color/black"
+            android:textSize="38sp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.04"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.469" />
+
+        <TextView
+            android:id="@+id/textView2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Calories:"
+            android:textColor="@color/black"
+            android:textSize="38sp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.053"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.322" />
 
         <EditText
-            android:id="@+id/manualMealCalories"
+            android:id="@+id/itemEditMealCalories"
             android:layout_width="60dp"
             android:layout_height="46dp"
             android:layout_marginStart="32dp"
             android:layout_marginLeft="32dp"
+            android:backgroundTint="@color/black"
             android:ems="10"
             android:inputType="numberDecimal"
             android:textColor="@color/black"
-            android:backgroundTint="@color/black"
             android:maxLength="7"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.821"
+            app:layout_constraintHorizontal_bias="0.797"
             app:layout_constraintStart_toEndOf="@+id/textView2"
             app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.214" />
+            app:layout_constraintVertical_bias="0.319" />
 
         <EditText
-            android:id="@+id/manualMealProtein"
+            android:id="@+id/itemEditMealProtein"
             android:layout_width="60dp"
-            android:layout_height="wrap_content"
+            android:layout_height="46dp"
+            android:backgroundTint="@color/black"
             android:ems="10"
             android:inputType="numberDecimal"
             android:textColor="@color/black"
-            android:backgroundTint="@color/black"
             android:maxLength="7"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.869"
+            app:layout_constraintHorizontal_bias="0.844"
             app:layout_constraintStart_toEndOf="@+id/textView4"
             app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.662" />
+            app:layout_constraintVertical_bias="0.769" />
 
         <EditText
-            android:id="@+id/manualMealFat"
+            android:id="@+id/itemEditMealFat"
             android:layout_width="60dp"
             android:layout_height="46dp"
+            android:backgroundTint="@color/black"
             android:ems="10"
             android:inputType="numberDecimal"
             android:textColor="@color/black"
-            android:backgroundTint="@color/black"
             android:maxLength="7"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.902"
+            app:layout_constraintHorizontal_bias="0.883"
             app:layout_constraintStart_toEndOf="@+id/textView5"
             app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.366" />
+            app:layout_constraintVertical_bias="0.467" />
 
         <EditText
-            android:id="@+id/manualMealCarbs"
+            android:id="@+id/itemEditMealCarbs"
             android:layout_width="60dp"
             android:layout_height="46dp"
+            android:backgroundTint="@color/black"
             android:ems="10"
             android:inputType="numberDecimal"
             android:textColor="@color/black"
-            android:backgroundTint="@color/black"
             android:maxLength="7"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.882"
+            app:layout_constraintHorizontal_bias="0.859"
             app:layout_constraintStart_toEndOf="@+id/textView6"
             app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.503" />
+            app:layout_constraintVertical_bias="0.601" />
 
         <TextView
             android:id="@+id/textView7"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginEnd="9dp"
-            android:layout_marginRight="9dp"
+            android:layout_marginEnd="24dp"
+            android:layout_marginRight="24dp"
             android:text="g"
             android:textColor="@color/black"
             app:layout_constraintBottom_toBottomOf="parent"
@@ -209,48 +209,23 @@
             app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toEndOf="@+id/manualMealProtein"
             app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.676" />
-
-        <TextView
-            android:id="@+id/textView11"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Save to Database:"
-            android:textColor="@color/black"
-            android:textSize="38sp"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.125"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.808" />
-
-        <Switch
-            android:id="@+id/saveToDBSwitch"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.577"
-            app:layout_constraintStart_toEndOf="@+id/textView11"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.795" />
+            app:layout_constraintVertical_bias="0.768" />
 
         <EditText
-            android:id="@+id/manualMealName"
-            android:layout_width="wrap_content"
-            android:layout_height="47dp"
+            android:id="@+id/itemEditMealName"
+            android:layout_width="184dp"
+            android:layout_height="51dp"
+            android:backgroundTint="@color/black"
             android:ems="10"
             android:inputType="textPersonName"
             android:textColor="@color/black"
-            android:backgroundTint="@color/black"
             android:maxLength="24"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.964"
+            app:layout_constraintHorizontal_bias="0.925"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.078" />
+            app:layout_constraintVertical_bias="0.179" />
 
         <LinearLayout
             android:id="@+id/linearLayout2"
@@ -265,7 +240,7 @@
             app:layout_constraintVertical_bias="0.978">
 
             <Button
-                android:id="@+id/manualAddFood"
+                android:id="@+id/itemEditFoodToDB"
                 android:layout_width="186dp"
                 android:layout_height="62dp"
                 android:layout_marginStart="12dp"
@@ -275,7 +250,7 @@
                 app:backgroundTint="#337357" />
 
             <Button
-                android:id="@+id/manualCancel"
+                android:id="@+id/itemEditCancel"
                 android:layout_width="186dp"
                 android:layout_height="62dp"
                 android:layout_marginStart="16dp"
