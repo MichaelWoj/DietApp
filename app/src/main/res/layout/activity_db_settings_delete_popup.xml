@@ -3,7 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="350dp"
-    android:layout_height="300dp"
+    android:layout_height="150dp"
     android:layout_gravity="center"
     android:background="#337357">
 
@@ -24,8 +24,9 @@
 
     <LinearLayout
         android:id="@+id/layoutConfirmDelete"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_width="177dp"
+        android:layout_height="47dp"
+        android:background="@drawable/left_side_button_border"
         android:orientation="horizontal"
         android:padding="8dp"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -33,7 +34,7 @@
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textView"
-        app:layout_constraintVertical_bias="0.269">
+        app:layout_constraintVertical_bias="1.0">
 
         <ImageView
             android:id="@+id/imageView2"
@@ -51,7 +52,7 @@
 
         <TextView
             android:id="@+id/textView13"
-            android:layout_width="111dp"
+            android:layout_width="wrap_content"
             android:layout_height="30dp"
             android:layout_marginLeft="30dp"
             android:text="Delete"
@@ -63,15 +64,17 @@
 
     <LinearLayout
         android:id="@+id/layoutConfirmCancel"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_width="176dp"
+        android:layout_height="47dp"
+        android:background="@drawable/right_side_button_border"
         android:orientation="horizontal"
         android:padding="8dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/layoutConfirmDelete">
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toEndOf="@+id/layoutConfirmDelete"
+        app:layout_constraintTop_toBottomOf="@+id/textView"
+        app:layout_constraintVertical_bias="1.0">
 
         <ImageView
             android:id="@+id/imageView"
@@ -88,7 +91,7 @@
 
         <TextView
             android:id="@+id/textView12"
-            android:layout_width="111dp"
+            android:layout_width="wrap_content"
             android:layout_height="30dp"
             android:layout_marginLeft="30dp"
             android:text="Cancel"
