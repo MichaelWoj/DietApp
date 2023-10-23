@@ -236,20 +236,6 @@
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintVertical_bias="0.795" />
 
-        <LinearLayout
-            android:id="@+id/linearLayout"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.0"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.893">
-
-        </LinearLayout>
-
         <EditText
             android:id="@+id/manualMealName"
             android:layout_width="wrap_content"
@@ -266,30 +252,6 @@
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintVertical_bias="0.078" />
 
-        <Button
-            android:id="@+id/manualCancel"
-            android:layout_width="186dp"
-            android:layout_height="0dp"
-            android:text="Cancel"
-            android:textColor="#E4E3D3"
-            app:backgroundTint="#337357"
-            app:layout_constraintBottom_toBottomOf="@+id/linearLayout2"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toEndOf="@+id/manualAddFood"
-            app:layout_constraintTop_toBottomOf="@+id/linearLayout" />
-
-        <Button
-            android:id="@+id/manualAddFood"
-            android:layout_width="186dp"
-            android:layout_height="0dp"
-            android:text="Confirm"
-            android:textColor="#E4E3D3"
-            app:backgroundTint="#337357"
-            app:layout_constraintBottom_toBottomOf="@+id/linearLayout2"
-            app:layout_constraintEnd_toStartOf="@+id/manualCancel"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/linearLayout" />
-
         <LinearLayout
             android:id="@+id/linearLayout2"
             android:layout_width="match_parent"
@@ -300,7 +262,28 @@
             app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.978"></LinearLayout>
+            app:layout_constraintVertical_bias="0.978">
+
+            <Button
+                android:id="@+id/manualAddFood"
+                android:layout_width="186dp"
+                android:layout_height="62dp"
+                android:layout_marginStart="12dp"
+                android:layout_marginLeft="12dp"
+                android:text="Confirm"
+                android:textColor="#E4E3D3"
+                app:backgroundTint="#337357" />
+
+            <Button
+                android:id="@+id/manualCancel"
+                android:layout_width="186dp"
+                android:layout_height="62dp"
+                android:layout_marginStart="16dp"
+                android:layout_marginLeft="16dp"
+                android:text="Cancel"
+                android:textColor="#E4E3D3"
+                app:backgroundTint="#337357" />
+        </LinearLayout>
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
