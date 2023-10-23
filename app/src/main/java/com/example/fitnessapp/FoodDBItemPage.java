@@ -120,7 +120,6 @@ public class FoodDBItemPage extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(FoodDBItemPage.this, FoodDBEditItem.class);
-                intent.addFlags(Intent.FLAG_ACTIVITY_FORWARD_RESULT);
 
                 intent.putExtra("editId",entryIDString);
 
@@ -148,13 +147,8 @@ public class FoodDBItemPage extends AppCompatActivity {
         deleteLayout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(FoodDBItemPage.this, FoodDBDisplay.class);
-                intent.addFlags(Intent.FLAG_ACTIVITY_FORWARD_RESULT);
-                databaseHelper.deleteEntry(entryID);
                 dialog.dismiss();
-                finish();
-                startActivity(intent);
-
+                deleteConfirmationWindow();
             }
         });
 
@@ -164,5 +158,38 @@ public class FoodDBItemPage extends AppCompatActivity {
         dialog.getWindow().getAttributes().windowAnimations = R.style.DialogAnimation;
         dialog.getWindow().setGravity(Gravity.BOTTOM);
 
+    }
+
+    private void deleteConfirmationWindow() {
+
+        final Dialog confirmationDialog = new Dialog(this);
+        confirmationDialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
+        confirmationDialog.setContentView(R.layout.activity_db_settings_delete_popup);
+
+        LinearLayout confirmDelete = confirmationDialog.findViewById(R.id.layoutConfirmDelete);
+        LinearLayout confirmCancel = confirmationDialog.findViewById(R.id.layoutConfirmCancel);
+
+        confirmDelete.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(FoodDBItemPage.this, FoodDBDisplay.class);
+                intent.addFlags(Intent.FLAG_ACTIVITY_FORWARD_RESULT);
+                databaseHelper.deleteEntry(entryID);
+                confirmationDialog.dismiss();
+                finish();
+                startActivity(intent);
+            }
+        });
+        confirmCancel.setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View v) {
+                confirmationDialog.dismiss();
+            }
+        });
+
+        confirmationDialog.show();
+        confirmationDialog.getWindow().setLayout(ViewGroup.LayoutParams.MATCH_PARENT,ViewGroup.LayoutParams.WRAP_CONTENT);
+        confirmationDialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+        confirmationDialog.getWindow().setGravity(Gravity.CENTER);
     }
 }
