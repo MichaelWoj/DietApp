@@ -18,7 +18,6 @@ public class FoodDBRecycleViewAdapter extends RecyclerView.Adapter<FoodDBRecycle
 
     public FoodDBRecycleViewAdapter(Context context, ArrayList rvDBFoodName, ArrayList rvDBCaloriesNum, ArrayList rvDBFatNum, ArrayList rvDBCarbsNum, ArrayList rvDBProteinNum, RecyclerViewInterface recyclerViewInterface){
         this.context = context;
-
         this.rvDBFoodName = rvDBFoodName;
         this.rvDBCaloriesNum = rvDBCaloriesNum;
         this.rvDBFatNum = rvDBFatNum;
@@ -47,6 +46,11 @@ public class FoodDBRecycleViewAdapter extends RecyclerView.Adapter<FoodDBRecycle
     @Override
     public int getItemCount() {
         return rvDBFoodName.size();
+    }
+
+    public void filteredList(ArrayList<String> filteredList){
+        rvDBFoodName = filteredList;
+        notifyDataSetChanged();
     }
 
     public static class MyViewHolder extends RecyclerView.ViewHolder{

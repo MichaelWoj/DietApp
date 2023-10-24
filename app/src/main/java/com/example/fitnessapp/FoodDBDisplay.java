@@ -5,28 +5,57 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.annotation.SuppressLint;
+import android.content.ClipData;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.database.Cursor;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+import android.widget.SearchView;
 import android.widget.Toast;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class FoodDBDisplay extends AppCompatActivity implements RecyclerViewInterface {
 
     private RecyclerView recyclerView;
-    private ArrayList<String> foodID,foodNameDB, foodCaloriesNum, foodFatNum, foodCarbsNum, foodProteinNum;
+    private ArrayList<String> foodID, foodNameDB, foodCaloriesNum, foodFatNum, foodCarbsNum, foodProteinNum;
     private DatabaseHelper dataBaseHelper;
     private FoodDBRecycleViewAdapter adapter;
     private Button addBtn, cancelBtn;
+    private SearchView searchView;
 
     @SuppressLint("WrongViewCast")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_seach_food);
+
+        searchView = findViewById(R.id.searchView);
+        searchView.clearFocus();
+
+        searchView.setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View v) {
+                searchView.onActionViewExpanded();
+            }
+        });
+
+        searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+            @Override
+            public boolean onQueryTextSubmit(String query) {
+                return false;
+            }
+
+            @Override
+            public boolean onQueryTextChange(String newText) {
+                fileList(newText);
+                return true;
+            }
+        });
+
         dataBaseHelper = new DatabaseHelper(FoodDBDisplay.this);
 
         foodID = new ArrayList<>();
@@ -60,6 +89,16 @@ public class FoodDBDisplay extends AppCompatActivity implements RecyclerViewInte
                 finish();
             }
         });
+    }
+
+    private void fileList(String searchText) {
+        ArrayList<String> filteredList = new ArrayList<>();
+        for(String item : foodNameDB){
+            if (item.toLowerCase().contains(searchText.toLowerCase())) {
+                filteredList.add(item);
+            };
+        }
+        adapter.filteredList(filteredList);
     }
 
     private void displayData() {
