@@ -6,6 +6,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import android.annotation.SuppressLint;
 import android.content.ClipData;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.database.Cursor;
 import android.os.Bundle;
@@ -34,6 +35,14 @@ public class FoodDBDisplay extends AppCompatActivity implements RecyclerViewInte
 
         searchView = findViewById(R.id.searchView);
         searchView.clearFocus();
+
+        searchView.setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View v) {
+                searchView.onActionViewExpanded();
+            }
+        });
+
         searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
             @Override
             public boolean onQueryTextSubmit(String query) {
