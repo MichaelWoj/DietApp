@@ -11,11 +11,17 @@ import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+import android.widget.EditText;
+import android.widget.ImageButton;
 import android.widget.TextView;
 
     public class MainActivity extends AppCompatActivity{
     private TextView setCalories, setProtein, setFat, setCarbs ;
+    private EditText userTargetCalories;
     private Button addFoodBtn, manualFoodBtn, undoFoodBtn, resetAllBtn;
+
+    ImageButton lockBtn;
+    private boolean isLocked = true;
 
     private float caloriesVal = 0f;
     private float proteinVal = 0f;
@@ -78,6 +84,25 @@ import android.widget.TextView;
 
         setCarbs =  findViewById(R.id.carbs);
         setCarbs.setText(String.valueOf(carbsVal));
+
+        userTargetCalories = findViewById(R.id.targetCalories);
+        userTargetCalories.setEnabled(false);
+
+        lockBtn=findViewById(R.id.lockButton);
+        lockBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if(isLocked){
+                    isLocked=false;
+                    lockBtn.setImageDrawable(getResources().getDrawable(R.drawable.ic_open_lock));
+                    userTargetCalories.setEnabled(true);
+                }else{
+                    isLocked=true;
+                    lockBtn.setImageDrawable(getResources().getDrawable(R.drawable.ic_lock));
+                    userTargetCalories.setEnabled(false);
+                }
+            }
+        });
 
         addFoodBtn = (Button) findViewById(R.id.searchFood);
         addFoodBtn.setOnClickListener(new View.OnClickListener() {
