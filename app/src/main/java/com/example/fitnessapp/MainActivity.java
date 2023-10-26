@@ -4,10 +4,14 @@ import androidx.activity.result.ActivityResult;
 import androidx.activity.result.ActivityResultCallback;
 import androidx.activity.result.ActivityResultLauncher;
 import androidx.activity.result.contract.ActivityResultContracts;
+import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.content.ContextCompat;
 
+import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.os.Build;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -17,7 +21,7 @@ import android.widget.TextView;
 
     public class MainActivity extends AppCompatActivity{
     private TextView setCalories, setProtein, setFat, setCarbs ;
-    private EditText userTargetCalories;
+    private EditText userTargetCalories, userTargetCarbs, userTargetFat, userTargetProtein;
     private Button addFoodBtn, manualFoodBtn, undoFoodBtn, resetAllBtn;
 
     ImageButton lockBtn;
@@ -88,18 +92,54 @@ import android.widget.TextView;
         userTargetCalories = findViewById(R.id.targetCalories);
         userTargetCalories.setEnabled(false);
 
+        userTargetCarbs = findViewById(R.id.targetCarbs);
+        userTargetCarbs.setEnabled(false);
+
+        userTargetFat = findViewById(R.id.targetFat);
+        userTargetFat.setEnabled(false);
+
+        userTargetProtein = findViewById(R.id.targetProtein);
+        userTargetProtein.setEnabled(false);
+
         lockBtn=findViewById(R.id.lockButton);
         lockBtn.setOnClickListener(new View.OnClickListener() {
+
+            @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
             @Override
             public void onClick(View v) {
                 if(isLocked){
+
                     isLocked=false;
                     lockBtn.setImageDrawable(getResources().getDrawable(R.drawable.ic_open_lock));
+
                     userTargetCalories.setEnabled(true);
+                    userTargetCalories.setBackgroundTintList(ContextCompat.getColorStateList(getApplicationContext(), R.color.black));;
+
+                    userTargetCarbs.setEnabled(true);
+                    userTargetCarbs.setBackgroundTintList(ContextCompat.getColorStateList(getApplicationContext(), R.color.black));
+
+                    userTargetFat.setEnabled(true);
+                    userTargetFat.setBackgroundTintList(ContextCompat.getColorStateList(getApplicationContext(), R.color.black));
+
+                    userTargetProtein.setEnabled(true);
+                    userTargetProtein.setBackgroundTintList(ContextCompat.getColorStateList(getApplicationContext(), R.color.black));
+
                 }else{
+
                     isLocked=true;
                     lockBtn.setImageDrawable(getResources().getDrawable(R.drawable.ic_lock));
+
                     userTargetCalories.setEnabled(false);
+                    userTargetCalories.setBackgroundTintList(ContextCompat.getColorStateList(getApplicationContext(), R.color.transparent));;
+
+                    userTargetCarbs.setEnabled(false);
+                    userTargetCarbs.setBackgroundTintList(ContextCompat.getColorStateList(getApplicationContext(), R.color.transparent));
+
+                    userTargetFat.setEnabled(false);
+                    userTargetFat.setBackgroundTintList(ContextCompat.getColorStateList(getApplicationContext(), R.color.transparent));
+
+                    userTargetProtein.setEnabled(false);
+                    userTargetProtein.setBackgroundTintList(ContextCompat.getColorStateList(getApplicationContext(), R.color.transparent));
                 }
             }
         });
