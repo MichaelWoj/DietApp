@@ -45,12 +45,12 @@
                     android:textSize="16sp" />
 
                 <TextView
-                    android:id="@+id/carbsTitle"
+                    android:id="@+id/fatTitle"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:gravity="center"
-                    android:text="Carbs"
+                    android:text="Fat"
                     android:textColor="#000000"
                     android:textSize="16sp" />
 
@@ -65,12 +65,12 @@
                     android:textSize="16sp" />
 
                 <TextView
-                    android:id="@+id/fatTitle"
+                    android:id="@+id/carbsTitle"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:gravity="center"
-                    android:text="Fat"
+                    android:text="Carbs"
                     android:textColor="#000000"
                     android:textSize="16sp" />
 
@@ -151,7 +151,7 @@
                     android:textSize="18sp" />
 
                 <EditText
-                    android:id="@+id/targetCarbs"
+                    android:id="@+id/targetFat"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
@@ -164,7 +164,7 @@
                     android:textSize="18sp" />
 
                 <EditText
-                    android:id="@+id/targetFat"
+                    android:id="@+id/targetCarbs"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"

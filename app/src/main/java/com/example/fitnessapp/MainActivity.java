@@ -32,10 +32,10 @@ import android.widget.TextView;
     private float carbsVal = 0f;
     private float proteinVal = 0f;
 
-    private int userTargetCaloriesVal=0;
-    private int userTargetFatVal=0;
-    private int userTargetCarbsVal=0;
-    private int userTargetProteinVal=0;
+    private float userTargetCaloriesVal=0f;
+    private float userTargetFatVal=0f;
+    private float userTargetCarbsVal=0f;
+    private float userTargetProteinVal=0f;
 
     public static final String savedValCalories = "calories";
     public static final String savedValFat = "fat";
@@ -126,22 +126,33 @@ import android.widget.TextView;
 
                     userTargetCalories.setBackgroundTintList(ContextCompat.getColorStateList(getApplicationContext(), R.color.transparent));
                     String userTargetCaloriesToString = userTargetCalories.getText().toString();
-                    userTargetCaloriesVal = Integer.parseInt(userTargetCaloriesToString);
+                    if (userTargetCaloriesToString.equals("")){
+                        userTargetCaloriesToString="0";
+                    }
+                    userTargetCaloriesVal = Float.parseFloat(userTargetCaloriesToString);
 
                     userTargetFat.setBackgroundTintList(ContextCompat.getColorStateList(getApplicationContext(), R.color.transparent));
                     String userTargetFatToString = userTargetFat.getText().toString();
-                    userTargetFatVal = Integer.parseInt(userTargetFatToString);
+                    if (userTargetFatToString==""){
+                        userTargetFatToString="0";
+                    }
+                    userTargetFatVal = Float.parseFloat(userTargetFatToString);
 
                     userTargetCarbs.setBackgroundTintList(ContextCompat.getColorStateList(getApplicationContext(), R.color.transparent));
                     String userTargetCarbsToString = userTargetCarbs.getText().toString();
-                    userTargetCarbsVal = Integer.parseInt(userTargetCarbsToString);
+                    if (userTargetCarbsToString==""){
+                        userTargetCarbsToString="0";
+                    }
+                    userTargetCarbsVal = Float.parseFloat(userTargetCarbsToString);
 
                     userTargetProtein.setBackgroundTintList(ContextCompat.getColorStateList(getApplicationContext(), R.color.transparent));
                     String userTargetProteinToString = userTargetProtein.getText().toString();
-                    userTargetProteinVal = Integer.parseInt(userTargetProteinToString);
+                    if (userTargetProteinToString==""){
+                        userTargetProteinToString= "0";
+                    }
+                    userTargetProteinVal = Float.parseFloat(userTargetProteinToString);
 
                     setEditTextFalse();
-
                     saveSharedTargetPreferences();
                 }
             }
@@ -230,10 +241,10 @@ import android.widget.TextView;
             SharedPreferences sharedTargetPreferences = getSharedPreferences("SHARED_PREFS", MODE_PRIVATE);
             SharedPreferences.Editor editor = sharedTargetPreferences.edit();
 
-            editor.putInt(savedUserTargetCalories, userTargetCaloriesVal);
-            editor.putInt(savedUserTargetFat, userTargetFatVal);
-            editor.putInt(savedUserTargetCarbs, userTargetCarbsVal);
-            editor.putInt(savedUserTargetProtein, userTargetProteinVal);
+            editor.putFloat(savedUserTargetCalories, userTargetCaloriesVal);
+            editor.putFloat(savedUserTargetFat, userTargetFatVal);
+            editor.putFloat(savedUserTargetCarbs, userTargetCarbsVal);
+            editor.putFloat(savedUserTargetProtein, userTargetProteinVal);
 
             editor.apply();
         };
@@ -246,10 +257,10 @@ import android.widget.TextView;
             proteinVal = sharedPreferences.getFloat(savedValProtein,0f);
             carbsVal  = sharedPreferences.getFloat(savedValCarbs,0f);
 
-            userTargetCaloriesVal = sharedPreferences.getInt(savedUserTargetCalories, 0);
-            userTargetFatVal = sharedPreferences.getInt(savedUserTargetFat, 0);
-            userTargetCarbsVal = sharedPreferences.getInt(savedUserTargetCarbs, 0);
-            userTargetProteinVal = sharedPreferences.getInt(savedUserTargetProtein, 0);
+            userTargetCaloriesVal = sharedPreferences.getFloat(savedUserTargetCalories, 0f);
+            userTargetFatVal = sharedPreferences.getFloat(savedUserTargetFat, 0f);
+            userTargetCarbsVal = sharedPreferences.getFloat(savedUserTargetCarbs, 0f);
+            userTargetProteinVal = sharedPreferences.getFloat(savedUserTargetProtein, 0f);
         }
         private void setValues() {
             setCalories.setText(String.valueOf(caloriesVal));
@@ -263,6 +274,7 @@ import android.widget.TextView;
             userTargetCarbs.setText(String.valueOf(userTargetCarbsVal), TextView.BufferType.EDITABLE);
             userTargetProtein.setText(String.valueOf(userTargetProteinVal), TextView.BufferType.EDITABLE);
         }
+
         private void setEditTextFalse(){
             userTargetCalories.setEnabled(false);
             userTargetFat.setEnabled(false);
