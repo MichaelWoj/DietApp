@@ -33,7 +33,7 @@ import android.widget.TextView;
     private float proteinVal = 0f;
 
     private int userTargetCaloriesVal=0;
-    private int userTargetFatsVal=0;
+    private int userTargetFatVal=0;
     private int userTargetCarbsVal=0;
     private int userTargetProteinVal=0;
 
@@ -87,29 +87,19 @@ import android.widget.TextView;
         loadData();
 
         setCalories = findViewById(R.id.calories);
-        setCalories.setText(String.valueOf(caloriesVal));
-
         setFat = findViewById(R.id.fat);
-        setFat.setText(String.valueOf(fatVal));
-
         setCarbs =  findViewById(R.id.carbs);
-        setCarbs.setText(String.valueOf(carbsVal));
-
         setProtein = findViewById(R.id.protein);
-        setProtein.setText(String.valueOf(proteinVal));
 
+        setValues();
 
         userTargetCalories = findViewById(R.id.targetCalories);
-        userTargetCalories.setEnabled(false);
-
         userTargetFat = findViewById(R.id.targetFat);
-        userTargetFat.setEnabled(false);
-
         userTargetCarbs = findViewById(R.id.targetCarbs);
-        userTargetCarbs.setEnabled(false);
-
         userTargetProtein = findViewById(R.id.targetProtein);
-        userTargetProtein.setEnabled(false);
+
+        setTargetValues();
+        setEditTextFalse();
 
         lockBtn=findViewById(R.id.lockButton);
         lockBtn.setOnClickListener(new View.OnClickListener() {
@@ -122,44 +112,37 @@ import android.widget.TextView;
                     isLocked=false;
                     lockBtn.setImageDrawable(getResources().getDrawable(R.drawable.ic_open_lock));
 
-                    userTargetCalories.setEnabled(true);
                     userTargetCalories.setBackgroundTintList(ContextCompat.getColorStateList(getApplicationContext(), R.color.black));
-
-                    userTargetFat.setEnabled(true);
                     userTargetFat.setBackgroundTintList(ContextCompat.getColorStateList(getApplicationContext(), R.color.black));
-
-                    userTargetCarbs.setEnabled(true);
                     userTargetCarbs.setBackgroundTintList(ContextCompat.getColorStateList(getApplicationContext(), R.color.black));
-
-                    userTargetProtein.setEnabled(true);
                     userTargetProtein.setBackgroundTintList(ContextCompat.getColorStateList(getApplicationContext(), R.color.black));
+
+                    setEditTextTrue();
 
                 }else{
 
                     isLocked=true;
                     lockBtn.setImageDrawable(getResources().getDrawable(R.drawable.ic_lock));
 
-                    userTargetCalories.setEnabled(false);
                     userTargetCalories.setBackgroundTintList(ContextCompat.getColorStateList(getApplicationContext(), R.color.transparent));
                     String userTargetCaloriesToString = userTargetCalories.getText().toString();
                     userTargetCaloriesVal = Integer.parseInt(userTargetCaloriesToString);
 
-                    userTargetFat.setEnabled(false);
                     userTargetFat.setBackgroundTintList(ContextCompat.getColorStateList(getApplicationContext(), R.color.transparent));
                     String userTargetFatToString = userTargetFat.getText().toString();
-                    userTargetCaloriesVal = Integer.parseInt(userTargetFatToString);
+                    userTargetFatVal = Integer.parseInt(userTargetFatToString);
 
-                    userTargetCarbs.setEnabled(false);
                     userTargetCarbs.setBackgroundTintList(ContextCompat.getColorStateList(getApplicationContext(), R.color.transparent));
                     String userTargetCarbsToString = userTargetCarbs.getText().toString();
-                    userTargetCaloriesVal = Integer.parseInt(userTargetCarbsToString);
+                    userTargetCarbsVal = Integer.parseInt(userTargetCarbsToString);
 
-                    userTargetProtein.setEnabled(false);
                     userTargetProtein.setBackgroundTintList(ContextCompat.getColorStateList(getApplicationContext(), R.color.transparent));
                     String userTargetProteinToString = userTargetProtein.getText().toString();
-                    userTargetCaloriesVal = Integer.parseInt(userTargetProteinToString);
+                    userTargetProteinVal = Integer.parseInt(userTargetProteinToString);
 
-                    saveSharedPreferences();
+                    setEditTextFalse();
+
+                    saveSharedTargetPreferences();
                 }
             }
         });
@@ -240,13 +223,20 @@ import android.widget.TextView;
             editor.putFloat(savedValCarbs, carbsVal);
             editor.putFloat(savedValProtein, proteinVal);
 
+            editor.apply();
+        }
+
+        public void saveSharedTargetPreferences(){
+            SharedPreferences sharedTargetPreferences = getSharedPreferences("SHARED_PREFS", MODE_PRIVATE);
+            SharedPreferences.Editor editor = sharedTargetPreferences.edit();
+
             editor.putInt(savedUserTargetCalories, userTargetCaloriesVal);
-            editor.putInt(savedUserTargetFat, userTargetFatsVal);
+            editor.putInt(savedUserTargetFat, userTargetFatVal);
             editor.putInt(savedUserTargetCarbs, userTargetCarbsVal);
             editor.putInt(savedUserTargetProtein, userTargetProteinVal);
 
             editor.apply();
-        }
+        };
 
         public void loadData() {
             SharedPreferences sharedPreferences = getSharedPreferences("SHARED_PREFS", MODE_PRIVATE);
@@ -257,7 +247,7 @@ import android.widget.TextView;
             carbsVal  = sharedPreferences.getFloat(savedValCarbs,0f);
 
             userTargetCaloriesVal = sharedPreferences.getInt(savedUserTargetCalories, 0);
-            userTargetFatsVal = sharedPreferences.getInt(savedUserTargetFat, 0);
+            userTargetFatVal = sharedPreferences.getInt(savedUserTargetFat, 0);
             userTargetCarbsVal = sharedPreferences.getInt(savedUserTargetCarbs, 0);
             userTargetProteinVal = sharedPreferences.getInt(savedUserTargetProtein, 0);
         }
@@ -266,11 +256,23 @@ import android.widget.TextView;
             setFat.setText(String.valueOf(fatVal));
             setCarbs.setText(String.valueOf(carbsVal));
             setProtein.setText(String.valueOf(proteinVal));
-
-            userTargetCalories.setText(String.valueOf(userTargetCaloriesVal));
-            userTargetFat.setText(String.valueOf(userTargetFatsVal));
-            userTargetCarbs.setText(String.valueOf(userTargetCarbsVal));
-            userTargetProtein.setText(String.valueOf(userTargetProteinVal));
         }
-
+        private void setTargetValues(){
+            userTargetCalories.setText(String.valueOf(userTargetCaloriesVal), TextView.BufferType.EDITABLE);
+            userTargetFat.setText(String.valueOf(userTargetFatVal), TextView.BufferType.EDITABLE);
+            userTargetCarbs.setText(String.valueOf(userTargetCarbsVal), TextView.BufferType.EDITABLE);
+            userTargetProtein.setText(String.valueOf(userTargetProteinVal), TextView.BufferType.EDITABLE);
+        }
+        private void setEditTextFalse(){
+            userTargetCalories.setEnabled(false);
+            userTargetFat.setEnabled(false);
+            userTargetCarbs.setEnabled(false);
+            userTargetProtein.setEnabled(false);
+        }
+        private void setEditTextTrue(){
+            userTargetCalories.setEnabled(true);
+            userTargetFat.setEnabled(true);
+            userTargetCarbs.setEnabled(true);
+            userTargetProtein.setEnabled(true);
+        }
     }
