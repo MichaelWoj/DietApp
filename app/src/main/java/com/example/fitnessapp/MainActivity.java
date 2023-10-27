@@ -47,6 +47,11 @@ import android.widget.TextView;
     public static final String savedUserTargetCarbs = "target_carbs";
     public static final String savedUserTargetProtein = "target_protein";
 
+    public static final String undoLastCalories = "undo_last_calories";
+    public static final String undoLastFat = "undo_last_fat";
+    public static final String undoLastCarbs = "undo_last_carbs";
+    public static final String undoLastProtein = "undo_last_protein";
+
     private float foodCaloriesVal, foodFatVal, foodCarbsVal, foodProteinVal;
 
 
@@ -234,6 +239,11 @@ import android.widget.TextView;
             editor.putFloat(savedValCarbs, carbsVal);
             editor.putFloat(savedValProtein, proteinVal);
 
+            editor.putFloat(undoLastCalories, foodCaloriesVal);
+            editor.putFloat(undoLastFat, foodFatVal);
+            editor.putFloat(undoLastCarbs, foodCarbsVal);
+            editor.putFloat(undoLastProtein, foodProteinVal);
+
             editor.apply();
         }
 
@@ -261,6 +271,11 @@ import android.widget.TextView;
             userTargetFatVal = sharedPreferences.getFloat(savedUserTargetFat, 0f);
             userTargetCarbsVal = sharedPreferences.getFloat(savedUserTargetCarbs, 0f);
             userTargetProteinVal = sharedPreferences.getFloat(savedUserTargetProtein, 0f);
+
+            foodCaloriesVal = sharedPreferences.getFloat(undoLastCalories,0f);
+            foodFatVal = sharedPreferences.getFloat(undoLastFat,0f);
+            foodCarbsVal = sharedPreferences.getFloat(undoLastCarbs,0f);
+            foodProteinVal = sharedPreferences.getFloat(undoLastProtein,0f);
         }
         private void setValues() {
             setCalories.setText(String.valueOf(caloriesVal));
