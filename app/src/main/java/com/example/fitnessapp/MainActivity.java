@@ -138,21 +138,21 @@ import android.widget.TextView;
 
                     userTargetFat.setBackgroundTintList(ContextCompat.getColorStateList(getApplicationContext(), R.color.transparent));
                     String userTargetFatToString = userTargetFat.getText().toString();
-                    if (userTargetFatToString==""){
+                    if (userTargetFatToString.equals("")){
                         userTargetFatToString="0";
                     }
                     userTargetFatVal = Float.parseFloat(userTargetFatToString);
 
                     userTargetCarbs.setBackgroundTintList(ContextCompat.getColorStateList(getApplicationContext(), R.color.transparent));
                     String userTargetCarbsToString = userTargetCarbs.getText().toString();
-                    if (userTargetCarbsToString==""){
+                    if (userTargetCarbsToString.equals("")){
                         userTargetCarbsToString="0";
                     }
                     userTargetCarbsVal = Float.parseFloat(userTargetCarbsToString);
 
                     userTargetProtein.setBackgroundTintList(ContextCompat.getColorStateList(getApplicationContext(), R.color.transparent));
                     String userTargetProteinToString = userTargetProtein.getText().toString();
-                    if (userTargetProteinToString==""){
+                    if (userTargetProteinToString.equals("")){
                         userTargetProteinToString= "0";
                     }
                     userTargetProteinVal = Float.parseFloat(userTargetProteinToString);
