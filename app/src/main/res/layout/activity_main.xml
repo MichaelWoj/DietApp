@@ -9,6 +9,7 @@
 
     <!-- Header -->
     <TextView
+        android:id="@+id/appTitle"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:gravity="center"
@@ -22,17 +23,20 @@
     <!-- Calorie Values -->
 
     <LinearLayout
+        android:id="@+id/layoutUserNutrients"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical">
 
         <TableLayout
+            android:id="@+id/tableLayoutUserNutrients"
             android:layout_width="match_parent"
             android:layout_height="match_parent">
 
             <TableRow
+                android:id="@+id/nutrientHeadingsTableRow"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent" >
+                android:layout_height="match_parent">
 
                 <TextView
                     android:id="@+id/caloriesTitle"
@@ -77,8 +81,9 @@
             </TableRow>
 
             <TableRow
+                android:id="@+id/nutrientValuesTableRow"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent" >
+                android:layout_height="match_parent">
 
                 <TextView
                     android:id="@+id/calories"
@@ -134,8 +139,9 @@
             </TableRow>
 
             <TableRow
+                android:id="@+id/nutrientTargetTableRow"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent" >
+                android:layout_height="match_parent">
 
                 <EditText
                     android:id="@+id/targetCalories"
@@ -190,17 +196,7 @@
                     android:textSize="18sp" />
             </TableRow>
 
-            <TableRow
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:background="@drawable/bottom_border" />
         </TableLayout>
-
-        <Button
-            android:id="@+id/button"
-            android:layout_width="match_parent"
-            android:layout_height="2dp"
-            android:text="Button" />
 
         <ImageButton
             android:id="@+id/lockButton"
@@ -214,6 +210,7 @@
     </LinearLayout>
 
     <LinearLayout
+        android:id="@+id/layoutSearchFood"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_margin="100px"
@@ -221,7 +218,7 @@
 
         <Button
             android:id="@+id/searchFood"
-            android:layout_width="match_parent"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:text="Search Food Database"
@@ -230,15 +227,16 @@
     </LinearLayout>
 
     <LinearLayout
+        android:id="@+id/layoutManualAdd"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_margin="100px"
         android:orientation="horizontal">
 
         <Button
             android:id="@+id/manualAdd"
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_margin="100px"
             android:layout_weight="1"
             android:text="Manually Add Nutrition"
             android:textColor="#E4E3D3"
@@ -246,6 +244,7 @@
     </LinearLayout>
 
     <LinearLayout
+        android:id="@+id/layoutUndoFood"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_margin="100px"
@@ -253,7 +252,7 @@
 
         <Button
             android:id="@+id/undoFood"
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:text="Undo Last Food"
@@ -262,15 +261,16 @@
     </LinearLayout>
 
     <LinearLayout
+        android:id="@+id/layoutResetAll"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_margin="100px"
         android:orientation="horizontal">
 
         <Button
             android:id="@+id/resetAll"
-            android:layout_width="wrap_content"
-            android:layout_height="48dp"
-            android:layout_margin="100px"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
             android:layout_weight="1"
             android:text="Reset All Nutrition"
             android:textColor="#E4E3D3"

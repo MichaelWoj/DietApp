@@ -8,7 +8,7 @@
     android:background="#337357">
 
     <TextView
-        android:id="@+id/textView"
+        android:id="@+id/confirmPopupDescriptionTV"
         android:layout_width="328dp"
         android:layout_height="57dp"
         android:fontFamily="sans-serif"
@@ -33,11 +33,11 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView"
+        app:layout_constraintTop_toBottomOf="@+id/confirmPopupDescriptionTV"
         app:layout_constraintVertical_bias="1.0">
 
         <ImageView
-            android:id="@+id/imageView2"
+            android:id="@+id/confirmPopupDelete"
             android:layout_width="30dp"
             android:layout_height="30dp"
             app:layout_constraintBottom_toBottomOf="parent"
@@ -51,7 +51,7 @@
 
 
         <TextView
-            android:id="@+id/textView13"
+            android:id="@+id/confirmPopupDeleteTV"
             android:layout_width="wrap_content"
             android:layout_height="30dp"
             android:layout_marginLeft="30dp"
@@ -73,11 +73,11 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toEndOf="@+id/layoutConfirmDelete"
-        app:layout_constraintTop_toBottomOf="@+id/textView"
+        app:layout_constraintTop_toBottomOf="@+id/confirmPopupDescriptionTV"
         app:layout_constraintVertical_bias="1.0">
 
         <ImageView
-            android:id="@+id/imageView"
+            android:id="@+id/confirmPopupCancel"
             android:layout_width="30dp"
             android:layout_height="30dp"
             app:layout_constraintBottom_toBottomOf="parent"
@@ -90,7 +90,7 @@
             tools:ignore="VectorDrawableCompat" />
 
         <TextView
-            android:id="@+id/textView12"
+            android:id="@+id/confirmPopupCancelTV"
             android:layout_width="wrap_content"
             android:layout_height="30dp"
             android:layout_marginLeft="30dp"

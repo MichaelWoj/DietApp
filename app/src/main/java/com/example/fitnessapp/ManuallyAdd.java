@@ -27,7 +27,7 @@ public class ManuallyAdd extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_manually_add);
 
-        tvMealName = findViewById(R.id.mealName);
+        tvMealName = findViewById(R.id.manualMealNameTV);
         foodName = findViewById(R.id.manualMealName);
         foodCalories = findViewById(R.id.manualMealCalories);
         foodFat = findViewById(R.id.manualMealFat);

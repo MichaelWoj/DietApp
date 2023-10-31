@@ -16,7 +16,7 @@
         tools:layout_editor_absoluteY="0dp">
 
         <TextView
-            android:id="@+id/textView10"
+            android:id="@+id/manualCarbsGramTV"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginEnd="9dp"
@@ -31,7 +31,7 @@
             app:layout_constraintVertical_bias="0.522" />
 
         <TextView
-            android:id="@+id/textView9"
+            android:id="@+id/manualFatGramTV"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginEnd="8dp"
@@ -46,7 +46,7 @@
             app:layout_constraintVertical_bias="0.39" />
 
         <TextView
-            android:id="@+id/textView8"
+            android:id="@+id/manualCaloriesGramTV"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginEnd="9dp"
@@ -61,7 +61,7 @@
             app:layout_constraintVertical_bias="0.244" />
 
         <TextView
-            android:id="@+id/mealName"
+            android:id="@+id/manualMealNameTV"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Name:"
@@ -74,7 +74,7 @@
             app:layout_constraintVertical_bias="0.073" />
 
         <TextView
-            android:id="@+id/textView2"
+            android:id="@+id/manualCaloriesTV"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Calories:"
@@ -88,7 +88,7 @@
             app:layout_constraintVertical_bias="0.214" />
 
         <TextView
-            android:id="@+id/textView4"
+            android:id="@+id/manualProteinTV"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Protein:"
@@ -102,7 +102,7 @@
             app:layout_constraintVertical_bias="0.66" />
 
         <TextView
-            android:id="@+id/textView5"
+            android:id="@+id/manualFatTV"
             android:layout_width="wrap_content"
             android:layout_height="50dp"
             android:text="Fat:"
@@ -116,7 +116,7 @@
             app:layout_constraintVertical_bias="0.362" />
 
         <TextView
-            android:id="@+id/textView6"
+            android:id="@+id/manualCarbsTV"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Carbs:"
@@ -143,7 +143,7 @@
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.821"
-            app:layout_constraintStart_toEndOf="@+id/textView2"
+            app:layout_constraintStart_toEndOf="@+id/manualCaloriesTV"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintVertical_bias="0.214" />
 
@@ -159,7 +159,7 @@
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.869"
-            app:layout_constraintStart_toEndOf="@+id/textView4"
+            app:layout_constraintStart_toEndOf="@+id/manualProteinTV"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintVertical_bias="0.662" />
 
@@ -175,7 +175,7 @@
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.902"
-            app:layout_constraintStart_toEndOf="@+id/textView5"
+            app:layout_constraintStart_toEndOf="@+id/manualFatTV"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintVertical_bias="0.366" />
 
@@ -191,12 +191,12 @@
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.882"
-            app:layout_constraintStart_toEndOf="@+id/textView6"
+            app:layout_constraintStart_toEndOf="@+id/manualCarbsTV"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintVertical_bias="0.503" />
 
         <TextView
-            android:id="@+id/textView7"
+            android:id="@+id/manualProteinGramTV"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginEnd="9dp"
@@ -211,7 +211,7 @@
             app:layout_constraintVertical_bias="0.676" />
 
         <TextView
-            android:id="@+id/textView11"
+            android:id="@+id/manualSaveToDBTV"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Save to Database:"
@@ -231,7 +231,7 @@
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.577"
-            app:layout_constraintStart_toEndOf="@+id/textView11"
+            app:layout_constraintStart_toEndOf="@+id/manualSaveToDBTV"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintVertical_bias="0.795" />
 
@@ -251,7 +251,7 @@
             app:layout_constraintVertical_bias="0.078" />
 
         <LinearLayout
-            android:id="@+id/linearLayout2"
+            android:id="@+id/layoutManualButtons"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal"

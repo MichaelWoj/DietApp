@@ -5,13 +5,11 @@ import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
-import android.provider.ContactsContract;
 import android.view.Gravity;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.Window;
 import android.widget.Button;
-import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -86,7 +84,7 @@ public class FoodDBItemPage extends AppCompatActivity {
             }
         });
 
-        settings = findViewById(R.id.settingsBtn);
+        settings = findViewById(R.id.itemSettingsBtn);
         settings.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -112,8 +110,8 @@ public class FoodDBItemPage extends AppCompatActivity {
         dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
         dialog.setContentView(R.layout.activity_db_settings_popup);
 
-        LinearLayout editLayout = dialog.findViewById(R.id.layoutEdit);
-        LinearLayout deleteLayout = dialog.findViewById(R.id.layoutDelete);
+        LinearLayout editLayout = dialog.findViewById(R.id.layoutSettingsEdit);
+        LinearLayout deleteLayout = dialog.findViewById(R.id.layoutSettingsDelete);
 
 
         editLayout.setOnClickListener(new View.OnClickListener() {
