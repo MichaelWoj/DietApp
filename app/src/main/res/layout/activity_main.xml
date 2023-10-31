@@ -7,7 +7,6 @@
     android:gravity="right"
     android:orientation="vertical">
 
-    <!-- Header -->
     <TextView
         android:id="@+id/appTitle"
         android:layout_width="match_parent"
@@ -17,10 +16,6 @@
         android:text="Diet App"
         android:textColor="#000000"
         android:textSize="24sp" />
-
-    <!-- Calorie Tracker -->
-
-    <!-- Calorie Values -->
 
     <LinearLayout
         android:id="@+id/layoutUserNutrients"

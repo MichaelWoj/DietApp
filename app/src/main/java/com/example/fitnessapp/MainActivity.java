@@ -32,10 +32,12 @@ import android.widget.TextView;
     private float carbsVal = 0f;
     private float proteinVal = 0f;
 
-    private float userTargetCaloriesVal=0f;
-    private float userTargetFatVal=0f;
-    private float userTargetCarbsVal=0f;
-    private float userTargetProteinVal=0f;
+    private float userTargetCaloriesVal = 0f;
+    private float userTargetFatVal = 0f;
+    private float userTargetCarbsVal = 0f;
+    private float userTargetProteinVal = 0f;
+
+    private float userTargetNutrientVal = 0f;
 
     public static final String savedValCalories = "calories";
     public static final String savedValFat = "fat";
@@ -129,33 +131,17 @@ import android.widget.TextView;
                     isLocked=true;
                     lockBtn.setImageDrawable(getResources().getDrawable(R.drawable.ic_lock));
 
-                    userTargetCalories.setBackgroundTintList(ContextCompat.getColorStateList(getApplicationContext(), R.color.transparent));
-                    String userTargetCaloriesToString = userTargetCalories.getText().toString();
-                    if (userTargetCaloriesToString.equals("")){
-                        userTargetCaloriesToString="0";
-                    }
-                    userTargetCaloriesVal = Float.parseFloat(userTargetCaloriesToString);
+                    setTargetNutrients(userTargetCalories);
+                    userTargetCaloriesVal = getUserTargetNutrientVal();
 
-                    userTargetFat.setBackgroundTintList(ContextCompat.getColorStateList(getApplicationContext(), R.color.transparent));
-                    String userTargetFatToString = userTargetFat.getText().toString();
-                    if (userTargetFatToString.equals("")){
-                        userTargetFatToString="0";
-                    }
-                    userTargetFatVal = Float.parseFloat(userTargetFatToString);
+                    setTargetNutrients(userTargetFat);
+                    userTargetFatVal = getUserTargetNutrientVal();
 
-                    userTargetCarbs.setBackgroundTintList(ContextCompat.getColorStateList(getApplicationContext(), R.color.transparent));
-                    String userTargetCarbsToString = userTargetCarbs.getText().toString();
-                    if (userTargetCarbsToString.equals("")){
-                        userTargetCarbsToString="0";
-                    }
-                    userTargetCarbsVal = Float.parseFloat(userTargetCarbsToString);
+                    setTargetNutrients(userTargetCarbs);
+                    userTargetCarbsVal = getUserTargetNutrientVal();
 
-                    userTargetProtein.setBackgroundTintList(ContextCompat.getColorStateList(getApplicationContext(), R.color.transparent));
-                    String userTargetProteinToString = userTargetProtein.getText().toString();
-                    if (userTargetProteinToString.equals("")){
-                        userTargetProteinToString= "0";
-                    }
-                    userTargetProteinVal = Float.parseFloat(userTargetProteinToString);
+                    setTargetNutrients(userTargetProtein);
+                    userTargetProteinVal = getUserTargetNutrientVal();
 
                     setEditTextFalse();
                     saveSharedTargetPreferences();
@@ -184,7 +170,6 @@ import android.widget.TextView;
         undoFoodBtn = (Button) findViewById(R.id.undoFood);
         undoFoodBtn.setOnClickListener(new View.OnClickListener(){
             @Override
-
             public void onClick(View v) {
                 if (caloriesVal != 0 ){
                     foodCaloriesVal = (float) (Math.floor(foodCaloriesVal * 100) / 100);
@@ -288,6 +273,20 @@ import android.widget.TextView;
             userTargetFat.setText(String.valueOf(userTargetFatVal), TextView.BufferType.EDITABLE);
             userTargetCarbs.setText(String.valueOf(userTargetCarbsVal), TextView.BufferType.EDITABLE);
             userTargetProtein.setText(String.valueOf(userTargetProteinVal), TextView.BufferType.EDITABLE);
+        }
+
+        @SuppressLint("NewApi")
+        public void setTargetNutrients(EditText userTargetNutrient){
+            userTargetNutrient.setBackgroundTintList(ContextCompat.getColorStateList(getApplicationContext(), R.color.transparent));
+            String userTargetNutrientToString = userTargetNutrient.getText().toString();
+            if (userTargetNutrientToString.equals("")){
+                userTargetNutrientToString="0";
+            }
+            userTargetNutrientVal = Float.parseFloat(userTargetNutrientToString);
+        }
+
+        private float getUserTargetNutrientVal(){
+            return userTargetNutrientVal;
         }
 
         private void setEditTextFalse(){
