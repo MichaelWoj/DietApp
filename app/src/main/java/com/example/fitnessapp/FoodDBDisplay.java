@@ -1,5 +1,9 @@
 package com.example.fitnessapp;
 
+import androidx.activity.result.ActivityResult;
+import androidx.activity.result.ActivityResultCallback;
+import androidx.activity.result.ActivityResultLauncher;
+import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -23,9 +27,10 @@ public class FoodDBDisplay extends AppCompatActivity implements RecyclerViewInte
     private RecyclerView recyclerView;
     private ArrayList<String> foodID, foodNameDB, foodCaloriesNum, foodFatNum, foodCarbsNum, foodProteinNum;
     private DatabaseHelper dataBaseHelper;
-    private FoodDBRecycleViewAdapter adapter;
     private Button addBtn, cancelBtn;
     private SearchView searchView;
+
+    public FoodDBRecycleViewAdapter adapter;
 
     @SuppressLint("WrongViewCast")
     @Override
@@ -67,6 +72,7 @@ public class FoodDBDisplay extends AppCompatActivity implements RecyclerViewInte
 
         recyclerView = findViewById(R.id.recyclerViewFoodList);
         adapter = new FoodDBRecycleViewAdapter(this,foodNameDB, foodCaloriesNum, foodFatNum, foodCarbsNum, foodProteinNum, this);
+        adapter.notifyDataSetChanged();
         recyclerView.setAdapter(adapter);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
         displayData();
@@ -76,8 +82,7 @@ public class FoodDBDisplay extends AppCompatActivity implements RecyclerViewInte
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(FoodDBDisplay.this, FoodDBAddItem.class);
-                intent.addFlags(Intent.FLAG_ACTIVITY_FORWARD_RESULT);
-                finish();
+
                 startActivity(intent);
             }
         });
@@ -118,6 +123,10 @@ public class FoodDBDisplay extends AppCompatActivity implements RecyclerViewInte
 
             }
         }
+    }
+
+    public void notifyInstertItem(){
+        adapter.notifyItemInserted(-1);
     }
 
     @Override

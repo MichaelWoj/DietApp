@@ -13,6 +13,7 @@ public class FoodDBAddItem extends AppCompatActivity {
 
     private EditText foodName, foodCalories, foodFat, foodCarbs, foodProtein;
     private Button submit, back;
+    private FoodDBDisplay foodDBDisplay;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -24,6 +25,8 @@ public class FoodDBAddItem extends AppCompatActivity {
         foodFat = findViewById(R.id.itemAddMealFat);
         foodCarbs = findViewById(R.id.itemAddMealCarbs);
         foodProtein = findViewById(R.id.itemAddMealProtein);
+
+        foodDBDisplay = new FoodDBDisplay();
 
         submit = findViewById(R.id.itemAddFoodToDB);
         submit.setOnClickListener(new View.OnClickListener() {
@@ -63,7 +66,7 @@ public class FoodDBAddItem extends AppCompatActivity {
 
                     setResult(RESULT_OK, intent);
                     finish();
-                    startActivity(intent);
+                    foodDBDisplay.notifyInstertItem();
                 }
 
             }
