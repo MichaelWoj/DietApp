@@ -83,7 +83,7 @@ public class FoodDBDisplay extends AppCompatActivity implements RecyclerViewInte
             public void onClick(View v) {
                 Intent intent = new Intent(FoodDBDisplay.this, FoodDBAddItem.class);
 
-                startActivity(intent);
+                startForRefresh.launch(intent);
             }
         });
 
@@ -124,10 +124,15 @@ public class FoodDBDisplay extends AppCompatActivity implements RecyclerViewInte
             }
         }
     }
-
-    public void notifyInstertItem(){
-        adapter.notifyItemInserted(-1);
-    }
+    ActivityResultLauncher<Intent> startForRefresh = registerForActivityResult(new ActivityResultContracts.StartActivityForResult(), new ActivityResultCallback<ActivityResult>() {
+        @Override
+        public void onActivityResult(ActivityResult result) {
+            if(result.getResultCode() == RESULT_OK){
+                adapter.notifyDataSetChanged();
+                displayData();
+            }
+        }
+    });
 
     @Override
     public void onItemClick(int position) {
@@ -141,6 +146,5 @@ public class FoodDBDisplay extends AppCompatActivity implements RecyclerViewInte
         intent.putExtra("Protein", foodProteinNum.get(position));
 
         startActivity(intent);
-        finish();
     }
 }

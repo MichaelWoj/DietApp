@@ -64,9 +64,9 @@ public class FoodDBAddItem extends AppCompatActivity {
                     DatabaseHelper dataBaseHelper = new DatabaseHelper(FoodDBAddItem.this);
                     dataBaseHelper.addOne(foodModel);
 
+
                     setResult(RESULT_OK, intent);
                     finish();
-                    foodDBDisplay.notifyInstertItem();
                 }
 
             }
