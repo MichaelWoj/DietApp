@@ -30,6 +30,7 @@ public class FoodDBDisplay extends AppCompatActivity implements RecyclerViewInte
     private Button addBtn, cancelBtn;
     private SearchView searchView;
 
+    public static final String savedSearchType = "search_type";
     public FoodDBRecycleViewAdapter adapter;
 
     @SuppressLint("WrongViewCast")
@@ -75,7 +76,7 @@ public class FoodDBDisplay extends AppCompatActivity implements RecyclerViewInte
         adapter.notifyDataSetChanged();
         recyclerView.setAdapter(adapter);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
-        displayData();
+        displayData(1);
 
         addBtn = (Button) findViewById(R.id.dbAddFood);
         addBtn.setOnClickListener(new View.OnClickListener() {
@@ -106,8 +107,9 @@ public class FoodDBDisplay extends AppCompatActivity implements RecyclerViewInte
         adapter.filteredList(filteredList);
     }
 
-    private void displayData() {
-        Cursor cursor = (Cursor) dataBaseHelper.getAllFoods();
+    // In order to avoid errors, the variable name of displayData is also the default sort method name.
+    private void displayData(int sortType) {
+        Cursor cursor = (Cursor) dataBaseHelper.getAllFoods(sortType);
         if(cursor.getCount()==0){
             Toast.makeText(FoodDBDisplay.this, "No Entry Found", Toast.LENGTH_SHORT).show();
             return;
@@ -129,7 +131,7 @@ public class FoodDBDisplay extends AppCompatActivity implements RecyclerViewInte
         public void onActivityResult(ActivityResult result) {
             if(result.getResultCode() == RESULT_OK){
                 adapter.notifyDataSetChanged();
-                displayData();
+                //displayData();
             }
         }
     });

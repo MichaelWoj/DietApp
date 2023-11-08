@@ -20,6 +20,8 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     public static final String COLUMN_FOOD_CARBS = "FOOD_CARBS";
     public static final String COLUMN_FOOD_PROTEIN = "FOOD_PROTEIN";
 
+    private String queryString;
+
     public DatabaseHelper(@Nullable Context context) {
         super(context, "food.db", null, 1);
     }
@@ -56,10 +58,46 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
     };
 
-    public Cursor getAllFoods(){
+    public Cursor getAllFoods(int sortType){
 
-
-        String queryString = "SELECT * FROM " + FOOD_TABLE;
+        switch (sortType){
+            case 1:
+                queryString = "SELECT * FROM " +FOOD_TABLE;
+                break;
+            case 2:
+                queryString = "SELECT * FROM "+FOOD_TABLE+" ORDER BY ID DESC";
+                break;
+            case 3:
+                queryString = "SELECT * FROM "+FOOD_TABLE+" ORDER BY "+COLUMN_FOOD_NAME+" ASC";
+                break;
+            case 4:
+                queryString = "SELECT * FROM "+FOOD_TABLE+" ORDER BY "+COLUMN_FOOD_NAME+" DESC";
+                break;
+            case 5:
+                queryString = "SELECT * FROM "+FOOD_TABLE+" ORDER BY "+COLUMN_FOOD_CALORIES+" ASC";
+                break;
+            case 6:
+                queryString = "SELECT * FROM "+FOOD_TABLE+" ORDER BY "+COLUMN_FOOD_CALORIES+" DESC";
+                break;
+            case 7:
+                queryString = "SELECT * FROM "+FOOD_TABLE+" ORDER BY "+COLUMN_FOOD_CARBS+" ASC";
+                break;
+            case 8:
+                queryString = "SELECT * FROM "+FOOD_TABLE+" ORDER BY "+COLUMN_FOOD_CARBS+" DESC";
+                break;
+            case 9:
+                queryString = "SELECT * FROM "+FOOD_TABLE+" ORDER BY "+COLUMN_FOOD_FAT+" ASC";
+                break;
+            case 10:
+                queryString = "SELECT * FROM "+FOOD_TABLE+" ORDER BY "+COLUMN_FOOD_FAT+" DESC";
+                break;
+            case 11:
+                queryString = "SELECT * FROM "+FOOD_TABLE+" ORDER BY "+COLUMN_FOOD_PROTEIN+" ASC";
+                break;
+            case 12:
+                queryString = "SELECT * FROM "+FOOD_TABLE+" ORDER BY "+COLUMN_FOOD_PROTEIN+" DESC";
+                break;
+        }
 
         SQLiteDatabase db = this.getReadableDatabase();
 
