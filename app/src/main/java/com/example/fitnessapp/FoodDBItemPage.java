@@ -47,7 +47,7 @@ public class FoodDBItemPage extends AppCompatActivity {
         String protein = intent.getStringExtra("Protein");
 
         entryID = Integer.parseInt(id);
-        entryIDString =id;
+        entryIDString = id;
 
         nameDB.setText(name);
         caloriesDB.setText(calories);

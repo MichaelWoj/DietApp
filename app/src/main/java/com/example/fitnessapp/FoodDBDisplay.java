@@ -9,13 +9,22 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.annotation.SuppressLint;
+import android.app.Dialog;
 import android.content.ClipData;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.database.Cursor;
+import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
+import android.view.Gravity;
 import android.view.View;
+import android.view.ViewGroup;
+import android.view.Window;
 import android.widget.Button;
+import android.widget.ImageButton;
+import android.widget.LinearLayout;
 import android.widget.SearchView;
 import android.widget.Toast;
 
@@ -28,7 +37,10 @@ public class FoodDBDisplay extends AppCompatActivity implements RecyclerViewInte
     private ArrayList<String> foodID, foodNameDB, foodCaloriesNum, foodFatNum, foodCarbsNum, foodProteinNum;
     private DatabaseHelper dataBaseHelper;
     private Button addBtn, cancelBtn;
+    private ImageButton sort;
     private SearchView searchView;
+
+    private int sortType;
 
     public static final String savedSearchType = "search_type";
     public FoodDBRecycleViewAdapter adapter;
@@ -76,7 +88,8 @@ public class FoodDBDisplay extends AppCompatActivity implements RecyclerViewInte
         adapter.notifyDataSetChanged();
         recyclerView.setAdapter(adapter);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
-        displayData(1);
+        loadSortData();
+        displayData(sortType);
 
         addBtn = (Button) findViewById(R.id.dbAddFood);
         addBtn.setOnClickListener(new View.OnClickListener() {
@@ -95,6 +108,16 @@ public class FoodDBDisplay extends AppCompatActivity implements RecyclerViewInte
                 finish();
             }
         });
+
+        sort = findViewById(R.id.dbSort);
+        sort.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                showDialog();
+
+            }
+        });
     }
 
     private void fileList(String searchText) {
@@ -107,7 +130,6 @@ public class FoodDBDisplay extends AppCompatActivity implements RecyclerViewInte
         adapter.filteredList(filteredList);
     }
 
-    // In order to avoid errors, the variable name of displayData is also the default sort method name.
     private void displayData(int sortType) {
         Cursor cursor = (Cursor) dataBaseHelper.getAllFoods(sortType);
         if(cursor.getCount()==0){
@@ -131,7 +153,7 @@ public class FoodDBDisplay extends AppCompatActivity implements RecyclerViewInte
         public void onActivityResult(ActivityResult result) {
             if(result.getResultCode() == RESULT_OK){
                 adapter.notifyDataSetChanged();
-                //displayData();
+                displayData(sortType);
             }
         }
     });
@@ -148,5 +170,53 @@ public class FoodDBDisplay extends AppCompatActivity implements RecyclerViewInte
         intent.putExtra("Protein", foodProteinNum.get(position));
 
         startActivity(intent);
+    }
+
+    private void sortSharedPreferences() {
+        SharedPreferences sharedPreferences = getSharedPreferences("SORT_SHARED_PREFS", MODE_PRIVATE);
+        SharedPreferences.Editor sortEditor = sharedPreferences.edit();
+
+        sortEditor.putInt(savedSearchType, sortType);
+        sortEditor.apply();
+    }
+
+    public void loadSortData() {
+        SharedPreferences sharedPreferences = getSharedPreferences("SHARED_PREFS", MODE_PRIVATE);
+
+        sortType = sharedPreferences.getInt(savedSearchType,1);
+    }
+
+    private void showDialog() {
+
+        final Dialog dialog = new Dialog(this);
+        dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
+        dialog.setContentView(R.layout.activity_db_sort_popup);
+
+        LinearLayout dateSortLayout = dialog.findViewById(R.id.layoutSortEntryDate);
+        LinearLayout alphabeticSortLayout = dialog.findViewById(R.id.layoutSortAlphabetic);
+
+
+        dateSortLayout.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                dialog.dismiss();
+
+            }
+        });
+
+        alphabeticSortLayout.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                dialog.dismiss();
+            }
+        });
+
+        dialog.show();
+        dialog.getWindow().setLayout(ViewGroup.LayoutParams.MATCH_PARENT,ViewGroup.LayoutParams.WRAP_CONTENT);
+        dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+        dialog.getWindow().getAttributes().windowAnimations = R.style.DialogAnimation;
+        dialog.getWindow().setGravity(Gravity.BOTTOM);
+
     }
 }
