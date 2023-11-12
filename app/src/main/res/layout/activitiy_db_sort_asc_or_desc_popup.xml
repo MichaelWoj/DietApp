@@ -8,7 +8,7 @@
     android:background="#337357">
 
     <TextView
-        android:id="@+id/settingPopupDescriptionTV"
+        android:id="@+id/sortPopupHeader"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Choose"
@@ -22,7 +22,7 @@
         app:layout_constraintVertical_bias="0.022" />
 
     <LinearLayout
-        android:id="@+id/layoutSettingsEdit"
+        android:id="@+id/layoutSortAsc"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
@@ -31,7 +31,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/settingPopupDescriptionTV"
+        app:layout_constraintTop_toBottomOf="@+id/sortPopupHeader"
         app:layout_constraintVertical_bias="0.061">
 
         <ImageView
@@ -44,15 +44,15 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintVertical_bias="0.126"
-            app:srcCompat="@drawable/ic_edit"
+            app:srcCompat="@drawable/ic_ascending"
             tools:ignore="VectorDrawableCompat" />
 
         <TextView
             android:id="@+id/sortAscText"
-            android:layout_width="111dp"
+            android:layout_width="wrap_content"
             android:layout_height="30dp"
             android:layout_marginLeft="30dp"
-            android:text="Edit"
+            android:text="Ascending"
             android:textColor="#E4E3D3"
             android:textSize="24sp"
             tools:layout_editor_absoluteX="79dp"
@@ -60,7 +60,7 @@
     </LinearLayout>
 
     <LinearLayout
-        android:id="@+id/layoutSettingsDelete"
+        android:id="@+id/layoutSortDesc"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="16dp"
@@ -70,7 +70,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/layoutSettingsEdit"
+        app:layout_constraintTop_toBottomOf="@+id/layoutSortAsc"
         app:layout_constraintVertical_bias="0.0">
 
         <ImageView
@@ -83,16 +83,16 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintVertical_bias="0.206"
-            app:srcCompat="@drawable/ic_delete"
+            app:srcCompat="@drawable/ic_descending"
             tools:ignore="VectorDrawableCompat" />
 
 
         <TextView
             android:id="@+id/sortDescText"
-            android:layout_width="111dp"
+            android:layout_width="wrap_content"
             android:layout_height="30dp"
             android:layout_marginLeft="30dp"
-            android:text="Delete"
+            android:text="Descending"
             android:textColor="#E4E3D3"
             android:textSize="24sp"
             tools:layout_editor_absoluteX="79dp"

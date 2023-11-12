@@ -10,8 +10,6 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import android.annotation.SuppressLint;
 import android.app.Dialog;
-import android.content.ClipData;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.database.Cursor;
@@ -29,7 +27,6 @@ import android.widget.SearchView;
 import android.widget.Toast;
 
 import java.util.ArrayList;
-import java.util.List;
 
 public class FoodDBDisplay extends AppCompatActivity implements RecyclerViewInterface {
 
@@ -114,7 +111,7 @@ public class FoodDBDisplay extends AppCompatActivity implements RecyclerViewInte
             @Override
             public void onClick(View v) {
 
-                showDialog();
+                showSortDialog();
 
             }
         });
@@ -148,10 +145,20 @@ public class FoodDBDisplay extends AppCompatActivity implements RecyclerViewInte
             }
         }
     }
+
+    private void clearRecycleView(){
+        foodNameDB.clear();
+        foodCaloriesNum.clear();
+        foodFatNum.clear();
+        foodCarbsNum.clear();
+        foodProteinNum.clear();;
+    }
+
     ActivityResultLauncher<Intent> startForRefresh = registerForActivityResult(new ActivityResultContracts.StartActivityForResult(), new ActivityResultCallback<ActivityResult>() {
         @Override
         public void onActivityResult(ActivityResult result) {
             if(result.getResultCode() == RESULT_OK){
+                clearRecycleView();
                 adapter.notifyDataSetChanged();
                 displayData(sortType);
             }
@@ -186,7 +193,7 @@ public class FoodDBDisplay extends AppCompatActivity implements RecyclerViewInte
         sortType = sharedPreferences.getInt(savedSearchType,1);
     }
 
-    private void showDialog() {
+    private void showSortDialog() {
 
         final Dialog dialog = new Dialog(this);
         dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
@@ -199,13 +206,46 @@ public class FoodDBDisplay extends AppCompatActivity implements RecyclerViewInte
         dateSortLayout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
+                showSortAscOrDescDialog();
                 dialog.dismiss();
 
             }
         });
 
         alphabeticSortLayout.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                showSortAscOrDescDialog();
+                dialog.dismiss();
+            }
+        });
+
+        dialog.show();
+        dialog.getWindow().setLayout(ViewGroup.LayoutParams.MATCH_PARENT,ViewGroup.LayoutParams.WRAP_CONTENT);
+        dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+        dialog.getWindow().getAttributes().windowAnimations = R.style.DialogAnimation;
+        dialog.getWindow().setGravity(Gravity.BOTTOM);
+
+    }
+
+    private void showSortAscOrDescDialog() {
+
+        final Dialog dialog = new Dialog(this);
+        dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
+        dialog.setContentView(R.layout.activitiy_db_sort_asc_or_desc_popup);
+
+        LinearLayout ascSortLayout = dialog.findViewById(R.id.layoutSortAsc);
+        LinearLayout descSortLayout = dialog.findViewById(R.id.layoutSortDesc);
+
+
+        ascSortLayout.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                dialog.dismiss();
+            }
+        });
+
+        descSortLayout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 dialog.dismiss();

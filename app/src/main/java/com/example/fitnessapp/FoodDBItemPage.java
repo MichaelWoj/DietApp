@@ -133,6 +133,7 @@ public class FoodDBItemPage extends AppCompatActivity {
                 String editFoodProteinToString = proteinDB.getText().toString();
                 intent.putExtra("editProtein", editFoodProteinToString);
 
+                startActivity(intent);
                 dialog.dismiss();
 
             }
