@@ -25,6 +25,8 @@ public class FoodDBAddItem extends AppCompatActivity {
         foodCarbs = findViewById(R.id.itemAddMealCarbs);
         foodProtein = findViewById(R.id.itemAddMealProtein);
 
+
+
         submit = findViewById(R.id.itemAddFoodToDB);
         submit.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -61,9 +63,9 @@ public class FoodDBAddItem extends AppCompatActivity {
                     DatabaseHelper dataBaseHelper = new DatabaseHelper(FoodDBAddItem.this);
                     dataBaseHelper.addOne(foodModel);
 
+
                     setResult(RESULT_OK, intent);
                     finish();
-                    startActivity(intent);
                 }
 
             }

@@ -1,31 +1,46 @@
 package com.example.fitnessapp;
 
+import androidx.activity.result.ActivityResult;
+import androidx.activity.result.ActivityResultCallback;
+import androidx.activity.result.ActivityResultLauncher;
+import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.annotation.SuppressLint;
-import android.content.ClipData;
-import android.content.DialogInterface;
+import android.app.Dialog;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.database.Cursor;
+import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
+import android.view.Gravity;
 import android.view.View;
+import android.view.ViewGroup;
+import android.view.Window;
 import android.widget.Button;
+import android.widget.ImageButton;
+import android.widget.LinearLayout;
 import android.widget.SearchView;
 import android.widget.Toast;
 
 import java.util.ArrayList;
-import java.util.List;
 
 public class FoodDBDisplay extends AppCompatActivity implements RecyclerViewInterface {
 
     private RecyclerView recyclerView;
     private ArrayList<String> foodID, foodNameDB, foodCaloriesNum, foodFatNum, foodCarbsNum, foodProteinNum;
     private DatabaseHelper dataBaseHelper;
-    private FoodDBRecycleViewAdapter adapter;
     private Button addBtn, cancelBtn;
+    private ImageButton sort;
     private SearchView searchView;
+
+    private int sortType;
+
+    public static final String savedSearchType = "search_type";
+    public FoodDBRecycleViewAdapter adapter;
 
     @SuppressLint("WrongViewCast")
     @Override
@@ -67,18 +82,19 @@ public class FoodDBDisplay extends AppCompatActivity implements RecyclerViewInte
 
         recyclerView = findViewById(R.id.recyclerViewFoodList);
         adapter = new FoodDBRecycleViewAdapter(this,foodNameDB, foodCaloriesNum, foodFatNum, foodCarbsNum, foodProteinNum, this);
+        adapter.notifyDataSetChanged();
         recyclerView.setAdapter(adapter);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
-        displayData();
+        loadSortData();
+        displayData(sortType);
 
         addBtn = (Button) findViewById(R.id.dbAddFood);
         addBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(FoodDBDisplay.this, FoodDBAddItem.class);
-                intent.addFlags(Intent.FLAG_ACTIVITY_FORWARD_RESULT);
-                finish();
-                startActivity(intent);
+
+                startForRefresh.launch(intent);
             }
         });
 
@@ -87,6 +103,16 @@ public class FoodDBDisplay extends AppCompatActivity implements RecyclerViewInte
             @Override
             public void onClick(View v) {
                 finish();
+            }
+        });
+
+        sort = findViewById(R.id.dbSort);
+        sort.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                showSortDialog();
+
             }
         });
     }
@@ -101,8 +127,8 @@ public class FoodDBDisplay extends AppCompatActivity implements RecyclerViewInte
         adapter.filteredList(filteredList);
     }
 
-    private void displayData() {
-        Cursor cursor = (Cursor) dataBaseHelper.getAllFoods();
+    private void displayData(int sortType) {
+        Cursor cursor = (Cursor) dataBaseHelper.getAllFoods(sortType);
         if(cursor.getCount()==0){
             Toast.makeText(FoodDBDisplay.this, "No Entry Found", Toast.LENGTH_SHORT).show();
             return;
@@ -120,6 +146,29 @@ public class FoodDBDisplay extends AppCompatActivity implements RecyclerViewInte
         }
     }
 
+    private void clearRecycleView(){
+        foodNameDB.clear();
+        foodCaloriesNum.clear();
+        foodFatNum.clear();
+        foodCarbsNum.clear();
+        foodProteinNum.clear();;
+    }
+
+    private void updateRecyclerView(){
+        clearRecycleView();
+        adapter.notifyDataSetChanged();
+        displayData(sortType);
+    }
+
+    ActivityResultLauncher<Intent> startForRefresh = registerForActivityResult(new ActivityResultContracts.StartActivityForResult(), new ActivityResultCallback<ActivityResult>() {
+        @Override
+        public void onActivityResult(ActivityResult result) {
+            if(result.getResultCode() == RESULT_OK){
+                updateRecyclerView();
+            }
+        }
+    });
+
     @Override
     public void onItemClick(int position) {
         Intent intent = new Intent(FoodDBDisplay.this, FoodDBItemPage.class);
@@ -132,6 +181,130 @@ public class FoodDBDisplay extends AppCompatActivity implements RecyclerViewInte
         intent.putExtra("Protein", foodProteinNum.get(position));
 
         startActivity(intent);
-        finish();
+    }
+
+    private void sortSharedPreferences() {
+        SharedPreferences sharedPreferences = getSharedPreferences("SORT_SHARED_PREFS", MODE_PRIVATE);
+        SharedPreferences.Editor sortEditor = sharedPreferences.edit();
+
+        sortEditor.putInt(savedSearchType, sortType);
+        sortEditor.apply();
+    }
+
+    public void loadSortData() {
+        SharedPreferences sharedPreferences = getSharedPreferences("SHARED_PREFS", MODE_PRIVATE);
+
+        sortType = sharedPreferences.getInt(savedSearchType,1);
+    }
+
+    private void showSortDialog() {
+
+        final Dialog dialog = new Dialog(this);
+        dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
+        dialog.setContentView(R.layout.activity_db_sort_popup);
+
+        LinearLayout dateSortLayout = dialog.findViewById(R.id.layoutSortEntryDate);
+        LinearLayout alphabeticSortLayout = dialog.findViewById(R.id.layoutSortAlphabetic);
+        LinearLayout calorieSortLayout = dialog.findViewById(R.id.layoutSortCalories);
+        LinearLayout fatSortLayout = dialog.findViewById(R.id.layoutSortFat);
+        LinearLayout carbsSortLayout = dialog.findViewById(R.id.layoutSortCarbs);
+        LinearLayout proteinSortLayout = dialog.findViewById(R.id.layoutSortProtein);
+
+
+        dateSortLayout.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                showSortAscOrDescDialog(1, 2);
+                dialog.dismiss();
+
+            }
+        });
+
+        alphabeticSortLayout.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                showSortAscOrDescDialog(3, 4);
+                dialog.dismiss();
+            }
+        });
+
+        calorieSortLayout.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                showSortAscOrDescDialog(5, 6);
+                dialog.dismiss();
+
+            }
+        });
+
+        fatSortLayout.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                showSortAscOrDescDialog(7, 8);
+                dialog.dismiss();
+            }
+        });
+
+        carbsSortLayout.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                showSortAscOrDescDialog(9, 10);
+                dialog.dismiss();
+
+            }
+        });
+
+        proteinSortLayout.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                showSortAscOrDescDialog(11, 12);
+                dialog.dismiss();
+            }
+        });
+
+        dialog.show();
+        dialog.getWindow().setLayout(ViewGroup.LayoutParams.MATCH_PARENT,ViewGroup.LayoutParams.WRAP_CONTENT);
+        dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+        dialog.getWindow().getAttributes().windowAnimations = R.style.DialogAnimation;
+        dialog.getWindow().setGravity(Gravity.BOTTOM);
+
+    }
+
+    private void showSortAscOrDescDialog(Integer ascSort, Integer descSort) {
+
+        final Dialog dialog = new Dialog(this);
+        dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
+        dialog.setContentView(R.layout.activitiy_db_sort_asc_or_desc_popup);
+
+        LinearLayout ascSortLayout = dialog.findViewById(R.id.layoutSortAsc);
+        LinearLayout descSortLayout = dialog.findViewById(R.id.layoutSortDesc);
+
+
+        ascSortLayout.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                sortType = ascSort;
+                sortSharedPreferences();
+                updateRecyclerView();
+                dialog.dismiss();
+            }
+        });
+
+        descSortLayout.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                sortType = descSort;
+                sortSharedPreferences();
+                updateRecyclerView();
+                dialog.dismiss();
+            }
+        });
+
+        dialog.show();
+        dialog.getWindow().setLayout(ViewGroup.LayoutParams.MATCH_PARENT,ViewGroup.LayoutParams.WRAP_CONTENT);
+        dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+        dialog.getWindow().getAttributes().windowAnimations = R.style.DialogAnimation;
+        dialog.getWindow().setGravity(Gravity.BOTTOM);
+
     }
 }

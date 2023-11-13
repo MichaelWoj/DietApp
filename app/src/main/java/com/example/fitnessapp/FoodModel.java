@@ -4,31 +4,27 @@ public class FoodModel {
     private int id;
     private String name;
     private Float calories;
-    private Float protein;
     private Float fat;
     private Float carbs;
+    private Float protein;
 
-    public FoodModel(int id, String name, Float calories, Float protein, Float fat, Float carbs) {
+    public FoodModel(int id, String name, Float calories, Float fat, Float carbs, Float protein) {
         this.id = id;
         this.name = name;
         this.calories = calories;
-        this.protein = protein;
         this.fat = fat;
         this.carbs = carbs;
+        this.protein = protein;
     }
-    public FoodModel(){
-
-    }
-
     @Override
     public String toString() {
         return "FoodModel{" +
                 "id=" + id +
                 ", name='" + name + '\'' +
                 ", calories=" + calories +
-                ", protein=" + protein +
                 ", fat=" + fat +
                 ", carbs=" + carbs +
+                ", protein=" + protein +
                 '}';
     }
 
@@ -56,14 +52,6 @@ public class FoodModel {
         this.calories = calories;
     }
 
-    public Float getProtein() {
-        return protein;
-    }
-
-    public void setProtein(Float protein) {
-        this.protein = protein;
-    }
-
     public Float getFat() {
         return fat;
     }
@@ -79,4 +67,13 @@ public class FoodModel {
     public void setCarbs(Float carbs) {
         this.carbs = carbs;
     }
+
+    public Float getProtein() {
+        return protein;
+    }
+
+    public void setProtein(Float protein) {
+        this.protein = protein;
+    }
+
 }

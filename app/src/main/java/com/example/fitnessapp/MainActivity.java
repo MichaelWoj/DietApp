@@ -22,7 +22,7 @@ import android.widget.TextView;
     public class MainActivity extends AppCompatActivity{
     private TextView setCalories, setFat, setCarbs, setProtein ;
     private EditText userTargetCalories, userTargetFat, userTargetCarbs, userTargetProtein;
-    private Button addFoodBtn, manualFoodBtn, undoFoodBtn, resetAllBtn;
+    private Button foodDbBtn, manualFoodBtn, undoFoodBtn, resetAllBtn;
 
     ImageButton lockBtn;
     private boolean isLocked = true;
@@ -149,8 +149,8 @@ import android.widget.TextView;
             }
         });
 
-        addFoodBtn = (Button) findViewById(R.id.searchFood);
-        addFoodBtn.setOnClickListener(new View.OnClickListener() {
+        foodDbBtn = (Button) findViewById(R.id.searchFood);
+        foodDbBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(MainActivity.this, FoodDBDisplay.class);
@@ -215,7 +215,7 @@ import android.widget.TextView;
             }
         });
     }
-        public void saveSharedPreferences(){
+        private void saveSharedPreferences(){
             SharedPreferences sharedPreferences = getSharedPreferences("SHARED_PREFS", MODE_PRIVATE);
             SharedPreferences.Editor editor = sharedPreferences.edit();
 
@@ -232,7 +232,7 @@ import android.widget.TextView;
             editor.apply();
         }
 
-        public void saveSharedTargetPreferences(){
+        private void saveSharedTargetPreferences(){
             SharedPreferences sharedTargetPreferences = getSharedPreferences("SHARED_PREFS", MODE_PRIVATE);
             SharedPreferences.Editor editor = sharedTargetPreferences.edit();
 
