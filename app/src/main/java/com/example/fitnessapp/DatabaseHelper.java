@@ -14,6 +14,7 @@ import java.util.List;
 
 public class DatabaseHelper extends SQLiteOpenHelper {
     public static final String FOOD_TABLE = "FOOD_TABLE";
+    public static final String COLUMN_FOOD_ID = "ID";
     public static final String COLUMN_FOOD_NAME = "FOOD_NAME";
     public static final String COLUMN_FOOD_CALORIES = "FOOD_CALORIES";
     public static final String COLUMN_FOOD_FAT = "FOOD_FAT";
@@ -28,7 +29,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
     @Override
     public void onCreate(SQLiteDatabase db) {
-        String createTableStatement = "CREATE TABLE " + FOOD_TABLE + " (ID INTEGER PRIMARY KEY AUTOINCREMENT, " + COLUMN_FOOD_NAME + " TEXT, " + COLUMN_FOOD_CALORIES + " DOUBLE, " + COLUMN_FOOD_CARBS + " DOUBLE, " + COLUMN_FOOD_FAT + " DOUBLE, " + COLUMN_FOOD_PROTEIN + " DOUBLE)";
+        String createTableStatement = "CREATE TABLE " + FOOD_TABLE + " (ID INTEGER PRIMARY KEY AUTOINCREMENT, " + COLUMN_FOOD_NAME + " TEXT, " + COLUMN_FOOD_CALORIES + " DOUBLE, " + COLUMN_FOOD_FAT + " DOUBLE, " + COLUMN_FOOD_CARBS + " DOUBLE, " +  COLUMN_FOOD_PROTEIN + " DOUBLE)";
         db.execSQL(createTableStatement);
     }
 
@@ -62,10 +63,10 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
         switch (sortType){
             case 1:
-                queryString = "SELECT * FROM " +FOOD_TABLE;
+                queryString = "SELECT * FROM " +FOOD_TABLE+" ORDER BY "+COLUMN_FOOD_ID+" ASC";
                 break;
             case 2:
-                queryString = "SELECT * FROM "+FOOD_TABLE+" ORDER BY ID DESC";
+                queryString = "SELECT * FROM "+FOOD_TABLE+" ORDER BY "+COLUMN_FOOD_ID+" DESC";
                 break;
             case 3:
                 queryString = "SELECT * FROM "+FOOD_TABLE+" ORDER BY "+COLUMN_FOOD_NAME+" ASC";
@@ -106,15 +107,15 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         return cursor;
     }
 
-    public void editEntry(int id, String name, float calories, float protein, float fat, float carbs){
+    public void editEntry(int id, String name, float calories, float fat, float carbs, float protein){
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues values = new ContentValues();
 
         values.put(COLUMN_FOOD_NAME, name);
         values.put(COLUMN_FOOD_CALORIES, calories);
-        values.put(COLUMN_FOOD_PROTEIN, protein);
         values.put(COLUMN_FOOD_FAT, fat);
         values.put(COLUMN_FOOD_CARBS,carbs);
+        values.put(COLUMN_FOOD_PROTEIN, protein);
 
         db.update(FOOD_TABLE, values, "id = "+ id, null);
     }
