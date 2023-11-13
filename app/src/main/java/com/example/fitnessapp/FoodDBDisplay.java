@@ -192,7 +192,7 @@ public class FoodDBDisplay extends AppCompatActivity implements RecyclerViewInte
     }
 
     public void loadSortData() {
-        SharedPreferences sharedPreferences = getSharedPreferences("SHARED_PREFS", MODE_PRIVATE);
+        SharedPreferences sharedPreferences = getSharedPreferences("SORT_SHARED_PREFS", MODE_PRIVATE);
 
         sortType = sharedPreferences.getInt(savedSearchType,1);
     }
