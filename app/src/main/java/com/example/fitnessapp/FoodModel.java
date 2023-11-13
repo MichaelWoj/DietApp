@@ -16,10 +16,6 @@ public class FoodModel {
         this.carbs = carbs;
         this.protein = protein;
     }
-    public FoodModel(){
-
-    }
-
     @Override
     public String toString() {
         return "FoodModel{" +
