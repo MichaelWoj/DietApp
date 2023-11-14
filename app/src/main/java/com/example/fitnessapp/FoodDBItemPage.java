@@ -14,6 +14,10 @@ import android.widget.ImageButton;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import androidx.activity.result.ActivityResult;
+import androidx.activity.result.ActivityResultCallback;
+import androidx.activity.result.ActivityResultLauncher;
+import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.appcompat.app.AppCompatActivity;
 
 public class FoodDBItemPage extends AppCompatActivity {
@@ -23,6 +27,7 @@ public class FoodDBItemPage extends AppCompatActivity {
     private ImageButton settings;
     private DatabaseHelper databaseHelper;
     private int entryID;
+    private float foodCaloriesVal, foodFatVal, foodCarbsVal, foodProteinVal;
     private String entryIDString;
 
     @Override
@@ -31,7 +36,7 @@ public class FoodDBItemPage extends AppCompatActivity {
         setContentView(R.layout.activity_food_db_item_page_layout);
 
         databaseHelper = new DatabaseHelper(getApplicationContext());
-        
+
         nameDB = findViewById(R.id.itemMealName);
         caloriesDB = findViewById(R.id.itemMealCalories);
         fatDB = findViewById(R.id.itemMealFat);
@@ -40,20 +45,16 @@ public class FoodDBItemPage extends AppCompatActivity {
 
         Intent intent = getIntent();
         String id = intent.getStringExtra("ID");
-        String name = intent.getStringExtra("Name");
-        String calories = intent.getStringExtra("Calories");
-        String fat = intent.getStringExtra("Fat");
-        String carbs = intent.getStringExtra("Carbs");
-        String protein = intent.getStringExtra("Protein");
+        String itemSetName = intent.getStringExtra("Name");
+        String itemSetCalories = intent.getStringExtra("Calories");
+        String itemSetFat = intent.getStringExtra("Fat");
+        String itemSetCarbs = intent.getStringExtra("Carbs");
+        String itemSetProtein = intent.getStringExtra("Protein");
 
         entryID = Integer.parseInt(id);
         entryIDString = id;
 
-        nameDB.setText(name);
-        caloriesDB.setText(calories);
-        fatDB.setText(fat);
-        carbsDB.setText(carbs);
-        proteinDB.setText(protein);
+        setText(itemSetName, itemSetCalories, itemSetFat, itemSetCarbs, itemSetProtein);
 
         submit = findViewById(R.id.itemAddFood);
         submit.setOnClickListener(new View.OnClickListener(){
@@ -64,19 +65,19 @@ public class FoodDBItemPage extends AppCompatActivity {
             String foodNameToString = nameDB.getText().toString();
 
             String foodCaloriesToString = caloriesDB.getText().toString();
-            float foodCaloriesVal = Float.parseFloat(foodCaloriesToString);
+            foodCaloriesVal = Float.parseFloat(foodCaloriesToString);
             intent.putExtra("foodCalories", foodCaloriesVal);
 
             String foodFatToString = fatDB.getText().toString();
-            float foodFatVal = Float.parseFloat(foodFatToString);
+            foodFatVal = Float.parseFloat(foodFatToString);
             intent.putExtra("foodFat", foodFatVal);
 
             String foodCarbsToString = carbsDB.getText().toString();
-            float foodCarbsVal = Float.parseFloat(foodCarbsToString);
+            foodCarbsVal = Float.parseFloat(foodCarbsToString);
             intent.putExtra("foodCarbs", foodCarbsVal);
 
             String foodProteinToString = proteinDB.getText().toString();
-            float foodProteinVal = Float.parseFloat(foodProteinToString);
+            foodProteinVal = Float.parseFloat(foodProteinToString);
             intent.putExtra("foodProtein", foodProteinVal);
 
             setResult(RESULT_OK, intent);
@@ -100,6 +101,14 @@ public class FoodDBItemPage extends AppCompatActivity {
                 finish();
             }
         });
+    }
+
+    private void setText(String name, String calories, String fat, String carbs, String protein){
+        nameDB.setText(name);
+        caloriesDB.setText(calories);
+        fatDB.setText(fat);
+        carbsDB.setText(carbs);
+        proteinDB.setText(protein);
     }
     private void showDialog() {
 
@@ -133,7 +142,7 @@ public class FoodDBItemPage extends AppCompatActivity {
                 String editFoodProteinToString = proteinDB.getText().toString();
                 intent.putExtra("editProtein", editFoodProteinToString);
 
-                startActivity(intent);
+                startForRefreshItemPage.launch(intent);
                 dialog.dismiss();
 
             }
@@ -154,6 +163,31 @@ public class FoodDBItemPage extends AppCompatActivity {
         dialog.getWindow().setGravity(Gravity.BOTTOM);
 
     }
+
+    ActivityResultLauncher<Intent> startForRefreshItemPage = registerForActivityResult(new ActivityResultContracts.StartActivityForResult(), new ActivityResultCallback<ActivityResult>() {
+        @Override
+        public void onActivityResult(ActivityResult result) {
+            if(result.getResultCode() == RESULT_OK){
+                Intent intent = result.getData();
+
+                String newName = intent.getStringExtra("editFoodName");
+
+                Float newCalories = intent.getFloatExtra("editFoodCalories", foodCaloriesVal);
+                String newCaloriesString = newCalories.toString();
+
+                Float newFat = intent.getFloatExtra("editFoodFat", foodFatVal);
+                String newFatString = newFat.toString();
+
+                Float newCarbs = intent.getFloatExtra("editFoodCarbs", foodCarbsVal);
+                String newCarbsString = newCarbs.toString();
+
+                Float newProtein = intent.getFloatExtra("editFoodProtein", foodProteinVal);
+                String newProteinString = newProtein.toString();
+
+                setText(newName, newCaloriesString, newFatString, newCarbsString, newProteinString);
+            }
+        }
+    });
 
     private void deleteConfirmationWindow() {
 

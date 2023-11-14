@@ -166,6 +166,10 @@ public class FoodDBDisplay extends AppCompatActivity implements RecyclerViewInte
         foodProteinNum.clear();;
     }
 
+    //This is used in some cases instead of updateRecyclerView as updateRV had issues with ID's when a food was added until FoodDBDisplay was restarted
+    private void recreateDisplay(){
+        this.recreate();
+    }
     private void updateRecyclerView(){
         clearRecycleView();
         adapter.notifyDataSetChanged();
@@ -176,7 +180,7 @@ public class FoodDBDisplay extends AppCompatActivity implements RecyclerViewInte
         @Override
         public void onActivityResult(ActivityResult result) {
             if(result.getResultCode() == RESULT_OK){
-                updateRecyclerView();
+                recreateDisplay();
             }
         }
     });
@@ -195,7 +199,7 @@ public class FoodDBDisplay extends AppCompatActivity implements RecyclerViewInte
 
             }
             else if(result.getResultCode() == Activity.RESULT_CANCELED){
-                updateRecyclerView();
+                recreateDisplay();
             }
         }
     });

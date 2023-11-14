@@ -9,13 +9,11 @@ import android.widget.EditText;
 import androidx.appcompat.app.AppCompatActivity;
 
 public class FoodDBEditItem extends AppCompatActivity {
-    private EditText itemName, itemCalories, itemfat, itemcarbs, itemprotein;
+    private EditText itemName, itemCalories, itemFat, itemCarbs, itemProtein;
     private int idForEdit;
     private DatabaseHelper databaseHelper;
     private Button submitEdit, backEdit;
     private float editFoodCalories, editFoodFat, editFoodCarbs, editFoodProtein;
-
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -26,9 +24,9 @@ public class FoodDBEditItem extends AppCompatActivity {
 
         itemName = findViewById(R.id.itemEditMealName);
         itemCalories = findViewById(R.id.itemEditMealCalories);
-        itemfat = findViewById(R.id.itemEditMealFat);
-        itemcarbs = findViewById(R.id.itemEditMealCarbs);
-        itemprotein = findViewById(R.id.itemEditMealProtein);
+        itemFat = findViewById(R.id.itemEditMealFat);
+        itemCarbs = findViewById(R.id.itemEditMealCarbs);
+        itemProtein = findViewById(R.id.itemEditMealProtein);
 
         Intent intent = getIntent();
         String id = intent.getStringExtra("editId");
@@ -40,9 +38,9 @@ public class FoodDBEditItem extends AppCompatActivity {
 
         itemName.setText(name);
         itemCalories.setText(calories);
-        itemfat.setText(fat);
-        itemcarbs.setText(carbs);
-        itemprotein.setText(protein);
+        itemFat.setText(fat);
+        itemCarbs.setText(carbs);
+        itemProtein.setText(protein);
 
         idForEdit = Integer.parseInt(id);
 
@@ -50,22 +48,29 @@ public class FoodDBEditItem extends AppCompatActivity {
         submitEdit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                Intent intent = new Intent(FoodDBEditItem.this, FoodDBItemPage.class);
 
                 String editFoodName = itemName.getText().toString();
+                intent.putExtra("editFoodName", editFoodName);
 
                 String editFoodCaloriesToString = itemCalories.getText().toString();
                 editFoodCalories = Float.parseFloat(editFoodCaloriesToString);
+                intent.putExtra("editFoodCalories", editFoodCalories);
 
-                String editFoodFatToString = itemfat.getText().toString();
+                String editFoodFatToString = itemFat.getText().toString();
                 editFoodFat = Float.parseFloat(editFoodFatToString);
+                intent.putExtra("editFoodFat", editFoodFat);
 
-                String editFoodCarbsToString = itemcarbs.getText().toString();
+                String editFoodCarbsToString = itemCarbs.getText().toString();
                 editFoodCarbs = Float.parseFloat(editFoodCarbsToString);
+                intent.putExtra("editFoodCarbs", editFoodCarbs);
 
-                String editFoodProteinToString = itemprotein.getText().toString();
+                String editFoodProteinToString = itemProtein.getText().toString();
                 editFoodProtein = Float.parseFloat(editFoodProteinToString);
+                intent.putExtra("editFoodProtein", editFoodProtein);
 
                 databaseHelper.editEntry(idForEdit, editFoodName, editFoodCalories, editFoodFat, editFoodCarbs, editFoodProtein);
+                setResult(RESULT_OK, intent);
                 finish();
             }
         });
