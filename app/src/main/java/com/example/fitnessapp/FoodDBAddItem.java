@@ -77,7 +77,6 @@ public class FoodDBAddItem extends AppCompatActivity {
                 Intent intent = new Intent(FoodDBAddItem.this, FoodDBDisplay.class);
                 intent.addFlags(Intent.FLAG_ACTIVITY_FORWARD_RESULT);
                 finish();
-                startActivity(intent);
             }
         });
     }

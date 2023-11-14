@@ -9,6 +9,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.annotation.SuppressLint;
+import android.app.Activity;
 import android.app.Dialog;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -110,11 +111,22 @@ public class FoodDBDisplay extends AppCompatActivity implements RecyclerViewInte
         sort.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
                 showSortDialog();
-
             }
         });
+    }
+
+    @Override
+    public void onItemClick(int position) {
+        Intent intent = new Intent(FoodDBDisplay.this, FoodDBItemPage.class);
+        intent.putExtra("ID", foodID.get(position));
+        intent.putExtra("Name", foodNameDB.get(position));
+        intent.putExtra("Calories", foodCaloriesNum.get(position));
+        intent.putExtra("Fat", foodFatNum.get(position));
+        intent.putExtra("Carbs", foodCarbsNum.get(position));
+        intent.putExtra("Protein", foodProteinNum.get(position));
+
+        startForMainActivityResult.launch(intent);
     }
 
     private void fileList(String searchText) {
@@ -154,6 +166,10 @@ public class FoodDBDisplay extends AppCompatActivity implements RecyclerViewInte
         foodProteinNum.clear();;
     }
 
+    //This is used in some cases instead of updateRecyclerView as updateRV had issues with ID's when a food was added until FoodDBDisplay was restarted
+    private void recreateDisplay(){
+        this.recreate();
+    }
     private void updateRecyclerView(){
         clearRecycleView();
         adapter.notifyDataSetChanged();
@@ -164,24 +180,29 @@ public class FoodDBDisplay extends AppCompatActivity implements RecyclerViewInte
         @Override
         public void onActivityResult(ActivityResult result) {
             if(result.getResultCode() == RESULT_OK){
-                updateRecyclerView();
+                recreateDisplay();
             }
         }
     });
 
-    @Override
-    public void onItemClick(int position) {
-        Intent intent = new Intent(FoodDBDisplay.this, FoodDBItemPage.class);
-        intent.addFlags(Intent.FLAG_ACTIVITY_FORWARD_RESULT);
-        intent.putExtra("ID", foodID.get(position));
-        intent.putExtra("Name", foodNameDB.get(position));
-        intent.putExtra("Calories", foodCaloriesNum.get(position));
-        intent.putExtra("Fat", foodFatNum.get(position));
-        intent.putExtra("Carbs", foodCarbsNum.get(position));
-        intent.putExtra("Protein", foodProteinNum.get(position));
+    ActivityResultLauncher<Intent> startForMainActivityResult = registerForActivityResult(new ActivityResultContracts.StartActivityForResult(), new ActivityResultCallback<ActivityResult>() {
+        @Override
+        public void onActivityResult(ActivityResult result) {
+            if(result.getResultCode() == RESULT_OK){
+                Intent intentFromItemPage = result.getData();
+                Bundle bundledIntentFromItemPage = intentFromItemPage.getExtras();
 
-        startActivity(intent);
-    }
+                Intent intent = new Intent(FoodDBDisplay.this, MainActivity.class).putExtras(bundledIntentFromItemPage);
+
+                setResult(RESULT_OK, intent);
+                finish();
+
+            }
+            else if(result.getResultCode() == Activity.RESULT_CANCELED){
+                recreateDisplay();
+            }
+        }
+    });
 
     private void sortSharedPreferences() {
         SharedPreferences sharedPreferences = getSharedPreferences("SORT_SHARED_PREFS", MODE_PRIVATE);
