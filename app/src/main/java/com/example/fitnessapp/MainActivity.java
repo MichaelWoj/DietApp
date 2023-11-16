@@ -196,24 +196,24 @@ import java.util.Arrays;
 
                     int listIndex = addedFoodCaloriesList.size() -1;
 
-                    foodCaloriesVal = (float) (Math.floor(calorieNum * 100) / 100);
+                    foodCaloriesVal = (float) calorieNum;
                     caloriesVal = caloriesVal - foodCaloriesVal;
-                    caloriesVal = (float) (Math.floor(caloriesVal * 100) / 100);
+                    caloriesVal = (float) (Math.rint(caloriesVal * 100) / 100);
                     addedFoodCaloriesList.remove(listIndex);
 
-                    foodFatVal = (float) (Math.floor(fatNum * 100) / 100);
+                    foodFatVal = (float) fatNum;
                     fatVal = fatVal - foodFatVal;
-                    fatVal = (float) (Math.floor(fatVal * 100) / 100);
+                    fatVal = (float) (Math.rint(fatVal * 100) / 100);
                     addedFoodFatList.remove(listIndex);
 
-                    foodCarbsVal = (float) (Math.floor(carbsNum* 100) / 100);
+                    foodCarbsVal = (float) carbsNum;
                     carbsVal = carbsVal - foodCarbsVal;
-                    carbsVal = (float) (Math.floor(carbsVal * 100) / 100);
+                    carbsVal = (float) (Math.rint(carbsVal * 100) / 100);
                     addedFoodCarbsList.remove(listIndex);
 
-                    foodProteinVal = (float) (Math.floor(proteinNum * 100) / 100);
+                    foodProteinVal = (float) proteinNum;
                     proteinVal = proteinVal - foodProteinVal;
-                    proteinVal = (float) (Math.floor(proteinVal * 100) / 100);
+                    proteinVal = (float) (Math.rint(proteinVal * 100) / 100);
                     addedFoodProteinList.remove(listIndex);
 
                     setValues();
@@ -312,7 +312,11 @@ import java.util.Arrays;
         }
 
         private void undoJsonStringToFloatList(String loadedJsonString, ArrayList<Float> targetFloatList){
-            if(loadedJsonString != null){
+            if(loadedJsonString.equals("[]")){
+                loadedJsonString = null;
+            }
+
+            else if(loadedJsonString != null){
                 loadedJsonString = loadedJsonString.replace("[", "").replace("]", "");
                 ArrayList<String> inputStringList = new ArrayList<String>(Arrays.asList(loadedJsonString.split(",")));
 
@@ -334,7 +338,6 @@ import java.util.Arrays;
             userTargetCarbs.setText(String.valueOf(userTargetCarbsVal), TextView.BufferType.EDITABLE);
             userTargetProtein.setText(String.valueOf(userTargetProteinVal), TextView.BufferType.EDITABLE);
         }
-
 
         @SuppressLint("NewApi")
         public void setTargetNutrients(EditText userTargetNutrient){
