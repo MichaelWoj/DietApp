@@ -21,12 +21,13 @@ import android.widget.ImageButton;
 import android.widget.TextView;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 
-public class MainActivity extends AppCompatActivity{
+            public class MainActivity extends AppCompatActivity{
     private TextView setCalories, setFat, setCarbs, setProtein ;
     private EditText userTargetCalories, userTargetFat, userTargetCarbs, userTargetProtein;
     private Button foodDbBtn, manualFoodBtn, undoFoodBtn, resetAllBtn;
-    private ArrayList<Float> addedFoodCalories, addedFoodFat, addedFoodCarbs, addedFoodProtein;
+    private ArrayList<Float> addedFoodCaloriesList, addedFoodFatList, addedFoodCarbsList, addedFoodProteinList;
 
     ImageButton lockBtn;
 
@@ -54,10 +55,10 @@ public class MainActivity extends AppCompatActivity{
     public static final String savedUserTargetCarbs = "target_carbs";
     public static final String savedUserTargetProtein = "target_protein";
 
-    public static final String undoLastCalories = "undo_last_calories";
-    public static final String undoLastFat = "undo_last_fat";
-    public static final String undoLastCarbs = "undo_last_carbs";
-    public static final String undoLastProtein = "undo_last_protein";
+    public static final String undoCaloriesList = "undo_calorie_list";
+    public static final String undoFatList = "undo_fat_list";
+    public static final String undoCarbList = "undo_carbs_list";
+    public static final String undoProteinList = "undo_protein_list";
 
     private float foodCaloriesVal, foodFatVal, foodCarbsVal, foodProteinVal;
 
@@ -71,22 +72,22 @@ public class MainActivity extends AppCompatActivity{
                     foodCaloriesVal = intent.getFloatExtra("foodCalories", 0f);
                     caloriesVal = caloriesVal + foodCaloriesVal;
                     caloriesVal = (float) (Math.round(caloriesVal * 100.0) / 100.0);
-                    addedFoodCalories.add(foodCaloriesVal);
+                    addedFoodCaloriesList.add(foodCaloriesVal);
 
                     foodFatVal = intent.getFloatExtra("foodFat", 0f);
                     fatVal = fatVal + foodFatVal;
                     fatVal = (float) (Math.round(fatVal * 100.0) / 100.0);
-                    addedFoodFat.add(foodFatVal);
+                    addedFoodFatList.add(foodFatVal);
 
                     foodCarbsVal = intent.getFloatExtra("foodCarbs", 0f);
                     carbsVal = carbsVal + foodCarbsVal;
                     carbsVal = (float) (Math.round(carbsVal * 100.0) / 100.0);
-                    addedFoodCarbs.add(foodCarbsVal);
+                    addedFoodCarbsList.add(foodCarbsVal);
 
                     foodProteinVal = intent.getFloatExtra("foodProtein", 0f);
                     proteinVal = proteinVal + foodProteinVal;
                     proteinVal = (float) (Math.round(proteinVal * 100.0) / 100.0);
-                    addedFoodProtein.add(foodProteinVal);
+                    addedFoodProteinList.add(foodProteinVal);
 
                     setValues();
                     saveSharedPreferences();
@@ -99,6 +100,11 @@ public class MainActivity extends AppCompatActivity{
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        addedFoodCaloriesList = new ArrayList<>();
+        addedFoodFatList = new ArrayList<>();
+        addedFoodCarbsList = new ArrayList<>();
+        addedFoodProteinList = new ArrayList<>();
 
         loadData();
 
@@ -117,12 +123,6 @@ public class MainActivity extends AppCompatActivity{
         setTargetValues();
         //Its set to false so it can't be the target EditTexts can't be edited
         setEditTextFalse();
-
-        addedFoodCalories = new ArrayList<>();
-        addedFoodFat = new ArrayList<>();
-        addedFoodCarbs = new ArrayList<>();
-        addedFoodProtein = new ArrayList<>();
-
 
         lockBtn=findViewById(R.id.lockButton);
         lockBtn.setOnClickListener(new View.OnClickListener() {
@@ -189,32 +189,32 @@ public class MainActivity extends AppCompatActivity{
             public void onClick(View v) {
                 if (caloriesVal != 0 ){
                     // The values were put into variables to help with code readability
-                    float calorieNum = addedFoodCalories.get(addedFoodCalories.size() -1);
-                    float fatNum = addedFoodFat.get(addedFoodFat.size() -1);
-                    float carbsNum = addedFoodCarbs.get(addedFoodCarbs.size() -1);
-                    float proteinNum = addedFoodFat.get(addedFoodProtein.size() -1);
+                    float calorieNum = addedFoodCaloriesList.get(addedFoodCaloriesList.size() -1);
+                    float fatNum = addedFoodFatList.get(addedFoodFatList.size() -1);
+                    float carbsNum = addedFoodCarbsList.get(addedFoodCarbsList.size() -1);
+                    float proteinNum = addedFoodProteinList.get(addedFoodProteinList.size() -1);
 
-                    int listIndex = addedFoodCalories.size() -1;
+                    int listIndex = addedFoodCaloriesList.size() -1;
 
                     foodCaloriesVal = (float) (Math.floor(calorieNum * 100) / 100);
                     caloriesVal = caloriesVal - foodCaloriesVal;
                     caloriesVal = (float) (Math.floor(caloriesVal * 100) / 100);
-                    addedFoodCalories.remove(listIndex);
+                    addedFoodCaloriesList.remove(listIndex);
 
                     foodFatVal = (float) (Math.floor(fatNum * 100) / 100);
                     fatVal = fatVal - foodFatVal;
                     fatVal = (float) (Math.floor(fatVal * 100) / 100);
-                    addedFoodFat.remove(listIndex);
+                    addedFoodFatList.remove(listIndex);
 
                     foodCarbsVal = (float) (Math.floor(carbsNum* 100) / 100);
                     carbsVal = carbsVal - foodCarbsVal;
                     carbsVal = (float) (Math.floor(carbsVal * 100) / 100);
-                    addedFoodCarbs.remove(listIndex);
+                    addedFoodCarbsList.remove(listIndex);
 
                     foodProteinVal = (float) (Math.floor(proteinNum * 100) / 100);
                     proteinVal = proteinVal - foodProteinVal;
                     proteinVal = (float) (Math.floor(proteinVal * 100) / 100);
-                    addedFoodProtein.remove(listIndex);
+                    addedFoodProteinList.remove(listIndex);
 
                     setValues();
                     saveSharedUndoPreferences();
@@ -233,6 +233,11 @@ public class MainActivity extends AppCompatActivity{
                  carbsVal = 0;
                  proteinVal = 0;
 
+                 addedFoodCaloriesList.clear();
+                 addedFoodFatList.clear();
+                 addedFoodCarbsList.clear();
+                 addedFoodProteinList.clear();
+
                  setValues();
                  saveSharedPreferences();
 
@@ -249,6 +254,7 @@ public class MainActivity extends AppCompatActivity{
             editor.putFloat(savedValProtein, proteinVal);
 
             editor.apply();
+            saveSharedUndoPreferences();
         }
 
         private void saveSharedUndoPreferences(){
@@ -256,15 +262,15 @@ public class MainActivity extends AppCompatActivity{
             SharedPreferences.Editor editor = sharedPreferences.edit();
 
             Gson gson = new Gson();
-            String caloriesJson = gson.toJson(addedFoodCalories);
-            String fatJson = gson.toJson(addedFoodFat);
-            String carbsJson = gson.toJson(addedFoodCarbs);
-            String proteinJson = gson.toJson(addedFoodProtein);
+            String caloriesJson = gson.toJson(addedFoodCaloriesList);
+            String fatJson = gson.toJson(addedFoodFatList);
+            String carbsJson = gson.toJson(addedFoodCarbsList);
+            String proteinJson = gson.toJson(addedFoodProteinList);
 
-            editor.putString(undoLastCalories, caloriesJson);
-            editor.putString(undoLastFat, fatJson);
-            editor.putString(undoLastCarbs, carbsJson);
-            editor.putString(undoLastProtein, proteinJson);
+            editor.putString(undoCaloriesList, caloriesJson);
+            editor.putString(undoFatList, fatJson);
+            editor.putString(undoCarbList, carbsJson);
+            editor.putString(undoProteinList, proteinJson);
 
             editor.apply();
         }
@@ -281,7 +287,7 @@ public class MainActivity extends AppCompatActivity{
             editor.apply();
         };
 
-        public void loadData() {
+        private void loadData() {
             SharedPreferences sharedPreferences = getSharedPreferences("SHARED_PREFS", MODE_PRIVATE);
 
             caloriesVal = sharedPreferences.getFloat(savedValCalories,0f);
@@ -294,10 +300,27 @@ public class MainActivity extends AppCompatActivity{
             userTargetCarbsVal = sharedPreferences.getFloat(savedUserTargetCarbs, 0f);
             userTargetProteinVal = sharedPreferences.getFloat(savedUserTargetProtein, 0f);
 
-            foodCaloriesVal = sharedPreferences.getFloat(undoLastCalories,0f);
-            foodFatVal = sharedPreferences.getFloat(undoLastFat,0f);
-            foodCarbsVal = sharedPreferences.getFloat(undoLastCarbs,0f);
-            foodProteinVal = sharedPreferences.getFloat(undoLastProtein,0f);
+            String caloriesJson = sharedPreferences.getString(undoCaloriesList, null);
+            String fatJson = sharedPreferences.getString(undoFatList, null);
+            String carbsJson = sharedPreferences.getString(undoCarbList, null);
+            String proteinJson = sharedPreferences.getString(undoProteinList, null);
+
+            undoJsonStringToFloatList(caloriesJson, addedFoodCaloriesList);
+            undoJsonStringToFloatList(fatJson, addedFoodFatList);
+            undoJsonStringToFloatList(carbsJson, addedFoodCarbsList);
+            undoJsonStringToFloatList(proteinJson, addedFoodProteinList);
+        }
+
+        private void undoJsonStringToFloatList(String loadedJsonString, ArrayList<Float> targetFloatList){
+            if(loadedJsonString != null){
+                loadedJsonString = loadedJsonString.replace("[", "").replace("]", "");
+                ArrayList<String> inputStringList = new ArrayList<String>(Arrays.asList(loadedJsonString.split(",")));
+
+                for (int i = 0; i < inputStringList.size(); ++i) {
+                    float number = Float.parseFloat(inputStringList.get(i));
+                    targetFloatList.add(number);
+                    }
+            }
         }
         private void setValues() {
             setCalories.setText(String.valueOf(caloriesVal));
@@ -311,6 +334,7 @@ public class MainActivity extends AppCompatActivity{
             userTargetCarbs.setText(String.valueOf(userTargetCarbsVal), TextView.BufferType.EDITABLE);
             userTargetProtein.setText(String.valueOf(userTargetProteinVal), TextView.BufferType.EDITABLE);
         }
+
 
         @SuppressLint("NewApi")
         public void setTargetNutrients(EditText userTargetNutrient){
