@@ -23,8 +23,6 @@ import androidx.appcompat.app.AppCompatActivity;
 public class FoodDBItemPage extends AppCompatActivity {
 
     private TextView nameDB, caloriesDB, fatDB, carbsDB, proteinDB;
-    private Button submit, back;
-    private ImageButton settings;
     private DatabaseHelper databaseHelper;
     private int entryID;
     private float foodCaloriesVal, foodFatVal, foodCarbsVal, foodProteinVal;
@@ -56,12 +54,13 @@ public class FoodDBItemPage extends AppCompatActivity {
 
         setText(itemSetName, itemSetCalories, itemSetFat, itemSetCarbs, itemSetProtein);
 
-        submit = findViewById(R.id.itemAddFood);
+        Button submit = findViewById(R.id.itemAddFood);
         submit.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View v){
             Intent intent = new Intent(FoodDBItemPage.this, MainActivity.class);
 
+            //The line currently does nothing but is here for an upcoming feature
             String foodNameToString = nameDB.getText().toString();
 
             String foodCaloriesToString = caloriesDB.getText().toString();
@@ -85,16 +84,15 @@ public class FoodDBItemPage extends AppCompatActivity {
             }
         });
 
-        settings = findViewById(R.id.itemSettingsBtn);
+        ImageButton settings = findViewById(R.id.itemSettingsBtn);
         settings.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
                 showDialog();
-
             }
         });
-        back = findViewById(R.id.itemCancel);
+
+        Button back = findViewById(R.id.itemCancel);
         back.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View v) {
@@ -110,6 +108,7 @@ public class FoodDBItemPage extends AppCompatActivity {
         carbsDB.setText(carbs);
         proteinDB.setText(protein);
     }
+
     private void showDialog() {
 
         final Dialog dialog = new Dialog(this);

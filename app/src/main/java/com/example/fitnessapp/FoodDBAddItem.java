@@ -12,7 +12,6 @@ import androidx.appcompat.app.AppCompatActivity;
 public class FoodDBAddItem extends AppCompatActivity {
 
     private EditText foodName, foodCalories, foodFat, foodCarbs, foodProtein;
-    private Button submit, back;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -25,7 +24,7 @@ public class FoodDBAddItem extends AppCompatActivity {
         foodCarbs = findViewById(R.id.itemAddMealCarbs);
         foodProtein = findViewById(R.id.itemAddMealProtein);
 
-        submit = findViewById(R.id.itemAddFoodToDB);
+        Button submit = findViewById(R.id.itemAddFoodToDB);
         submit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -67,7 +66,7 @@ public class FoodDBAddItem extends AppCompatActivity {
 
             }
         });
-        back = findViewById(R.id.itemAddCancel);
+        Button back = findViewById(R.id.itemAddCancel);
         back.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View v) {

@@ -45,21 +45,20 @@ public class FoodDBRecycleViewAdapter extends RecyclerView.Adapter<FoodDBRecycle
 
     @Override
     public int getItemCount() {
+        //Every has to have a name so that was picked for the counter
         return rvDBFoodName.size();
     }
-
+    //Filters the list for the searched item
     public void filteredList(ArrayList<String> filteredList){
         rvDBFoodName = filteredList;
         notifyDataSetChanged();
     }
 
     public static class MyViewHolder extends RecyclerView.ViewHolder{
-
         TextView rvDBFoodName, rvDBCaloriesNum, rvDBFatNum, rvDBCarbsNum , rvDBProteinNum;
 
         public MyViewHolder(@NonNull View itemView, RecyclerViewInterface recyclerViewInterface) {
             super(itemView);
-
 
             rvDBFoodName = itemView.findViewById(R.id.recyclerViewFoodName);
             rvDBCaloriesNum = itemView.findViewById(R.id.recyclerViewCaloriesNum);

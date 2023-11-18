@@ -31,11 +31,8 @@ import java.util.ArrayList;
 
 public class FoodDBDisplay extends AppCompatActivity implements RecyclerViewInterface {
 
-    private RecyclerView recyclerView;
     private ArrayList<String> foodID, foodNameDB, foodCaloriesNum, foodFatNum, foodCarbsNum, foodProteinNum;
     private DatabaseHelper dataBaseHelper;
-    private Button addBtn, cancelBtn;
-    private ImageButton sort;
     private SearchView searchView;
 
     private int sortType;
@@ -81,7 +78,7 @@ public class FoodDBDisplay extends AppCompatActivity implements RecyclerViewInte
         foodCarbsNum = new ArrayList<>();
         foodProteinNum = new ArrayList<>();
 
-        recyclerView = findViewById(R.id.recyclerViewFoodList);
+        RecyclerView recyclerView = findViewById(R.id.recyclerViewFoodList);
         adapter = new FoodDBRecycleViewAdapter(this,foodNameDB, foodCaloriesNum, foodFatNum, foodCarbsNum, foodProteinNum, this);
         adapter.notifyDataSetChanged();
         recyclerView.setAdapter(adapter);
@@ -89,7 +86,7 @@ public class FoodDBDisplay extends AppCompatActivity implements RecyclerViewInte
         loadSortData();
         displayData(sortType);
 
-        addBtn = findViewById(R.id.dbAddFood);
+        Button addBtn = findViewById(R.id.dbAddFood);
         addBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -99,7 +96,7 @@ public class FoodDBDisplay extends AppCompatActivity implements RecyclerViewInte
             }
         });
 
-        cancelBtn = findViewById(R.id.dbCancel);
+        Button cancelBtn = findViewById(R.id.dbCancel);
         cancelBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -107,7 +104,7 @@ public class FoodDBDisplay extends AppCompatActivity implements RecyclerViewInte
             }
         });
 
-        sort = findViewById(R.id.dbSort);
+        ImageButton sort = findViewById(R.id.dbSort);
         sort.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
