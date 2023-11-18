@@ -97,6 +97,7 @@ public class MainActivity extends AppCompatActivity{
         }
     });
 
+    @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -126,124 +127,106 @@ public class MainActivity extends AppCompatActivity{
         setEditTextFalse();
 
         lockBtn=findViewById(R.id.lockButton);
-        lockBtn.setOnClickListener(new View.OnClickListener() {
+        lockBtn.setOnClickListener(v -> {
+            if(isLocked){
 
-            @SuppressLint("UseCompatLoadingForDrawables")
-            @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
-            @Override
-            public void onClick(View v) {
-                if(isLocked){
+                isLocked=false;
+                lockBtn.setImageDrawable(getResources().getDrawable(R.drawable.ic_open_lock));
 
-                    isLocked=false;
-                    lockBtn.setImageDrawable(getResources().getDrawable(R.drawable.ic_open_lock));
+                userTargetCalories.setBackgroundTintList(ContextCompat.getColorStateList(getApplicationContext(), R.color.black));
+                userTargetFat.setBackgroundTintList(ContextCompat.getColorStateList(getApplicationContext(), R.color.black));
+                userTargetCarbs.setBackgroundTintList(ContextCompat.getColorStateList(getApplicationContext(), R.color.black));
+                userTargetProtein.setBackgroundTintList(ContextCompat.getColorStateList(getApplicationContext(), R.color.black));
 
-                    userTargetCalories.setBackgroundTintList(ContextCompat.getColorStateList(getApplicationContext(), R.color.black));
-                    userTargetFat.setBackgroundTintList(ContextCompat.getColorStateList(getApplicationContext(), R.color.black));
-                    userTargetCarbs.setBackgroundTintList(ContextCompat.getColorStateList(getApplicationContext(), R.color.black));
-                    userTargetProtein.setBackgroundTintList(ContextCompat.getColorStateList(getApplicationContext(), R.color.black));
+                setEditTextTrue();
 
-                    setEditTextTrue();
+            }else{
 
-                }else{
+                isLocked=true;
+                lockBtn.setImageDrawable(getResources().getDrawable(R.drawable.ic_lock));
 
-                    isLocked=true;
-                    lockBtn.setImageDrawable(getResources().getDrawable(R.drawable.ic_lock));
+                setTargetNutrients(userTargetCalories);
+                userTargetCaloriesVal = getUserTargetNutrientVal();
 
-                    setTargetNutrients(userTargetCalories);
-                    userTargetCaloriesVal = getUserTargetNutrientVal();
+                setTargetNutrients(userTargetFat);
+                userTargetFatVal = getUserTargetNutrientVal();
 
-                    setTargetNutrients(userTargetFat);
-                    userTargetFatVal = getUserTargetNutrientVal();
+                setTargetNutrients(userTargetCarbs);
+                userTargetCarbsVal = getUserTargetNutrientVal();
 
-                    setTargetNutrients(userTargetCarbs);
-                    userTargetCarbsVal = getUserTargetNutrientVal();
+                setTargetNutrients(userTargetProtein);
+                userTargetProteinVal = getUserTargetNutrientVal();
 
-                    setTargetNutrients(userTargetProtein);
-                    userTargetProteinVal = getUserTargetNutrientVal();
-
-                    setEditTextFalse();
-                    saveSharedTargetPreferences();
-                }
+                setEditTextFalse();
+                saveSharedTargetPreferences();
             }
         });
 
         Button foodDbBtn = findViewById(R.id.searchFood);
-        foodDbBtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(MainActivity.this, FoodDBDisplay.class);
-                startForResult.launch(intent);
-            }
+        foodDbBtn.setOnClickListener(v -> {
+            Intent intent = new Intent(MainActivity.this, FoodDBDisplay.class);
+            startForResult.launch(intent);
         });
 
         Button manualFoodBtn = findViewById(R.id.manualAdd);
-        manualFoodBtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(MainActivity.this, ManuallyAdd.class);
-                startForResult.launch(intent);
-            }
+        manualFoodBtn.setOnClickListener(v -> {
+            Intent intent = new Intent(MainActivity.this, ManuallyAdd.class);
+            startForResult.launch(intent);
         });
 
         Button undoFoodBtn = findViewById(R.id.undoFood);
-        undoFoodBtn.setOnClickListener(new View.OnClickListener(){
-            @Override
-            public void onClick(View v) {
-                if (caloriesVal != 0 ){
-                    // The values were put into variables to help with code readability
-                    float calorieNum = addedFoodCaloriesList.get(addedFoodCaloriesList.size() -1);
-                    float fatNum = addedFoodFatList.get(addedFoodFatList.size() -1);
-                    float carbsNum = addedFoodCarbsList.get(addedFoodCarbsList.size() -1);
-                    float proteinNum = addedFoodProteinList.get(addedFoodProteinList.size() -1);
+        undoFoodBtn.setOnClickListener(v -> {
+            if (caloriesVal != 0 ){
+                // The values were put into variables to help with code readability
+                float calorieNum = addedFoodCaloriesList.get(addedFoodCaloriesList.size() -1);
+                float fatNum = addedFoodFatList.get(addedFoodFatList.size() -1);
+                float carbsNum = addedFoodCarbsList.get(addedFoodCarbsList.size() -1);
+                float proteinNum = addedFoodProteinList.get(addedFoodProteinList.size() -1);
 
-                    int listIndex = addedFoodCaloriesList.size() -1;
+                int listIndex = addedFoodCaloriesList.size() -1;
 
-                    foodCaloriesVal = calorieNum;
-                    caloriesVal = caloriesVal - foodCaloriesVal;
-                    caloriesVal = (float) (Math.round(caloriesVal * 100) / 100);
-                    addedFoodCaloriesList.remove(listIndex);
+                foodCaloriesVal = calorieNum;
+                caloriesVal = caloriesVal - foodCaloriesVal;
+                caloriesVal = (float) (Math.round(caloriesVal * 100) / 100);
+                addedFoodCaloriesList.remove(listIndex);
 
-                    foodFatVal = fatNum;
-                    fatVal = fatVal - foodFatVal;
-                    fatVal = (float) (Math.round(fatVal * 100) / 100);
-                    addedFoodFatList.remove(listIndex);
+                foodFatVal = fatNum;
+                fatVal = fatVal - foodFatVal;
+                fatVal = (float) (Math.round(fatVal * 100) / 100);
+                addedFoodFatList.remove(listIndex);
 
-                    foodCarbsVal = carbsNum;
-                    carbsVal = carbsVal - foodCarbsVal;
-                    carbsVal = (float) (Math.round(carbsVal * 100) / 100);
-                    addedFoodCarbsList.remove(listIndex);
+                foodCarbsVal = carbsNum;
+                carbsVal = carbsVal - foodCarbsVal;
+                carbsVal = (float) (Math.round(carbsVal * 100) / 100);
+                addedFoodCarbsList.remove(listIndex);
 
-                    foodProteinVal = proteinNum;
-                    proteinVal = proteinVal - foodProteinVal;
-                    proteinVal = (float) (Math.round(proteinVal * 100) / 100);
-                    addedFoodProteinList.remove(listIndex);
+                foodProteinVal = proteinNum;
+                proteinVal = proteinVal - foodProteinVal;
+                proteinVal = (float) (Math.round(proteinVal * 100) / 100);
+                addedFoodProteinList.remove(listIndex);
 
-                    setValues();
-                    saveSharedUndoPreferences();
+                setValues();
+                saveSharedUndoPreferences();
 
-                };
-            }
+            };
         });
 
 
         Button resetAllBtn = findViewById(R.id.resetAll);
-        resetAllBtn.setOnClickListener(new View.OnClickListener(){
-            @Override
-            public void onClick (View v) {
-                 caloriesVal = 0;
-                 fatVal = 0;
-                 carbsVal = 0;
-                 proteinVal = 0;
+        resetAllBtn.setOnClickListener(v -> {
+             caloriesVal = 0;
+             fatVal = 0;
+             carbsVal = 0;
+             proteinVal = 0;
 
-                 addedFoodCaloriesList.clear();
-                 addedFoodFatList.clear();
-                 addedFoodCarbsList.clear();
-                 addedFoodProteinList.clear();
+             addedFoodCaloriesList.clear();
+             addedFoodFatList.clear();
+             addedFoodCarbsList.clear();
+             addedFoodProteinList.clear();
 
-                 setValues();
-                 saveSharedPreferences();
+             setValues();
+             saveSharedPreferences();
 
-            }
         });
     }
         private void saveSharedPreferences(){

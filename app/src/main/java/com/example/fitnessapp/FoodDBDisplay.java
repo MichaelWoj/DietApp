@@ -49,12 +49,7 @@ public class FoodDBDisplay extends AppCompatActivity implements RecyclerViewInte
         searchView = findViewById(R.id.searchView);
         searchView.clearFocus();
 
-        searchView.setOnClickListener(new View.OnClickListener(){
-            @Override
-            public void onClick(View v) {
-                searchView.onActionViewExpanded();
-            }
-        });
+        searchView.setOnClickListener(v -> searchView.onActionViewExpanded());
 
         searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
             @Override
@@ -87,30 +82,17 @@ public class FoodDBDisplay extends AppCompatActivity implements RecyclerViewInte
         displayData(sortType);
 
         Button addBtn = findViewById(R.id.dbAddFood);
-        addBtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(FoodDBDisplay.this, FoodDBAddItem.class);
+        addBtn.setOnClickListener(v -> {
+            Intent intent = new Intent(FoodDBDisplay.this, FoodDBAddItem.class);
 
-                startForRefresh.launch(intent);
-            }
+            startForRefresh.launch(intent);
         });
 
         Button cancelBtn = findViewById(R.id.dbCancel);
-        cancelBtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                finish();
-            }
-        });
+        cancelBtn.setOnClickListener(v -> finish());
 
         ImageButton sort = findViewById(R.id.dbSort);
-        sort.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                showSortDialog();
-            }
-        });
+        sort.setOnClickListener(v -> showSortDialog());
     }
 
     @Override
@@ -229,55 +211,37 @@ public class FoodDBDisplay extends AppCompatActivity implements RecyclerViewInte
         LinearLayout proteinSortLayout = dialog.findViewById(R.id.layoutSortProtein);
 
 
-        dateSortLayout.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                showSortAscOrDescDialog(1, 2);
-                dialog.dismiss();
+        dateSortLayout.setOnClickListener(v -> {
+            showSortAscOrDescDialog(1, 2);
+            dialog.dismiss();
 
-            }
         });
 
-        alphabeticSortLayout.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                showSortAscOrDescDialog(3, 4);
-                dialog.dismiss();
-            }
+        alphabeticSortLayout.setOnClickListener(v -> {
+            showSortAscOrDescDialog(3, 4);
+            dialog.dismiss();
         });
 
-        calorieSortLayout.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                showSortAscOrDescDialog(5, 6);
-                dialog.dismiss();
+        calorieSortLayout.setOnClickListener(v -> {
+            showSortAscOrDescDialog(5, 6);
+            dialog.dismiss();
 
-            }
         });
 
-        fatSortLayout.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                showSortAscOrDescDialog(7, 8);
-                dialog.dismiss();
-            }
+        fatSortLayout.setOnClickListener(v -> {
+            showSortAscOrDescDialog(7, 8);
+            dialog.dismiss();
         });
 
-        carbsSortLayout.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                showSortAscOrDescDialog(9, 10);
-                dialog.dismiss();
+        carbsSortLayout.setOnClickListener(v -> {
+            showSortAscOrDescDialog(9, 10);
+            dialog.dismiss();
 
-            }
         });
 
-        proteinSortLayout.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                showSortAscOrDescDialog(11, 12);
-                dialog.dismiss();
-            }
+        proteinSortLayout.setOnClickListener(v -> {
+            showSortAscOrDescDialog(11, 12);
+            dialog.dismiss();
         });
 
         dialog.show();
@@ -298,24 +262,18 @@ public class FoodDBDisplay extends AppCompatActivity implements RecyclerViewInte
         LinearLayout descSortLayout = dialog.findViewById(R.id.layoutSortDesc);
 
 
-        ascSortLayout.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                sortType = ascSort;
-                sortSharedPreferences();
-                updateRecyclerView();
-                dialog.dismiss();
-            }
+        ascSortLayout.setOnClickListener(v -> {
+            sortType = ascSort;
+            sortSharedPreferences();
+            updateRecyclerView();
+            dialog.dismiss();
         });
 
-        descSortLayout.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                sortType = descSort;
-                sortSharedPreferences();
-                updateRecyclerView();
-                dialog.dismiss();
-            }
+        descSortLayout.setOnClickListener(v -> {
+            sortType = descSort;
+            sortSharedPreferences();
+            updateRecyclerView();
+            dialog.dismiss();
         });
 
         dialog.show();
