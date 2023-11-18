@@ -89,7 +89,7 @@ public class FoodDBDisplay extends AppCompatActivity implements RecyclerViewInte
         loadSortData();
         displayData(sortType);
 
-        addBtn = (Button) findViewById(R.id.dbAddFood);
+        addBtn = findViewById(R.id.dbAddFood);
         addBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -99,7 +99,7 @@ public class FoodDBDisplay extends AppCompatActivity implements RecyclerViewInte
             }
         });
 
-        cancelBtn = (Button) findViewById(R.id.dbCancel);
+        cancelBtn = findViewById(R.id.dbCancel);
         cancelBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -128,7 +128,7 @@ public class FoodDBDisplay extends AppCompatActivity implements RecyclerViewInte
 
         startForMainActivityResult.launch(intent);
     }
-
+// Filters the DB entries for the searched for entry and puts all to lower so it ignores case
     private void fileList(String searchText) {
         ArrayList<String> filteredList = new ArrayList<>();
         for(String item : foodNameDB){
@@ -170,6 +170,7 @@ public class FoodDBDisplay extends AppCompatActivity implements RecyclerViewInte
     private void recreateDisplay(){
         this.recreate();
     }
+    
     private void updateRecyclerView(){
         clearRecycleView();
         adapter.notifyDataSetChanged();
@@ -203,19 +204,19 @@ public class FoodDBDisplay extends AppCompatActivity implements RecyclerViewInte
             }
         }
     });
-
+    //Saves the sort type the user used so it stays between activities and app launches
     private void sortSharedPreferences() {
-        SharedPreferences sharedPreferences = getSharedPreferences("SORT_SHARED_PREFS", MODE_PRIVATE);
-        SharedPreferences.Editor sortEditor = sharedPreferences.edit();
+        SharedPreferences sortSharedPreferences = getSharedPreferences("SORT_SHARED_PREFS", MODE_PRIVATE);
+        SharedPreferences.Editor sortEditor = sortSharedPreferences.edit();
 
         sortEditor.putInt(savedSearchType, sortType);
         sortEditor.apply();
     }
 
     public void loadSortData() {
-        SharedPreferences sharedPreferences = getSharedPreferences("SORT_SHARED_PREFS", MODE_PRIVATE);
+        SharedPreferences sortSharedPreferences = getSharedPreferences("SORT_SHARED_PREFS", MODE_PRIVATE);
 
-        sortType = sharedPreferences.getInt(savedSearchType,1);
+        sortType = sortSharedPreferences.getInt(savedSearchType,1);
     }
 
     private void showSortDialog() {

@@ -33,6 +33,7 @@ import java.util.Arrays;
 
     private boolean isLocked = true;
 
+    // The reason for using Floats instead of Doubles is that sharedPreferences doesn't have a getDouble and so it can't be saved
     private float caloriesVal = 0f;
     private float fatVal = 0f;
     private float carbsVal = 0f;
@@ -71,6 +72,7 @@ import java.util.Arrays;
                 if(intent != null){
                     foodCaloriesVal = intent.getFloatExtra("foodCalories", 0f);
                     caloriesVal = caloriesVal + foodCaloriesVal;
+                    // Its first multiplied by 100, rounded and then divided by 100 because its its just rounded it'll get rid of the decimal places
                     caloriesVal = (float) (Math.round(caloriesVal * 100.0) / 100.0);
                     addedFoodCaloriesList.add(foodCaloriesVal);
 
@@ -121,7 +123,7 @@ import java.util.Arrays;
         userTargetProtein = findViewById(R.id.targetProtein);
 
         setTargetValues();
-        //Its set to false so it can't be the target EditTexts can't be edited
+        //Its set to false so the EditText fields for target values can't be changed unless the button for it is pressed
         setEditTextFalse();
 
         lockBtn=findViewById(R.id.lockButton);
@@ -165,7 +167,7 @@ import java.util.Arrays;
             }
         });
 
-        foodDbBtn = (Button) findViewById(R.id.searchFood);
+        foodDbBtn = findViewById(R.id.searchFood);
         foodDbBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -174,7 +176,7 @@ import java.util.Arrays;
             }
         });
 
-        manualFoodBtn = (Button) findViewById(R.id.manualAdd);
+        manualFoodBtn = findViewById(R.id.manualAdd);
         manualFoodBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -183,7 +185,7 @@ import java.util.Arrays;
             }
         });
 
-        undoFoodBtn = (Button) findViewById(R.id.undoFood);
+        undoFoodBtn = findViewById(R.id.undoFood);
         undoFoodBtn.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View v) {
@@ -196,24 +198,24 @@ import java.util.Arrays;
 
                     int listIndex = addedFoodCaloriesList.size() -1;
 
-                    foodCaloriesVal = (float) calorieNum;
+                    foodCaloriesVal = calorieNum;
                     caloriesVal = caloriesVal - foodCaloriesVal;
-                    caloriesVal = (float) (Math.rint(caloriesVal * 100) / 100);
+                    caloriesVal = (float) (Math.round(caloriesVal * 100) / 100);
                     addedFoodCaloriesList.remove(listIndex);
 
-                    foodFatVal = (float) fatNum;
+                    foodFatVal = fatNum;
                     fatVal = fatVal - foodFatVal;
-                    fatVal = (float) (Math.rint(fatVal * 100) / 100);
+                    fatVal = (float) (Math.round(fatVal * 100) / 100);
                     addedFoodFatList.remove(listIndex);
 
-                    foodCarbsVal = (float) carbsNum;
+                    foodCarbsVal = carbsNum;
                     carbsVal = carbsVal - foodCarbsVal;
-                    carbsVal = (float) (Math.rint(carbsVal * 100) / 100);
+                    carbsVal = (float) (Math.round(carbsVal * 100) / 100);
                     addedFoodCarbsList.remove(listIndex);
 
-                    foodProteinVal = (float) proteinNum;
+                    foodProteinVal = proteinNum;
                     proteinVal = proteinVal - foodProteinVal;
-                    proteinVal = (float) (Math.rint(proteinVal * 100) / 100);
+                    proteinVal = (float) (Math.round(proteinVal * 100) / 100);
                     addedFoodProteinList.remove(listIndex);
 
                     setValues();
@@ -224,7 +226,7 @@ import java.util.Arrays;
         });
 
 
-        resetAllBtn = (Button) findViewById(R.id.resetAll);
+        resetAllBtn =  findViewById(R.id.resetAll);
         resetAllBtn.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick (View v) {
@@ -318,7 +320,7 @@ import java.util.Arrays;
 
             else if(loadedJsonString != null){
                 loadedJsonString = loadedJsonString.replace("[", "").replace("]", "");
-                ArrayList<String> inputStringList = new ArrayList<String>(Arrays.asList(loadedJsonString.split(",")));
+                ArrayList<String> inputStringList = new ArrayList(Arrays.asList(loadedJsonString.split(",")));
 
                 for (int i = 0; i < inputStringList.size(); ++i) {
                     float number = Float.parseFloat(inputStringList.get(i));
@@ -333,10 +335,10 @@ import java.util.Arrays;
             setProtein.setText(String.valueOf(proteinVal));
         }
         private void setTargetValues(){
-            userTargetCalories.setText(String.valueOf(userTargetCaloriesVal), TextView.BufferType.EDITABLE);
-            userTargetFat.setText(String.valueOf(userTargetFatVal), TextView.BufferType.EDITABLE);
-            userTargetCarbs.setText(String.valueOf(userTargetCarbsVal), TextView.BufferType.EDITABLE);
-            userTargetProtein.setText(String.valueOf(userTargetProteinVal), TextView.BufferType.EDITABLE);
+            userTargetCalories.setText(String.valueOf(userTargetCaloriesVal));
+            userTargetFat.setText(String.valueOf(userTargetFatVal));
+            userTargetCarbs.setText(String.valueOf(userTargetCarbsVal));
+            userTargetProtein.setText(String.valueOf(userTargetProteinVal));
         }
 
         @SuppressLint("NewApi")

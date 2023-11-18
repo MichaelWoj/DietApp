@@ -25,13 +25,10 @@ public class FoodDBAddItem extends AppCompatActivity {
         foodCarbs = findViewById(R.id.itemAddMealCarbs);
         foodProtein = findViewById(R.id.itemAddMealProtein);
 
-
-
         submit = findViewById(R.id.itemAddFoodToDB);
         submit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
                 if (foodName.getText().toString().isEmpty() || foodCalories.getText().toString().isEmpty() || foodFat.getText().toString().isEmpty() || foodCarbs.getText().toString().isEmpty() || foodProtein.getText().toString().isEmpty()) {
                     Toast.makeText(FoodDBAddItem.this, "Please insert all info", Toast.LENGTH_SHORT).show();
                 } else {
