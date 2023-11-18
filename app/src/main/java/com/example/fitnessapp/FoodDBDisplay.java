@@ -131,16 +131,15 @@ public class FoodDBDisplay extends AppCompatActivity implements RecyclerViewInte
         for(String item : foodNameDB){
             if (item.toLowerCase().contains(searchText.toLowerCase())) {
                 filteredList.add(item);
-            };
+            }
         }
         adapter.filteredList(filteredList);
     }
 
     private void displayData(int sortType) {
-        Cursor cursor = (Cursor) dataBaseHelper.getAllFoods(sortType);
+        Cursor cursor =  dataBaseHelper.getAllFoods(sortType);
         if(cursor.getCount()==0){
             Toast.makeText(FoodDBDisplay.this, "No Entry Found", Toast.LENGTH_SHORT).show();
-            return;
         }
         else{
             while (cursor.moveToNext()){

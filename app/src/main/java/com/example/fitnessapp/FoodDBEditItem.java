@@ -12,7 +12,6 @@ public class FoodDBEditItem extends AppCompatActivity {
     private EditText itemName, itemCalories, itemFat, itemCarbs, itemProtein;
     private int idForEdit;
     private DatabaseHelper databaseHelper;
-    private Button submitEdit, backEdit;
     private float editFoodCalories, editFoodFat, editFoodCarbs, editFoodProtein;
 
     @Override
@@ -44,7 +43,7 @@ public class FoodDBEditItem extends AppCompatActivity {
 
         idForEdit = Integer.parseInt(id);
 
-        submitEdit = findViewById(R.id.itemEditFoodToDB);
+        Button submitEdit = findViewById(R.id.itemEditFoodToDB);
         submitEdit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -75,7 +74,7 @@ public class FoodDBEditItem extends AppCompatActivity {
             }
         });
 
-        backEdit = findViewById(R.id.itemEditCancel);
+        Button backEdit = findViewById(R.id.itemEditCancel);
         backEdit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

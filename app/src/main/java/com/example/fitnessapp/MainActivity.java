@@ -23,10 +23,9 @@ import android.widget.TextView;
 import java.util.ArrayList;
 import java.util.Arrays;
 
-            public class MainActivity extends AppCompatActivity{
+public class MainActivity extends AppCompatActivity{
     private TextView setCalories, setFat, setCarbs, setProtein ;
     private EditText userTargetCalories, userTargetFat, userTargetCarbs, userTargetProtein;
-    private Button foodDbBtn, manualFoodBtn, undoFoodBtn, resetAllBtn;
     private ArrayList<Float> addedFoodCaloriesList, addedFoodFatList, addedFoodCarbsList, addedFoodProteinList;
 
     ImageButton lockBtn;
@@ -129,6 +128,7 @@ import java.util.Arrays;
         lockBtn=findViewById(R.id.lockButton);
         lockBtn.setOnClickListener(new View.OnClickListener() {
 
+            @SuppressLint("UseCompatLoadingForDrawables")
             @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
             @Override
             public void onClick(View v) {
@@ -167,7 +167,7 @@ import java.util.Arrays;
             }
         });
 
-        foodDbBtn = findViewById(R.id.searchFood);
+        Button foodDbBtn = findViewById(R.id.searchFood);
         foodDbBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -176,7 +176,7 @@ import java.util.Arrays;
             }
         });
 
-        manualFoodBtn = findViewById(R.id.manualAdd);
+        Button manualFoodBtn = findViewById(R.id.manualAdd);
         manualFoodBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -185,7 +185,7 @@ import java.util.Arrays;
             }
         });
 
-        undoFoodBtn = findViewById(R.id.undoFood);
+        Button undoFoodBtn = findViewById(R.id.undoFood);
         undoFoodBtn.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View v) {
@@ -226,7 +226,7 @@ import java.util.Arrays;
         });
 
 
-        resetAllBtn =  findViewById(R.id.resetAll);
+        Button resetAllBtn = findViewById(R.id.resetAll);
         resetAllBtn.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick (View v) {
@@ -287,7 +287,7 @@ import java.util.Arrays;
             editor.putFloat(savedUserTargetProtein, userTargetProteinVal);
 
             editor.apply();
-        };
+        }
 
         private void loadData() {
             SharedPreferences sharedPreferences = getSharedPreferences("SHARED_PREFS", MODE_PRIVATE);

@@ -18,7 +18,6 @@ public class ManuallyAdd extends AppCompatActivity {
 
     private EditText foodName, foodCalories, foodFat, foodCarbs, foodProtein;
     private TextView tvMealName;
-    private Button submit, back;
     private Switch db_switch;
 
     @SuppressLint("NewApi")
@@ -34,7 +33,7 @@ public class ManuallyAdd extends AppCompatActivity {
         foodCarbs = findViewById(R.id.manualMealCarbs);
         foodProtein = findViewById(R.id.manualMealProtein);
         db_switch = findViewById(R.id.saveToDBSwitch);
-        submit = findViewById(R.id.manualAddFood);
+        Button submit = findViewById(R.id.manualAddFood);
 
         tvMealName.setTextColor(ContextCompat.getColor(this, R.color.gray));
         foodName.setBackgroundTintList(ContextCompat.getColorStateList(getApplicationContext(), R.color.gray));
@@ -108,7 +107,7 @@ public class ManuallyAdd extends AppCompatActivity {
 
         }
         });
-        back = findViewById(R.id.manualCancel);
+        Button back = findViewById(R.id.manualCancel);
         back.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View v) {
