@@ -4,7 +4,7 @@ This is an open source Android app which allows the user to calculate their nutr
 
 # App Walkthrough
 
-# Main Screen
+## Main Screen
 
 This is the main screen of the app and these are the features being as followed. 
 ![Main Screen](https://github.com/MichaelWoj/DietApp/assets/43684434/01e6c5ef-be2e-4549-bc86-32d63661fe4f)
@@ -13,7 +13,9 @@ This is the main screen of the app and these are the features being as followed.
 
 2. A target for each nutrient set by the user.
 
-3. By default the lock locked, clicking on it unlock it and allow the user to set the values they desire for each field. Clicking the lock again locks it and sets the targets until they're manually changed again. ![Unlocked Target](https://github.com/MichaelWoj/DietApp/assets/43684434/39572e38-286d-4439-ae98-6082c09b5fac)
+3. By default the lock locked, clicking on it unlock it and allow the user to set the values they desire for each field. Clicking the lock again locks it and sets the targets until they're manually changed again. 
+
+![Unlocked Target](https://github.com/MichaelWoj/DietApp/assets/43684434/39572e38-286d-4439-ae98-6082c09b5fac)
 
 4. Brings the user to their local database where all of the foods they saved for ease of access are stored. Users can also add new foods there.
 
@@ -23,7 +25,7 @@ This is the main screen of the app and these are the features being as followed.
 
 7. Resets all of the nutrient fields (except the set targets) to 0.
 
-# Database Screen
+## Database Screen
 
 ![Databse Screen](https://github.com/MichaelWoj/DietApp/assets/43684434/b16376e2-dda7-4a79-80e8-e81d73b58346)
 
@@ -37,7 +39,7 @@ This is the main screen of the app and these are the features being as followed.
 
 11. Allows the user to directly add a food into the database
 
-# Item Page
+## Item Page
 
 ![Item Page](https://github.com/MichaelWoj/DietApp/assets/43684434/039047c6-4c7f-40b8-8e97-68b4015fbe77)
 
@@ -45,8 +47,14 @@ This is the main screen of the app and these are the features being as followed.
 
 13. Adds the entry to the daily total shown in 1.
 
-# Manual Item Add
+## Manual Item Add
 
 ![Manually Add Item](https://github.com/MichaelWoj/DietApp/assets/43684434/69aab142-4da0-470a-ac0c-6d01638bb1ac)
 
-14. Switch which determines if the added food will just be added to the total count shown in 1. or added to the count and saved in the database for future use. If the switch is flipped then the user must provide a name for the food, otherwise the name option will be unavaiable.
+14. Switch which determines if the added food will just be added to the total count shown in 1. or added to the count and saved in the database for future use. If the switch is flipped then the user must provide a name for the food, otherwise the name option will be unavailable.
+
+# Known Issues
+
+Sometimes when the database is sorted using the sorts shown in 9. the name of the food doesn't move with the nutrient values. I am unsure what causes it and the bug is not easily replicable. A simple fix is just to go back to the main menu and re enter the Local Food Database.
+
+    
