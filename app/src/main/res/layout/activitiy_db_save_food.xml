@@ -217,7 +217,7 @@
             android:layout_height="51dp"
             android:backgroundTint="@color/black"
             android:ems="10"
-            android:inputType="textPersonName"
+            android:inputType="textCapSentences"
             android:textColor="@color/black"
             android:maxLength="24"
             app:layout_constraintBottom_toBottomOf="parent"

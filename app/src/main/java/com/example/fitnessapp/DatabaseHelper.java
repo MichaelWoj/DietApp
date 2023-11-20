@@ -9,8 +9,6 @@ import android.database.sqlite.SQLiteOpenHelper;
 
 import androidx.annotation.Nullable;
 
-import java.util.ArrayList;
-import java.util.List;
 
 public class DatabaseHelper extends SQLiteOpenHelper {
     public static final String FOOD_TABLE = "FOOD_TABLE";
@@ -57,7 +55,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         else
             return true;
 
-    };
+    }
 
     public Cursor getAllFoods(int sortType){
 
@@ -81,16 +79,16 @@ public class DatabaseHelper extends SQLiteOpenHelper {
                 queryString = "SELECT * FROM "+FOOD_TABLE+" ORDER BY "+COLUMN_FOOD_CALORIES+" DESC";
                 break;
             case 7:
-                queryString = "SELECT * FROM "+FOOD_TABLE+" ORDER BY "+COLUMN_FOOD_CARBS+" ASC";
-                break;
-            case 8:
-                queryString = "SELECT * FROM "+FOOD_TABLE+" ORDER BY "+COLUMN_FOOD_CARBS+" DESC";
-                break;
-            case 9:
                 queryString = "SELECT * FROM "+FOOD_TABLE+" ORDER BY "+COLUMN_FOOD_FAT+" ASC";
                 break;
-            case 10:
+            case 8:
                 queryString = "SELECT * FROM "+FOOD_TABLE+" ORDER BY "+COLUMN_FOOD_FAT+" DESC";
+                break;
+            case 9:
+                queryString = "SELECT * FROM "+FOOD_TABLE+" ORDER BY "+COLUMN_FOOD_CARBS+" ASC";
+                break;
+            case 10:
+                queryString = "SELECT * FROM "+FOOD_TABLE+" ORDER BY "+COLUMN_FOOD_CARBS+" DESC";
                 break;
             case 11:
                 queryString = "SELECT * FROM "+FOOD_TABLE+" ORDER BY "+COLUMN_FOOD_PROTEIN+" ASC";

@@ -12,7 +12,6 @@ import androidx.appcompat.app.AppCompatActivity;
 public class FoodDBAddItem extends AppCompatActivity {
 
     private EditText foodName, foodCalories, foodFat, foodCarbs, foodProtein;
-    private Button submit, back;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -25,59 +24,50 @@ public class FoodDBAddItem extends AppCompatActivity {
         foodCarbs = findViewById(R.id.itemAddMealCarbs);
         foodProtein = findViewById(R.id.itemAddMealProtein);
 
+        Button submit = findViewById(R.id.itemAddFoodToDB);
+        submit.setOnClickListener(view -> {
+            if (foodName.getText().toString().isEmpty() || foodCalories.getText().toString().isEmpty() || foodFat.getText().toString().isEmpty() || foodCarbs.getText().toString().isEmpty() || foodProtein.getText().toString().isEmpty()) {
+                Toast.makeText(FoodDBAddItem.this, "Please insert all info", Toast.LENGTH_SHORT).show();
+            } else {
 
+                Intent intent = new Intent(FoodDBAddItem.this, FoodDBDisplay.class);
 
-        submit = findViewById(R.id.itemAddFoodToDB);
-        submit.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
+                String foodNameToString = foodName.getText().toString();
 
-                if (foodName.getText().toString().isEmpty() || foodCalories.getText().toString().isEmpty() || foodFat.getText().toString().isEmpty() || foodCarbs.getText().toString().isEmpty() || foodProtein.getText().toString().isEmpty()) {
-                    Toast.makeText(FoodDBAddItem.this, "Please insert all info", Toast.LENGTH_SHORT).show();
-                } else {
+                String foodCaloriesToString = foodCalories.getText().toString();
+                float foodCaloriesVal = Float.parseFloat(foodCaloriesToString);
 
-                    Intent intent = new Intent(FoodDBAddItem.this, FoodDBDisplay.class);
+                String foodFatToString = foodFat.getText().toString();
+                float foodFatVal = Float.parseFloat(foodFatToString);
 
-                    String foodNameToString = foodName.getText().toString();
+                String foodCarbsToString = foodCarbs.getText().toString();
+                float foodCarbsVal = Float.parseFloat(foodCarbsToString);
 
-                    String foodCaloriesToString = foodCalories.getText().toString();
-                    float foodCaloriesVal = Float.parseFloat(foodCaloriesToString);
+                String foodProteinToString = foodProtein.getText().toString();
+                float foodProteinVal = Float.parseFloat(foodProteinToString);
 
-                    String foodFatToString = foodFat.getText().toString();
-                    float foodFatVal = Float.parseFloat(foodFatToString);
+                FoodModel foodModel;
 
-                    String foodCarbsToString = foodCarbs.getText().toString();
-                    float foodCarbsVal = Float.parseFloat(foodCarbsToString);
-
-                    String foodProteinToString = foodProtein.getText().toString();
-                    float foodProteinVal = Float.parseFloat(foodProteinToString);
-
-                    FoodModel foodModel;
-
-                    try {
-                        foodModel = new FoodModel(-1, foodNameToString, foodCaloriesVal, foodFatVal, foodCarbsVal, foodProteinVal);
-                    } catch (Exception e) {
-                        foodModel = new FoodModel(-1, "Error", 0f, 0f, 0f, 0f);
-                    }
-
-                    DatabaseHelper dataBaseHelper = new DatabaseHelper(FoodDBAddItem.this);
-                    dataBaseHelper.addOne(foodModel);
-
-
-                    setResult(RESULT_OK, intent);
-                    finish();
+                try {
+                    foodModel = new FoodModel(-1, foodNameToString, foodCaloriesVal, foodFatVal, foodCarbsVal, foodProteinVal);
+                } catch (Exception e) {
+                    foodModel = new FoodModel(-1, "Error", 0f, 0f, 0f, 0f);
                 }
 
-            }
-        });
-        back = findViewById(R.id.itemAddCancel);
-        back.setOnClickListener(new View.OnClickListener(){
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(FoodDBAddItem.this, FoodDBDisplay.class);
-                intent.addFlags(Intent.FLAG_ACTIVITY_FORWARD_RESULT);
+                DatabaseHelper dataBaseHelper = new DatabaseHelper(FoodDBAddItem.this);
+                dataBaseHelper.addOne(foodModel);
+
+
+                setResult(RESULT_OK, intent);
                 finish();
             }
+
+        });
+        Button back = findViewById(R.id.itemAddCancel);
+        back.setOnClickListener(v -> {
+            Intent intent = new Intent(FoodDBAddItem.this, FoodDBDisplay.class);
+            intent.addFlags(Intent.FLAG_ACTIVITY_FORWARD_RESULT);
+            finish();
         });
     }
 }

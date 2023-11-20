@@ -23,8 +23,6 @@ import androidx.appcompat.app.AppCompatActivity;
 public class FoodDBItemPage extends AppCompatActivity {
 
     private TextView nameDB, caloriesDB, fatDB, carbsDB, proteinDB;
-    private Button submit, back;
-    private ImageButton settings;
     private DatabaseHelper databaseHelper;
     private int entryID;
     private float foodCaloriesVal, foodFatVal, foodCarbsVal, foodProteinVal;
@@ -56,51 +54,38 @@ public class FoodDBItemPage extends AppCompatActivity {
 
         setText(itemSetName, itemSetCalories, itemSetFat, itemSetCarbs, itemSetProtein);
 
-        submit = findViewById(R.id.itemAddFood);
-        submit.setOnClickListener(new View.OnClickListener(){
-            @Override
-            public void onClick(View v){
-            Intent intent = new Intent(FoodDBItemPage.this, MainActivity.class);
+        Button submit = findViewById(R.id.itemAddFood);
+        submit.setOnClickListener(v -> {
+        Intent intent1 = new Intent(FoodDBItemPage.this, MainActivity.class);
 
-            String foodNameToString = nameDB.getText().toString();
+        //The line currently does nothing but is here for an upcoming feature
+        String foodNameToString = nameDB.getText().toString();
 
-            String foodCaloriesToString = caloriesDB.getText().toString();
-            foodCaloriesVal = Float.parseFloat(foodCaloriesToString);
-            intent.putExtra("foodCalories", foodCaloriesVal);
+        String foodCaloriesToString = caloriesDB.getText().toString();
+        foodCaloriesVal = Float.parseFloat(foodCaloriesToString);
+        intent1.putExtra("foodCalories", foodCaloriesVal);
 
-            String foodFatToString = fatDB.getText().toString();
-            foodFatVal = Float.parseFloat(foodFatToString);
-            intent.putExtra("foodFat", foodFatVal);
+        String foodFatToString = fatDB.getText().toString();
+        foodFatVal = Float.parseFloat(foodFatToString);
+        intent1.putExtra("foodFat", foodFatVal);
 
-            String foodCarbsToString = carbsDB.getText().toString();
-            foodCarbsVal = Float.parseFloat(foodCarbsToString);
-            intent.putExtra("foodCarbs", foodCarbsVal);
+        String foodCarbsToString = carbsDB.getText().toString();
+        foodCarbsVal = Float.parseFloat(foodCarbsToString);
+        intent1.putExtra("foodCarbs", foodCarbsVal);
 
-            String foodProteinToString = proteinDB.getText().toString();
-            foodProteinVal = Float.parseFloat(foodProteinToString);
-            intent.putExtra("foodProtein", foodProteinVal);
+        String foodProteinToString = proteinDB.getText().toString();
+        foodProteinVal = Float.parseFloat(foodProteinToString);
+        intent1.putExtra("foodProtein", foodProteinVal);
 
-            setResult(RESULT_OK, intent);
-            finish();
-            }
+        setResult(RESULT_OK, intent1);
+        finish();
         });
 
-        settings = findViewById(R.id.itemSettingsBtn);
-        settings.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
+        ImageButton settings = findViewById(R.id.itemSettingsBtn);
+        settings.setOnClickListener(v -> showDialog());
 
-                showDialog();
-
-            }
-        });
-        back = findViewById(R.id.itemCancel);
-        back.setOnClickListener(new View.OnClickListener(){
-            @Override
-            public void onClick(View v) {
-                finish();
-            }
-        });
+        Button back = findViewById(R.id.itemCancel);
+        back.setOnClickListener(v -> finish());
     }
 
     private void setText(String name, String calories, String fat, String carbs, String protein){
@@ -110,6 +95,7 @@ public class FoodDBItemPage extends AppCompatActivity {
         carbsDB.setText(carbs);
         proteinDB.setText(protein);
     }
+
     private void showDialog() {
 
         final Dialog dialog = new Dialog(this);
@@ -120,40 +106,34 @@ public class FoodDBItemPage extends AppCompatActivity {
         LinearLayout deleteLayout = dialog.findViewById(R.id.layoutSettingsDelete);
 
 
-        editLayout.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(FoodDBItemPage.this, FoodDBEditItem.class);
+        editLayout.setOnClickListener(v -> {
+            Intent intent = new Intent(FoodDBItemPage.this, FoodDBEditItem.class);
 
-                intent.putExtra("editId",entryIDString);
+            intent.putExtra("editId",entryIDString);
 
-                String editFoodNameToString = nameDB.getText().toString();
-                intent.putExtra("editName", editFoodNameToString);
+            String editFoodNameToString = nameDB.getText().toString();
+            intent.putExtra("editName", editFoodNameToString);
 
-                String editFoodCaloriesToString = caloriesDB.getText().toString();
-                intent.putExtra("editCalories", editFoodCaloriesToString);
+            String editFoodCaloriesToString = caloriesDB.getText().toString();
+            intent.putExtra("editCalories", editFoodCaloriesToString);
 
-                String editFoodFatToString = fatDB.getText().toString();
-                intent.putExtra("editFat", editFoodFatToString);
+            String editFoodFatToString = fatDB.getText().toString();
+            intent.putExtra("editFat", editFoodFatToString);
 
-                String editFoodCarbsToString = carbsDB.getText().toString();
-                intent.putExtra("editCarbs", editFoodCarbsToString);
+            String editFoodCarbsToString = carbsDB.getText().toString();
+            intent.putExtra("editCarbs", editFoodCarbsToString);
 
-                String editFoodProteinToString = proteinDB.getText().toString();
-                intent.putExtra("editProtein", editFoodProteinToString);
+            String editFoodProteinToString = proteinDB.getText().toString();
+            intent.putExtra("editProtein", editFoodProteinToString);
 
-                startForRefreshItemPage.launch(intent);
-                dialog.dismiss();
+            startForRefreshItemPage.launch(intent);
+            dialog.dismiss();
 
-            }
         });
 
-        deleteLayout.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                dialog.dismiss();
-                deleteConfirmationWindow();
-            }
+        deleteLayout.setOnClickListener(v -> {
+            dialog.dismiss();
+            deleteConfirmationWindow();
         });
 
         dialog.show();
@@ -198,22 +178,14 @@ public class FoodDBItemPage extends AppCompatActivity {
         LinearLayout confirmDelete = confirmationDialog.findViewById(R.id.layoutConfirmDelete);
         LinearLayout confirmCancel = confirmationDialog.findViewById(R.id.layoutConfirmCancel);
 
-        confirmDelete.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(FoodDBItemPage.this, FoodDBDisplay.class);
-                intent.addFlags(Intent.FLAG_ACTIVITY_FORWARD_RESULT);
-                databaseHelper.deleteEntry(entryID);
-                confirmationDialog.dismiss();
-                finish();
-            }
+        confirmDelete.setOnClickListener(v -> {
+            Intent intent = new Intent(FoodDBItemPage.this, FoodDBDisplay.class);
+            intent.addFlags(Intent.FLAG_ACTIVITY_FORWARD_RESULT);
+            databaseHelper.deleteEntry(entryID);
+            confirmationDialog.dismiss();
+            finish();
         });
-        confirmCancel.setOnClickListener(new View.OnClickListener(){
-            @Override
-            public void onClick(View v) {
-                confirmationDialog.dismiss();
-            }
-        });
+        confirmCancel.setOnClickListener(v -> confirmationDialog.dismiss());
 
         confirmationDialog.show();
         confirmationDialog.getWindow().setLayout(ViewGroup.LayoutParams.MATCH_PARENT,ViewGroup.LayoutParams.WRAP_CONTENT);

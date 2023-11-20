@@ -45,21 +45,20 @@ public class FoodDBRecycleViewAdapter extends RecyclerView.Adapter<FoodDBRecycle
 
     @Override
     public int getItemCount() {
+        //Every has to have a name so that was picked for the counter
         return rvDBFoodName.size();
     }
-
+    //Filters the list for the searched item
     public void filteredList(ArrayList<String> filteredList){
         rvDBFoodName = filteredList;
         notifyDataSetChanged();
     }
 
     public static class MyViewHolder extends RecyclerView.ViewHolder{
-
         TextView rvDBFoodName, rvDBCaloriesNum, rvDBFatNum, rvDBCarbsNum , rvDBProteinNum;
 
         public MyViewHolder(@NonNull View itemView, RecyclerViewInterface recyclerViewInterface) {
             super(itemView);
-
 
             rvDBFoodName = itemView.findViewById(R.id.recyclerViewFoodName);
             rvDBCaloriesNum = itemView.findViewById(R.id.recyclerViewCaloriesNum);
@@ -67,15 +66,12 @@ public class FoodDBRecycleViewAdapter extends RecyclerView.Adapter<FoodDBRecycle
             rvDBCarbsNum = itemView.findViewById(R.id.recyclerViewCarbsNum);
             rvDBProteinNum = itemView.findViewById(R.id.recyclerViewProteinNum);
 
-            itemView.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    if (recyclerViewInterface != null){
-                        int pos = getAdapterPosition();
+            itemView.setOnClickListener(v -> {
+                if (recyclerViewInterface != null){
+                    int pos = getAdapterPosition();
 
-                        if (pos != RecyclerView.NO_POSITION ){
-                            recyclerViewInterface.onItemClick(pos);
-                        }
+                    if (pos != RecyclerView.NO_POSITION ){
+                        recyclerViewInterface.onItemClick(pos);
                     }
                 }
             });
