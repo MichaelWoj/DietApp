@@ -2,7 +2,6 @@ package com.example.fitnessapp;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
@@ -18,11 +17,11 @@ public class FoodDBAddItem extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activitiy_db_save_food);
 
-        foodName = findViewById(R.id.itemAddMealName);
-        foodCalories = findViewById(R.id.itemAddMealCalories);
-        foodFat = findViewById(R.id.itemAddMealFat);
-        foodCarbs = findViewById(R.id.itemAddMealCarbs);
-        foodProtein = findViewById(R.id.itemAddMealProtein);
+        foodName = findViewById(R.id.variableItemAddMealName);
+        foodCalories = findViewById(R.id.variableItemAddMealCalories);
+        foodFat = findViewById(R.id.variableItemAddMealFat);
+        foodCarbs = findViewById(R.id.variableItemAddMealCarbs);
+        foodProtein = findViewById(R.id.variableItemAddMealProtein);
 
         Button submit = findViewById(R.id.itemAddFoodToDB);
         submit.setOnClickListener(view -> {

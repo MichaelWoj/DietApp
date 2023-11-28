@@ -1,0 +1,320 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/green_mountain_background"
+    tools:context=".FoodDBAddItem">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/constraintLayout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        tools:context=".FoodInfo"
+        tools:layout_editor_absoluteX="-68dp"
+        tools:layout_editor_absoluteY="0dp">
+
+        <TextView
+            android:id="@+id/variableItemMealNameTV"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Name:"
+            android:textColor="@color/black"
+            android:textSize="38sp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.053"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.082" />
+
+        <TextView
+            android:id="@+id/variableItemWeightTV"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="46dp"
+            android:text="Weight"
+            android:textColor="@color/black"
+            android:textSize="38sp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.054"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/variableItemMealNameTV"
+            app:layout_constraintVertical_bias="0.0" />
+
+        <TextView
+            android:id="@+id/variableItemAddCaloriesTV"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="46dp"
+            android:text="Calories:"
+            android:textColor="@color/black"
+            android:textSize="38sp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.053"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/variableItemWeightTV"
+            app:layout_constraintVertical_bias="0.0" />
+
+        <TextView
+            android:id="@+id/variableItemAddFatTV"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="46dp"
+            android:text="Fat:"
+            android:textColor="@color/black"
+            android:textSize="38sp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.04"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/variableItemAddCaloriesTV"
+            app:layout_constraintVertical_bias="0.0" />
+
+        <TextView
+            android:id="@+id/variableItemAddCarbsTV"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="46dp"
+            android:text="Carbs:"
+            android:textColor="@color/black"
+            android:textSize="38sp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.046"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/variableItemAddFatTV"
+            app:layout_constraintVertical_bias="0.0" />
+
+        <TextView
+            android:id="@+id/variableItemAddProteinTV"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="46dp"
+            android:text="Protein:"
+            android:textColor="@color/black"
+            android:textSize="38sp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.049"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/variableItemAddCarbsTV"
+            app:layout_constraintVertical_bias="0.0" />
+
+        <EditText
+            android:id="@+id/variableItemAddMealName"
+            android:layout_width="184dp"
+            android:layout_height="51dp"
+            android:backgroundTint="@color/black"
+            android:ems="10"
+            android:inputType="textCapSentences"
+            android:maxLength="24"
+            android:textColor="@color/black"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.841"
+            app:layout_constraintStart_toEndOf="@+id/variableItemMealNameTV"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.082" />
+
+        <EditText
+            android:id="@+id/variableItemWeight"
+            android:layout_width="59dp"
+            android:layout_height="51dp"
+            android:layout_marginTop="46dp"
+            android:backgroundTint="@color/black"
+            android:ems="10"
+            android:inputType="numberDecimal"
+            android:maxLength="7"
+            android:textColor="@color/black"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.849"
+            app:layout_constraintStart_toEndOf="@+id/variableItemWeightTV"
+            app:layout_constraintTop_toBottomOf="@+id/variableItemAddMealName"
+            app:layout_constraintVertical_bias="0.0" />
+
+        <EditText
+            android:id="@+id/variableItemAddMealCalories"
+            android:layout_width="60dp"
+            android:layout_height="46dp"
+            android:layout_marginStart="32dp"
+            android:layout_marginLeft="32dp"
+            android:layout_marginTop="46dp"
+            android:backgroundTint="@color/black"
+            android:ems="10"
+            android:inputType="numberDecimal"
+            android:maxLength="7"
+            android:textColor="@color/black"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.797"
+            app:layout_constraintStart_toEndOf="@+id/variableItemAddCaloriesTV"
+            app:layout_constraintTop_toBottomOf="@+id/variableItemWeight"
+            app:layout_constraintVertical_bias="0.0" />
+
+        <EditText
+            android:id="@+id/variableItemAddMealFat"
+            android:layout_width="60dp"
+            android:layout_height="51dp"
+            android:layout_marginTop="46dp"
+            android:backgroundTint="@color/black"
+            android:ems="10"
+            android:inputType="numberDecimal"
+            android:maxLength="7"
+            android:textColor="@color/black"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.883"
+            app:layout_constraintStart_toEndOf="@+id/variableItemAddFatTV"
+            app:layout_constraintTop_toBottomOf="@+id/variableItemAddMealCalories"
+            app:layout_constraintVertical_bias="0.0" />
+
+        <EditText
+            android:id="@+id/variableItemAddMealCarbs"
+            android:layout_width="60dp"
+            android:layout_height="51dp"
+            android:layout_marginTop="46dp"
+            android:backgroundTint="@color/black"
+            android:ems="10"
+            android:inputType="numberDecimal"
+            android:maxLength="7"
+            android:textColor="@color/black"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.859"
+            app:layout_constraintStart_toEndOf="@+id/variableItemAddCarbsTV"
+            app:layout_constraintTop_toBottomOf="@+id/variableItemAddMealFat"
+            app:layout_constraintVertical_bias="0.02" />
+
+        <EditText
+            android:id="@+id/variableItemAddMealProtein"
+            android:layout_width="60dp"
+            android:layout_height="46dp"
+            android:backgroundTint="@color/black"
+            android:ems="10"
+            android:inputType="numberDecimal"
+            android:maxLength="7"
+            android:textColor="@color/black"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.845"
+            app:layout_constraintStart_toEndOf="@+id/variableItemAddProteinTV"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.797" />
+
+        <TextView
+            android:id="@+id/variableItemAddCaloriesGramTV"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="24dp"
+            android:layout_marginRight="24dp"
+            android:text="g"
+            android:textColor="@color/black"
+            app:layout_constraintBottom_toTopOf="@+id/variableItemAddFatGramTV"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toEndOf="@+id/variableItemAddMealCalories"
+            app:layout_constraintTop_toBottomOf="@+id/variableItemWeightGramTV"
+            app:layout_constraintVertical_bias="0.486" />
+
+        <TextView
+            android:id="@+id/variableItemWeightGramTV"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="78dp"
+            android:layout_marginEnd="25dp"
+            android:layout_marginRight="25dp"
+            android:text="g"
+            android:textColor="@color/black"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/variableItemWeight"
+            app:layout_constraintTop_toBottomOf="@+id/variableItemAddMealName"
+            app:layout_constraintVertical_bias="0.0" />
+
+        <TextView
+            android:id="@+id/variableItemAddFatGramTV"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="24dp"
+            android:layout_marginRight="24dp"
+            android:text="g"
+            android:textColor="@color/black"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toEndOf="@+id/variableItemAddMealFat"
+            app:layout_constraintTop_toBottomOf="@+id/variableItemWeightGramTV"
+            app:layout_constraintVertical_bias="0.335" />
+
+        <TextView
+            android:id="@+id/variableItemAddCarbsGramTV"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="24dp"
+            android:layout_marginRight="24dp"
+            android:layout_marginBottom="236dp"
+            android:text="g"
+            android:textColor="@color/black"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="1.0"
+            app:layout_constraintStart_toEndOf="@+id/variableItemAddMealCarbs"
+            app:layout_constraintTop_toBottomOf="@+id/variableItemAddFatGramTV"
+            app:layout_constraintVertical_bias="1.0" />
+
+        <TextView
+            android:id="@+id/variableItemAddProteinGramTV"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="24dp"
+            android:layout_marginRight="24dp"
+            android:text="g"
+            android:textColor="@color/black"
+            app:layout_constraintBottom_toTopOf="@+id/layoutVariableItemAddButtons"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toEndOf="@+id/variableItemAddMealProtein"
+            app:layout_constraintTop_toBottomOf="@+id/variableItemAddCarbsGramTV"
+            app:layout_constraintVertical_bias="0.557" />
+
+        <LinearLayout
+            android:id="@+id/layoutVariableItemAddButtons"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.978">
+
+            <Button
+                android:id="@+id/variableItemAddFoodToDB"
+                android:layout_width="186dp"
+                android:layout_height="62dp"
+                android:layout_marginStart="12dp"
+                android:layout_marginLeft="12dp"
+                android:text="Add Food"
+                android:textColor="#E4E3D3"
+                app:backgroundTint="#337357" />
+
+            <Button
+                android:id="@+id/variableItemAddCancel"
+                android:layout_width="186dp"
+                android:layout_height="62dp"
+                android:layout_marginStart="16dp"
+                android:layout_marginLeft="16dp"
+                android:text="Cancel"
+                android:textColor="#E4E3D3"
+                app:backgroundTint="#337357" />
+        </LinearLayout>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</androidx.constraintlayout.widget.ConstraintLayout>
