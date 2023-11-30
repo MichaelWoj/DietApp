@@ -1,0 +1,125 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:layout_gravity="center">
+
+    <androidx.cardview.widget.CardView
+        android:layout_width="350dp"
+        android:layout_height="150dp"
+        app:cardBackgroundColor="#337357"
+        app:cardCornerRadius="20dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <TextView
+                android:id="@+id/addItemPopupDescriptionTV"
+                android:layout_width="344dp"
+                android:layout_height="70dp"
+                android:layout_marginStart="3dp"
+                android:layout_marginLeft="3dp"
+                android:layout_marginEnd="3dp"
+                android:layout_marginRight="3dp"
+                android:fontFamily="sans-serif"
+                android:gravity="center"
+                android:text="Does the meal you're adding have a set or variable weight ?  "
+                android:textColor="#E4E3D3"
+                android:textSize="24sp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.0"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintVertical_bias="0.172" />
+
+            <LinearLayout
+                android:id="@+id/layoutStaticItemAdd"
+                android:layout_width="177dp"
+                android:layout_height="wrap_content"
+                android:background="@drawable/left_side_button_border"
+                android:orientation="horizontal"
+                android:padding="8dp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.0"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/addItemPopupDescriptionTV"
+                app:layout_constraintVertical_bias="1.0">
+
+                <ImageView
+                    android:id="@+id/setItemAdd"
+                    android:layout_width="30dp"
+                    android:layout_height="30dp"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintHorizontal_bias="0.041"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintVertical_bias="0.206"
+                    app:srcCompat="@drawable/ic_set_meal"
+                    tools:ignore="VectorDrawableCompat" />
+
+
+                <TextView
+                    android:id="@+id/setItemAddTV"
+                    android:layout_width="wrap_content"
+                    android:layout_height="30dp"
+                    android:layout_marginLeft="30dp"
+                    android:text="Set"
+                    android:textColor="#E4E3D3"
+                    android:textSize="24sp"
+                    tools:layout_editor_absoluteX="79dp"
+                    tools:layout_editor_absoluteY="144dp" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/layoutVariableWeighItemAdd"
+                android:layout_width="176dp"
+                android:layout_height="wrap_content"
+                android:background="@drawable/right_side_button_border"
+                android:orientation="horizontal"
+                android:padding="8dp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="1.0"
+                app:layout_constraintStart_toEndOf="@+id/layoutStaticItemAdd"
+                app:layout_constraintTop_toBottomOf="@+id/addItemPopupDescriptionTV"
+                app:layout_constraintVertical_bias="1.0">
+
+                <ImageView
+                    android:id="@+id/variableWeightItemAdd"
+                    android:layout_width="30dp"
+                    android:layout_height="30dp"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintHorizontal_bias="0.041"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintVertical_bias="0.126"
+                    app:srcCompat="@drawable/ic_variable_weight"
+                    tools:ignore="VectorDrawableCompat" />
+
+                <TextView
+                    android:id="@+id/variableWeightItemAddTV"
+                    android:layout_width="wrap_content"
+                    android:layout_height="30dp"
+                    android:layout_marginLeft="30dp"
+                    android:text="Variable"
+                    android:textColor="#E4E3D3"
+                    android:textSize="24sp"
+                    tools:layout_editor_absoluteX="79dp"
+                    tools:layout_editor_absoluteY="88dp" />
+            </LinearLayout>
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </androidx.cardview.widget.CardView>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

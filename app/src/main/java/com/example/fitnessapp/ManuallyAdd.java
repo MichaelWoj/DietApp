@@ -86,10 +86,10 @@ public class ManuallyAdd extends AppCompatActivity {
                     FoodModel foodModel;
 
                     try{
-                        foodModel = new FoodModel(-1, foodNameToString, foodCaloriesVal, foodFatVal, foodCarbsVal,foodProteinVal);
+                        foodModel = new FoodModel(-1, foodNameToString, foodCaloriesVal, foodFatVal, foodCarbsVal,foodProteinVal, false);
                     }
                     catch (Exception e){
-                        foodModel = new FoodModel(-1,"Error",0f,0f,0f,0f);
+                        foodModel = new FoodModel(-1,"Error",0f,0f,0f,0f, false);
                     }
 
                     DatabaseHelper dataBaseHelper = new DatabaseHelper(ManuallyAdd.this);

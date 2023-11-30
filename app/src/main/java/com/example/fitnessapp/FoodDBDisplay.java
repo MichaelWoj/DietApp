@@ -31,7 +31,7 @@ import java.util.ArrayList;
 
 public class FoodDBDisplay extends AppCompatActivity implements RecyclerViewInterface {
 
-    private ArrayList<String> foodID, foodNameDB, foodCaloriesNum, foodFatNum, foodCarbsNum, foodProteinNum;
+    private ArrayList<String> foodID, foodNameDB, foodCaloriesNum, foodFatNum, foodCarbsNum, foodProteinNum, foodWeightNum;
     private DatabaseHelper dataBaseHelper;
     private SearchView searchView;
 
@@ -72,6 +72,7 @@ public class FoodDBDisplay extends AppCompatActivity implements RecyclerViewInte
         foodFatNum = new ArrayList<>();
         foodCarbsNum = new ArrayList<>();
         foodProteinNum = new ArrayList<>();
+        foodWeightNum = new ArrayList<>();
 
         RecyclerView recyclerView = findViewById(R.id.recyclerViewFoodList);
         adapter = new FoodDBRecycleViewAdapter(this,foodNameDB, foodCaloriesNum, foodFatNum, foodCarbsNum, foodProteinNum, this);

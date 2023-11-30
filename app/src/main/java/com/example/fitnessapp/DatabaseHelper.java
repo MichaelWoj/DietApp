@@ -25,7 +25,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     private String queryString;
 
     public DatabaseHelper(@Nullable Context context) {
-        super(context, "food.db", null, 1);
+        super(context, "food.db", null, DATABASE_VERSION);
     }
 
     @Override
@@ -36,8 +36,10 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
     @Override
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
-        db.execSQL("DROP TABLE " + FOOD_TABLE);
-        onCreate(db);
+        if(oldVersion < newVersion) {
+            db.execSQL("ALTER TABLE "+FOOD_TABLE+" ADD COLUMN "+COLUMN_FOOD_VARIABLE_WEIGHT+" BOOLEAN;");
+            db.execSQL("UPDATE "+FOOD_TABLE+" SET "+COLUMN_FOOD_VARIABLE_WEIGHT+" = 0;");
+        }
     }
 
     public boolean addOne(FoodModel foodModel){

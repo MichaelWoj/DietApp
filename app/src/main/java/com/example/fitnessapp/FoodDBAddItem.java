@@ -17,11 +17,11 @@ public class FoodDBAddItem extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activitiy_db_save_food);
 
-        foodName = findViewById(R.id.variableItemAddMealName);
-        foodCalories = findViewById(R.id.variableItemAddMealCalories);
-        foodFat = findViewById(R.id.variableItemAddMealFat);
-        foodCarbs = findViewById(R.id.variableItemAddMealCarbs);
-        foodProtein = findViewById(R.id.variableItemAddMealProtein);
+        foodName = findViewById(R.id.itemAddMealName);
+        foodCalories = findViewById(R.id.itemAddMealCalories);
+        foodFat = findViewById(R.id.itemAddMealFat);
+        foodCarbs = findViewById(R.id.itemAddMealCarbs);
+        foodProtein = findViewById(R.id.itemAddMealProtein);
 
         Button submit = findViewById(R.id.itemAddFoodToDB);
         submit.setOnClickListener(view -> {
@@ -48,9 +48,9 @@ public class FoodDBAddItem extends AppCompatActivity {
                 FoodModel foodModel;
 
                 try {
-                    foodModel = new FoodModel(-1, foodNameToString, foodCaloriesVal, foodFatVal, foodCarbsVal, foodProteinVal);
+                    foodModel = new FoodModel(-1, foodNameToString, foodCaloriesVal, foodFatVal, foodCarbsVal, foodProteinVal,false);
                 } catch (Exception e) {
-                    foodModel = new FoodModel(-1, "Error", 0f, 0f, 0f, 0f);
+                    foodModel = new FoodModel(-1, "Error", 0f, 0f, 0f, 0f,false);
                 }
 
                 DatabaseHelper dataBaseHelper = new DatabaseHelper(FoodDBAddItem.this);

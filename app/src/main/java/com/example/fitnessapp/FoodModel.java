@@ -7,14 +7,16 @@ public class FoodModel {
     private Float fat;
     private Float carbs;
     private Float protein;
+    private Boolean weight;
 
-    public FoodModel(int id, String name, Float calories, Float fat, Float carbs, Float protein) {
+    public FoodModel(int id, String name, Float calories, Float fat, Float carbs, Float protein, Boolean weight) {
         this.id = id;
         this.name = name;
         this.calories = calories;
         this.fat = fat;
         this.carbs = carbs;
         this.protein = protein;
+        this.weight = weight;
     }
     @Override
     public String toString() {
