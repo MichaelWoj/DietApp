@@ -31,7 +31,7 @@ import java.util.ArrayList;
 
 public class FoodDBDisplay extends AppCompatActivity implements RecyclerViewInterface {
 
-    private ArrayList<String> foodID, foodNameDB, foodCaloriesNum, foodFatNum, foodCarbsNum, foodProteinNum, foodWeightNum;
+    private ArrayList<String> foodID, foodNameDB, foodCaloriesNum, foodFatNum, foodCarbsNum, foodProteinNum, foodSaveType;
     private DatabaseHelper dataBaseHelper;
     private SearchView searchView;
 
@@ -72,7 +72,7 @@ public class FoodDBDisplay extends AppCompatActivity implements RecyclerViewInte
         foodFatNum = new ArrayList<>();
         foodCarbsNum = new ArrayList<>();
         foodProteinNum = new ArrayList<>();
-        foodWeightNum = new ArrayList<>();
+        foodSaveType = new ArrayList<>();
 
         RecyclerView recyclerView = findViewById(R.id.recyclerViewFoodList);
         adapter = new FoodDBRecycleViewAdapter(this,foodNameDB, foodCaloriesNum, foodFatNum, foodCarbsNum, foodProteinNum, this);
@@ -84,9 +84,7 @@ public class FoodDBDisplay extends AppCompatActivity implements RecyclerViewInte
 
         Button addBtn = findViewById(R.id.dbAddFood);
         addBtn.setOnClickListener(v -> {
-            Intent intent = new Intent(FoodDBDisplay.this, FoodDBAddItem.class);
-
-            startForRefresh.launch(intent);
+            showAddItemChoice();
         });
 
         Button cancelBtn = findViewById(R.id.dbCancel);
@@ -196,6 +194,31 @@ public class FoodDBDisplay extends AppCompatActivity implements RecyclerViewInte
         SharedPreferences sortSharedPreferences = getSharedPreferences("SORT_SHARED_PREFS", MODE_PRIVATE);
 
         sortType = sortSharedPreferences.getInt(savedSearchType,1);
+    }
+
+    private void showAddItemChoice(){
+        final Dialog confirmationDialog = new Dialog(this);
+        confirmationDialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
+        confirmationDialog.setContentView(R.layout.activity_add_item_popup);
+
+        LinearLayout setWeightAdd = confirmationDialog.findViewById(R.id.layoutSetItemAdd);
+        LinearLayout variableWeightAdd = confirmationDialog.findViewById(R.id.layoutVariableWeighItemAdd);
+
+        setWeightAdd.setOnClickListener(v -> {
+            Intent intent = new Intent(FoodDBDisplay.this, FoodDBAddItem.class);
+            startForRefresh.launch(intent);
+            confirmationDialog.dismiss();
+        });
+        variableWeightAdd.setOnClickListener(v -> {
+            Intent intent = new Intent(FoodDBDisplay.this, FoodDBVariableWeightItemPage.class);
+            startForRefresh.launch(intent);
+            confirmationDialog.dismiss();
+        });
+
+        confirmationDialog.show();
+        confirmationDialog.getWindow().setLayout(ViewGroup.LayoutParams.MATCH_PARENT,ViewGroup.LayoutParams.WRAP_CONTENT);
+        confirmationDialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+        confirmationDialog.getWindow().setGravity(Gravity.CENTER);
     }
 
     private void showSortDialog() {

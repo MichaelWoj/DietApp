@@ -41,7 +41,7 @@
                 app:layout_constraintVertical_bias="0.172" />
 
             <LinearLayout
-                android:id="@+id/layoutStaticItemAdd"
+                android:id="@+id/layoutSetItemAdd"
                 android:layout_width="177dp"
                 android:layout_height="wrap_content"
                 android:background="@drawable/left_side_button_border"
@@ -90,7 +90,7 @@
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="1.0"
-                app:layout_constraintStart_toEndOf="@+id/layoutStaticItemAdd"
+                app:layout_constraintStart_toEndOf="@+id/layoutSetItemAdd"
                 app:layout_constraintTop_toBottomOf="@+id/addItemPopupDescriptionTV"
                 app:layout_constraintVertical_bias="1.0">
 
