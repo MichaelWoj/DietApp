@@ -4,6 +4,8 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.RadioButton;
+import android.widget.RadioGroup;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -17,6 +19,9 @@ public class FoodDBVariableWeightItemPage extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_db_variable_weight_item_page);
+
+        RadioGroup radioGroup;
+        RadioButton radioButton;
 
         variableFoodName = findViewById(R.id.variableItemAddMealName);
         variableFoodWeight = findViewById(R.id.variableItemWeight);
