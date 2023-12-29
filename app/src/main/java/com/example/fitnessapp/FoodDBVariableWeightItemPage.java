@@ -1,9 +1,16 @@
     package com.example.fitnessapp;
 
+import android.app.Dialog;
 import android.content.Intent;
+import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
+import android.view.Gravity;
+import android.view.ViewGroup;
+import android.view.Window;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.LinearLayout;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.Toast;
@@ -28,7 +35,11 @@ public class FoodDBVariableWeightItemPage extends AppCompatActivity {
         variableFoodFat = findViewById(R.id.variableItemAddMealFat);
         variableFoodCarbs = findViewById(R.id.variableItemAddMealCarbs);
         variableFoodProtein = findViewById(R.id.variableItemAddMealProtein);
-        radioGroup = findViewById(R.id.radioGroup);
+
+        Button selectDisplayWeight = findViewById(R.id.variableItemSelectDisplayWeight);
+        selectDisplayWeight.setOnClickListener(view -> {
+            selectDisplayWeightWindow();
+        });
 
         Button submit = findViewById(R.id.variableItemAddFoodToDB);
         submit.setOnClickListener(view -> {
@@ -80,6 +91,28 @@ public class FoodDBVariableWeightItemPage extends AppCompatActivity {
             finish();
         });
     }
+    private void selectDisplayWeightWindow() {
+
+        final Dialog displayWeightDialog = new Dialog(this);
+        displayWeightDialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
+        displayWeightDialog.setContentView(R.layout.activity_db_variable_weight_popup);
+
+        LinearLayout confirmDisplayWeight = displayWeightDialog.findViewById(R.id.layoutConfirmDisplayWeight);
+        LinearLayout cancelDisplayWeight = displayWeightDialog.findViewById(R.id.layoutCancelDisplayWeight);
+
+        confirmDisplayWeight.setOnClickListener(v -> {
+            int radioId = radioGroup.getCheckedRadioButtonId();
+            radioButton = findViewById(radioId);
+            displayWeightDialog.dismiss();
+        });
+        cancelDisplayWeight.setOnClickListener(v -> displayWeightDialog.dismiss());
+
+        displayWeightDialog.show();
+        displayWeightDialog.getWindow().setLayout(ViewGroup.LayoutParams.MATCH_PARENT,ViewGroup.LayoutParams.WRAP_CONTENT);
+        displayWeightDialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+        displayWeightDialog.getWindow().setGravity(Gravity.CENTER);
+    }
+
 
     public void oneGramNutrient(float weight, float calories, float fat, float carbs, float protein) {
         int radioId = radioGroup.getCheckedRadioButtonId();

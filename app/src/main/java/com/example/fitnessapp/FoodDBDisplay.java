@@ -18,7 +18,6 @@ import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.view.Gravity;
-import android.view.View;
 import android.view.ViewGroup;
 import android.view.Window;
 import android.widget.Button;
@@ -280,7 +279,7 @@ public class FoodDBDisplay extends AppCompatActivity implements RecyclerViewInte
 
         final Dialog dialog = new Dialog(this);
         dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
-        dialog.setContentView(R.layout.activitiy_db_sort_asc_or_desc_popup);
+        dialog.setContentView(R.layout.activity_db_sort_asc_or_desc_popup);
 
         LinearLayout ascSortLayout = dialog.findViewById(R.id.layoutSortAsc);
         LinearLayout descSortLayout = dialog.findViewById(R.id.layoutSortDesc);
