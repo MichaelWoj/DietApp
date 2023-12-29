@@ -14,14 +14,13 @@ public class FoodDBVariableWeightItemPage extends AppCompatActivity {
 
     private EditText variableFoodName, variableFoodWeight, variableFoodCalories, variableFoodFat, variableFoodCarbs, variableFoodProtein;
     private Float variableFoodWeightVal, variableFoodCaloriesVal, variableFoodFatVal, variableFoodCarbsVal, variableFoodProteinVal;
+    private RadioGroup radioGroup;
+    private RadioButton radioButton;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_db_variable_weight_item_page);
-
-        RadioGroup radioGroup;
-        RadioButton radioButton;
 
         variableFoodName = findViewById(R.id.variableItemAddMealName);
         variableFoodWeight = findViewById(R.id.variableItemWeight);
@@ -29,6 +28,7 @@ public class FoodDBVariableWeightItemPage extends AppCompatActivity {
         variableFoodFat = findViewById(R.id.variableItemAddMealFat);
         variableFoodCarbs = findViewById(R.id.variableItemAddMealCarbs);
         variableFoodProtein = findViewById(R.id.variableItemAddMealProtein);
+        radioGroup = findViewById(R.id.radioGroup);
 
         Button submit = findViewById(R.id.variableItemAddFoodToDB);
         submit.setOnClickListener(view -> {
@@ -82,6 +82,10 @@ public class FoodDBVariableWeightItemPage extends AppCompatActivity {
     }
 
     public void oneGramNutrient(float weight, float calories, float fat, float carbs, float protein) {
+        int radioId = radioGroup.getCheckedRadioButtonId();
+        radioButton = findViewById(radioId);
+        radioButton.getText();
+
         float conversionFactor;
         if (weight < 100) {
             conversionFactor = 100 / weight;

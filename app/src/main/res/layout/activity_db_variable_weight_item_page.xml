@@ -289,63 +289,22 @@
             app:layout_constraintTop_toBottomOf="@+id/variableItemAddMealCarbs"
             app:layout_constraintVertical_bias="0.0" />
 
+
         <TextView
             android:id="@+id/variableItemWeightDisplayChoiceTV"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Nutrient Display Weight"
+            android:layout_marginTop="32dp"
+            android:text="Display Weight:"
             android:textAlignment="center"
             android:textColor="@color/black"
-            android:textSize="28dp"
-            app:layout_constraintBottom_toTopOf="@+id/radioGroup"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="1.0" />
-
-        <RadioGroup
-            android:id="@+id/radioGroup"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal"
+            android:textSize="38sp"
             app:layout_constraintBottom_toTopOf="@+id/layoutVariableItemAddButtons"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintHorizontal_bias="0.099"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.95">
-
-            <RadioButton
-                android:id="@+id/variableItemDisplay100g"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:onClick="checkWeightDisplayButton"
-                android:text="100g"
-                android:textColor="@color/black" />
-
-            <RadioButton
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:onClick="checkWeightDisplayButton"
-                android:text="50g"
-                android:textColor="@color/black" />
-
-            <RadioButton
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:onClick="checkWeightDisplayButton"
-                android:text="10g"
-                android:textColor="@color/black" />
-
-            <RadioButton
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:onClick="checkWeightDisplayButton"
-                android:text="1g"
-                android:textColor="@color/black" />
-
-
-        </RadioGroup>
+            app:layout_constraintTop_toBottomOf="@+id/variableItemAddProteinTV"
+            app:layout_constraintVertical_bias="0.0" />
 
         <LinearLayout
             android:id="@+id/layoutVariableItemAddButtons"
@@ -379,6 +338,20 @@
                 android:textColor="#E4E3D3"
                 app:backgroundTint="#337357" />
         </LinearLayout>
+
+        <Button
+            android:id="@+id/button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="32dp"
+            android:backgroundTint="#337357"
+            android:text="Select"
+            app:layout_constraintBottom_toTopOf="@+id/layoutVariableItemAddButtons"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.918"
+            app:layout_constraintStart_toEndOf="@+id/variableItemWeightDisplayChoiceTV"
+            app:layout_constraintTop_toBottomOf="@+id/variableItemAddMealProtein"
+            app:layout_constraintVertical_bias="0.0" />
 
 
     </androidx.constraintlayout.widget.ConstraintLayout>
