@@ -101,6 +101,7 @@ public class FoodDBVariableWeightItemPage extends AppCompatActivity {
         LinearLayout cancelDisplayWeight = displayWeightDialog.findViewById(R.id.layoutCancelDisplayWeight);
 
         confirmDisplayWeight.setOnClickListener(v -> {
+            radioGroup = findViewById(R.id.displayWeightRadioGroup);
             int radioId = radioGroup.getCheckedRadioButtonId();
             radioButton = findViewById(radioId);
             displayWeightDialog.dismiss();
