@@ -66,7 +66,7 @@ public class FoodDBVariableWeightItemPage extends AppCompatActivity {
                 String variableFoodProteinToString = variableFoodProtein.getText().toString();
                 variableFoodProteinVal = Float.parseFloat(variableFoodProteinToString);
 
-                oneGramNutrient(variableFoodWeightVal, variableFoodCaloriesVal, variableFoodFatVal, variableFoodCarbsVal, variableFoodProteinVal);
+                calculateNutrientsToTargetWeightVal(variableFoodWeightVal, variableFoodCaloriesVal, variableFoodFatVal, variableFoodCarbsVal, variableFoodProteinVal);
 
                 FoodModel foodModel;
 
@@ -131,33 +131,43 @@ public class FoodDBVariableWeightItemPage extends AppCompatActivity {
         }
     }
 
-    public void oneGramNutrient(float weight, float calories, float fat, float carbs, float protein) {
+    public void calculateNutrientsToTargetWeightVal(float weight, float calories, float fat, float carbs, float protein) {
         float conversionFactor;
         if (weight < 100) {
             conversionFactor = 100 / weight;
-
-
         } else {
             conversionFactor = weight / 100;
         }
         conversionFactor = (float) (Math.round(conversionFactor * 100.0) / 100.0);
 
-        variableFoodCaloriesVal = calories / conversionFactor;
-        // Need to make the arithematic symbol in the line below into a var to avoid code repetition
-        variableFoodCaloriesVal = variableFoodCaloriesVal / 100;
-        variableFoodCaloriesVal = (float) (Math.round(variableFoodCaloriesVal * 100.0) / 100.0);
+        variableFoodCaloriesVal = oneGramOfSpecificNutrient(conversionFactor, calories);
+        variableFoodCaloriesVal = variableFoodCaloriesVal * selectedDisplayWeight;
 
-        variableFoodFatVal = fat / conversionFactor;
-        variableFoodFatVal = variableFoodFatVal / 100;
-        variableFoodFatVal = (float) (Math.round(variableFoodFatVal * 100.0) / 100.0);
+        variableFoodFatVal = oneGramOfSpecificNutrient(conversionFactor, fat);
+        variableFoodFatVal = variableFoodFatVal * selectedDisplayWeight;
 
-        variableFoodCarbsVal = carbs / conversionFactor;
-        variableFoodCarbsVal = variableFoodCarbsVal / 100;
-        variableFoodCarbsVal = (float) (Math.round(variableFoodCarbsVal * 100.0) / 100.0);
+        variableFoodCarbsVal = oneGramOfSpecificNutrient(conversionFactor, carbs);
+        variableFoodCarbsVal = variableFoodCarbsVal * selectedDisplayWeight;
 
-        variableFoodProteinVal = protein / conversionFactor;
-        variableFoodProteinVal = variableFoodProteinVal / 100;
-        variableFoodProteinVal = (float) (Math.round(variableFoodProteinVal * 100.0) / 100.0);
+        variableFoodProteinVal = oneGramOfSpecificNutrient(conversionFactor, protein);
+        variableFoodProteinVal = variableFoodProteinVal * selectedDisplayWeight;
+    }
+    private float oneGramOfSpecificNutrient(float factor, float nutrient){
+        float tempVariableFoodNutrientVal = 0;
+
+        if(factor > 1) {
+            tempVariableFoodNutrientVal = nutrient / factor;
+        }
+        else if (factor < 1) {
+            tempVariableFoodNutrientVal = nutrient * factor;
+        }
+        else{
+            tempVariableFoodNutrientVal = nutrient;
+        }
+        tempVariableFoodNutrientVal = tempVariableFoodNutrientVal / 100;
+        tempVariableFoodNutrientVal = (float) (Math.round(tempVariableFoodNutrientVal * 100.0) / 100.0);
+
+        return tempVariableFoodNutrientVal;
     }
 
 }
