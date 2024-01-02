@@ -6,6 +6,7 @@ import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.view.Gravity;
+import android.view.View;
 import android.view.ViewGroup;
 import android.view.Window;
 import android.widget.Button;
@@ -21,8 +22,7 @@ public class FoodDBVariableWeightItemPage extends AppCompatActivity {
 
     private EditText variableFoodName, variableFoodWeight, variableFoodCalories, variableFoodFat, variableFoodCarbs, variableFoodProtein;
     private Float variableFoodWeightVal, variableFoodCaloriesVal, variableFoodFatVal, variableFoodCarbsVal, variableFoodProteinVal;
-    private RadioGroup radioGroup;
-    private RadioButton radioButton;
+    private int selectedDisplayWeight;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -101,12 +101,12 @@ public class FoodDBVariableWeightItemPage extends AppCompatActivity {
         LinearLayout cancelDisplayWeight = displayWeightDialog.findViewById(R.id.layoutCancelDisplayWeight);
 
         confirmDisplayWeight.setOnClickListener(v -> {
-            radioGroup = findViewById(R.id.displayWeightRadioGroup);
-            int radioId = radioGroup.getCheckedRadioButtonId();
-            radioButton = findViewById(radioId);
             displayWeightDialog.dismiss();
         });
-        cancelDisplayWeight.setOnClickListener(v -> displayWeightDialog.dismiss());
+        cancelDisplayWeight.setOnClickListener(v -> {
+            selectedDisplayWeight = 0;
+            displayWeightDialog.dismiss();
+        });
 
         displayWeightDialog.show();
         displayWeightDialog.getWindow().setLayout(ViewGroup.LayoutParams.MATCH_PARENT,ViewGroup.LayoutParams.WRAP_CONTENT);
@@ -114,34 +114,49 @@ public class FoodDBVariableWeightItemPage extends AppCompatActivity {
         displayWeightDialog.getWindow().setGravity(Gravity.CENTER);
     }
 
+    public void checkRadioButtonId(View view){
+        switch (view.getId()) {
+            case R.id.displayWeight100g:
+                selectedDisplayWeight = 100;
+                break;
+            case R.id.displayWeight50g:
+                selectedDisplayWeight = 50;
+                break;
+            case R.id.displayWeight10g:
+                selectedDisplayWeight = 10;
+                break;
+            case R.id.displayWeight1g:
+                selectedDisplayWeight = 1;
+                break;
+        }
+    }
 
     public void oneGramNutrient(float weight, float calories, float fat, float carbs, float protein) {
-        int radioId = radioGroup.getCheckedRadioButtonId();
-        radioButton = findViewById(radioId);
-        radioButton.getText();
-
         float conversionFactor;
         if (weight < 100) {
             conversionFactor = 100 / weight;
+
+
         } else {
             conversionFactor = weight / 100;
         }
         conversionFactor = (float) (Math.round(conversionFactor * 100.0) / 100.0);
 
         variableFoodCaloriesVal = calories / conversionFactor;
+        // Need to make the arithematic symbol in the line below into a var to avoid code repetition
         variableFoodCaloriesVal = variableFoodCaloriesVal / 100;
         variableFoodCaloriesVal = (float) (Math.round(variableFoodCaloriesVal * 100.0) / 100.0);
 
         variableFoodFatVal = fat / conversionFactor;
-        variableFoodCaloriesVal = variableFoodCaloriesVal / 100;
+        variableFoodFatVal = variableFoodFatVal / 100;
         variableFoodFatVal = (float) (Math.round(variableFoodFatVal * 100.0) / 100.0);
 
         variableFoodCarbsVal = carbs / conversionFactor;
-        variableFoodCaloriesVal = variableFoodCaloriesVal / 100;
+        variableFoodCarbsVal = variableFoodCarbsVal / 100;
         variableFoodCarbsVal = (float) (Math.round(variableFoodCarbsVal * 100.0) / 100.0);
 
         variableFoodProteinVal = protein / conversionFactor;
-        variableFoodCaloriesVal = variableFoodCaloriesVal / 100;
+        variableFoodProteinVal = variableFoodProteinVal / 100;
         variableFoodProteinVal = (float) (Math.round(variableFoodProteinVal * 100.0) / 100.0);
     }
 
