@@ -22,7 +22,7 @@ public class FoodDBVariableWeightItemPage extends AppCompatActivity {
 
     private EditText variableFoodName, variableFoodWeight, variableFoodCalories, variableFoodFat, variableFoodCarbs, variableFoodProtein;
     private Float variableFoodWeightVal, variableFoodCaloriesVal, variableFoodFatVal, variableFoodCarbsVal, variableFoodProteinVal;
-    private int selectedDisplayWeight;
+    private int selectedDisplayWeight = 0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -43,7 +43,7 @@ public class FoodDBVariableWeightItemPage extends AppCompatActivity {
 
         Button submit = findViewById(R.id.variableItemAddFoodToDB);
         submit.setOnClickListener(view -> {
-            if (variableFoodName.getText().toString().isEmpty() || variableFoodCalories.getText().toString().isEmpty() || variableFoodFat.getText().toString().isEmpty() || variableFoodCarbs.getText().toString().isEmpty() || variableFoodProtein.getText().toString().isEmpty()) {
+            if (variableFoodName.getText().toString().isEmpty() || variableFoodCalories.getText().toString().isEmpty() || variableFoodFat.getText().toString().isEmpty() || variableFoodCarbs.getText().toString().isEmpty() || variableFoodProtein.getText().toString().isEmpty() || selectedDisplayWeight == 0) {
                 Toast.makeText(FoodDBVariableWeightItemPage.this, "Please insert all info", Toast.LENGTH_SHORT).show();
             } else {
 
@@ -156,16 +156,16 @@ public class FoodDBVariableWeightItemPage extends AppCompatActivity {
         float tempVariableFoodNutrientVal = 0;
 
         if(factor > 1) {
-            tempVariableFoodNutrientVal = nutrient / factor;
+            tempVariableFoodNutrientVal = nutrient * factor;
         }
         else if (factor < 1) {
-            tempVariableFoodNutrientVal = nutrient * factor;
+            tempVariableFoodNutrientVal = nutrient / factor;
         }
         else{
             tempVariableFoodNutrientVal = nutrient;
         }
         tempVariableFoodNutrientVal = tempVariableFoodNutrientVal / 100;
-        tempVariableFoodNutrientVal = (float) (Math.round(tempVariableFoodNutrientVal * 100.0) / 100.0);
+        tempVariableFoodNutrientVal = (float) (Math.round(tempVariableFoodNutrientVal * 1000.0) / 1000.0);
 
         return tempVariableFoodNutrientVal;
     }
