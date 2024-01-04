@@ -209,7 +209,7 @@ public class FoodDBDisplay extends AppCompatActivity implements RecyclerViewInte
             confirmationDialog.dismiss();
         });
         variableWeightAdd.setOnClickListener(v -> {
-            Intent intent = new Intent(FoodDBDisplay.this, FoodDBVariableWeightItemPage.class);
+            Intent intent = new Intent(FoodDBDisplay.this, FoodDBAddItemVariableWeight.class);
             startForRefresh.launch(intent);
             confirmationDialog.dismiss();
         });

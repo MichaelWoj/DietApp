@@ -133,7 +133,8 @@ public class FoodDBItemPage extends AppCompatActivity {
 
         deleteLayout.setOnClickListener(v -> {
             dialog.dismiss();
-            deleteConfirmationWindow();
+            Intent intent = new Intent(FoodDBItemPage.this, FoodDBDisplay.class);
+            deleteConfirmationWindow(intent, entryID);
         });
 
         dialog.show();
@@ -169,7 +170,7 @@ public class FoodDBItemPage extends AppCompatActivity {
         }
     });
 
-    private void deleteConfirmationWindow() {
+    public void deleteConfirmationWindow(Intent intent, Integer idOfEntry) {
 
         final Dialog confirmationDialog = new Dialog(this);
         confirmationDialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
@@ -179,9 +180,8 @@ public class FoodDBItemPage extends AppCompatActivity {
         LinearLayout confirmCancel = confirmationDialog.findViewById(R.id.layoutConfirmCancel);
 
         confirmDelete.setOnClickListener(v -> {
-            Intent intent = new Intent(FoodDBItemPage.this, FoodDBDisplay.class);
             intent.addFlags(Intent.FLAG_ACTIVITY_FORWARD_RESULT);
-            databaseHelper.deleteEntry(entryID);
+            databaseHelper.deleteEntry(idOfEntry);
             confirmationDialog.dismiss();
             finish();
         });

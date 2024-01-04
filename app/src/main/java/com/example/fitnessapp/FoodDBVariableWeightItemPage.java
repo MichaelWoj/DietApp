@@ -1,4 +1,4 @@
-    package com.example.fitnessapp;
+package com.example.fitnessapp;
 
 import android.app.Dialog;
 import android.content.Intent;
@@ -6,168 +6,169 @@ import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.view.Gravity;
-import android.view.View;
 import android.view.ViewGroup;
 import android.view.Window;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageButton;
 import android.widget.LinearLayout;
-import android.widget.RadioButton;
-import android.widget.RadioGroup;
-import android.widget.Toast;
+import android.widget.TextView;
 
+import androidx.activity.result.ActivityResult;
+import androidx.activity.result.ActivityResultCallback;
+import androidx.activity.result.ActivityResultLauncher;
+import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.appcompat.app.AppCompatActivity;
 
 public class FoodDBVariableWeightItemPage extends AppCompatActivity {
+    private TextView nameDB, caloriesDB, fatDB, carbsDB, proteinDB;
+    private EditText itemWeight;
+    private DatabaseHelper databaseHelper;
+    private int entryID;
+    private float foodCaloriesVal, foodFatVal, foodCarbsVal, foodProteinVal;
+    private String entryIDString;
 
-    private EditText variableFoodName, variableFoodWeight, variableFoodCalories, variableFoodFat, variableFoodCarbs, variableFoodProtein;
-    private Float variableFoodWeightVal, variableFoodCaloriesVal, variableFoodFatVal, variableFoodCarbsVal, variableFoodProteinVal;
-    private int selectedDisplayWeight = 0;
-
+    FoodDBItemPage foodDBItemPage;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_db_variable_weight_item_page);
+        databaseHelper = new DatabaseHelper(getApplicationContext());
 
-        variableFoodName = findViewById(R.id.variableItemAddMealName);
-        variableFoodWeight = findViewById(R.id.variableItemWeight);
-        variableFoodCalories = findViewById(R.id.variableItemAddMealCalories);
-        variableFoodFat = findViewById(R.id.variableItemAddMealFat);
-        variableFoodCarbs = findViewById(R.id.variableItemAddMealCarbs);
-        variableFoodProtein = findViewById(R.id.variableItemAddMealProtein);
+        nameDB = findViewById(R.id.variableWeightItemMealName);
+        caloriesDB = findViewById(R.id.variableWeightItemMealCalories);
+        fatDB = findViewById(R.id.variableWeightItemMealFat);
+        carbsDB = findViewById(R.id.variableWeightItemMealCarbs);
+        proteinDB = findViewById(R.id.variableWeightItemMealProtein);
+        itemWeight = findViewById(R.id.variableItemWeight);
 
-        Button selectDisplayWeight = findViewById(R.id.variableItemSelectDisplayWeight);
-        selectDisplayWeight.setOnClickListener(view -> {
-            selectDisplayWeightWindow();
-        });
+        Intent intent = getIntent();
+        String id = intent.getStringExtra("ID");
+        String itemSetName = intent.getStringExtra("Name");
+        String itemSetCalories = intent.getStringExtra("Calories");
+        String itemSetFat = intent.getStringExtra("Fat");
+        String itemSetCarbs = intent.getStringExtra("Carbs");
+        String itemSetProtein = intent.getStringExtra("Protein");
 
-        Button submit = findViewById(R.id.variableItemAddFoodToDB);
-        submit.setOnClickListener(view -> {
-            if (variableFoodName.getText().toString().isEmpty() || variableFoodCalories.getText().toString().isEmpty() || variableFoodFat.getText().toString().isEmpty() || variableFoodCarbs.getText().toString().isEmpty() || variableFoodProtein.getText().toString().isEmpty() || selectedDisplayWeight == 0) {
-                Toast.makeText(FoodDBVariableWeightItemPage.this, "Please insert all info", Toast.LENGTH_SHORT).show();
-            } else {
+        entryID = Integer.parseInt(id);
+        entryIDString = id;
 
-                Intent intent = new Intent(FoodDBVariableWeightItemPage.this, FoodDBDisplay.class);
+        setText(itemSetName, itemSetCalories, itemSetFat, itemSetCarbs, itemSetProtein);
 
-                String variableFoodNameToString = variableFoodName.getText().toString();
+        Button submit = findViewById(R.id.variableWeightItemAddFood);
+        submit.setOnClickListener(v -> {
+            Intent intent1 = new Intent(FoodDBVariableWeightItemPage.this, MainActivity.class);
 
-                String variableFoodWeightToString = variableFoodWeight.getText().toString();
-                variableFoodWeightVal = Float.parseFloat(variableFoodWeightToString);
+            //The line currently does nothing but is here for an upcoming feature
+            String foodNameToString = nameDB.getText().toString();
 
-                String variableFoodCaloriesToString = variableFoodCalories.getText().toString();
-                variableFoodCaloriesVal = Float.parseFloat(variableFoodCaloriesToString);
+            String foodCaloriesToString = caloriesDB.getText().toString();
+            foodCaloriesVal = Float.parseFloat(foodCaloriesToString);
+            intent1.putExtra("foodCalories", foodCaloriesVal);
 
-                String variableFoodFatToString = variableFoodFat.getText().toString();
-                variableFoodFatVal = Float.parseFloat(variableFoodFatToString);
+            String foodFatToString = fatDB.getText().toString();
+            foodFatVal = Float.parseFloat(foodFatToString);
+            intent1.putExtra("foodFat", foodFatVal);
 
-                String variableFoodCarbsToString = variableFoodCarbs.getText().toString();
-                variableFoodCarbsVal = Float.parseFloat(variableFoodCarbsToString);
+            String foodCarbsToString = carbsDB.getText().toString();
+            foodCarbsVal = Float.parseFloat(foodCarbsToString);
+            intent1.putExtra("foodCarbs", foodCarbsVal);
 
-                String variableFoodProteinToString = variableFoodProtein.getText().toString();
-                variableFoodProteinVal = Float.parseFloat(variableFoodProteinToString);
+            String foodProteinToString = proteinDB.getText().toString();
+            foodProteinVal = Float.parseFloat(foodProteinToString);
+            intent1.putExtra("foodProtein", foodProteinVal);
 
-                calculateNutrientsToTargetWeightVal(variableFoodWeightVal, variableFoodCaloriesVal, variableFoodFatVal, variableFoodCarbsVal, variableFoodProteinVal);
-
-                FoodModel foodModel;
-
-                try {
-                    foodModel = new FoodModel(-1, variableFoodNameToString, variableFoodCaloriesVal, variableFoodFatVal, variableFoodCarbsVal, variableFoodProteinVal,1);
-                } catch (Exception e) {
-                    foodModel = new FoodModel(-1, "Error", 0f, 0f, 0f, 0f,1);
-                }
-
-                DatabaseHelper dataBaseHelper = new DatabaseHelper(FoodDBVariableWeightItemPage.this);
-                dataBaseHelper.addOne(foodModel);
-
-                setResult(RESULT_OK, intent);
-                finish();
-            }
-
-        });
-        Button back = findViewById(R.id.variableItemAddCancel);
-        back.setOnClickListener(v -> {
-            Intent intent = new Intent(FoodDBVariableWeightItemPage.this, FoodDBDisplay.class);
-            intent.addFlags(Intent.FLAG_ACTIVITY_FORWARD_RESULT);
+            setResult(RESULT_OK, intent1);
             finish();
         });
+
+        ImageButton settings = findViewById(R.id.variableWeightItemSettingsBtn);
+        settings.setOnClickListener(v -> showDialog());
+
+        Button back = findViewById(R.id.variableWeightItemCancel);
+        back.setOnClickListener(v -> finish());
     }
-    private void selectDisplayWeightWindow() {
 
-        final Dialog displayWeightDialog = new Dialog(this);
-        displayWeightDialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
-        displayWeightDialog.setContentView(R.layout.activity_db_variable_weight_popup);
+    private void setText(String name, String calories, String fat, String carbs, String protein){
+        nameDB.setText(name);
+        caloriesDB.setText(calories);
+        fatDB.setText(fat);
+        carbsDB.setText(carbs);
+        proteinDB.setText(protein);
+    }
 
-        LinearLayout confirmDisplayWeight = displayWeightDialog.findViewById(R.id.layoutConfirmDisplayWeight);
-        LinearLayout cancelDisplayWeight = displayWeightDialog.findViewById(R.id.layoutCancelDisplayWeight);
+    private void showDialog() {
 
-        confirmDisplayWeight.setOnClickListener(v -> {
-            displayWeightDialog.dismiss();
+        final Dialog dialog = new Dialog(this);
+        dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
+        dialog.setContentView(R.layout.activity_db_settings_popup);
+
+        LinearLayout editLayout = dialog.findViewById(R.id.layoutSettingsEdit);
+        LinearLayout deleteLayout = dialog.findViewById(R.id.layoutSettingsDelete);
+
+
+        editLayout.setOnClickListener(v -> {
+            Intent intent = new Intent(FoodDBVariableWeightItemPage.this, FoodDBEditItem.class);
+
+            intent.putExtra("editId",entryIDString);
+
+            String editFoodNameToString = nameDB.getText().toString();
+            intent.putExtra("editName", editFoodNameToString);
+
+            String editFoodCaloriesToString = caloriesDB.getText().toString();
+            intent.putExtra("editCalories", editFoodCaloriesToString);
+
+            String editFoodFatToString = fatDB.getText().toString();
+            intent.putExtra("editFat", editFoodFatToString);
+
+            String editFoodCarbsToString = carbsDB.getText().toString();
+            intent.putExtra("editCarbs", editFoodCarbsToString);
+
+            String editFoodProteinToString = proteinDB.getText().toString();
+            intent.putExtra("editProtein", editFoodProteinToString);
+
+            startForRefreshItemPage.launch(intent);
+            dialog.dismiss();
+
         });
-        cancelDisplayWeight.setOnClickListener(v -> {
-            selectedDisplayWeight = 0;
-            displayWeightDialog.dismiss();
+
+        deleteLayout.setOnClickListener(v -> {
+            dialog.dismiss();
+            Intent intent = new Intent(FoodDBVariableWeightItemPage.this, FoodDBDisplay.class);
+            foodDBItemPage.deleteConfirmationWindow(intent, entryID);
         });
 
-        displayWeightDialog.show();
-        displayWeightDialog.getWindow().setLayout(ViewGroup.LayoutParams.MATCH_PARENT,ViewGroup.LayoutParams.WRAP_CONTENT);
-        displayWeightDialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
-        displayWeightDialog.getWindow().setGravity(Gravity.CENTER);
+        dialog.show();
+        dialog.getWindow().setLayout(ViewGroup.LayoutParams.MATCH_PARENT,ViewGroup.LayoutParams.WRAP_CONTENT);
+        dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+        dialog.getWindow().getAttributes().windowAnimations = R.style.DialogAnimation;
+        dialog.getWindow().setGravity(Gravity.BOTTOM);
+
     }
 
-    public void checkRadioButtonId(View view){
-        switch (view.getId()) {
-            case R.id.displayWeight100g:
-                selectedDisplayWeight = 100;
-                break;
-            case R.id.displayWeight50g:
-                selectedDisplayWeight = 50;
-                break;
-            case R.id.displayWeight10g:
-                selectedDisplayWeight = 10;
-                break;
-            case R.id.displayWeight1g:
-                selectedDisplayWeight = 1;
-                break;
+    ActivityResultLauncher<Intent> startForRefreshItemPage = registerForActivityResult(new ActivityResultContracts.StartActivityForResult(), new ActivityResultCallback<ActivityResult>() {
+        @Override
+        public void onActivityResult(ActivityResult result) {
+            if(result.getResultCode() == RESULT_OK){
+                Intent intent = result.getData();
+
+                String newName = intent.getStringExtra("editFoodName");
+
+                Float newCalories = intent.getFloatExtra("editFoodCalories", foodCaloriesVal);
+                String newCaloriesString = newCalories.toString();
+
+                Float newFat = intent.getFloatExtra("editFoodFat", foodFatVal);
+                String newFatString = newFat.toString();
+
+                Float newCarbs = intent.getFloatExtra("editFoodCarbs", foodCarbsVal);
+                String newCarbsString = newCarbs.toString();
+
+                Float newProtein = intent.getFloatExtra("editFoodProtein", foodProteinVal);
+                String newProteinString = newProtein.toString();
+
+                setText(newName, newCaloriesString, newFatString, newCarbsString, newProteinString);
+            }
         }
-    }
-
-    public void calculateNutrientsToTargetWeightVal(float weight, float calories, float fat, float carbs, float protein) {
-        float conversionFactor;
-        if (weight < 100) {
-            conversionFactor = 100 / weight;
-        } else {
-            conversionFactor = weight / 100;
-        }
-        conversionFactor = (float) (Math.round(conversionFactor * 100.0) / 100.0);
-
-        variableFoodCaloriesVal = oneGramOfSpecificNutrient(conversionFactor, calories);
-        variableFoodCaloriesVal = variableFoodCaloriesVal * selectedDisplayWeight;
-
-        variableFoodFatVal = oneGramOfSpecificNutrient(conversionFactor, fat);
-        variableFoodFatVal = variableFoodFatVal * selectedDisplayWeight;
-
-        variableFoodCarbsVal = oneGramOfSpecificNutrient(conversionFactor, carbs);
-        variableFoodCarbsVal = variableFoodCarbsVal * selectedDisplayWeight;
-
-        variableFoodProteinVal = oneGramOfSpecificNutrient(conversionFactor, protein);
-        variableFoodProteinVal = variableFoodProteinVal * selectedDisplayWeight;
-    }
-    private float oneGramOfSpecificNutrient(float factor, float nutrient){
-        float tempVariableFoodNutrientVal = 0;
-
-        if(factor > 1) {
-            tempVariableFoodNutrientVal = nutrient * factor;
-        }
-        else if (factor < 1) {
-            tempVariableFoodNutrientVal = nutrient / factor;
-        }
-        else{
-            tempVariableFoodNutrientVal = nutrient;
-        }
-        tempVariableFoodNutrientVal = tempVariableFoodNutrientVal / 100;
-        tempVariableFoodNutrientVal = (float) (Math.round(tempVariableFoodNutrientVal * 1000.0) / 1000.0);
-
-        return tempVariableFoodNutrientVal;
-    }
-
+    });
 }
+
