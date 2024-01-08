@@ -30,7 +30,7 @@ import java.util.ArrayList;
 
 public class FoodDBDisplay extends AppCompatActivity implements RecyclerViewInterface {
 
-    private ArrayList<String> foodID, foodNameDB, foodCaloriesNum, foodFatNum, foodCarbsNum, foodProteinNum, foodSaveType;
+    private ArrayList<String> foodID, foodNameDB, foodCaloriesNum, foodFatNum, foodCarbsNum, foodProteinNum, foodDisplayWeightNum, foodSaveType;
     private DatabaseHelper dataBaseHelper;
     private SearchView searchView;
 
@@ -71,6 +71,7 @@ public class FoodDBDisplay extends AppCompatActivity implements RecyclerViewInte
         foodFatNum = new ArrayList<>();
         foodCarbsNum = new ArrayList<>();
         foodProteinNum = new ArrayList<>();
+        foodDisplayWeightNum = new ArrayList<>();
         foodSaveType = new ArrayList<>();
 
         RecyclerView recyclerView = findViewById(R.id.recyclerViewFoodList);
@@ -95,13 +96,19 @@ public class FoodDBDisplay extends AppCompatActivity implements RecyclerViewInte
 
     @Override
     public void onItemClick(int position) {
-        Intent intent = new Intent(FoodDBDisplay.this, FoodDBItemPage.class);
+        Intent intent = null;
+        if(foodSaveType.get(position).equals("0")){
+            intent = new Intent(FoodDBDisplay.this, FoodDBItemPage.class);
+        } else if (foodSaveType.get(position).equals("1")) {
+            intent = new Intent(FoodDBDisplay.this, FoodDBVariableWeightItemPage.class);
+        }
         intent.putExtra("ID", foodID.get(position));
         intent.putExtra("Name", foodNameDB.get(position));
         intent.putExtra("Calories", foodCaloriesNum.get(position));
         intent.putExtra("Fat", foodFatNum.get(position));
         intent.putExtra("Carbs", foodCarbsNum.get(position));
         intent.putExtra("Protein", foodProteinNum.get(position));
+        intent.putExtra("DisplayWeight", foodDisplayWeightNum.get(position));
 
         startForMainActivityResult.launch(intent);
     }
@@ -129,6 +136,8 @@ public class FoodDBDisplay extends AppCompatActivity implements RecyclerViewInte
                 foodFatNum.add(cursor.getString(3));
                 foodCarbsNum.add(cursor.getString(4));
                 foodProteinNum.add(cursor.getString(5));
+                foodDisplayWeightNum.add(cursor.getString(6));
+                foodSaveType.add(cursor.getString(7));
 
             }
         }
@@ -139,7 +148,9 @@ public class FoodDBDisplay extends AppCompatActivity implements RecyclerViewInte
         foodCaloriesNum.clear();
         foodFatNum.clear();
         foodCarbsNum.clear();
-        foodProteinNum.clear();;
+        foodProteinNum.clear();
+        foodDisplayWeightNum.clear();
+        foodSaveType.clear();
     }
 
     //This is used in some cases instead of updateRecyclerView as updateRV had issues with ID's when a food was added until FoodDBDisplay was restarted

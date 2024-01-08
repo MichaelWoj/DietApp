@@ -56,28 +56,28 @@ public class FoodDBItemPage extends AppCompatActivity {
 
         Button submit = findViewById(R.id.itemAddFood);
         submit.setOnClickListener(v -> {
-        Intent intent1 = new Intent(FoodDBItemPage.this, MainActivity.class);
+        Intent intentAddToOverallTotal = new Intent(FoodDBItemPage.this, MainActivity.class);
 
         //The line currently does nothing but is here for an upcoming feature
         String foodNameToString = nameDB.getText().toString();
 
         String foodCaloriesToString = caloriesDB.getText().toString();
         foodCaloriesVal = Float.parseFloat(foodCaloriesToString);
-        intent1.putExtra("foodCalories", foodCaloriesVal);
+        intentAddToOverallTotal.putExtra("foodCalories", foodCaloriesVal);
 
         String foodFatToString = fatDB.getText().toString();
         foodFatVal = Float.parseFloat(foodFatToString);
-        intent1.putExtra("foodFat", foodFatVal);
+        intentAddToOverallTotal.putExtra("foodFat", foodFatVal);
 
         String foodCarbsToString = carbsDB.getText().toString();
         foodCarbsVal = Float.parseFloat(foodCarbsToString);
-        intent1.putExtra("foodCarbs", foodCarbsVal);
+        intentAddToOverallTotal.putExtra("foodCarbs", foodCarbsVal);
 
         String foodProteinToString = proteinDB.getText().toString();
         foodProteinVal = Float.parseFloat(foodProteinToString);
-        intent1.putExtra("foodProtein", foodProteinVal);
+        intentAddToOverallTotal.putExtra("foodProtein", foodProteinVal);
 
-        setResult(RESULT_OK, intent1);
+        setResult(RESULT_OK, intentAddToOverallTotal);
         finish();
         });
 

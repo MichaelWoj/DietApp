@@ -45,29 +45,29 @@ public class FoodDBEditItem extends AppCompatActivity {
 
         Button submitEdit = findViewById(R.id.itemEditFoodToDB);
         submitEdit.setOnClickListener(v -> {
-            Intent intent1 = new Intent(FoodDBEditItem.this, FoodDBItemPage.class);
+            Intent intentAddToOverallTotal = new Intent(FoodDBEditItem.this, FoodDBItemPage.class);
 
             String editFoodName = itemName.getText().toString();
-            intent1.putExtra("editFoodName", editFoodName);
+            intentAddToOverallTotal.putExtra("editFoodName", editFoodName);
 
             String editFoodCaloriesToString = itemCalories.getText().toString();
             editFoodCalories = Float.parseFloat(editFoodCaloriesToString);
-            intent1.putExtra("editFoodCalories", editFoodCalories);
+            intentAddToOverallTotal.putExtra("editFoodCalories", editFoodCalories);
 
             String editFoodFatToString = itemFat.getText().toString();
             editFoodFat = Float.parseFloat(editFoodFatToString);
-            intent1.putExtra("editFoodFat", editFoodFat);
+            intentAddToOverallTotal.putExtra("editFoodFat", editFoodFat);
 
             String editFoodCarbsToString = itemCarbs.getText().toString();
             editFoodCarbs = Float.parseFloat(editFoodCarbsToString);
-            intent1.putExtra("editFoodCarbs", editFoodCarbs);
+            intentAddToOverallTotal.putExtra("editFoodCarbs", editFoodCarbs);
 
             String editFoodProteinToString = itemProtein.getText().toString();
             editFoodProtein = Float.parseFloat(editFoodProteinToString);
-            intent1.putExtra("editFoodProtein", editFoodProtein);
+            intentAddToOverallTotal.putExtra("editFoodProtein", editFoodProtein);
 
-            databaseHelper.editEntry(idForEdit, editFoodName, editFoodCalories, editFoodFat, editFoodCarbs, editFoodProtein);
-            setResult(RESULT_OK, intent1);
+            databaseHelper.editEntry(idForEdit, editFoodName, editFoodCalories, editFoodFat, editFoodCarbs, editFoodProtein,0);
+            setResult(RESULT_OK, intentAddToOverallTotal);
             finish();
         });
 
