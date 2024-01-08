@@ -18,6 +18,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     public static final String COLUMN_FOOD_FAT = "FOOD_FAT";
     public static final String COLUMN_FOOD_CARBS = "FOOD_CARBS";
     public static final String COLUMN_FOOD_PROTEIN = "FOOD_PROTEIN";
+    public static final String COLUMN_FOOD_DISPLAY_WEIGHT = "FOOD_DISPLAY_WEIGHT";
     public static final String COLUMN_FOOD_VARIABLE_SAVE_TYPE = "FOOD_VARIABLE_SAVE_TYPE";
 
     private static final int DATABASE_VERSION = 2;
@@ -30,13 +31,14 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
     @Override
     public void onCreate(SQLiteDatabase db) {
-        String createTableStatement = "CREATE TABLE " + FOOD_TABLE + " ("+COLUMN_FOOD_ID+" INTEGER PRIMARY KEY AUTOINCREMENT, " + COLUMN_FOOD_NAME + " TEXT, " + COLUMN_FOOD_CALORIES + " DOUBLE, " + COLUMN_FOOD_FAT + " DOUBLE, " + COLUMN_FOOD_CARBS + " DOUBLE, " +  COLUMN_FOOD_PROTEIN + " DOUBLE, "+ COLUMN_FOOD_VARIABLE_SAVE_TYPE+ " INTEGER)";
+        String createTableStatement = "CREATE TABLE " + FOOD_TABLE + " ("+COLUMN_FOOD_ID+" INTEGER PRIMARY KEY AUTOINCREMENT, " + COLUMN_FOOD_NAME + " TEXT, " + COLUMN_FOOD_CALORIES + " DOUBLE, " + COLUMN_FOOD_FAT + " DOUBLE, " + COLUMN_FOOD_CARBS + " DOUBLE, " +  COLUMN_FOOD_PROTEIN + " DOUBLE, " + COLUMN_FOOD_DISPLAY_WEIGHT + " INTEGER, " + COLUMN_FOOD_VARIABLE_SAVE_TYPE+ " INTEGER)";
         db.execSQL(createTableStatement);
     }
 
     @Override
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
         if(oldVersion < newVersion) {
+            db.execSQL("ALTER TABLE "+FOOD_TABLE+" ADD COLUMN "+COLUMN_FOOD_DISPLAY_WEIGHT+" INTEGER;");
             db.execSQL("ALTER TABLE "+FOOD_TABLE+" ADD COLUMN "+COLUMN_FOOD_VARIABLE_SAVE_TYPE+" INTEGER;");
             db.execSQL("UPDATE "+FOOD_TABLE+" SET "+COLUMN_FOOD_VARIABLE_SAVE_TYPE+" = 0;");
         }
@@ -51,6 +53,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         cv.put(COLUMN_FOOD_FAT, foodModel.getFat());
         cv.put(COLUMN_FOOD_CARBS, foodModel.getCarbs());
         cv.put(COLUMN_FOOD_PROTEIN, foodModel.getProtein());
+        cv.put(COLUMN_FOOD_DISPLAY_WEIGHT, foodModel.getDisplayWeight());
         cv.put(COLUMN_FOOD_VARIABLE_SAVE_TYPE, foodModel.getSaveType());
 
 
@@ -111,7 +114,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         return cursor;
     }
 
-    public void editEntry(int id, String name, float calories, float fat, float carbs, float protein){
+    public void editEntry(int id, String name, float calories, float fat, float carbs, float protein, int displayWeight){
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues values = new ContentValues();
 
@@ -120,6 +123,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         values.put(COLUMN_FOOD_FAT, fat);
         values.put(COLUMN_FOOD_CARBS,carbs);
         values.put(COLUMN_FOOD_PROTEIN, protein);
+        values.put(COLUMN_FOOD_DISPLAY_WEIGHT, displayWeight);
 
         db.update(FOOD_TABLE, values, "id = "+ id, null);
     }

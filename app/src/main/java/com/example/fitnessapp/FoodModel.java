@@ -7,15 +7,17 @@ public class FoodModel {
     private Float fat;
     private Float carbs;
     private Float protein;
+    private int displayWeight;
     private int saveType;
 
-    public FoodModel(int id, String name, Float calories, Float fat, Float carbs, Float protein, int saveType) {
+    public FoodModel(int id, String name, Float calories, Float fat, Float carbs, Float protein, int displayWeight, int saveType) {
         this.id = id;
         this.name = name;
         this.calories = calories;
         this.fat = fat;
         this.carbs = carbs;
         this.protein = protein;
+        this.displayWeight = displayWeight;
         this.saveType = saveType;
     }
     @Override
@@ -78,6 +80,10 @@ public class FoodModel {
     public void setProtein(Float protein) {
         this.protein = protein;
     }
+
+    public int getDisplayWeight() {return displayWeight;}
+
+    public void setDisplayWeight(int displayWeight){this.displayWeight = displayWeight;}
 
     public int getSaveType(){
         return saveType;

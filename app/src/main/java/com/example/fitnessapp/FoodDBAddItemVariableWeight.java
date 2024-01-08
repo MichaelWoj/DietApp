@@ -69,10 +69,9 @@ public class FoodDBAddItemVariableWeight extends AppCompatActivity {
                 FoodModel foodModel;
 
                 try {
-                    // Go back to this and either add different saveTypes or add a new column to DB
-                    foodModel = new FoodModel(-1, variableFoodNameToString, variableFoodCaloriesVal, variableFoodFatVal, variableFoodCarbsVal, variableFoodProteinVal,1);
+                    foodModel = new FoodModel(-1, variableFoodNameToString, variableFoodCaloriesVal, variableFoodFatVal, variableFoodCarbsVal, variableFoodProteinVal, selectedDisplayWeight, 1);
                 } catch (Exception e) {
-                    foodModel = new FoodModel(-1, "Error", 0f, 0f, 0f, 0f,1);
+                    foodModel = new FoodModel(-1, "Error", 0f, 0f, 0f, 0f,0,1);
                 }
 
                 DatabaseHelper dataBaseHelper = new DatabaseHelper(FoodDBAddItemVariableWeight.this);
