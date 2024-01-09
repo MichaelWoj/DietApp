@@ -64,7 +64,12 @@ public class FoodDBAddItemVariableWeight extends AppCompatActivity {
                 String variableFoodProteinToString = variableFoodProtein.getText().toString();
                 variableFoodProteinVal = Float.parseFloat(variableFoodProteinToString);
 
-                calculateNutrientsToTargetWeightVal(variableFoodWeightVal, variableFoodCaloriesVal, variableFoodFatVal, variableFoodCarbsVal, variableFoodProteinVal);
+                float [] variableResultArray = calculateNutrientsToTargetWeightVal(variableFoodWeightVal, variableFoodCaloriesVal, variableFoodFatVal, variableFoodCarbsVal, variableFoodProteinVal, selectedDisplayWeight);
+
+                variableFoodCaloriesVal = variableResultArray[0];
+                variableFoodFatVal = variableResultArray[1];
+                variableFoodCarbsVal = variableResultArray[2];
+                variableFoodProteinVal = variableResultArray[3];
 
                 FoodModel foodModel;
 
@@ -129,26 +134,28 @@ public class FoodDBAddItemVariableWeight extends AppCompatActivity {
         }
     }
 
-    public void calculateNutrientsToTargetWeightVal(float weight, float calories, float fat, float carbs, float protein) {
+    public float[] calculateNutrientsToTargetWeightVal(float foodWeight, float calories, float fat, float carbs, float protein, float targetWeight) {
         float conversionFactor;
-        if (weight < 100) {
-            conversionFactor = 100 / weight;
+        if (foodWeight < 100) {
+            conversionFactor = 100 / foodWeight;
         } else {
-            conversionFactor = weight / 100;
+            conversionFactor = foodWeight / 100;
         }
         conversionFactor = (float) (Math.round(conversionFactor * 100.0) / 100.0);
 
-        variableFoodCaloriesVal = oneGramOfSpecificNutrient(conversionFactor, calories);
-        variableFoodCaloriesVal = variableFoodCaloriesVal * selectedDisplayWeight;
+        float calculateVariableFoodCaloriesVal = oneGramOfSpecificNutrient(conversionFactor, calories);
+        calculateVariableFoodCaloriesVal = calculateVariableFoodCaloriesVal * targetWeight;
 
-        variableFoodFatVal = oneGramOfSpecificNutrient(conversionFactor, fat);
-        variableFoodFatVal = variableFoodFatVal * selectedDisplayWeight;
+        float calculateVariableFoodFatVal = oneGramOfSpecificNutrient(conversionFactor, fat);
+        calculateVariableFoodFatVal = calculateVariableFoodFatVal * targetWeight;
 
-        variableFoodCarbsVal = oneGramOfSpecificNutrient(conversionFactor, carbs);
-        variableFoodCarbsVal = variableFoodCarbsVal * selectedDisplayWeight;
+        float calculateVariableFoodCarbsVal = oneGramOfSpecificNutrient(conversionFactor, carbs);
+        calculateVariableFoodCarbsVal = calculateVariableFoodCarbsVal * targetWeight;
 
-        variableFoodProteinVal = oneGramOfSpecificNutrient(conversionFactor, protein);
-        variableFoodProteinVal = variableFoodProteinVal * selectedDisplayWeight;
+        float calculateVariableFoodProteinVal = oneGramOfSpecificNutrient(conversionFactor, protein);
+        calculateVariableFoodProteinVal = calculateVariableFoodProteinVal * targetWeight;
+
+        return new float[] {calculateVariableFoodCaloriesVal, calculateVariableFoodFatVal, calculateVariableFoodCarbsVal, calculateVariableFoodProteinVal};
     }
     private float oneGramOfSpecificNutrient(float factor, float nutrient){
         float tempVariableFoodNutrientVal = 0;

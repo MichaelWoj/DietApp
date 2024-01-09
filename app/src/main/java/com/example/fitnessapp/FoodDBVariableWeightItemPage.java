@@ -13,6 +13,7 @@ import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.activity.result.ActivityResult;
 import androidx.activity.result.ActivityResultCallback;
@@ -25,7 +26,7 @@ public class FoodDBVariableWeightItemPage extends AppCompatActivity {
     private EditText itemWeight;
     private DatabaseHelper databaseHelper;
     private int entryID, foodDisplayWeight;
-    private float foodCaloriesVal, foodFatVal, foodCarbsVal, foodProteinVal;
+    private float foodCaloriesVal, foodFatVal, foodCarbsVal, foodProteinVal, foodTargetWeightVal;
     private String entryIDString;
     FoodDBAddItemVariableWeight foodDBAddItemVariableWeight;
     FoodDBItemPage foodDBItemPage;
@@ -34,6 +35,7 @@ public class FoodDBVariableWeightItemPage extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_db_variable_weight_item_page);
         databaseHelper = new DatabaseHelper(getApplicationContext());
+        foodDBAddItemVariableWeight = new FoodDBAddItemVariableWeight();
 
         nameDB = findViewById(R.id.variableWeightItemMealName);
         caloriesDB = findViewById(R.id.variableWeightItemMealCalories);
@@ -58,34 +60,45 @@ public class FoodDBVariableWeightItemPage extends AppCompatActivity {
 
         Button submit = findViewById(R.id.variableWeightItemAddFood);
         submit.setOnClickListener(v -> {
-            Intent intentAddToOverallTotal = new Intent(FoodDBVariableWeightItemPage.this, MainActivity.class);
+            String foodTargetWeight = itemWeight.getText().toString();
+            if ( foodTargetWeight.isEmpty() || foodTargetWeight.equals("0")) {
+                Toast.makeText(FoodDBVariableWeightItemPage.this, "Please insert all info", Toast.LENGTH_SHORT).show();
+            } else {
+                Intent intentAddToOverallTotal = new Intent(FoodDBVariableWeightItemPage.this, MainActivity.class);
 
-            //The line currently does nothing but is here for an upcoming feature
-            String foodNameToString = nameDB.getText().toString();
+                //The line currently does nothing but is here for an upcoming feature
+                String foodNameToString = nameDB.getText().toString();
 
-            foodDisplayWeight = Integer.parseInt(itemSetDisplayWeight);
+                foodDisplayWeight = Integer.parseInt(itemSetDisplayWeight);
 
-            String foodCaloriesToString = caloriesDB.getText().toString();
-            foodCaloriesVal = Float.parseFloat(foodCaloriesToString);
+                String foodCaloriesToString = caloriesDB.getText().toString();
+                foodCaloriesVal = Float.parseFloat(foodCaloriesToString);
 
-            String foodFatToString = fatDB.getText().toString();
-            foodFatVal = Float.parseFloat(foodFatToString);
+                String foodFatToString = fatDB.getText().toString();
+                foodFatVal = Float.parseFloat(foodFatToString);
 
-            String foodCarbsToString = carbsDB.getText().toString();
-            foodCarbsVal = Float.parseFloat(foodCarbsToString);
+                String foodCarbsToString = carbsDB.getText().toString();
+                foodCarbsVal = Float.parseFloat(foodCarbsToString);
 
-            String foodProteinToString = proteinDB.getText().toString();
-            foodProteinVal = Float.parseFloat(foodProteinToString);
+                String foodProteinToString = proteinDB.getText().toString();
+                foodProteinVal = Float.parseFloat(foodProteinToString);
 
-            foodDBAddItemVariableWeight.calculateNutrientsToTargetWeightVal(foodDisplayWeight, foodCaloriesVal, foodFatVal, foodCarbsVal, foodProteinVal);
+                foodTargetWeightVal = Float.parseFloat(foodTargetWeight);
+                float[] variableResultArray = foodDBAddItemVariableWeight.calculateNutrientsToTargetWeightVal(foodDisplayWeight, foodCaloriesVal, foodFatVal, foodCarbsVal, foodProteinVal, foodTargetWeightVal);
 
-            intentAddToOverallTotal.putExtra("foodCalories", foodCaloriesVal);
-            intentAddToOverallTotal.putExtra("foodFat", foodFatVal);
-            intentAddToOverallTotal.putExtra("foodCarbs", foodCarbsVal);
-            intentAddToOverallTotal.putExtra("foodProtein", foodProteinVal);
+                foodCaloriesVal = variableResultArray[0];
+                foodFatVal = variableResultArray[1];
+                foodCarbsVal = variableResultArray[2];
+                foodTargetWeightVal = variableResultArray[3];
 
-            setResult(RESULT_OK, intentAddToOverallTotal);
-            finish();
+                intentAddToOverallTotal.putExtra("foodCalories", foodCaloriesVal);
+                intentAddToOverallTotal.putExtra("foodFat", foodFatVal);
+                intentAddToOverallTotal.putExtra("foodCarbs", foodCarbsVal);
+                intentAddToOverallTotal.putExtra("foodProtein", foodProteinVal);
+
+                setResult(RESULT_OK, intentAddToOverallTotal);
+                finish();
+            }
         });
 
         ImageButton settings = findViewById(R.id.variableWeightItemSettingsBtn);
