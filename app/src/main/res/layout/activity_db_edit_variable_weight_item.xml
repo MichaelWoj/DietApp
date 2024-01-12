@@ -16,7 +16,7 @@
         tools:layout_editor_absoluteY="16dp">
 
         <TextView
-            android:id="@+id/variableItemMealNameTV"
+            android:id="@+id/editVariableWeightItemMealNameTV"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="46dp"
@@ -31,7 +31,22 @@
             app:layout_constraintVertical_bias="0.0" />
 
         <TextView
-            android:id="@+id/variableItemAddCaloriesTV"
+            android:id="@+id/editVariableWeightItemWeightTV"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="32dp"
+            android:text="Weight"
+            android:textColor="@color/black"
+            android:textSize="38sp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.054"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/editVariableWeightItemMealNameTV"
+            app:layout_constraintVertical_bias="0.0" />
+
+        <TextView
+            android:id="@+id/editVariableWeighItemtCaloriesTV"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="32dp"
@@ -42,11 +57,11 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.053"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/variableItemMealNameTV"
+            app:layout_constraintTop_toBottomOf="@+id/editVariableWeightItemWeightTV"
             app:layout_constraintVertical_bias="0.0" />
 
         <TextView
-            android:id="@+id/variableItemAddFatTV"
+            android:id="@+id/editVariableWeighItemtFatTV"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="32dp"
@@ -57,11 +72,11 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.04"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/variableItemAddCaloriesTV"
+            app:layout_constraintTop_toBottomOf="@+id/editVariableWeighItemtCaloriesTV"
             app:layout_constraintVertical_bias="0.0" />
 
         <TextView
-            android:id="@+id/variableItemAddCarbsTV"
+            android:id="@+id/editVariableWeighItemtCarbsTV"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="32dp"
@@ -72,11 +87,11 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.046"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/variableItemAddFatTV"
+            app:layout_constraintTop_toBottomOf="@+id/editVariableWeighItemtFatTV"
             app:layout_constraintVertical_bias="0.0" />
 
         <TextView
-            android:id="@+id/variableItemAddProteinTV"
+            android:id="@+id/editVariableWeighItemtProteinTV"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="32dp"
@@ -87,11 +102,11 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.049"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/variableItemAddCarbsTV"
+            app:layout_constraintTop_toBottomOf="@+id/editVariableWeighItemtCarbsTV"
             app:layout_constraintVertical_bias="0.0" />
 
         <EditText
-            android:id="@+id/variableItemAddMealName"
+            android:id="@+id/editVariableWeighItemtMealName"
             android:layout_width="184dp"
             android:layout_height="51dp"
             android:layout_marginTop="46dp"
@@ -103,15 +118,33 @@
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.841"
-            app:layout_constraintStart_toEndOf="@+id/variableItemMealNameTV"
+            app:layout_constraintStart_toEndOf="@+id/editVariableWeightItemMealNameTV"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintVertical_bias="0.0" />
 
         <EditText
-            android:id="@+id/variableItemAddMealCalories"
+            android:id="@+id/editVariableWeightItemWeight"
+            android:layout_width="60dp"
+            android:layout_height="51dp"
+            android:layout_marginTop="32dp"
+            android:backgroundTint="@color/black"
+            android:ems="10"
+            android:inputType="numberDecimal"
+            android:maxLength="7"
+            android:textColor="@color/black"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.849"
+            app:layout_constraintStart_toEndOf="@+id/editVariableWeightItemWeightTV"
+            app:layout_constraintTop_toBottomOf="@+id/editVariableWeighItemtMealName"
+            app:layout_constraintVertical_bias="0.0" />
+
+        <EditText
+            android:id="@+id/editVariableWeighItemtMealCalories"
             android:layout_width="60dp"
             android:layout_height="51dp"
             android:layout_marginStart="32dp"
+            android:layout_marginLeft="32dp"
             android:layout_marginTop="32dp"
             android:backgroundTint="@color/black"
             android:ems="10"
@@ -121,12 +154,12 @@
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.797"
-            app:layout_constraintStart_toEndOf="@+id/variableItemAddCaloriesTV"
-            app:layout_constraintTop_toBottomOf="@+id/variableItemAddMealName"
+            app:layout_constraintStart_toEndOf="@+id/editVariableWeighItemtCaloriesTV"
+            app:layout_constraintTop_toBottomOf="@+id/editVariableWeightItemWeight"
             app:layout_constraintVertical_bias="0.0" />
 
         <EditText
-            android:id="@+id/variableItemAddMealFat"
+            android:id="@+id/editVariableWeighItemtMealFat"
             android:layout_width="60dp"
             android:layout_height="51dp"
             android:layout_marginTop="32dp"
@@ -138,12 +171,12 @@
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.883"
-            app:layout_constraintStart_toEndOf="@+id/variableItemAddFatTV"
-            app:layout_constraintTop_toBottomOf="@+id/variableItemAddMealCalories"
+            app:layout_constraintStart_toEndOf="@+id/editVariableWeighItemtFatTV"
+            app:layout_constraintTop_toBottomOf="@+id/editVariableWeighItemtMealCalories"
             app:layout_constraintVertical_bias="0.0" />
 
         <EditText
-            android:id="@+id/variableItemAddMealCarbs"
+            android:id="@+id/editVariableWeighItemtMealCarbs"
             android:layout_width="60dp"
             android:layout_height="51dp"
             android:layout_marginTop="32dp"
@@ -155,12 +188,12 @@
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.859"
-            app:layout_constraintStart_toEndOf="@+id/variableItemAddCarbsTV"
-            app:layout_constraintTop_toBottomOf="@+id/variableItemAddMealFat"
+            app:layout_constraintStart_toEndOf="@+id/editVariableWeighItemtCarbsTV"
+            app:layout_constraintTop_toBottomOf="@+id/editVariableWeighItemtMealFat"
             app:layout_constraintVertical_bias="0.0" />
 
         <EditText
-            android:id="@+id/variableItemAddMealProtein"
+            android:id="@+id/editVariableWeighItemtMealProtein"
             android:layout_width="60dp"
             android:layout_height="51dp"
             android:layout_marginTop="32dp"
@@ -172,24 +205,44 @@
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.84"
-            app:layout_constraintStart_toEndOf="@+id/variableItemAddProteinTV"
-            app:layout_constraintTop_toBottomOf="@+id/variableItemAddMealCarbs"
+            app:layout_constraintStart_toEndOf="@+id/editVariableWeighItemtProteinTV"
+            app:layout_constraintTop_toBottomOf="@+id/editVariableWeighItemtMealCarbs"
             app:layout_constraintVertical_bias="0.0" />
 
         <TextView
-            android:id="@+id/variableItemAddCaloriesGramTV"
+            android:id="@+id/editVariableWeighItemtCaloriesGramTV"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginTop="58dp"
             android:layout_marginEnd="24dp"
+            android:layout_marginRight="24dp"
             android:text="g"
             android:textColor="@color/black"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.0"
-            app:layout_constraintStart_toEndOf="@+id/variableItemAddMealCalories" />
+            app:layout_constraintStart_toEndOf="@+id/editVariableWeighItemtMealCalories"
+            app:layout_constraintTop_toBottomOf="@+id/editVariableWeightItemWeight"
+            app:layout_constraintVertical_bias="0.0" />
 
         <TextView
-            android:id="@+id/variableItemAddFatGramTV"
+            android:id="@+id/editVariableWeightItemWeightGramTV"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="58dp"
+            android:layout_marginEnd="25dp"
+            android:layout_marginRight="25dp"
+            android:text="g"
+            android:textColor="@color/black"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toEndOf="@+id/editVariableWeightItemWeight"
+            app:layout_constraintTop_toBottomOf="@+id/editVariableWeighItemtMealName"
+            app:layout_constraintVertical_bias="0.0" />
+
+        <TextView
+            android:id="@+id/editVariableWeighItemtFatGramTV"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="58dp"
@@ -200,12 +253,12 @@
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="1.0"
-            app:layout_constraintStart_toEndOf="@+id/variableItemAddMealFat"
-            app:layout_constraintTop_toBottomOf="@+id/variableItemAddMealCalories"
+            app:layout_constraintStart_toEndOf="@+id/editVariableWeighItemtMealFat"
+            app:layout_constraintTop_toBottomOf="@+id/editVariableWeighItemtMealCalories"
             app:layout_constraintVertical_bias="0.0" />
 
         <TextView
-            android:id="@+id/variableItemAddCarbsGramTV"
+            android:id="@+id/editVariableWeighItemtCarbsGramTV"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="58dp"
@@ -216,12 +269,12 @@
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.0"
-            app:layout_constraintStart_toEndOf="@+id/variableItemAddMealCarbs"
-            app:layout_constraintTop_toBottomOf="@+id/variableItemAddMealFat"
+            app:layout_constraintStart_toEndOf="@+id/editVariableWeighItemtMealCarbs"
+            app:layout_constraintTop_toBottomOf="@+id/editVariableWeighItemtMealFat"
             app:layout_constraintVertical_bias="0.0" />
 
         <TextView
-            android:id="@+id/variableItemAddProteinGramTV"
+            android:id="@+id/editVariableWeighItemtProteinGramTV"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="58dp"
@@ -229,16 +282,16 @@
             android:layout_marginRight="24dp"
             android:text="g"
             android:textColor="@color/black"
-            app:layout_constraintBottom_toTopOf="@+id/layoutVariableItemAddButtons"
+            app:layout_constraintBottom_toTopOf="@+id/layouteditVariableWeighItemtButtons"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.0"
-            app:layout_constraintStart_toEndOf="@+id/variableItemAddMealProtein"
-            app:layout_constraintTop_toBottomOf="@+id/variableItemAddMealCarbs"
+            app:layout_constraintStart_toEndOf="@+id/editVariableWeighItemtMealProtein"
+            app:layout_constraintTop_toBottomOf="@+id/editVariableWeighItemtMealCarbs"
             app:layout_constraintVertical_bias="0.0" />
 
 
         <TextView
-            android:id="@+id/variableItemWeightDisplayChoiceTV"
+            android:id="@+id/editVariableWeightItemSelectDisplayWeightTV"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="32dp"
@@ -246,15 +299,30 @@
             android:textAlignment="center"
             android:textColor="@color/black"
             android:textSize="38sp"
-            app:layout_constraintBottom_toTopOf="@+id/layoutVariableItemAddButtons"
+            app:layout_constraintBottom_toTopOf="@+id/layouteditVariableWeighItemtButtons"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.099"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/variableItemAddProteinTV"
+            app:layout_constraintTop_toBottomOf="@+id/editVariableWeighItemtProteinTV"
+            app:layout_constraintVertical_bias="0.0" />
+
+        <Button
+            android:id="@+id/editVariableWeightItemSelectDisplayWeight"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="32dp"
+            android:layout_marginEnd="4dp"
+            android:backgroundTint="#337357"
+            android:text="Select"
+            app:layout_constraintBottom_toTopOf="@+id/layouteditVariableWeighItemtButtons"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.918"
+            app:layout_constraintStart_toEndOf="@+id/editVariableWeightItemWeightDisplayChoiceTV"
+            app:layout_constraintTop_toBottomOf="@+id/editVariableWeighItemtMealProtein"
             app:layout_constraintVertical_bias="0.0" />
 
         <LinearLayout
-            android:id="@+id/layoutVariableItemAddButtons"
+            android:id="@+id/layouteditVariableWeighItemtButtons"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
@@ -266,7 +334,7 @@
             app:layout_constraintVertical_bias="0.978">
 
             <Button
-                android:id="@+id/variableItemAddFoodToDB"
+                android:id="@+id/editVariableWeighItemtFoodToDB"
                 android:layout_width="186dp"
                 android:layout_height="62dp"
                 android:layout_marginStart="12dp"
@@ -276,7 +344,7 @@
                 app:backgroundTint="#337357" />
 
             <Button
-                android:id="@+id/variableItemAddCancel"
+                android:id="@+id/editVariableWeighItemtCancel"
                 android:layout_width="186dp"
                 android:layout_height="62dp"
                 android:layout_marginStart="16dp"
@@ -285,20 +353,6 @@
                 android:textColor="#E4E3D3"
                 app:backgroundTint="#337357" />
         </LinearLayout>
-
-        <Button
-            android:id="@+id/variableItemSelectDisplayWeight"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="32dp"
-            android:backgroundTint="#337357"
-            android:text="Select"
-            app:layout_constraintBottom_toTopOf="@+id/layoutVariableItemAddButtons"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.918"
-            app:layout_constraintStart_toEndOf="@+id/variableItemWeightDisplayChoiceTV"
-            app:layout_constraintTop_toBottomOf="@+id/variableItemAddMealProtein"
-            app:layout_constraintVertical_bias="0.0" />
 
 
     </androidx.constraintlayout.widget.ConstraintLayout>

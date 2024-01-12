@@ -1,6 +1,7 @@
     package com.example.fitnessapp;
 
 import android.app.Dialog;
+import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
@@ -134,7 +135,7 @@ public class FoodDBItemPage extends AppCompatActivity {
         deleteLayout.setOnClickListener(v -> {
             dialog.dismiss();
             Intent intent = new Intent(FoodDBItemPage.this, FoodDBDisplay.class);
-            deleteConfirmationWindow(intent, entryID);
+            deleteConfirmationWindow(intent, entryID, this);
         });
 
         dialog.show();
@@ -170,9 +171,9 @@ public class FoodDBItemPage extends AppCompatActivity {
         }
     });
 
-    public void deleteConfirmationWindow(Intent intent, Integer idOfEntry) {
+    public void deleteConfirmationWindow(Intent intent, Integer idOfEntry, Context context) {
 
-        final Dialog confirmationDialog = new Dialog(this);
+        final Dialog confirmationDialog = new Dialog(context);
         confirmationDialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
         confirmationDialog.setContentView(R.layout.activity_db_settings_delete_popup);
 
