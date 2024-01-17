@@ -311,13 +311,12 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="32dp"
-            android:layout_marginEnd="4dp"
             android:backgroundTint="#337357"
             android:text="Select"
             app:layout_constraintBottom_toTopOf="@+id/layouteditVariableWeighItemtButtons"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.918"
-            app:layout_constraintStart_toEndOf="@+id/editVariableWeightItemWeightDisplayChoiceTV"
+            app:layout_constraintHorizontal_bias="0.897"
+            app:layout_constraintStart_toEndOf="@+id/editVariableWeightItemSelectDisplayWeightTV"
             app:layout_constraintTop_toBottomOf="@+id/editVariableWeighItemtMealProtein"
             app:layout_constraintVertical_bias="0.0" />
 

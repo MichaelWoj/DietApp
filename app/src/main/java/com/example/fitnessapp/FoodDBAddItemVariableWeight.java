@@ -18,7 +18,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 public class FoodDBAddItemVariableWeight extends AppCompatActivity {
 
-    private EditText variableFoodName, variableFoodWeight, variableFoodCalories, variableFoodFat, variableFoodCarbs, variableFoodProtein;
+    private EditText variableFoodName, variableFoodWeight, variableFoodCalories, variableFoodFat, variableFoodCarbs, variableFoodProtein, variableDisplayWeight;
     private Float variableFoodWeightVal, variableFoodCaloriesVal, variableFoodFatVal, variableFoodCarbsVal, variableFoodProteinVal;
     private int selectedDisplayWeight = 0;
 
@@ -97,6 +97,7 @@ public class FoodDBAddItemVariableWeight extends AppCompatActivity {
     private void selectDisplayWeightWindow() {
 
         final Dialog displayWeightDialog = new Dialog(this);
+        variableDisplayWeight = findViewById(R.id.displayWeightAmount);
         displayWeightDialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
         displayWeightDialog.setContentView(R.layout.activity_db_variable_weight_popup);
 
@@ -104,6 +105,8 @@ public class FoodDBAddItemVariableWeight extends AppCompatActivity {
         LinearLayout cancelDisplayWeight = displayWeightDialog.findViewById(R.id.layoutCancelDisplayWeight);
 
         confirmDisplayWeight.setOnClickListener(v -> {
+            String variableFoodWeightToString = variableDisplayWeight.getText().toString();
+            selectedDisplayWeight = Integer.parseInt(variableFoodWeightToString);
             displayWeightDialog.dismiss();
         });
         cancelDisplayWeight.setOnClickListener(v -> {
@@ -121,15 +124,19 @@ public class FoodDBAddItemVariableWeight extends AppCompatActivity {
         switch (view.getId()) {
             case R.id.displayWeight100g:
                 selectedDisplayWeight = 100;
+                variableDisplayWeight.setText(selectedDisplayWeight);
                 break;
             case R.id.displayWeight50g:
                 selectedDisplayWeight = 50;
+                variableDisplayWeight.setText(selectedDisplayWeight);
                 break;
             case R.id.displayWeight10g:
                 selectedDisplayWeight = 10;
+                variableDisplayWeight.setText(selectedDisplayWeight);
                 break;
             case R.id.displayWeight1g:
                 selectedDisplayWeight = 1;
+                variableDisplayWeight.setText(selectedDisplayWeight);
                 break;
         }
     }

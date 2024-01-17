@@ -26,7 +26,7 @@ public class FoodDBVariableWeightItemPage extends AppCompatActivity {
     private EditText itemWeight;
     private int entryID, foodDisplayWeight;
     private float foodCaloriesVal, foodFatVal, foodCarbsVal, foodProteinVal, foodTargetWeightVal;
-    private String entryIDString;
+    private String entryIDString, itemSetDisplayWeight;
     FoodDBAddItemVariableWeight foodDBAddItemVariableWeight;
     FoodDBItemPage foodDBItemPage;
     @Override
@@ -50,7 +50,7 @@ public class FoodDBVariableWeightItemPage extends AppCompatActivity {
         String itemSetFat = intent.getStringExtra("Fat");
         String itemSetCarbs = intent.getStringExtra("Carbs");
         String itemSetProtein = intent.getStringExtra("Protein");
-        String itemSetDisplayWeight = intent.getStringExtra("DisplayWeight");
+        itemSetDisplayWeight = intent.getStringExtra("DisplayWeight");
 
         entryID = Integer.parseInt(id);
         entryIDString = id;
@@ -126,7 +126,7 @@ public class FoodDBVariableWeightItemPage extends AppCompatActivity {
 
 
         editLayout.setOnClickListener(v -> {
-            Intent intent = new Intent(FoodDBVariableWeightItemPage.this, FoodDBEditItem.class);
+            Intent intent = new Intent(FoodDBVariableWeightItemPage.this, FoodDBEditVariableWeightItem.class);
 
             intent.putExtra("editId",entryIDString);
 
@@ -145,7 +145,8 @@ public class FoodDBVariableWeightItemPage extends AppCompatActivity {
             String editFoodProteinToString = proteinDB.getText().toString();
             intent.putExtra("editProtein", editFoodProteinToString);
 
-            String editFoodWeightToString = caloriesDB.getText().toString();
+            String editFoodWeightToString = itemSetDisplayWeight.toString();
+            intent.putExtra("editWeight",editFoodWeightToString);
 
             startForRefreshItemPage.launch(intent);
             dialog.dismiss();
