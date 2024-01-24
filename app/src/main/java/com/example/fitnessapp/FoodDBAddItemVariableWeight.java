@@ -94,23 +94,25 @@ public class FoodDBAddItemVariableWeight extends AppCompatActivity {
             finish();
         });
     }
-    private void selectDisplayWeightWindow() {
+    public void selectDisplayWeightWindow() {
 
         final Dialog displayWeightDialog = new Dialog(this);
-        variableDisplayWeight = findViewById(R.id.displayWeightAmount);
         displayWeightDialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
         displayWeightDialog.setContentView(R.layout.activity_db_variable_weight_popup);
+        int tempSelectedDisplayWeight = selectedDisplayWeight;
 
+        variableDisplayWeight = displayWeightDialog.findViewById(R.id.displayWeightAmount);
+        if (selectedDisplayWeight > 0) {
+            variableDisplayWeight.setText(Integer.toString(selectedDisplayWeight));
+        }
         LinearLayout confirmDisplayWeight = displayWeightDialog.findViewById(R.id.layoutConfirmDisplayWeight);
         LinearLayout cancelDisplayWeight = displayWeightDialog.findViewById(R.id.layoutCancelDisplayWeight);
 
         confirmDisplayWeight.setOnClickListener(v -> {
-            String variableFoodWeightToString = variableDisplayWeight.getText().toString();
-            selectedDisplayWeight = Integer.parseInt(variableFoodWeightToString);
             displayWeightDialog.dismiss();
         });
         cancelDisplayWeight.setOnClickListener(v -> {
-            selectedDisplayWeight = 0;
+            selectedDisplayWeight = tempSelectedDisplayWeight;
             displayWeightDialog.dismiss();
         });
 
@@ -124,19 +126,19 @@ public class FoodDBAddItemVariableWeight extends AppCompatActivity {
         switch (view.getId()) {
             case R.id.displayWeight100g:
                 selectedDisplayWeight = 100;
-                variableDisplayWeight.setText(selectedDisplayWeight);
+                variableDisplayWeight.setText(Integer.toString(selectedDisplayWeight));
                 break;
             case R.id.displayWeight50g:
                 selectedDisplayWeight = 50;
-                variableDisplayWeight.setText(selectedDisplayWeight);
+                variableDisplayWeight.setText(Integer.toString(selectedDisplayWeight));
                 break;
             case R.id.displayWeight10g:
                 selectedDisplayWeight = 10;
-                variableDisplayWeight.setText(selectedDisplayWeight);
+                variableDisplayWeight.setText(Integer.toString(selectedDisplayWeight));
                 break;
             case R.id.displayWeight1g:
                 selectedDisplayWeight = 1;
-                variableDisplayWeight.setText(selectedDisplayWeight);
+                variableDisplayWeight.setText(Integer.toString(selectedDisplayWeight));
                 break;
         }
     }

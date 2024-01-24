@@ -112,13 +112,28 @@
                 android:layout_height="wrap_content"
                 android:inputType="numberDecimal"
                 android:maxLength="6"
+                android:textAlignment="center"
                 android:textColor="#E4E3D3"
                 android:textSize="24sp"
+                android:backgroundTint="#E4E3D3"
                 app:layout_constraintBottom_toTopOf="@+id/layoutConfirmDisplayWeight"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/displayWeightPopupDescriptionTV"
                 app:layout_constraintVertical_bias="0.862" />
+
+            <TextView
+                android:id="@+id/displayWeightAmountGrams"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="g"
+                android:textColor="#E4E3D3"
+                app:layout_constraintBottom_toTopOf="@+id/layoutCancelDisplayWeight"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.0"
+                app:layout_constraintStart_toEndOf="@+id/displayWeightAmount"
+                app:layout_constraintTop_toBottomOf="@+id/displayWeightRadioGroup"
+                app:layout_constraintVertical_bias="0.642" />
 
             <LinearLayout
                 android:id="@+id/layoutConfirmDisplayWeight"

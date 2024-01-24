@@ -6,6 +6,7 @@ import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.view.Gravity;
+import android.view.View;
 import android.view.ViewGroup;
 import android.view.Window;
 import android.widget.Button;
@@ -18,7 +19,6 @@ public class FoodDBEditVariableWeightItem extends AppCompatActivity {
     private EditText itemName, itemWeight, itemCalories, itemFat, itemCarbs, itemProtein, itemDisplayWeight;
     private int idForEdit, selectedDisplayWeight;
     private DatabaseHelper databaseHelper;
-
     private FoodDBAddItemVariableWeight foodDBAddItemVariableWeight;
     private float editFoodCalories, editFoodWeight, editFoodFat, editFoodCarbs, editFoodProtein;
     private String weight ;
@@ -115,7 +115,7 @@ public class FoodDBEditVariableWeightItem extends AppCompatActivity {
         final Dialog displayWeightDialog = new Dialog(this);
         displayWeightDialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
         displayWeightDialog.setContentView(R.layout.activity_db_variable_weight_popup);
-        itemDisplayWeight = findViewById(R.id.displayWeightAmount);
+        itemDisplayWeight = displayWeightDialog.findViewById(R.id.displayWeightAmount);
         itemDisplayWeight.setText(weight);
 
         LinearLayout confirmDisplayWeight = displayWeightDialog.findViewById(R.id.layoutConfirmDisplayWeight);
@@ -136,7 +136,4 @@ public class FoodDBEditVariableWeightItem extends AppCompatActivity {
         displayWeightDialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
         displayWeightDialog.getWindow().setGravity(Gravity.CENTER);
     }
-
-
-
 }
