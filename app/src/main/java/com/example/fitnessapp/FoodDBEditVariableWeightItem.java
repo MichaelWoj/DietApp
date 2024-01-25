@@ -17,9 +17,10 @@ import androidx.appcompat.app.AppCompatActivity;
 
 public class FoodDBEditVariableWeightItem extends AppCompatActivity {
     private EditText itemName, itemWeight, itemCalories, itemFat, itemCarbs, itemProtein, itemDisplayWeight;
-    private int idForEdit, selectedDisplayWeight;
+    private int idForEdit, itemSelectedDisplayWeight;
     private DatabaseHelper databaseHelper;
     private FoodDBAddItemVariableWeight foodDBAddItemVariableWeight;
+    private FoodDBVariableWeightPopup foodDBVariableWeightPopup;
     private float editFoodCalories, editFoodWeight, editFoodFat, editFoodCarbs, editFoodProtein;
     private String weight ;
 
@@ -30,6 +31,7 @@ public class FoodDBEditVariableWeightItem extends AppCompatActivity {
 
         foodDBAddItemVariableWeight = new FoodDBAddItemVariableWeight();
         databaseHelper = new DatabaseHelper(getApplicationContext());
+        foodDBVariableWeightPopup = new FoodDBVariableWeightPopup();
 
         itemName = findViewById(R.id.editVariableWeighItemtMealName);
         itemWeight = findViewById(R.id.editVariableWeightItemWeight);
@@ -40,7 +42,7 @@ public class FoodDBEditVariableWeightItem extends AppCompatActivity {
 
         Button selectDisplayWeight = findViewById(R.id.editVariableWeightItemSelectDisplayWeight);
         selectDisplayWeight.setOnClickListener(view -> {
-            selectDisplayWeightWindow();
+          foodDBVariableWeightPopup.selectDisplayWeightWindow(this, itemSelectedDisplayWeight);
         });
 
         Intent intent = getIntent();
@@ -59,7 +61,7 @@ public class FoodDBEditVariableWeightItem extends AppCompatActivity {
         itemCarbs.setText(carbs);
         itemProtein.setText(protein);
 
-        selectedDisplayWeight = Integer.parseInt(weight);
+        itemSelectedDisplayWeight = Integer.parseInt(weight);
         idForEdit = Integer.parseInt(id);
 
         Button submitEdit = findViewById(R.id.editVariableWeighItemtFoodToDB);
@@ -84,7 +86,7 @@ public class FoodDBEditVariableWeightItem extends AppCompatActivity {
             String editFoodProteinToString = itemProtein.getText().toString();
             editFoodProtein = Float.parseFloat(editFoodProteinToString);
 
-            float[] variableResultArray = foodDBAddItemVariableWeight.calculateNutrientsToTargetWeightVal(editFoodWeight, editFoodCalories, editFoodFat, editFoodCarbs, editFoodProtein, selectedDisplayWeight);
+            float[] variableResultArray = foodDBAddItemVariableWeight.calculateNutrientsToTargetWeightVal(editFoodWeight, editFoodCalories, editFoodFat, editFoodCarbs, editFoodProtein, itemSelectedDisplayWeight);
 
             editFoodWeight = variableResultArray[0];
             editFoodCalories = variableResultArray[1];
@@ -99,7 +101,7 @@ public class FoodDBEditVariableWeightItem extends AppCompatActivity {
             intentAddToOverallTotal.putExtra("editFoodCarbs", editFoodCarbs);
             intentAddToOverallTotal.putExtra("editFoodProtein", editFoodProtein);
 
-            databaseHelper.editEntry(idForEdit, editFoodName, editFoodCalories, editFoodFat, editFoodCarbs, editFoodProtein,selectedDisplayWeight);
+            databaseHelper.editEntry(idForEdit, editFoodName, editFoodCalories, editFoodFat, editFoodCarbs, editFoodProtein,itemSelectedDisplayWeight);
             setResult(RESULT_OK, intentAddToOverallTotal);
             finish();
         });
@@ -109,31 +111,7 @@ public class FoodDBEditVariableWeightItem extends AppCompatActivity {
 
 
     }
-    //Refactor this later to use the one in AddItemVariableWeight
-    private void selectDisplayWeightWindow() {
-
-        final Dialog displayWeightDialog = new Dialog(this);
-        displayWeightDialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
-        displayWeightDialog.setContentView(R.layout.activity_db_variable_weight_popup);
-        itemDisplayWeight = displayWeightDialog.findViewById(R.id.displayWeightAmount);
-        itemDisplayWeight.setText(weight);
-
-        LinearLayout confirmDisplayWeight = displayWeightDialog.findViewById(R.id.layoutConfirmDisplayWeight);
-        LinearLayout cancelDisplayWeight = displayWeightDialog.findViewById(R.id.layoutCancelDisplayWeight);
-
-        confirmDisplayWeight.setOnClickListener(v -> {
-            String variableFoodWeightToString = itemDisplayWeight.getText().toString();
-            selectedDisplayWeight = Integer.parseInt(variableFoodWeightToString);
-            displayWeightDialog.dismiss();
-        });
-        cancelDisplayWeight.setOnClickListener(v -> {
-            selectedDisplayWeight = 0;
-            displayWeightDialog.dismiss();
-        });
-
-        displayWeightDialog.show();
-        displayWeightDialog.getWindow().setLayout(ViewGroup.LayoutParams.MATCH_PARENT,ViewGroup.LayoutParams.WRAP_CONTENT);
-        displayWeightDialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
-        displayWeightDialog.getWindow().setGravity(Gravity.CENTER);
+    public void checkRadioButtonId(View view){
+        foodDBVariableWeightPopup.actualCheckRadioButtonId(view);
     }
 }

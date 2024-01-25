@@ -36,7 +36,7 @@ public class FoodDBAddItemVariableWeight extends AppCompatActivity {
 
         Button selectDisplayWeight = findViewById(R.id.variableItemSelectDisplayWeight);
         selectDisplayWeight.setOnClickListener(view -> {
-            selectDisplayWeightWindow();
+            selectedDisplayWeight = selectDisplayWeightWindow(selectedDisplayWeight);
         });
 
         Button submit = findViewById(R.id.variableItemAddFoodToDB);
@@ -94,7 +94,7 @@ public class FoodDBAddItemVariableWeight extends AppCompatActivity {
             finish();
         });
     }
-    public void selectDisplayWeightWindow() {
+    public int selectDisplayWeightWindow(int currentDisplayWeight) {
 
         final Dialog displayWeightDialog = new Dialog(this);
         displayWeightDialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
@@ -120,6 +120,8 @@ public class FoodDBAddItemVariableWeight extends AppCompatActivity {
         displayWeightDialog.getWindow().setLayout(ViewGroup.LayoutParams.MATCH_PARENT,ViewGroup.LayoutParams.WRAP_CONTENT);
         displayWeightDialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
         displayWeightDialog.getWindow().setGravity(Gravity.CENTER);
+
+        return currentDisplayWeight;
     }
 
     public void checkRadioButtonId(View view){
