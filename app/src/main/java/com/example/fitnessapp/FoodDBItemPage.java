@@ -174,6 +174,7 @@ public class FoodDBItemPage extends AppCompatActivity {
     public void deleteConfirmationWindow(Intent intent, Integer idOfEntry, Context context) {
 
         final Dialog confirmationDialog = new Dialog(context);
+        databaseHelper = new DatabaseHelper(getApplicationContext());
         confirmationDialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
         confirmationDialog.setContentView(R.layout.activity_db_settings_delete_popup);
 

@@ -16,7 +16,7 @@ import android.widget.LinearLayout;
 import androidx.appcompat.app.AppCompatActivity;
 
 public class FoodDBEditVariableWeightItem extends AppCompatActivity {
-    private EditText itemName, itemWeight, itemCalories, itemFat, itemCarbs, itemProtein, itemDisplayWeight;
+    private EditText itemName, itemWeight, itemCalories, itemFat, itemCarbs, itemProtein;
     private int idForEdit, itemSelectedDisplayWeight;
     private DatabaseHelper databaseHelper;
     private FoodDBAddItemVariableWeight foodDBAddItemVariableWeight;
@@ -42,7 +42,7 @@ public class FoodDBEditVariableWeightItem extends AppCompatActivity {
 
         Button selectDisplayWeight = findViewById(R.id.editVariableWeightItemSelectDisplayWeight);
         selectDisplayWeight.setOnClickListener(view -> {
-          foodDBVariableWeightPopup.selectDisplayWeightWindow(this, itemSelectedDisplayWeight);
+            foodDBVariableWeightPopup.selectDisplayWeightWindow(this, itemSelectedDisplayWeight);
         });
 
         Intent intent = getIntent();
@@ -86,13 +86,15 @@ public class FoodDBEditVariableWeightItem extends AppCompatActivity {
             String editFoodProteinToString = itemProtein.getText().toString();
             editFoodProtein = Float.parseFloat(editFoodProteinToString);
 
+            itemSelectedDisplayWeight = foodDBVariableWeightPopup.loadSavedDisplayWeight(this);
+            foodDBVariableWeightPopup.resetSelectedDisplayWeight(this);
+
             float[] variableResultArray = foodDBAddItemVariableWeight.calculateNutrientsToTargetWeightVal(editFoodWeight, editFoodCalories, editFoodFat, editFoodCarbs, editFoodProtein, itemSelectedDisplayWeight);
 
-            editFoodWeight = variableResultArray[0];
-            editFoodCalories = variableResultArray[1];
-            editFoodFat = variableResultArray[2];
-            editFoodCarbs = variableResultArray[3];
-            editFoodProtein = variableResultArray[4];
+            editFoodCalories = variableResultArray[0];
+            editFoodFat = variableResultArray[1];
+            editFoodCarbs = variableResultArray[2];
+            editFoodProtein = variableResultArray[3];
 
 
             intentAddToOverallTotal.putExtra("editFoodWeight", editFoodWeight);

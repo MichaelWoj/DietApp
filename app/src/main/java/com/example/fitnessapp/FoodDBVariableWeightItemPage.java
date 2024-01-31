@@ -27,8 +27,9 @@ public class FoodDBVariableWeightItemPage extends AppCompatActivity {
     private int entryID, foodDisplayWeight;
     private float foodCaloriesVal, foodFatVal, foodCarbsVal, foodProteinVal, foodTargetWeightVal;
     private String entryIDString, itemSetDisplayWeight;
-    FoodDBAddItemVariableWeight foodDBAddItemVariableWeight;
-    FoodDBItemPage foodDBItemPage;
+    private FoodDBAddItemVariableWeight foodDBAddItemVariableWeight;
+    private FoodDBItemPage foodDBItemPage;
+    private DatabaseHelper databaseHelper;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
