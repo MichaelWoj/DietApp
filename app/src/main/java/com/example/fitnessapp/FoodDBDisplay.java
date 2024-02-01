@@ -35,7 +35,6 @@ public class FoodDBDisplay extends AppCompatActivity implements RecyclerViewInte
     private SearchView searchView;
 
     private int sortType;
-
     public static final String savedSearchType = "search_type";
     public FoodDBRecycleViewAdapter adapter;
 

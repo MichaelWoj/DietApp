@@ -176,6 +176,9 @@ public class FoodDBVariableWeightItemPage extends AppCompatActivity {
 
                 String newName = intent.getStringExtra("editFoodName");
 
+                Integer newWeight = intent.getIntExtra("editFoodWeight", foodDisplayWeight);
+                itemSetDisplayWeight = newWeight.toString();
+
                 Float newCalories = intent.getFloatExtra("editFoodCalories", foodCaloriesVal);
                 String newCaloriesString = newCalories.toString();
 
@@ -193,4 +196,3 @@ public class FoodDBVariableWeightItemPage extends AppCompatActivity {
         }
     });
 }
-

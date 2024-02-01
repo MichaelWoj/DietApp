@@ -156,15 +156,19 @@ public class FoodDBAddItemVariableWeight extends AppCompatActivity {
 
         float calculateVariableFoodCaloriesVal = oneGramOfSpecificNutrient(conversionFactor, calories);
         calculateVariableFoodCaloriesVal = calculateVariableFoodCaloriesVal * targetWeight;
+        calculateVariableFoodCaloriesVal = (float) (Math.round(calculateVariableFoodCaloriesVal * 100.0) / 100.0);
 
         float calculateVariableFoodFatVal = oneGramOfSpecificNutrient(conversionFactor, fat);
         calculateVariableFoodFatVal = calculateVariableFoodFatVal * targetWeight;
+        calculateVariableFoodFatVal = (float) (Math.round(calculateVariableFoodFatVal * 100.0) / 100.0);
 
         float calculateVariableFoodCarbsVal = oneGramOfSpecificNutrient(conversionFactor, carbs);
         calculateVariableFoodCarbsVal = calculateVariableFoodCarbsVal * targetWeight;
+        calculateVariableFoodCarbsVal = (float) (Math.round(calculateVariableFoodCarbsVal * 100.0) / 100.0);
 
         float calculateVariableFoodProteinVal = oneGramOfSpecificNutrient(conversionFactor, protein);
         calculateVariableFoodProteinVal = calculateVariableFoodProteinVal * targetWeight;
+        calculateVariableFoodProteinVal = (float) (Math.round(calculateVariableFoodProteinVal * 100.0) / 100.0);
 
         return new float[] {calculateVariableFoodCaloriesVal, calculateVariableFoodFatVal, calculateVariableFoodCarbsVal, calculateVariableFoodProteinVal};
     }

@@ -40,6 +40,8 @@ public class FoodDBEditVariableWeightItem extends AppCompatActivity {
         itemCarbs = findViewById(R.id.editVariableWeighItemtMealCarbs);
         itemProtein = findViewById(R.id.editVariableWeighItemtMealProtein);
 
+        foodDBVariableWeightPopup.saveSelectedDisplayWeight(this,itemSelectedDisplayWeight);
+
         Button selectDisplayWeight = findViewById(R.id.editVariableWeightItemSelectDisplayWeight);
         selectDisplayWeight.setOnClickListener(view -> {
             foodDBVariableWeightPopup.selectDisplayWeightWindow(this, itemSelectedDisplayWeight);
@@ -89,6 +91,10 @@ public class FoodDBEditVariableWeightItem extends AppCompatActivity {
             itemSelectedDisplayWeight = foodDBVariableWeightPopup.loadSavedDisplayWeight(this);
             foodDBVariableWeightPopup.resetSelectedDisplayWeight(this);
 
+            if(itemSelectedDisplayWeight == 0){
+                itemSelectedDisplayWeight = Math.round(editFoodWeight);
+            }
+
             float[] variableResultArray = foodDBAddItemVariableWeight.calculateNutrientsToTargetWeightVal(editFoodWeight, editFoodCalories, editFoodFat, editFoodCarbs, editFoodProtein, itemSelectedDisplayWeight);
 
             editFoodCalories = variableResultArray[0];
@@ -97,7 +103,7 @@ public class FoodDBEditVariableWeightItem extends AppCompatActivity {
             editFoodProtein = variableResultArray[3];
 
 
-            intentAddToOverallTotal.putExtra("editFoodWeight", editFoodWeight);
+            intentAddToOverallTotal.putExtra("editFoodWeight", itemSelectedDisplayWeight);
             intentAddToOverallTotal.putExtra("editFoodCalories", editFoodCalories);
             intentAddToOverallTotal.putExtra("editFoodFat", editFoodFat);
             intentAddToOverallTotal.putExtra("editFoodCarbs", editFoodCarbs);
