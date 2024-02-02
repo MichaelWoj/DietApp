@@ -21,7 +21,7 @@ import androidx.activity.result.ActivityResultLauncher;
 import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.appcompat.app.AppCompatActivity;
 
-public class FoodDBVariableWeightItemPage extends AppCompatActivity {
+public class FoodDBVariableWeightItemPage extends AppCompatActivity implements ActivityFinishListener  {
     private TextView nameDB, caloriesDB, fatDB, carbsDB, proteinDB;
     private EditText itemWeight;
     private int entryID, foodDisplayWeight;
@@ -34,8 +34,10 @@ public class FoodDBVariableWeightItemPage extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_db_variable_weight_item_page);
+
         foodDBAddItemVariableWeight = new FoodDBAddItemVariableWeight();
         foodDBItemPage = new FoodDBItemPage();
+        databaseHelper = new DatabaseHelper(getApplicationContext());
 
         nameDB = findViewById(R.id.variableWeightItemMealName);
         caloriesDB = findViewById(R.id.variableWeightItemMealCalories);
@@ -157,7 +159,7 @@ public class FoodDBVariableWeightItemPage extends AppCompatActivity {
         deleteLayout.setOnClickListener(v -> {
             dialog.dismiss();
             Intent intent = new Intent(FoodDBVariableWeightItemPage.this, FoodDBDisplay.class);
-            foodDBItemPage.deleteConfirmationWindow(intent, entryID, this);
+            foodDBItemPage.deleteConfirmationWindow(intent, entryID, this, this);
         });
 
         dialog.show();
@@ -195,4 +197,9 @@ public class FoodDBVariableWeightItemPage extends AppCompatActivity {
             }
         }
     });
+
+    @Override
+    public void finishActivity() {
+        finish();
+    }
 }

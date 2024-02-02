@@ -21,7 +21,7 @@ import androidx.activity.result.ActivityResultLauncher;
 import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.appcompat.app.AppCompatActivity;
 
-public class FoodDBItemPage extends AppCompatActivity {
+public class FoodDBItemPage extends AppCompatActivity implements ActivityFinishListener {
 
     private TextView nameDB, caloriesDB, fatDB, carbsDB, proteinDB;
     private DatabaseHelper databaseHelper;
@@ -135,7 +135,7 @@ public class FoodDBItemPage extends AppCompatActivity {
         deleteLayout.setOnClickListener(v -> {
             dialog.dismiss();
             Intent intent = new Intent(FoodDBItemPage.this, FoodDBDisplay.class);
-            deleteConfirmationWindow(intent, entryID, this);
+            deleteConfirmationWindow(intent, entryID, this, this);
         });
 
         dialog.show();
@@ -171,10 +171,10 @@ public class FoodDBItemPage extends AppCompatActivity {
         }
     });
 
-    public void deleteConfirmationWindow(Intent intent, Integer idOfEntry, Context context) {
+    public void deleteConfirmationWindow(Intent intent, Integer idOfEntry, Context context, ActivityFinishListener finishListener) {
 
         final Dialog confirmationDialog = new Dialog(context);
-        databaseHelper = new DatabaseHelper(getApplicationContext());
+        databaseHelper = new DatabaseHelper(context.getApplicationContext());
         confirmationDialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
         confirmationDialog.setContentView(R.layout.activity_db_settings_delete_popup);
 
@@ -185,7 +185,9 @@ public class FoodDBItemPage extends AppCompatActivity {
             intent.addFlags(Intent.FLAG_ACTIVITY_FORWARD_RESULT);
             databaseHelper.deleteEntry(idOfEntry);
             confirmationDialog.dismiss();
-            finish();
+            if (finishListener != null) {
+                finishListener.finishActivity();
+            }
         });
         confirmCancel.setOnClickListener(v -> confirmationDialog.dismiss());
 
@@ -193,5 +195,10 @@ public class FoodDBItemPage extends AppCompatActivity {
         confirmationDialog.getWindow().setLayout(ViewGroup.LayoutParams.MATCH_PARENT,ViewGroup.LayoutParams.WRAP_CONTENT);
         confirmationDialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
         confirmationDialog.getWindow().setGravity(Gravity.CENTER);
+    }
+
+    @Override
+    public void finishActivity() {
+        finish();
     }
 }
