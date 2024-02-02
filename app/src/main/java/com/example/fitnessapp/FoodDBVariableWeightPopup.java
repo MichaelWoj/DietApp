@@ -38,7 +38,10 @@ public class FoodDBVariableWeightPopup extends AppCompatActivity {
             selectedDisplayWeight = currentDisplayWeight;
         }
         variableDisplayWeight = displayWeightDialog.findViewById(R.id.displayWeightAmount);
+        //This is so when the user first opens the popup when adding food the EditText field is empty
         if (currentDisplayWeight > 0) {
+            variableDisplayWeight.setText(Integer.toString(selectedDisplayWeight));
+        }else if(currentDisplayWeight == 0 & selectedDisplayWeight > 0){
             variableDisplayWeight.setText(Integer.toString(selectedDisplayWeight));
         }
 

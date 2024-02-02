@@ -115,7 +115,10 @@ public class FoodDBEditVariableWeightItem extends AppCompatActivity {
         });
 
         Button backEdit = findViewById(R.id.editVariableWeighItemtCancel);
-        backEdit.setOnClickListener(v -> finish());
+        backEdit.setOnClickListener(v -> {
+            foodDBVariableWeightPopup.resetSelectedDisplayWeight(this);
+            finish();
+        });
 
 
     }

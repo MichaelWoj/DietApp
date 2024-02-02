@@ -20,12 +20,15 @@ public class FoodDBAddItemVariableWeight extends AppCompatActivity {
 
     private EditText variableFoodName, variableFoodWeight, variableFoodCalories, variableFoodFat, variableFoodCarbs, variableFoodProtein, variableDisplayWeight;
     private Float variableFoodWeightVal, variableFoodCaloriesVal, variableFoodFatVal, variableFoodCarbsVal, variableFoodProteinVal;
-    private int selectedDisplayWeight = 0;
+    private int selectedDisplayWeight;
+    private FoodDBVariableWeightPopup foodDBVariableWeightPopup;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_db_add_item_variable_weight);
+        foodDBVariableWeightPopup = new FoodDBVariableWeightPopup();
+
 
         variableFoodName = findViewById(R.id.variableItemAddMealName);
         variableFoodWeight = findViewById(R.id.variableItemWeight);
@@ -36,11 +39,14 @@ public class FoodDBAddItemVariableWeight extends AppCompatActivity {
 
         Button selectDisplayWeight = findViewById(R.id.variableItemSelectDisplayWeight);
         selectDisplayWeight.setOnClickListener(view -> {
-            selectedDisplayWeight = selectDisplayWeightWindow(selectedDisplayWeight);
+            foodDBVariableWeightPopup.selectDisplayWeightWindow(this, selectedDisplayWeight);
         });
 
         Button submit = findViewById(R.id.variableItemAddFoodToDB);
         submit.setOnClickListener(view -> {
+            selectedDisplayWeight = foodDBVariableWeightPopup.loadSavedDisplayWeight(this);
+            foodDBVariableWeightPopup.resetSelectedDisplayWeight(this);
+
             if (variableFoodName.getText().toString().isEmpty() || variableFoodCalories.getText().toString().isEmpty() || variableFoodFat.getText().toString().isEmpty() || variableFoodCarbs.getText().toString().isEmpty() || variableFoodProtein.getText().toString().isEmpty() || selectedDisplayWeight == 0) {
                 Toast.makeText(FoodDBAddItemVariableWeight.this, "Please insert all info", Toast.LENGTH_SHORT).show();
             } else {
@@ -63,6 +69,10 @@ public class FoodDBAddItemVariableWeight extends AppCompatActivity {
 
                 String variableFoodProteinToString = variableFoodProtein.getText().toString();
                 variableFoodProteinVal = Float.parseFloat(variableFoodProteinToString);
+
+                if(selectedDisplayWeight == 0){
+                    selectedDisplayWeight = Math.round(variableFoodWeightVal);
+                }
 
                 float [] variableResultArray = calculateNutrientsToTargetWeightVal(variableFoodWeightVal, variableFoodCaloriesVal, variableFoodFatVal, variableFoodCarbsVal, variableFoodProteinVal, selectedDisplayWeight);
 
@@ -89,60 +99,15 @@ public class FoodDBAddItemVariableWeight extends AppCompatActivity {
         });
         Button back = findViewById(R.id.variableItemAddCancel);
         back.setOnClickListener(v -> {
+            foodDBVariableWeightPopup.resetSelectedDisplayWeight(this);
             Intent intent = new Intent(FoodDBAddItemVariableWeight.this, FoodDBDisplay.class);
             intent.addFlags(Intent.FLAG_ACTIVITY_FORWARD_RESULT);
             finish();
         });
     }
-    public int selectDisplayWeightWindow(int currentDisplayWeight) {
-
-        final Dialog displayWeightDialog = new Dialog(this);
-        displayWeightDialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
-        displayWeightDialog.setContentView(R.layout.activity_db_variable_weight_popup);
-        int tempSelectedDisplayWeight = selectedDisplayWeight;
-
-        variableDisplayWeight = displayWeightDialog.findViewById(R.id.displayWeightAmount);
-        if (selectedDisplayWeight > 0) {
-            variableDisplayWeight.setText(Integer.toString(selectedDisplayWeight));
-        }
-        LinearLayout confirmDisplayWeight = displayWeightDialog.findViewById(R.id.layoutConfirmDisplayWeight);
-        LinearLayout cancelDisplayWeight = displayWeightDialog.findViewById(R.id.layoutCancelDisplayWeight);
-
-        confirmDisplayWeight.setOnClickListener(v -> {
-            displayWeightDialog.dismiss();
-        });
-        cancelDisplayWeight.setOnClickListener(v -> {
-            selectedDisplayWeight = tempSelectedDisplayWeight;
-            displayWeightDialog.dismiss();
-        });
-
-        displayWeightDialog.show();
-        displayWeightDialog.getWindow().setLayout(ViewGroup.LayoutParams.MATCH_PARENT,ViewGroup.LayoutParams.WRAP_CONTENT);
-        displayWeightDialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
-        displayWeightDialog.getWindow().setGravity(Gravity.CENTER);
-
-        return currentDisplayWeight;
-    }
 
     public void checkRadioButtonId(View view){
-        switch (view.getId()) {
-            case R.id.displayWeight100g:
-                selectedDisplayWeight = 100;
-                variableDisplayWeight.setText(Integer.toString(selectedDisplayWeight));
-                break;
-            case R.id.displayWeight50g:
-                selectedDisplayWeight = 50;
-                variableDisplayWeight.setText(Integer.toString(selectedDisplayWeight));
-                break;
-            case R.id.displayWeight10g:
-                selectedDisplayWeight = 10;
-                variableDisplayWeight.setText(Integer.toString(selectedDisplayWeight));
-                break;
-            case R.id.displayWeight1g:
-                selectedDisplayWeight = 1;
-                variableDisplayWeight.setText(Integer.toString(selectedDisplayWeight));
-                break;
-        }
+        foodDBVariableWeightPopup.actualCheckRadioButtonId(view);
     }
 
     public float[] calculateNutrientsToTargetWeightVal(float foodWeight, float calories, float fat, float carbs, float protein, float targetWeight) {
