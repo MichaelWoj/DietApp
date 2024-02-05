@@ -1,19 +1,19 @@
-    package com.example.fitnessapp;
+package com.example.fitnessapp;
 
 import android.app.Dialog;
-import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.view.Gravity;
-import android.view.View;
 import android.view.ViewGroup;
 import android.view.Window;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.activity.result.ActivityResult;
 import androidx.activity.result.ActivityResultCallback;
@@ -21,26 +21,30 @@ import androidx.activity.result.ActivityResultLauncher;
 import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.appcompat.app.AppCompatActivity;
 
-public class FoodDBItemPage extends AppCompatActivity implements ActivityFinishListener {
-
+public class FoodDBVariableWeightItemPage extends AppCompatActivity implements ActivityFinishListener  {
     private TextView nameDB, caloriesDB, fatDB, carbsDB, proteinDB;
+    private EditText itemWeight;
+    private int entryID, foodDisplayWeight;
+    private float foodCaloriesVal, foodFatVal, foodCarbsVal, foodProteinVal, foodTargetWeightVal;
+    private String entryIDString, itemSetDisplayWeight;
+    private FoodDBAddItemVariableWeight foodDBAddItemVariableWeight;
+    private FoodDBItemPage foodDBItemPage;
     private DatabaseHelper databaseHelper;
-    private int entryID;
-    private float foodCaloriesVal, foodFatVal, foodCarbsVal, foodProteinVal;
-    private String entryIDString;
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_food_db_item_page_layout);
+        setContentView(R.layout.activity_db_variable_weight_item_page);
 
+        foodDBAddItemVariableWeight = new FoodDBAddItemVariableWeight();
+        foodDBItemPage = new FoodDBItemPage();
         databaseHelper = new DatabaseHelper(getApplicationContext());
 
-        nameDB = findViewById(R.id.itemMealName);
-        caloriesDB = findViewById(R.id.itemMealCalories);
-        fatDB = findViewById(R.id.itemMealFat);
-        carbsDB = findViewById(R.id.itemMealCarbs);
-        proteinDB = findViewById(R.id.itemMealProtein);
+        nameDB = findViewById(R.id.variableWeightItemMealName);
+        caloriesDB = findViewById(R.id.variableWeightItemMealCalories);
+        fatDB = findViewById(R.id.variableWeightItemMealFat);
+        carbsDB = findViewById(R.id.variableWeightItemMealCarbs);
+        proteinDB = findViewById(R.id.variableWeightItemMealProtein);
+        itemWeight = findViewById(R.id.variableItemWeight);
 
         Intent intent = getIntent();
         String id = intent.getStringExtra("ID");
@@ -49,43 +53,60 @@ public class FoodDBItemPage extends AppCompatActivity implements ActivityFinishL
         String itemSetFat = intent.getStringExtra("Fat");
         String itemSetCarbs = intent.getStringExtra("Carbs");
         String itemSetProtein = intent.getStringExtra("Protein");
+        itemSetDisplayWeight = intent.getStringExtra("DisplayWeight");
 
         entryID = Integer.parseInt(id);
         entryIDString = id;
 
         setText(itemSetName, itemSetCalories, itemSetFat, itemSetCarbs, itemSetProtein);
 
-        Button submit = findViewById(R.id.itemAddFood);
+        Button submit = findViewById(R.id.variableWeightItemAddFood);
         submit.setOnClickListener(v -> {
-        Intent intentAddToOverallTotal = new Intent(FoodDBItemPage.this, MainActivity.class);
+            String foodTargetWeight = itemWeight.getText().toString();
+            if ( foodTargetWeight.isEmpty() || foodTargetWeight.equals("0")) {
+                Toast.makeText(FoodDBVariableWeightItemPage.this, "Please insert all info", Toast.LENGTH_SHORT).show();
+            } else {
+                Intent intentAddToOverallTotal = new Intent(FoodDBVariableWeightItemPage.this, MainActivity.class);
 
-        //The line currently does nothing but is here for an upcoming feature
-        String foodNameToString = nameDB.getText().toString();
+                //The line currently does nothing but is here for an upcoming feature
+                String foodNameToString = nameDB.getText().toString();
 
-        String foodCaloriesToString = caloriesDB.getText().toString();
-        foodCaloriesVal = Float.parseFloat(foodCaloriesToString);
-        intentAddToOverallTotal.putExtra("foodCalories", foodCaloriesVal);
+                foodDisplayWeight = Integer.parseInt(itemSetDisplayWeight);
 
-        String foodFatToString = fatDB.getText().toString();
-        foodFatVal = Float.parseFloat(foodFatToString);
-        intentAddToOverallTotal.putExtra("foodFat", foodFatVal);
+                String foodCaloriesToString = caloriesDB.getText().toString();
+                foodCaloriesVal = Float.parseFloat(foodCaloriesToString);
 
-        String foodCarbsToString = carbsDB.getText().toString();
-        foodCarbsVal = Float.parseFloat(foodCarbsToString);
-        intentAddToOverallTotal.putExtra("foodCarbs", foodCarbsVal);
+                String foodFatToString = fatDB.getText().toString();
+                foodFatVal = Float.parseFloat(foodFatToString);
 
-        String foodProteinToString = proteinDB.getText().toString();
-        foodProteinVal = Float.parseFloat(foodProteinToString);
-        intentAddToOverallTotal.putExtra("foodProtein", foodProteinVal);
+                String foodCarbsToString = carbsDB.getText().toString();
+                foodCarbsVal = Float.parseFloat(foodCarbsToString);
 
-        setResult(RESULT_OK, intentAddToOverallTotal);
-        finish();
+                String foodProteinToString = proteinDB.getText().toString();
+                foodProteinVal = Float.parseFloat(foodProteinToString);
+
+                foodTargetWeightVal = Float.parseFloat(foodTargetWeight);
+                float[] variableResultArray = foodDBAddItemVariableWeight.calculateNutrientsToTargetWeightVal(foodDisplayWeight, foodCaloriesVal, foodFatVal, foodCarbsVal, foodProteinVal, foodTargetWeightVal);
+
+                foodCaloriesVal = variableResultArray[0];
+                foodFatVal = variableResultArray[1];
+                foodCarbsVal = variableResultArray[2];
+                foodTargetWeightVal = variableResultArray[3];
+
+                intentAddToOverallTotal.putExtra("foodCalories", foodCaloriesVal);
+                intentAddToOverallTotal.putExtra("foodFat", foodFatVal);
+                intentAddToOverallTotal.putExtra("foodCarbs", foodCarbsVal);
+                intentAddToOverallTotal.putExtra("foodProtein", foodProteinVal);
+
+                setResult(RESULT_OK, intentAddToOverallTotal);
+                finish();
+            }
         });
 
-        ImageButton settings = findViewById(R.id.itemSettingsBtn);
+        ImageButton settings = findViewById(R.id.variableWeightItemSettingsBtn);
         settings.setOnClickListener(v -> showDialog());
 
-        Button back = findViewById(R.id.itemCancel);
+        Button back = findViewById(R.id.variableWeightItemCancel);
         back.setOnClickListener(v -> finish());
     }
 
@@ -108,7 +129,7 @@ public class FoodDBItemPage extends AppCompatActivity implements ActivityFinishL
 
 
         editLayout.setOnClickListener(v -> {
-            Intent intent = new Intent(FoodDBItemPage.this, FoodDBEditItem.class);
+            Intent intent = new Intent(FoodDBVariableWeightItemPage.this, FoodDBEditVariableWeightItem.class);
 
             intent.putExtra("editId",entryIDString);
 
@@ -127,6 +148,9 @@ public class FoodDBItemPage extends AppCompatActivity implements ActivityFinishL
             String editFoodProteinToString = proteinDB.getText().toString();
             intent.putExtra("editProtein", editFoodProteinToString);
 
+            String editFoodWeightToString = itemSetDisplayWeight.toString();
+            intent.putExtra("editWeight",editFoodWeightToString);
+
             startForRefreshItemPage.launch(intent);
             dialog.dismiss();
 
@@ -134,8 +158,8 @@ public class FoodDBItemPage extends AppCompatActivity implements ActivityFinishL
 
         deleteLayout.setOnClickListener(v -> {
             dialog.dismiss();
-            Intent intent = new Intent(FoodDBItemPage.this, FoodDBDisplay.class);
-            deleteConfirmationWindow(intent, entryID, this, this);
+            Intent intent = new Intent(FoodDBVariableWeightItemPage.this, FoodDBDisplay.class);
+            foodDBItemPage.deleteConfirmationWindow(intent, entryID, this, this);
         });
 
         dialog.show();
@@ -154,6 +178,9 @@ public class FoodDBItemPage extends AppCompatActivity implements ActivityFinishL
 
                 String newName = intent.getStringExtra("editFoodName");
 
+                Integer newWeight = intent.getIntExtra("editFoodWeight", foodDisplayWeight);
+                itemSetDisplayWeight = newWeight.toString();
+
                 Float newCalories = intent.getFloatExtra("editFoodCalories", foodCaloriesVal);
                 String newCaloriesString = newCalories.toString();
 
@@ -170,32 +197,6 @@ public class FoodDBItemPage extends AppCompatActivity implements ActivityFinishL
             }
         }
     });
-
-    public void deleteConfirmationWindow(Intent intent, Integer idOfEntry, Context context, ActivityFinishListener finishListener) {
-
-        final Dialog confirmationDialog = new Dialog(context);
-        databaseHelper = new DatabaseHelper(context.getApplicationContext());
-        confirmationDialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
-        confirmationDialog.setContentView(R.layout.activity_db_settings_delete_popup);
-
-        LinearLayout confirmDelete = confirmationDialog.findViewById(R.id.layoutConfirmDelete);
-        LinearLayout confirmCancel = confirmationDialog.findViewById(R.id.layoutConfirmCancel);
-
-        confirmDelete.setOnClickListener(v -> {
-            intent.addFlags(Intent.FLAG_ACTIVITY_FORWARD_RESULT);
-            databaseHelper.deleteEntry(idOfEntry);
-            confirmationDialog.dismiss();
-            if (finishListener != null) {
-                finishListener.finishActivity();
-            }
-        });
-        confirmCancel.setOnClickListener(v -> confirmationDialog.dismiss());
-
-        confirmationDialog.show();
-        confirmationDialog.getWindow().setLayout(ViewGroup.LayoutParams.MATCH_PARENT,ViewGroup.LayoutParams.WRAP_CONTENT);
-        confirmationDialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
-        confirmationDialog.getWindow().setGravity(Gravity.CENTER);
-    }
 
     @Override
     public void finishActivity() {

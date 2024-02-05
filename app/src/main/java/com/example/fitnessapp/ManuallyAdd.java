@@ -81,15 +81,16 @@ public class ManuallyAdd extends AppCompatActivity {
                 float foodProteinVal = Float.parseFloat(foodProteinToString);
                 intent.putExtra("foodProtein", foodProteinVal);
 
+
                 if(db_switch.isChecked()){
 
                     FoodModel foodModel;
 
                     try{
-                        foodModel = new FoodModel(-1, foodNameToString, foodCaloriesVal, foodFatVal, foodCarbsVal,foodProteinVal);
+                        foodModel = new FoodModel(-1, foodNameToString, foodCaloriesVal, foodFatVal, foodCarbsVal, foodProteinVal, 0,0);
                     }
                     catch (Exception e){
-                        foodModel = new FoodModel(-1,"Error",0f,0f,0f,0f);
+                        foodModel = new FoodModel(-1,"Error",0f,0f,0f,0f, 0,0);
                     }
 
                     DatabaseHelper dataBaseHelper = new DatabaseHelper(ManuallyAdd.this);

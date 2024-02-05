@@ -2,7 +2,6 @@ package com.example.fitnessapp;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
@@ -16,7 +15,7 @@ public class FoodDBAddItem extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activitiy_db_save_food);
+        setContentView(R.layout.activity_db_save_food);
 
         foodName = findViewById(R.id.itemAddMealName);
         foodCalories = findViewById(R.id.itemAddMealCalories);
@@ -49,9 +48,9 @@ public class FoodDBAddItem extends AppCompatActivity {
                 FoodModel foodModel;
 
                 try {
-                    foodModel = new FoodModel(-1, foodNameToString, foodCaloriesVal, foodFatVal, foodCarbsVal, foodProteinVal);
+                    foodModel = new FoodModel(-1, foodNameToString, foodCaloriesVal, foodFatVal, foodCarbsVal, foodProteinVal,0,0);
                 } catch (Exception e) {
-                    foodModel = new FoodModel(-1, "Error", 0f, 0f, 0f, 0f);
+                    foodModel = new FoodModel(-1, "Error", 0f, 0f, 0f, 0f,0,0);
                 }
 
                 DatabaseHelper dataBaseHelper = new DatabaseHelper(FoodDBAddItem.this);

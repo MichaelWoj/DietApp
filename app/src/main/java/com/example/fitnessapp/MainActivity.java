@@ -97,7 +97,6 @@ public class MainActivity extends AppCompatActivity{
         }
     });
 
-    @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -297,8 +296,11 @@ public class MainActivity extends AppCompatActivity{
         }
 
         private void undoJsonStringToFloatList(String loadedJsonString, ArrayList<Float> targetFloatList){
-            if(loadedJsonString.equals("[]")){
-                loadedJsonString = null;
+            if(loadedJsonString == null){
+                loadedJsonString = "";
+            }
+            else if(loadedJsonString.equals("[]")){
+                loadedJsonString = "";
             }
 
             else if(loadedJsonString != null){

@@ -1,0 +1,215 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:layout_gravity="center">
+
+    <androidx.cardview.widget.CardView
+        android:id="@+id/displayWeightPopupCardView"
+        android:layout_width="350dp"
+        android:layout_height="330dp"
+        app:cardBackgroundColor="#337357"
+        app:cardCornerRadius="20dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/displayWeightPopupConstraintLayout"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <TextView
+                android:id="@+id/displayWeightPopupDescriptionTV"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/bottom_border"
+                android:fontFamily="sans-serif"
+                android:gravity="center"
+                android:paddingBottom="10dp"
+                android:text="Select in what amount of food  you want the nutrients to be displayed."
+                android:textColor="#E4E3D3"
+                android:textSize="24sp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.0"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintVertical_bias="0.075" />
+
+            <TextView
+                android:id="@+id/displayWeightQuickSelectTV"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Quick Select"
+                android:textColor="#E4E3D3"
+                android:textSize="24sp"
+                app:layout_constraintBottom_toTopOf="@+id/displayWeightRadioGroup"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/displayWeightPopupDescriptionTV"
+                app:layout_constraintVertical_bias="0.344" />
+
+            <RadioGroup
+                android:id="@+id/displayWeightRadioGroup"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation='horizontal'
+                app:layout_constraintBottom_toTopOf="@+id/layoutConfirmDisplayWeight"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/displayWeightPopupDescriptionTV"
+                app:layout_constraintVertical_bias="0.32999998">
+
+                <RadioButton
+                    android:id="@+id/displayWeight100g"
+                    android:layout_width="wrap_content"
+                    android:layout_height="48dp"
+                    android:onClick="checkRadioButtonId"
+                    android:paddingRight="5dp"
+                    android:text="100g"
+                    android:textColor="#E4E3D3"
+                    android:textSize="24sp" />
+
+                <RadioButton
+                    android:id="@+id/displayWeight50g"
+                    android:layout_width="wrap_content"
+                    android:layout_height="48dp"
+                    android:onClick="checkRadioButtonId"
+                    android:paddingRight="5dp"
+                    android:text="50g"
+                    android:textColor="#E4E3D3"
+                    android:textSize="24sp" />
+
+                <RadioButton
+                    android:id="@+id/displayWeight10g"
+                    android:layout_width="wrap_content"
+                    android:layout_height="48dp"
+                    android:onClick="checkRadioButtonId"
+                    android:paddingRight="5dp"
+                    android:text="10g"
+                    android:textColor="#E4E3D3"
+                    android:textSize="24sp" />
+
+                <RadioButton
+                    android:id="@+id/displayWeight1g"
+                    android:layout_width="wrap_content"
+                    android:layout_height="48dp"
+                    android:onClick="checkRadioButtonId"
+                    android:paddingRight="5dp"
+                    android:text="1g"
+                    android:textColor="#E4E3D3"
+                    android:textSize="24sp" />
+
+            </RadioGroup>
+
+            <EditText
+                android:id="@+id/displayWeightAmount"
+                android:layout_width="100dp"
+                android:layout_height="wrap_content"
+                android:inputType="numberDecimal"
+                android:maxLength="4"
+                android:textAlignment="center"
+                android:textColor="#E4E3D3"
+                android:textSize="24sp"
+                android:backgroundTint="#E4E3D3"
+                app:layout_constraintBottom_toTopOf="@+id/layoutConfirmDisplayWeight"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/displayWeightPopupDescriptionTV"
+                app:layout_constraintVertical_bias="0.862" />
+
+            <TextView
+                android:id="@+id/displayWeightAmountGrams"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="g"
+                android:textColor="#E4E3D3"
+                app:layout_constraintBottom_toTopOf="@+id/layoutCancelDisplayWeight"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.0"
+                app:layout_constraintStart_toEndOf="@+id/displayWeightAmount"
+                app:layout_constraintTop_toBottomOf="@+id/displayWeightRadioGroup"
+                app:layout_constraintVertical_bias="0.642" />
+
+            <LinearLayout
+                android:id="@+id/layoutConfirmDisplayWeight"
+                android:layout_width="177dp"
+                android:layout_height="wrap_content"
+                android:background="@drawable/left_side_button_border"
+                android:orientation="horizontal"
+                android:padding="8dp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.0"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/displayWeightPopupDescriptionTV"
+                app:layout_constraintVertical_bias="1.0">
+
+                <ImageView
+                    android:id="@+id/displayWeightPopupConfirm"
+                    android:layout_width="30dp"
+                    android:layout_height="30dp"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintHorizontal_bias="0.041"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintVertical_bias="0.206"
+                    app:srcCompat="@drawable/ic_checkmark" />
+
+
+                <TextView
+                    android:id="@+id/displayWeightPopupConfirmTV"
+                    android:layout_width="wrap_content"
+                    android:layout_height="30dp"
+                    android:layout_marginLeft="30dp"
+                    android:text="Confirm"
+                    android:textColor="#E4E3D3"
+                    android:textSize="24sp" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/layoutCancelDisplayWeight"
+                android:layout_width="176dp"
+                android:layout_height="wrap_content"
+                android:background="@drawable/right_side_button_border"
+                android:orientation="horizontal"
+                android:padding="8dp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="1.0"
+                app:layout_constraintStart_toEndOf="@+id/layoutConfirmDisplayWeight"
+                app:layout_constraintTop_toBottomOf="@+id/displayWeightPopupDescriptionTV"
+                app:layout_constraintVertical_bias="1.0">
+
+                <ImageView
+                    android:id="@+id/displayWeightPopupCancel"
+                    android:layout_width="30dp"
+                    android:layout_height="30dp"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintHorizontal_bias="0.041"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintVertical_bias="0.126"
+                    app:srcCompat="@drawable/ic_cancel" />
+
+                <TextView
+                    android:id="@+id/displayWeightPopupCancelTV"
+                    android:layout_width="wrap_content"
+                    android:layout_height="30dp"
+                    android:layout_marginLeft="30dp"
+                    android:text="Cancel"
+                    android:textColor="#E4E3D3"
+                    android:textSize="24sp" />
+            </LinearLayout>
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </androidx.cardview.widget.CardView>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

@@ -18,7 +18,6 @@ import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.view.Gravity;
-import android.view.View;
 import android.view.ViewGroup;
 import android.view.Window;
 import android.widget.Button;
@@ -31,12 +30,11 @@ import java.util.ArrayList;
 
 public class FoodDBDisplay extends AppCompatActivity implements RecyclerViewInterface {
 
-    private ArrayList<String> foodID, foodNameDB, foodCaloriesNum, foodFatNum, foodCarbsNum, foodProteinNum;
+    private ArrayList<String> foodID, foodNameDB, foodCaloriesNum, foodFatNum, foodCarbsNum, foodProteinNum, foodDisplayWeightNum, foodSaveType;
     private DatabaseHelper dataBaseHelper;
     private SearchView searchView;
 
     private int sortType;
-
     public static final String savedSearchType = "search_type";
     public FoodDBRecycleViewAdapter adapter;
 
@@ -72,6 +70,8 @@ public class FoodDBDisplay extends AppCompatActivity implements RecyclerViewInte
         foodFatNum = new ArrayList<>();
         foodCarbsNum = new ArrayList<>();
         foodProteinNum = new ArrayList<>();
+        foodDisplayWeightNum = new ArrayList<>();
+        foodSaveType = new ArrayList<>();
 
         RecyclerView recyclerView = findViewById(R.id.recyclerViewFoodList);
         adapter = new FoodDBRecycleViewAdapter(this,foodNameDB, foodCaloriesNum, foodFatNum, foodCarbsNum, foodProteinNum, this);
@@ -83,9 +83,7 @@ public class FoodDBDisplay extends AppCompatActivity implements RecyclerViewInte
 
         Button addBtn = findViewById(R.id.dbAddFood);
         addBtn.setOnClickListener(v -> {
-            Intent intent = new Intent(FoodDBDisplay.this, FoodDBAddItem.class);
-
-            startForRefresh.launch(intent);
+            showAddItemChoice();
         });
 
         Button cancelBtn = findViewById(R.id.dbCancel);
@@ -97,13 +95,19 @@ public class FoodDBDisplay extends AppCompatActivity implements RecyclerViewInte
 
     @Override
     public void onItemClick(int position) {
-        Intent intent = new Intent(FoodDBDisplay.this, FoodDBItemPage.class);
+        Intent intent = null;
+        if(foodSaveType.get(position).equals("0")){
+            intent = new Intent(FoodDBDisplay.this, FoodDBItemPage.class);
+        } else if (foodSaveType.get(position).equals("1")) {
+            intent = new Intent(FoodDBDisplay.this, FoodDBVariableWeightItemPage.class);
+        }
         intent.putExtra("ID", foodID.get(position));
         intent.putExtra("Name", foodNameDB.get(position));
         intent.putExtra("Calories", foodCaloriesNum.get(position));
         intent.putExtra("Fat", foodFatNum.get(position));
         intent.putExtra("Carbs", foodCarbsNum.get(position));
         intent.putExtra("Protein", foodProteinNum.get(position));
+        intent.putExtra("DisplayWeight", foodDisplayWeightNum.get(position));
 
         startForMainActivityResult.launch(intent);
     }
@@ -131,6 +135,8 @@ public class FoodDBDisplay extends AppCompatActivity implements RecyclerViewInte
                 foodFatNum.add(cursor.getString(3));
                 foodCarbsNum.add(cursor.getString(4));
                 foodProteinNum.add(cursor.getString(5));
+                foodDisplayWeightNum.add(cursor.getString(6));
+                foodSaveType.add(cursor.getString(7));
 
             }
         }
@@ -141,7 +147,9 @@ public class FoodDBDisplay extends AppCompatActivity implements RecyclerViewInte
         foodCaloriesNum.clear();
         foodFatNum.clear();
         foodCarbsNum.clear();
-        foodProteinNum.clear();;
+        foodProteinNum.clear();
+        foodDisplayWeightNum.clear();
+        foodSaveType.clear();
     }
 
     //This is used in some cases instead of updateRecyclerView as updateRV had issues with ID's when a food was added until FoodDBDisplay was restarted
@@ -195,6 +203,31 @@ public class FoodDBDisplay extends AppCompatActivity implements RecyclerViewInte
         SharedPreferences sortSharedPreferences = getSharedPreferences("SORT_SHARED_PREFS", MODE_PRIVATE);
 
         sortType = sortSharedPreferences.getInt(savedSearchType,1);
+    }
+
+    private void showAddItemChoice(){
+        final Dialog confirmationDialog = new Dialog(this);
+        confirmationDialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
+        confirmationDialog.setContentView(R.layout.activity_add_item_popup);
+
+        LinearLayout setWeightAdd = confirmationDialog.findViewById(R.id.layoutSetItemAdd);
+        LinearLayout variableWeightAdd = confirmationDialog.findViewById(R.id.layoutVariableWeighItemAdd);
+
+        setWeightAdd.setOnClickListener(v -> {
+            Intent intent = new Intent(FoodDBDisplay.this, FoodDBAddItem.class);
+            startForRefresh.launch(intent);
+            confirmationDialog.dismiss();
+        });
+        variableWeightAdd.setOnClickListener(v -> {
+            Intent intent = new Intent(FoodDBDisplay.this, FoodDBAddItemVariableWeight.class);
+            startForRefresh.launch(intent);
+            confirmationDialog.dismiss();
+        });
+
+        confirmationDialog.show();
+        confirmationDialog.getWindow().setLayout(ViewGroup.LayoutParams.MATCH_PARENT,ViewGroup.LayoutParams.WRAP_CONTENT);
+        confirmationDialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+        confirmationDialog.getWindow().setGravity(Gravity.CENTER);
     }
 
     private void showSortDialog() {
@@ -256,7 +289,7 @@ public class FoodDBDisplay extends AppCompatActivity implements RecyclerViewInte
 
         final Dialog dialog = new Dialog(this);
         dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
-        dialog.setContentView(R.layout.activitiy_db_sort_asc_or_desc_popup);
+        dialog.setContentView(R.layout.activity_db_sort_asc_or_desc_popup);
 
         LinearLayout ascSortLayout = dialog.findViewById(R.id.layoutSortAsc);
         LinearLayout descSortLayout = dialog.findViewById(R.id.layoutSortDesc);
