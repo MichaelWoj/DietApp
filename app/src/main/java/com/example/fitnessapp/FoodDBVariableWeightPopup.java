@@ -49,11 +49,11 @@ public class FoodDBVariableWeightPopup extends AppCompatActivity {
         LinearLayout cancelDisplayWeight = displayWeightDialog.findViewById(R.id.layoutCancelDisplayWeight);
 
         confirmDisplayWeight.setOnClickListener(v -> {
+            String variableFoodWeightToString = variableDisplayWeight.getText().toString();
+            selectedDisplayWeight = Integer.parseInt(variableFoodWeightToString);
             if (selectedDisplayWeight == 0){
-                Toast.makeText(FoodDBVariableWeightPopup.this, "Display weight cannot be empty or equal to 0.", Toast.LENGTH_SHORT).show();
+                Toast.makeText(context, "Display weight cannot be empty, 0 or negative.", Toast.LENGTH_SHORT).show();
             }else {
-                String variableFoodWeightToString = variableDisplayWeight.getText().toString();
-                selectedDisplayWeight = Integer.parseInt(variableFoodWeightToString);
                 saveSelectedDisplayWeight(context, selectedDisplayWeight);
                 displayWeightDialog.dismiss();
             }

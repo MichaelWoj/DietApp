@@ -12,6 +12,7 @@ import android.view.Window;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.LinearLayout;
+import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -70,48 +71,53 @@ public class FoodDBEditVariableWeightItem extends AppCompatActivity {
         submitEdit.setOnClickListener(v -> {
             Intent intentAddToOverallTotal = new Intent(FoodDBEditVariableWeightItem.this, FoodDBItemPage.class);
 
-            String editFoodName = itemName.getText().toString();
-            intentAddToOverallTotal.putExtra("editFoodName", editFoodName);
-
             String editFoodWeightToString = itemWeight.getText().toString();
             editFoodWeight = Integer.parseInt(editFoodWeightToString);
 
-            String editFoodCaloriesToString = itemCalories.getText().toString();
-            editFoodCalories = Float.parseFloat(editFoodCaloriesToString);
+            if (editFoodWeight == 0){
+                Toast.makeText(this, "Weight cannot be 0.", Toast.LENGTH_SHORT).show();
+            }else {
 
-            String editFoodFatToString = itemFat.getText().toString();
-            editFoodFat = Float.parseFloat(editFoodFatToString);
+                String editFoodName = itemName.getText().toString();
+                intentAddToOverallTotal.putExtra("editFoodName", editFoodName);
 
-            String editFoodCarbsToString = itemCarbs.getText().toString();
-            editFoodCarbs = Float.parseFloat(editFoodCarbsToString);
+                String editFoodCaloriesToString = itemCalories.getText().toString();
+                editFoodCalories = Float.parseFloat(editFoodCaloriesToString);
 
-            String editFoodProteinToString = itemProtein.getText().toString();
-            editFoodProtein = Float.parseFloat(editFoodProteinToString);
+                String editFoodFatToString = itemFat.getText().toString();
+                editFoodFat = Float.parseFloat(editFoodFatToString);
 
-            itemSelectedDisplayWeight = foodDBVariableWeightPopup.loadSavedDisplayWeight(this);
-            foodDBVariableWeightPopup.resetSelectedDisplayWeight(this);
+                String editFoodCarbsToString = itemCarbs.getText().toString();
+                editFoodCarbs = Float.parseFloat(editFoodCarbsToString);
 
-            if(itemSelectedDisplayWeight == 0){
-                itemSelectedDisplayWeight = Math.round(editFoodWeight);
+                String editFoodProteinToString = itemProtein.getText().toString();
+                editFoodProtein = Float.parseFloat(editFoodProteinToString);
+
+                itemSelectedDisplayWeight = foodDBVariableWeightPopup.loadSavedDisplayWeight(this);
+                foodDBVariableWeightPopup.resetSelectedDisplayWeight(this);
+
+                if (itemSelectedDisplayWeight == 0) {
+                    itemSelectedDisplayWeight = Math.round(editFoodWeight);
+                }
+
+                float[] variableResultArray = foodDBAddItemVariableWeight.calculateNutrientsToTargetWeightVal(editFoodWeight, editFoodCalories, editFoodFat, editFoodCarbs, editFoodProtein, itemSelectedDisplayWeight);
+
+                editFoodCalories = variableResultArray[0];
+                editFoodFat = variableResultArray[1];
+                editFoodCarbs = variableResultArray[2];
+                editFoodProtein = variableResultArray[3];
+
+
+                intentAddToOverallTotal.putExtra("editFoodWeight", itemSelectedDisplayWeight);
+                intentAddToOverallTotal.putExtra("editFoodCalories", editFoodCalories);
+                intentAddToOverallTotal.putExtra("editFoodFat", editFoodFat);
+                intentAddToOverallTotal.putExtra("editFoodCarbs", editFoodCarbs);
+                intentAddToOverallTotal.putExtra("editFoodProtein", editFoodProtein);
+
+                databaseHelper.editEntry(idForEdit, editFoodName, editFoodCalories, editFoodFat, editFoodCarbs, editFoodProtein, itemSelectedDisplayWeight);
+                setResult(RESULT_OK, intentAddToOverallTotal);
+                finish();
             }
-
-            float[] variableResultArray = foodDBAddItemVariableWeight.calculateNutrientsToTargetWeightVal(editFoodWeight, editFoodCalories, editFoodFat, editFoodCarbs, editFoodProtein, itemSelectedDisplayWeight);
-
-            editFoodCalories = variableResultArray[0];
-            editFoodFat = variableResultArray[1];
-            editFoodCarbs = variableResultArray[2];
-            editFoodProtein = variableResultArray[3];
-
-
-            intentAddToOverallTotal.putExtra("editFoodWeight", itemSelectedDisplayWeight);
-            intentAddToOverallTotal.putExtra("editFoodCalories", editFoodCalories);
-            intentAddToOverallTotal.putExtra("editFoodFat", editFoodFat);
-            intentAddToOverallTotal.putExtra("editFoodCarbs", editFoodCarbs);
-            intentAddToOverallTotal.putExtra("editFoodProtein", editFoodProtein);
-
-            databaseHelper.editEntry(idForEdit, editFoodName, editFoodCalories, editFoodFat, editFoodCarbs, editFoodProtein,itemSelectedDisplayWeight);
-            setResult(RESULT_OK, intentAddToOverallTotal);
-            finish();
         });
 
         Button backEdit = findViewById(R.id.editVariableWeighItemtCancel);
