@@ -38,23 +38,28 @@ This is the main screen of the app and these are the features being as followed.
 10. This is where all of the entries in the database are displayed. Click on one brings the user to that item's page.
 
 11. Allows the user to directly add a food into the database
+    
+![Food Type Popup](https://github.com/MichaelWoj/DietTrackingApp/assets/43684434/23db8ea2-35f1-4fec-b094-e1e0968506ee)
+
+12. Allows the user to add foods with set weight/that will always have the same values. Eg an egg.
+
+13. Allows the user to add foods that weight which might change from meal to meal. Eg rice.
 
 ## Item Page
 
-![Item Page](https://github.com/MichaelWoj/DietApp/assets/43684434/039047c6-4c7f-40b8-8e97-68b4015fbe77)
+![Item Page](https://github.com/MichaelWoj/DietTrackingApp/assets/43684434/82afefd8-97e8-4754-bbca-4352ed306c13)
 
-12. Brings up the same looking card as 9. but this one allows the user to either edit the entry or delete it
+14. Brings up the same looking card as 9. but this one allows the user to either edit the entry or delete it
 
-13. Adds the entry to the daily total shown in 1.
+15. Adds the entry to the daily total shown in 1.
 
 ## Manual Item Add
 
-![Manually Add Item](https://github.com/MichaelWoj/DietApp/assets/43684434/69aab142-4da0-470a-ac0c-6d01638bb1ac)
+![Manually Add Item](https://github.com/MichaelWoj/DietTrackingApp/assets/43684434/63681e6b-f3a8-4261-a57e-4d6a98cdc1b4)
 
-14. Switch which determines if the added food will just be added to the total count shown in 1. or added to the count and saved in the database for future use. If the switch is flipped then the user must provide a name for the food, otherwise the name option will be unavailable.
+16. Switch which determines if the added food will just be added to the total count shown in 1. or added to the count and saved in the database for future use. If the switch is flipped then the user must provide a name for the food, otherwise the name option will be unavailable.
 
 # Known Issues
 
 Sometimes when the database is sorted using the sorts shown in 9. the name of the food doesn't move with the nutrient values. I am unsure what causes it and the bug is not easily replicable. A simple fix is just to go back to the main menu and re enter the Local Food Database.
 
-    
