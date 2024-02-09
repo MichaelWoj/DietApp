@@ -67,7 +67,7 @@ This is the main screen of the app and these are the features being as followed.
 
 18. Brings the user to a popup which allows the user to input the display weight. This weight is used to display the corresponding nutrient values in the Databse and Item Page screens
 
-![Variable Weight Add Item](https://github.com/MichaelWoj/DietTrackingApp/assets/43684434/2e88b38b-6e0f-4ee2-8334-6ed1b804c33a)
+![Display Weight](https://github.com/MichaelWoj/DietTrackingApp/assets/43684434/d46f6c0b-0af0-423d-ac5c-cd9f1126b8cd)
 
 ## Manual Item Add
 
