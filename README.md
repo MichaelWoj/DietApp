@@ -27,7 +27,7 @@ This is the main screen of the app and these are the features being as followed.
 
 ## Database Screen
 
-![Databse Screen](https://github.com/MichaelWoj/DietApp/assets/43684434/b16376e2-dda7-4a79-80e8-e81d73b58346)
+![Database Screen](https://github.com/MichaelWoj/DietApp/assets/43684434/b16376e2-dda7-4a79-80e8-e81d73b58346)
 
 8. Search bar to allow easily find specific foods.
 
@@ -53,11 +53,27 @@ This is the main screen of the app and these are the features being as followed.
 
 15. Adds the entry to the daily total shown in 1.
 
+## Variable Weight Item Page
+
+![Variable Weight Item Page](https://github.com/MichaelWoj/DietTrackingApp/assets/43684434/069e0ee6-5ad1-49db-96a8-9b7289d9246c)
+
+16. The user inputs the weight of their current meal so the nutritional value gets calculated and added accordingly.
+
+## Add Variable Weight Item
+
+![Variable Weight Add Item](https://github.com/MichaelWoj/DietTrackingApp/assets/43684434/e38f7ff6-dd21-46f4-a63e-61b9ef0e95b5)
+
+17. The user inputs the weight corresponding to the nutrient ammount of the food being added. Eg put 100g when adding nutrients corresponding to 100g of rice.
+
+18. Brings the user to a popup which allows the user to input the display weight. This weight is used to display the corresponding nutrient values in the Databse and Item Page screens
+
+![Variable Weight Add Item](https://github.com/MichaelWoj/DietTrackingApp/assets/43684434/2e88b38b-6e0f-4ee2-8334-6ed1b804c33a)
+
 ## Manual Item Add
 
-![Manually Add Item](https://github.com/MichaelWoj/DietTrackingApp/assets/43684434/63681e6b-f3a8-4261-a57e-4d6a98cdc1b4)
+![Manually Add Item](https://github.com/MichaelWoj/DietTrackingApp/assets/43684434/04b625d0-341a-4ea3-9fa8-68129f0c2711)
 
-16. Switch which determines if the added food will just be added to the total count shown in 1. or added to the count and saved in the database for future use. If the switch is flipped then the user must provide a name for the food, otherwise the name option will be unavailable.
+19. Switch which determines if the added food will just be added to the total count shown in 1. or added to the count and saved in the database for future use. If the switch is flipped then the user must provide a name for the food, otherwise the name option will be unavailable.
 
 # Known Issues
 
