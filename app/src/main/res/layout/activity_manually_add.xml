@@ -270,8 +270,8 @@
                 android:layout_marginStart="12dp"
                 android:layout_marginLeft="12dp"
                 android:text="Confirm"
-                android:textColor="#E4E3D3"
-                app:backgroundTint="#337357" />
+                android:textColor="@color/eggshell"
+                app:backgroundTint="@color/green" />
 
             <Button
                 android:id="@+id/manualCancel"
@@ -280,8 +280,8 @@
                 android:layout_marginStart="16dp"
                 android:layout_marginLeft="16dp"
                 android:text="Cancel"
-                android:textColor="#E4E3D3"
-                app:backgroundTint="#337357" />
+                android:textColor="@color/eggshell"
+                app:backgroundTint="@color/green" />
         </LinearLayout>
 
     </androidx.constraintlayout.widget.ConstraintLayout>

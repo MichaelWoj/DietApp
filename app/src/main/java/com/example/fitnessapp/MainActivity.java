@@ -173,6 +173,12 @@ public class MainActivity extends AppCompatActivity{
             startForResult.launch(intent);
         });
 
+        Button calendarBtn = findViewById(R.id.calendarButton);
+        calendarBtn.setOnClickListener(view -> {
+            Intent intent = new Intent(MainActivity.this, DietCalendar.class);
+            startActivity(intent);
+        });
+
         Button undoFoodBtn = findViewById(R.id.undoFood);
         undoFoodBtn.setOnClickListener(v -> {
             if (caloriesVal != 0 ){

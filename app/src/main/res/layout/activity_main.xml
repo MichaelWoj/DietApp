@@ -256,7 +256,7 @@
         android:id="@+id/layoutSearchFood"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_margin="100px"
+        android:layout_margin="75px"
         android:orientation="horizontal">
 
         <Button
@@ -265,15 +265,15 @@
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:text="Search Local Food Database"
-            android:textColor="#E4E3D3"
-            app:backgroundTint="#337357" />
+            android:textColor="@color/eggshell"
+            app:backgroundTint="@color/green" />
     </LinearLayout>
 
     <LinearLayout
         android:id="@+id/layoutManualAdd"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_margin="100px"
+        android:layout_margin="75px"
         android:orientation="horizontal">
 
         <Button
@@ -282,15 +282,32 @@
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:text="Manually Add Nutrition"
-            android:textColor="#E4E3D3"
-            app:backgroundTint="#337357" />
+            android:textColor="@color/eggshell"
+            app:backgroundTint="@color/green" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/layoutCalendar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="75px"
+        android:orientation="horizontal">
+
+        <Button
+            android:id="@+id/calendarButton"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="Calendar"
+            android:textColor="@color/eggshell"
+            app:backgroundTint="@color/green" />
     </LinearLayout>
 
     <LinearLayout
         android:id="@+id/layoutUndoFood"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_margin="100px"
+        android:layout_margin="75px"
         android:orientation="horizontal">
 
         <Button
@@ -299,15 +316,15 @@
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:text="Undo Last Food"
-            android:textColor="#E4E3D3"
-            app:backgroundTint="#337357" />
+            android:textColor="@color/eggshell"
+            app:backgroundTint="@color/green" />
     </LinearLayout>
 
     <LinearLayout
         android:id="@+id/layoutResetAll"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_margin="100px"
+        android:layout_margin="75px"
         android:orientation="horizontal">
 
         <Button
@@ -316,8 +333,8 @@
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:text="Reset All Nutrition"
-            android:textColor="#E4E3D3"
-            app:backgroundTint="#337357" />
+            android:textColor="@color/eggshell"
+            app:backgroundTint="@color/green" />
     </LinearLayout>
 
 </LinearLayout>

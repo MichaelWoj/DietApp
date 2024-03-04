@@ -10,7 +10,7 @@
         android:id="@+id/displayWeightPopupCardView"
         android:layout_width="350dp"
         android:layout_height="330dp"
-        app:cardBackgroundColor="#337357"
+        app:cardBackgroundColor="@color/green"
         app:cardCornerRadius="20dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
@@ -31,7 +31,7 @@
                 android:gravity="center"
                 android:paddingBottom="10dp"
                 android:text="Select in what amount of food  you want the nutrients to be displayed."
-                android:textColor="#E4E3D3"
+                android:textColor="@color/eggshell"
                 android:textSize="24sp"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
@@ -45,7 +45,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Quick Select"
-                android:textColor="#E4E3D3"
+                android:textColor="@color/eggshell"
                 android:textSize="24sp"
                 app:layout_constraintBottom_toTopOf="@+id/displayWeightRadioGroup"
                 app:layout_constraintEnd_toEndOf="parent"
@@ -71,7 +71,7 @@
                     android:onClick="checkRadioButtonId"
                     android:paddingRight="5dp"
                     android:text="100g"
-                    android:textColor="#E4E3D3"
+                    android:textColor="@color/eggshell"
                     android:textSize="24sp" />
 
                 <RadioButton
@@ -81,7 +81,7 @@
                     android:onClick="checkRadioButtonId"
                     android:paddingRight="5dp"
                     android:text="50g"
-                    android:textColor="#E4E3D3"
+                    android:textColor="@color/eggshell"
                     android:textSize="24sp" />
 
                 <RadioButton
@@ -91,7 +91,7 @@
                     android:onClick="checkRadioButtonId"
                     android:paddingRight="5dp"
                     android:text="10g"
-                    android:textColor="#E4E3D3"
+                    android:textColor="@color/eggshell"
                     android:textSize="24sp" />
 
                 <RadioButton
@@ -101,7 +101,7 @@
                     android:onClick="checkRadioButtonId"
                     android:paddingRight="5dp"
                     android:text="1g"
-                    android:textColor="#E4E3D3"
+                    android:textColor="@color/eggshell"
                     android:textSize="24sp" />
 
             </RadioGroup>
@@ -113,9 +113,9 @@
                 android:inputType="numberDecimal"
                 android:maxLength="4"
                 android:textAlignment="center"
-                android:textColor="#E4E3D3"
+                android:textColor="@color/eggshell"
                 android:textSize="24sp"
-                android:backgroundTint="#E4E3D3"
+                android:backgroundTint="@color/eggshell"
                 app:layout_constraintBottom_toTopOf="@+id/layoutConfirmDisplayWeight"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
@@ -127,7 +127,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="g"
-                android:textColor="#E4E3D3"
+                android:textColor="@color/eggshell"
                 app:layout_constraintBottom_toTopOf="@+id/layoutCancelDisplayWeight"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.0"
@@ -168,7 +168,7 @@
                     android:layout_height="30dp"
                     android:layout_marginLeft="30dp"
                     android:text="Confirm"
-                    android:textColor="#E4E3D3"
+                    android:textColor="@color/eggshell"
                     android:textSize="24sp" />
             </LinearLayout>
 
@@ -204,7 +204,7 @@
                     android:layout_height="30dp"
                     android:layout_marginLeft="30dp"
                     android:text="Cancel"
-                    android:textColor="#E4E3D3"
+                    android:textColor="@color/eggshell"
                     android:textSize="24sp" />
             </LinearLayout>
 

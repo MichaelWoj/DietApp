@@ -17,7 +17,8 @@
         <activity android:name=".FoodDBAddItemVariableWeight"/>
         <activity android:name=".FoodDBVariableWeightItemPage"/>
         <activity android:name=".FoodDBEditVariableWeightItem"/>
-        <activity android:name="FoodDBVariableWeightPopup"/>
+        <activity android:name=".FoodDBVariableWeightPopup"/>
+        <activity android:name=".DietCalendar"/>
         <activity android:name=".MainActivity"
             android:exported="true">
             <intent-filter>

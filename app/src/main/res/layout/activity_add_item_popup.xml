@@ -9,7 +9,7 @@
     <androidx.cardview.widget.CardView
         android:layout_width="350dp"
         android:layout_height="150dp"
-        app:cardBackgroundColor="#337357"
+        app:cardBackgroundColor="@color/green"
         app:cardCornerRadius="20dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
@@ -31,7 +31,7 @@
                 android:fontFamily="sans-serif"
                 android:gravity="center"
                 android:text="Does the meal you're adding have a set or variable weight ?  "
-                android:textColor="#E4E3D3"
+                android:textColor="@color/eggshell"
                 android:textSize="24sp"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
@@ -74,7 +74,7 @@
                     android:layout_height="30dp"
                     android:layout_marginLeft="30dp"
                     android:text="Set"
-                    android:textColor="#E4E3D3"
+                    android:textColor="@color/eggshell"
                     android:textSize="24sp"
                     tools:layout_editor_absoluteX="79dp"
                     tools:layout_editor_absoluteY="144dp" />
@@ -113,7 +113,7 @@
                     android:layout_height="30dp"
                     android:layout_marginLeft="30dp"
                     android:text="Variable"
-                    android:textColor="#E4E3D3"
+                    android:textColor="@color/eggshell"
                     android:textSize="24sp"
                     tools:layout_editor_absoluteX="79dp"
                     tools:layout_editor_absoluteY="88dp" />
