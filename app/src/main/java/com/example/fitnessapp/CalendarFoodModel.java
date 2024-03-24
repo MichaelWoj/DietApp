@@ -1,36 +1,32 @@
 package com.example.fitnessapp;
-import java.time.LocalDateTime;
 
-public class FoodModel {
+public class CalendarFoodModel {
     private int id;
-    private String name;
-    private Float calories;
-    private Float fat;
-    private Float carbs;
-    private Float protein;
-    private int displayWeight;
-    private int saveType;
+    private String name, date, time;
+    private Float calories, fat, carbs, protein, weight;
 
-    public FoodModel(int id, String name, Float calories, Float fat, Float carbs, Float protein, int displayWeight, int saveType) {
+    public CalendarFoodModel(int id, String name, Float calories, Float fat, Float carbs, Float protein, Float weight, String date, String time) {
         this.id = id;
         this.name = name;
         this.calories = calories;
         this.fat = fat;
         this.carbs = carbs;
         this.protein = protein;
-        this.displayWeight = displayWeight;
-        this.saveType = saveType;
+        this.weight = weight;
+        this.date = date;
+        this.time = time;
     }
     @Override
     public String toString() {
-        return "FoodModel{" +
+        return "CalendarFoodModel{" +
                 "id=" + id +
                 ", name='" + name + '\'' +
                 ", calories=" + calories +
                 ", fat=" + fat +
                 ", carbs=" + carbs +
                 ", protein=" + protein +
-                ", saveType="+saveType+
+                ", date="+date+
+                ", time="+time+
                 '}';
     }
 
@@ -82,15 +78,24 @@ public class FoodModel {
         this.protein = protein;
     }
 
-    public int getDisplayWeight() {return displayWeight;}
+    public Float getWeight() {return weight;}
 
-    public void setDisplayWeight(int displayWeight){this.displayWeight = displayWeight;}
+    public void setWeight(Float weight){this.weight = weight;}
 
-    public int getSaveType(){
-        return saveType;
+    public String getDate(){
+        return date;
     }
 
-    public void setSaveType(int saveType){
-        this.saveType = saveType;
+    public void setDate(String date){
+        this.date = date;
     }
+
+    public String getTime(){
+        return time;
+    }
+
+    public void setTime(String time){
+        this.time = time;
+    }
+
 }

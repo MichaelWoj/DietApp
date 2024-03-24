@@ -29,7 +29,7 @@ public class FoodDBRecycleViewAdapter extends RecyclerView.Adapter<FoodDBRecycle
     @NonNull
     @Override
     public MyViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View v = LayoutInflater.from(context).inflate(R.layout.recycler_view_row,parent,false);
+        View v = LayoutInflater.from(context).inflate(R.layout.db_recycler_view_row,parent,false);
         return new MyViewHolder(v, recyclerViewInterface);
     }
 

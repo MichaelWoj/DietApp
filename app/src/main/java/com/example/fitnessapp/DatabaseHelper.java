@@ -21,7 +21,17 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     public static final String COLUMN_FOOD_DISPLAY_WEIGHT = "FOOD_DISPLAY_WEIGHT";
     public static final String COLUMN_FOOD_VARIABLE_SAVE_TYPE = "FOOD_VARIABLE_SAVE_TYPE";
 
-    private static final int DATABASE_VERSION = 2;
+    public static final String CALENDAR_FOOD_TABLE = "CALENDAR_FOOD_TABLE";
+    public static final String CALENDAR_COLUMN_FOOD_ID = "CALENDAR_ID";
+    public static final String CALENDAR_COLUMN_FOOD_NAME = "CALENDAR_FOOD_NAME";
+    public static final String CALENDAR_COLUMN_FOOD_CALORIES = "CALENDAR_FOOD_CALORIES";
+    public static final String CALENDAR_COLUMN_FOOD_FAT = "CALENDAR_FOOD_FAT";
+    public static final String CALENDAR_COLUMN_FOOD_CARBS = "CALENDAR_FOOD_CARBS";
+    public static final String CALENDAR_COLUMN_FOOD_PROTEIN = "CALENDAR_FOOD_PROTEIN";
+    public static final String CALENDAR_COLUMN_FOOD_WEIGHT = "CALENDAR_FOOD_WEIGHT";
+    public static final String CALENDAR_DATE_ADDED = "CALENDAR_DATE_ADDED";
+    public static final String CALENDAR_TIME_ADDED = "CALENDAR_TIME_ADDED";
+    private static final int DATABASE_VERSION = 3;
 
     private String queryString;
 
@@ -31,11 +41,14 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
     @Override
     public void onCreate(SQLiteDatabase db) {
-        String createTableStatement = "CREATE TABLE " + FOOD_TABLE + " ("+COLUMN_FOOD_ID+" INTEGER PRIMARY KEY AUTOINCREMENT, " + COLUMN_FOOD_NAME + " TEXT, " + COLUMN_FOOD_CALORIES + " DOUBLE, " + COLUMN_FOOD_FAT + " DOUBLE, " + COLUMN_FOOD_CARBS + " DOUBLE, " +  COLUMN_FOOD_PROTEIN + " DOUBLE, " + COLUMN_FOOD_DISPLAY_WEIGHT + " INTEGER, " + COLUMN_FOOD_VARIABLE_SAVE_TYPE+ " INTEGER)";
-        db.execSQL(createTableStatement);
+        String createFoodStorageTableStatement = "CREATE TABLE " + FOOD_TABLE + " ("+COLUMN_FOOD_ID+" INTEGER PRIMARY KEY AUTOINCREMENT, " + COLUMN_FOOD_NAME + " TEXT, " + COLUMN_FOOD_CALORIES + " DOUBLE, " + COLUMN_FOOD_FAT + " DOUBLE, " + COLUMN_FOOD_CARBS + " DOUBLE, " +  COLUMN_FOOD_PROTEIN + " DOUBLE, " + COLUMN_FOOD_DISPLAY_WEIGHT + " INTEGER, " + COLUMN_FOOD_VARIABLE_SAVE_TYPE+ " INTEGER)";
+        db.execSQL(createFoodStorageTableStatement);
+
+        String createCalendarFoodStorageTableStatement = "CREATE TABLE " + CALENDAR_FOOD_TABLE + " ("+CALENDAR_COLUMN_FOOD_ID+" INTEGER PRIMARY KEY AUTOINCREMENT, " + CALENDAR_COLUMN_FOOD_NAME + " TEXT, " + CALENDAR_COLUMN_FOOD_CALORIES + " DOUBLE, " + CALENDAR_COLUMN_FOOD_FAT + " DOUBLE, " + CALENDAR_COLUMN_FOOD_CARBS + " DOUBLE, " +  CALENDAR_COLUMN_FOOD_PROTEIN + " DOUBLE, " + CALENDAR_COLUMN_FOOD_WEIGHT + " DOUBLE," + CALENDAR_DATE_ADDED + " STRING, " + CALENDAR_TIME_ADDED+ " STRING)";
+        db.execSQL(createCalendarFoodStorageTableStatement);
     }
 
-    @Override
+    @Override 
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
         if(oldVersion < newVersion) {
             db.execSQL("ALTER TABLE "+FOOD_TABLE+" ADD COLUMN "+COLUMN_FOOD_DISPLAY_WEIGHT+" INTEGER;");
@@ -44,6 +57,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         }
     }
 
+    //Everything below is for the " FOOD_TABLE " table in the DB
     public boolean addOne(FoodModel foodModel){
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues cv = new ContentValues();
@@ -131,6 +145,29 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     public void deleteEntry(int foodId){
         SQLiteDatabase db = this.getWritableDatabase();
         db.delete(FOOD_TABLE,"id = "+ foodId,null);
+
+    }
+
+    public boolean calendarAddOne(CalendarFoodModel calendarFoodModel){
+        SQLiteDatabase db = this.getWritableDatabase();
+        ContentValues cv = new ContentValues();
+
+        cv.put(CALENDAR_COLUMN_FOOD_NAME, calendarFoodModel.getName());
+        cv.put(CALENDAR_COLUMN_FOOD_CALORIES, calendarFoodModel.getCalories());
+        cv.put(CALENDAR_COLUMN_FOOD_FAT, calendarFoodModel.getFat());
+        cv.put(CALENDAR_COLUMN_FOOD_CARBS, calendarFoodModel.getCarbs());
+        cv.put(CALENDAR_COLUMN_FOOD_PROTEIN, calendarFoodModel.getProtein());
+        cv.put(CALENDAR_COLUMN_FOOD_WEIGHT, calendarFoodModel.getWeight());
+        cv.put(CALENDAR_DATE_ADDED, calendarFoodModel.getDate());
+        cv.put(CALENDAR_TIME_ADDED, calendarFoodModel.getTime());
+
+
+        long insert = db.insert(CALENDAR_FOOD_TABLE, null, cv);
+        if (insert == -1)
+            return false;
+
+        else
+            return true;
 
     }
 }

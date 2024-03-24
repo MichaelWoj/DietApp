@@ -22,9 +22,9 @@ public class DietCalendar extends AppCompatActivity {
         calendarView = findViewById(R.id.calendarView);
         calendar = Calendar.getInstance();
 
-        getDate();
+        getCurrentDate();
 
-        setDate(day, month, year);
+        setCurrentDate(day, month, year);
         calendarView.setOnDateChangeListener(new CalendarView.OnDateChangeListener() {
             @Override
             public void onSelectedDayChange(@NonNull CalendarView calendarView, int year, int month, int day) {
@@ -33,7 +33,7 @@ public class DietCalendar extends AppCompatActivity {
         });
     }
 
-    public void getDate(){
+    public void getCurrentDate(){
         long date = calendarView.getDate();
         SimpleDateFormat simpleDateFormat = new SimpleDateFormat("dd/MM/yyyy", Locale.getDefault());
         calendar.setTimeInMillis(date);
@@ -44,7 +44,7 @@ public class DietCalendar extends AppCompatActivity {
         year = Integer.parseInt(current_date_array[2]);
     }
 
-    public void setDate(int day, int month, int year){
+    public void setCurrentDate(int day, int month, int year){
         calendar.set(java.util.Calendar.YEAR, year);
         calendar.set(java.util.Calendar.MONDAY, month - 1);
         calendar.set(java.util.Calendar.DAY_OF_MONTH, day);

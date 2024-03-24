@@ -98,6 +98,20 @@ public class FoodDBVariableWeightItemPage extends AppCompatActivity implements A
                 intentAddToOverallTotal.putExtra("foodCarbs", foodCarbsVal);
                 intentAddToOverallTotal.putExtra("foodProtein", foodProteinVal);
 
+                CalendarFoodModel calendarFoodModel;
+
+                String date = String.valueOf(java.time.LocalDate.now());
+                String time = String.valueOf(java.time.LocalTime.now());
+
+                try {
+                    calendarFoodModel = new CalendarFoodModel(-1, foodNameToString, foodCaloriesVal, foodFatVal, foodCarbsVal, foodProteinVal, foodTargetWeightVal, date, time);
+                } catch (Exception e) {
+                    calendarFoodModel = new CalendarFoodModel(-1, "Error", 0f, 0f, 0f, 0f, 0f,"Error", "Error");
+                }
+
+                DatabaseHelper dataBaseHelper = new DatabaseHelper(FoodDBVariableWeightItemPage.this);
+                dataBaseHelper.calendarAddOne(calendarFoodModel);
+
                 setResult(RESULT_OK, intentAddToOverallTotal);
                 finish();
             }

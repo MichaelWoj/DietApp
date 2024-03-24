@@ -14,6 +14,8 @@ import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import java.time.LocalDateTime;
+
 
 import androidx.activity.result.ActivityResult;
 import androidx.activity.result.ActivityResultCallback;
@@ -77,6 +79,20 @@ public class FoodDBItemPage extends AppCompatActivity implements ActivityFinishL
         String foodProteinToString = proteinDB.getText().toString();
         foodProteinVal = Float.parseFloat(foodProteinToString);
         intentAddToOverallTotal.putExtra("foodProtein", foodProteinVal);
+
+            CalendarFoodModel calendarFoodModel;
+
+            String date = String.valueOf(java.time.LocalDate.now());
+            String time = String.valueOf(java.time.LocalTime.now());
+
+            try {
+                calendarFoodModel = new CalendarFoodModel(-1, foodNameToString, foodCaloriesVal, foodFatVal, foodCarbsVal, foodProteinVal, 0f, date, time);
+            } catch (Exception e) {
+                calendarFoodModel = new CalendarFoodModel(-1, "Error", 0f, 0f, 0f, 0f, 0f,"Error", "Error");
+            }
+
+            DatabaseHelper dataBaseHelper = new DatabaseHelper(FoodDBItemPage.this);
+            dataBaseHelper.calendarAddOne(calendarFoodModel);
 
         setResult(RESULT_OK, intentAddToOverallTotal);
         finish();
