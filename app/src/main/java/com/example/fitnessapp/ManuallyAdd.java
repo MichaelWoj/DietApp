@@ -97,6 +97,21 @@ public class ManuallyAdd extends AppCompatActivity {
                     boolean success = dataBaseHelper.addOne(foodModel);
                 }
 
+                CalendarFoodModel calendarFoodModel;
+
+                String date = String.valueOf(java.time.LocalDate.now());
+                String time = String.valueOf(java.time.LocalTime.now());
+                time = time.substring(0, time.indexOf("."));
+
+                try {
+                    calendarFoodModel = new CalendarFoodModel(-1, foodNameToString, foodCaloriesVal, foodFatVal, foodCarbsVal, foodProteinVal, 0f, date, time);
+                } catch (Exception e) {
+                    calendarFoodModel = new CalendarFoodModel(-1, "Error", 0f, 0f, 0f, 0f, 0f,"Error", "Error");
+                }
+
+                DatabaseHelper dataBaseHelperForCalendar = new DatabaseHelper(ManuallyAdd.this);
+                dataBaseHelperForCalendar.calendarAddOne(calendarFoodModel);
+
                 setResult(RESULT_OK, intent);
                 finish();
             }

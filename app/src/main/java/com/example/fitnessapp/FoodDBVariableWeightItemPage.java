@@ -91,7 +91,7 @@ public class FoodDBVariableWeightItemPage extends AppCompatActivity implements A
                 foodCaloriesVal = variableResultArray[0];
                 foodFatVal = variableResultArray[1];
                 foodCarbsVal = variableResultArray[2];
-                foodTargetWeightVal = variableResultArray[3];
+                foodProteinVal = variableResultArray[3];
 
                 intentAddToOverallTotal.putExtra("foodCalories", foodCaloriesVal);
                 intentAddToOverallTotal.putExtra("foodFat", foodFatVal);
@@ -102,6 +102,7 @@ public class FoodDBVariableWeightItemPage extends AppCompatActivity implements A
 
                 String date = String.valueOf(java.time.LocalDate.now());
                 String time = String.valueOf(java.time.LocalTime.now());
+                time = time.substring(0, time.indexOf("."));
 
                 try {
                     calendarFoodModel = new CalendarFoodModel(-1, foodNameToString, foodCaloriesVal, foodFatVal, foodCarbsVal, foodProteinVal, foodTargetWeightVal, date, time);

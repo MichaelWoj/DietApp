@@ -84,6 +84,7 @@ public class FoodDBItemPage extends AppCompatActivity implements ActivityFinishL
 
             String date = String.valueOf(java.time.LocalDate.now());
             String time = String.valueOf(java.time.LocalTime.now());
+            time = time.substring(0, time.indexOf("."));
 
             try {
                 calendarFoodModel = new CalendarFoodModel(-1, foodNameToString, foodCaloriesVal, foodFatVal, foodCarbsVal, foodProteinVal, 0f, date, time);
