@@ -168,6 +168,15 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
         else
             return true;
+    }
+    public Cursor getFoodFromDate(String dateAdded){
 
+        queryString = "SELECT * FROM " + CALENDAR_FOOD_TABLE + " WHERE " + CALENDAR_DATE_ADDED + " = '" + dateAdded + "'";
+
+        SQLiteDatabase db = this.getReadableDatabase();
+
+        Cursor cursor = db.rawQuery(queryString, null);
+
+        return cursor;
     }
 }

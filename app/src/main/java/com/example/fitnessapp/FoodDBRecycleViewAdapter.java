@@ -45,7 +45,6 @@ public class FoodDBRecycleViewAdapter extends RecyclerView.Adapter<FoodDBRecycle
 
     @Override
     public int getItemCount() {
-        //Every has to have a name so that was picked for the counter
         return rvDBFoodName.size();
     }
     //Filters the list for the searched item

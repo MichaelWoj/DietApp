@@ -33,12 +33,10 @@ public class FoodDBDisplay extends AppCompatActivity implements RecyclerViewInte
     private ArrayList<String> foodID, foodNameDB, foodCaloriesNum, foodFatNum, foodCarbsNum, foodProteinNum, foodDisplayWeightNum, foodSaveType;
     private DatabaseHelper dataBaseHelper;
     private SearchView searchView;
-
     private int sortType;
     public static final String savedSearchType = "search_type";
     public FoodDBRecycleViewAdapter adapter;
 
-    @SuppressLint("WrongViewCast")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -74,7 +72,7 @@ public class FoodDBDisplay extends AppCompatActivity implements RecyclerViewInte
         foodSaveType = new ArrayList<>();
 
         RecyclerView recyclerView = findViewById(R.id.recyclerViewFoodList);
-        adapter = new FoodDBRecycleViewAdapter(this,foodNameDB, foodCaloriesNum, foodFatNum, foodCarbsNum, foodProteinNum, this);
+        adapter = new FoodDBRecycleViewAdapter(this, foodNameDB, foodCaloriesNum, foodFatNum, foodCarbsNum, foodProteinNum, this);
         adapter.notifyDataSetChanged();
         recyclerView.setAdapter(adapter);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));

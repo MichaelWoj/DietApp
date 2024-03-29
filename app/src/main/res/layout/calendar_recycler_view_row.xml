@@ -148,6 +148,20 @@
                 app:layout_constraintVertical_bias="0.171" />
 
             <TextView
+                android:id="@+id/calendarRecyclerViewWeightTV"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Weight:"
+                android:textColor="@color/eggshell"
+                android:textStyle="bold"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.479"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/calendarRecyclerViewFoodName"
+                app:layout_constraintVertical_bias="0.175" />
+
+            <TextView
                 android:id="@+id/calendarRecyclerTimeAdded"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -161,6 +175,28 @@
                 app:layout_constraintTop_toBottomOf="@+id/calendarRecyclerViewFoodName"
                 app:layout_constraintVertical_bias="0.029" />
 
+            <TextView
+                android:id="@+id/calendarRecyclerViewWeight"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="12dp"
+                android:text="0"
+                android:textColor="@color/eggshell"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.538"
+                app:layout_constraintStart_toEndOf="@+id/calendarRecyclerAddedAt"
+                app:layout_constraintTop_toBottomOf="@+id/calendarRecyclerViewFoodName"
+                app:layout_constraintVertical_bias="0.029" />
+
         </androidx.constraintlayout.widget.ConstraintLayout>
     </androidx.cardview.widget.CardView>
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guideline2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintGuide_begin="362dp" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>

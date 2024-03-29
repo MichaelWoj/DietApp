@@ -13,52 +13,56 @@ import java.util.ArrayList;
 
 public class DietCalendarRecycleViewAdapter extends RecyclerView.Adapter<DietCalendarRecycleViewAdapter.MyViewHolder> {
     private Context context;
-    private ArrayList rvCalFoodName, rvCalCaloriesNum, rvCalFatNum, rvCalCarbsNum , rvCalProteinNum, rvCalDate, rvCalTime;
-    private RecyclerViewInterface recyclerViewInterface;
+    private ArrayList rvCalendarFoodName, rvCalendarCaloriesNum, rvCalendarFatNum, rvCalendarCarbsNum , rvCalendarProteinNum, rvCalendarDate, rvCalendarWeight, rvCalendarTime;
+    private final RecyclerViewInterface recyclerViewInterfaceCalendar;
 
-    public DietCalendarRecycleViewAdapter(Context context, ArrayList rvDBFoodName, ArrayList rvDBCaloriesNum, ArrayList rvDBFatNum, ArrayList rvDBCarbsNum, ArrayList rvDBProteinNum, RecyclerViewInterface recyclerViewInterface) {
+    public DietCalendarRecycleViewAdapter(Context context, ArrayList rvCalendarFoodName, ArrayList rvCalendarTime,ArrayList rvCalendarCaloriesNum, ArrayList rvCalendarFatNum, ArrayList rvCalendarCarbsNum, ArrayList rvCalendarProteinNum, ArrayList rvCalendarWeight, RecyclerViewInterface recyclerViewInterfaceCalendar) {
         this.context = context;
-        this.rvCalFoodName = rvCalFoodName;
-        this.rvCalCaloriesNum = rvCalCaloriesNum;
-        this.rvCalFatNum = rvCalFatNum;
-        this.rvCalCarbsNum = rvCalCarbsNum;
-        this.rvCalProteinNum = rvCalProteinNum;
-        this.rvCalTime = rvCalTime;
+        this.rvCalendarFoodName = rvCalendarFoodName;
+        this.rvCalendarTime = rvCalendarTime;
+        this.rvCalendarCaloriesNum = rvCalendarCaloriesNum;
+        this.rvCalendarFatNum = rvCalendarFatNum;
+        this.rvCalendarCarbsNum = rvCalendarCarbsNum;
+        this.rvCalendarProteinNum = rvCalendarProteinNum;
+        this.rvCalendarWeight = rvCalendarWeight;
+        this.recyclerViewInterfaceCalendar = recyclerViewInterfaceCalendar;
     }
     @NonNull
     @Override
     public MyViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View v = LayoutInflater.from(context).inflate(R.layout.db_recycler_view_row,parent,false);
-        return new MyViewHolder(v, recyclerViewInterface);
+        View v = LayoutInflater.from(context).inflate(R.layout.calendar_recycler_view_row,parent,false);
+        return new MyViewHolder(v, recyclerViewInterfaceCalendar);
     }
 
     @Override
     public void onBindViewHolder(@NonNull MyViewHolder holder, int position) {
 
-        holder.rvCalFoodName.setText(String.valueOf(rvCalFoodName.get(position)));
-        holder.rvCalCaloriesNum.setText(String.valueOf(rvCalCaloriesNum.get(position)));
-        holder.rvCalFatNum.setText(String.valueOf(rvCalFatNum.get(position)));
-        holder.rvCalCarbsNum.setText(String.valueOf(rvCalCarbsNum.get(position)));
-        holder.rvCalProteinNum.setText(String.valueOf(rvCalProteinNum.get(position)));
-        holder.rvCalTime.setText(String.valueOf(rvCalTime.get(position)));
+        holder.rvCalFoodName.setText(String.valueOf(rvCalendarFoodName.get(position)));
+        holder.rvCalFoodWeight.setText(String.valueOf(rvCalendarWeight.get(position)));
+        holder.rvCalCaloriesNum.setText(String.valueOf(rvCalendarCaloriesNum.get(position)));
+        holder.rvCalFatNum.setText(String.valueOf(rvCalendarFatNum.get(position)));
+        holder.rvCalCarbsNum.setText(String.valueOf(rvCalendarCarbsNum.get(position)));
+        holder.rvCalProteinNum.setText(String.valueOf(rvCalendarProteinNum.get(position)));
+        holder.rvCalTime.setText(String.valueOf(rvCalendarTime.get(position)));
     }
 
     @Override
     public int getItemCount() {
-        return rvCalFoodName.size();
+        return rvCalendarFoodName.size();
     }
 
     public void matchCurrentDay(ArrayList<String> filteredList){
-        rvCalDate = filteredList;
+        rvCalendarDate = filteredList;
 
     }
 
     public static class MyViewHolder extends RecyclerView.ViewHolder{
-        TextView rvCalFoodName, rvCalCaloriesNum, rvCalFatNum, rvCalCarbsNum , rvCalProteinNum, rvCalTime;
-        public MyViewHolder(@NonNull View itemView, RecyclerViewInterface recyclerViewInterface){
+        TextView rvCalFoodName, rvCalFoodWeight, rvCalCaloriesNum, rvCalFatNum, rvCalCarbsNum , rvCalProteinNum, rvCalTime;
+        public MyViewHolder(@NonNull View itemView, RecyclerViewInterface recyclerViewInterfaceCalendar){
             super(itemView);
 
             rvCalFoodName = itemView.findViewById(R.id.calendarRecyclerViewCaloriesNum);
+            rvCalFoodWeight = itemView.findViewById(R.id.calendarRecyclerViewWeight);
             rvCalCaloriesNum = itemView.findViewById(R.id.calendarRecyclerViewCaloriesNum);
             rvCalFatNum = itemView.findViewById(R.id.calendarRecyclerViewFatNum);
             rvCalCarbsNum = itemView.findViewById(R.id.calendarRecyclerViewCaloriesNum);
@@ -66,11 +70,11 @@ public class DietCalendarRecycleViewAdapter extends RecyclerView.Adapter<DietCal
             rvCalTime = itemView.findViewById(R.id.calendarRecyclerTimeAdded);
 
             itemView.setOnClickListener(v -> {
-                if (recyclerViewInterface != null){
+                if (recyclerViewInterfaceCalendar != null){
                     int pos = getAdapterPosition();
 
                     if (pos != RecyclerView.NO_POSITION ){
-                        recyclerViewInterface.onItemClick(pos);
+                        recyclerViewInterfaceCalendar.onItemClick(pos);
                     }
                 }
             });
