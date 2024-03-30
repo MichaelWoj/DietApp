@@ -3,6 +3,7 @@ package com.example.fitnessapp;
 import android.database.Cursor;
 import android.os.Bundle;
 import android.widget.CalendarView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -25,6 +26,7 @@ public class DietCalendar extends AppCompatActivity implements RecyclerViewInter
     private DietCalendarRecycleViewAdapter calendarAdapter;
     private int day, month, year;
     private String str_month;
+    private TextView weightTV, weightTVDescription;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -74,7 +76,8 @@ public class DietCalendar extends AppCompatActivity implements RecyclerViewInter
                 }
 
                 String selectedDate = year + "-" + str_month + "-" + day;
-                displayData(selectedDate);
+
+                updateRecyclerView(selectedDate);
             }
         });
     }
@@ -103,6 +106,21 @@ public class DietCalendar extends AppCompatActivity implements RecyclerViewInter
 
     }
 
+    private void updateRecyclerView(String userSelectedDate){
+        clearRecycleView();
+        calendarAdapter.notifyDataSetChanged();
+        displayData(userSelectedDate);
+    }
+    private void clearRecycleView(){
+        calendarFoodName.clear();
+        calendarFoodTime.clear();
+        calendarFoodCaloriesNum.clear();
+        calendarFoodFatNum.clear();
+        calendarFoodCarbsNum.clear();
+        calendarFoodProteinNum.clear();
+        calendarFoodWeightNum.clear();
+    }
+
     private void displayData(String dateAdded) {
         Cursor cursor = dataBaseHelper.getFoodFromDate(dateAdded);
         if (cursor.getCount() == 0) {
@@ -111,12 +129,12 @@ public class DietCalendar extends AppCompatActivity implements RecyclerViewInter
             while (cursor.moveToNext()) {
                 calendarFoodID.add(cursor.getString(0));
                 calendarFoodName.add(cursor.getString(1));
-                calendarFoodTime.add(cursor.getString(2));
-                calendarFoodCaloriesNum.add(cursor.getString(3));
-                calendarFoodFatNum.add(cursor.getString(4));
-                calendarFoodCarbsNum.add(cursor.getString(5));
-                calendarFoodProteinNum.add(cursor.getString(6));
-                calendarFoodWeightNum.add(cursor.getString(7));
+                calendarFoodCaloriesNum.add(cursor.getString(2));
+                calendarFoodFatNum.add(cursor.getString(3));
+                calendarFoodCarbsNum.add(cursor.getString(4));
+                calendarFoodProteinNum.add(cursor.getString(5));
+                calendarFoodWeightNum.add(cursor.getString(6));
+                calendarFoodTime.add(cursor.getString(7));
 
             }
         }

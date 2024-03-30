@@ -38,12 +38,12 @@ public class DietCalendarRecycleViewAdapter extends RecyclerView.Adapter<DietCal
     public void onBindViewHolder(@NonNull MyViewHolder holder, int position) {
 
         holder.rvCalFoodName.setText(String.valueOf(rvCalendarFoodName.get(position)));
+        holder.rvCalTime.setText(String.valueOf(rvCalendarTime.get(position)));
         holder.rvCalFoodWeight.setText(String.valueOf(rvCalendarWeight.get(position)));
         holder.rvCalCaloriesNum.setText(String.valueOf(rvCalendarCaloriesNum.get(position)));
         holder.rvCalFatNum.setText(String.valueOf(rvCalendarFatNum.get(position)));
         holder.rvCalCarbsNum.setText(String.valueOf(rvCalendarCarbsNum.get(position)));
         holder.rvCalProteinNum.setText(String.valueOf(rvCalendarProteinNum.get(position)));
-        holder.rvCalTime.setText(String.valueOf(rvCalendarTime.get(position)));
     }
 
     @Override
@@ -61,13 +61,13 @@ public class DietCalendarRecycleViewAdapter extends RecyclerView.Adapter<DietCal
         public MyViewHolder(@NonNull View itemView, RecyclerViewInterface recyclerViewInterfaceCalendar){
             super(itemView);
 
-            rvCalFoodName = itemView.findViewById(R.id.calendarRecyclerViewCaloriesNum);
+            rvCalFoodName = itemView.findViewById(R.id.calendarRecyclerViewFoodName);
+            rvCalTime = itemView.findViewById(R.id.calendarRecyclerTimeAdded);
             rvCalFoodWeight = itemView.findViewById(R.id.calendarRecyclerViewWeight);
             rvCalCaloriesNum = itemView.findViewById(R.id.calendarRecyclerViewCaloriesNum);
             rvCalFatNum = itemView.findViewById(R.id.calendarRecyclerViewFatNum);
-            rvCalCarbsNum = itemView.findViewById(R.id.calendarRecyclerViewCaloriesNum);
+            rvCalCarbsNum = itemView.findViewById(R.id.calendarRecyclerViewCarbsNum);
             rvCalProteinNum = itemView.findViewById(R.id.calendarRecyclerViewProteinNum);
-            rvCalTime = itemView.findViewById(R.id.calendarRecyclerTimeAdded);
 
             itemView.setOnClickListener(v -> {
                 if (recyclerViewInterfaceCalendar != null){
