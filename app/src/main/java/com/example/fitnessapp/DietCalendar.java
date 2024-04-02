@@ -25,7 +25,7 @@ public class DietCalendar extends AppCompatActivity implements RecyclerViewInter
     private Calendar calendar;
     private DietCalendarRecycleViewAdapter calendarAdapter;
     private int day, month, year;
-    private String str_month;
+    private String str_month, str_day;
     private TextView weightTV, weightTVDescription;
 
     @Override
@@ -63,19 +63,31 @@ public class DietCalendar extends AppCompatActivity implements RecyclerViewInter
             str_month = String.valueOf(month);
         }
 
-        String selectedDate = year + "-" + str_month + "-" + day;
+        if(day < 10){
+            str_day = "0" + day;
+        }else{
+            str_day = String.valueOf(day);
+        }
+
+        String selectedDate = year + "-" + str_month + "-" + str_day;
         displayData(selectedDate);
 
         calendarView.setOnDateChangeListener(new CalendarView.OnDateChangeListener() {
             @Override
             public void onSelectedDayChange(@NonNull CalendarView calendarView, int year, int month, int day) {
                 if(month < 10){
-                     str_month = "0" + month;
+                     str_month = "0" + (month+1);
                 }else{
-                     str_month = String.valueOf(month);
+                     str_month = String.valueOf((month+1));
                 }
 
-                String selectedDate = year + "-" + str_month + "-" + day;
+                if(day < 10){
+                    str_day = "0" + day;
+                }else{
+                    str_day = String.valueOf(day);
+                }
+
+                String selectedDate = year + "-" + str_month + "-" + str_day;
 
                 updateRecyclerView(selectedDate);
             }
