@@ -94,16 +94,15 @@ public class DietCalendar extends AppCompatActivity implements RecyclerViewInter
         });
     }
 
-    public void getCurrentDate(){
-        long date = calendarView.getDate();
-        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("dd/MM/yyyy", Locale.getDefault());
-        calendar.setTimeInMillis(date);
-        String current_date = simpleDateFormat.format(calendar.getTime());
-        String[] current_date_array = current_date.split("/+");
-        day = Integer.parseInt(current_date_array[0]);
+    public String getCurrentDate(){
+        String date = String.valueOf(java.time.LocalDate.now());
+        String[] current_date_array = date.split("-+");
+        year = Integer.parseInt(current_date_array[0]);
         month = Integer.parseInt(current_date_array[1]);
-        year = Integer.parseInt(current_date_array[2]);
+        day = Integer.parseInt(current_date_array[2]);
+        return date;
     }
+
 
     public void setCurrentDate(int day, int month, int year){
         calendar.set(java.util.Calendar.YEAR, year);
@@ -113,6 +112,14 @@ public class DietCalendar extends AppCompatActivity implements RecyclerViewInter
         calendarView.setDate(milli);
     }
 
+    public String getCurrentTime(){
+        String time = String.valueOf(java.time.LocalTime.now());
+        time = time.substring(0, time.indexOf("."));
+        String hourFromTime = time.substring(0, time.indexOf(":"));
+        String minutesFromTime = time.substring(time.indexOf(":") + 1, time.lastIndexOf(":"));
+        time = hourFromTime +":"+minutesFromTime;
+        return time;
+    }
     @Override
     public void onItemClick(int position) {
 
@@ -146,7 +153,7 @@ public class DietCalendar extends AppCompatActivity implements RecyclerViewInter
                 calendarFoodCarbsNum.add(cursor.getString(4));
                 calendarFoodProteinNum.add(cursor.getString(5));
                 calendarFoodWeightNum.add(cursor.getString(6));
-                calendarFoodTime.add(cursor.getString(7));
+                calendarFoodTime.add(cursor.getString(8));
 
             }
         }

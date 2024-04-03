@@ -30,6 +30,7 @@ public class FoodDBItemPage extends AppCompatActivity implements ActivityFinishL
     private int entryID;
     private float foodCaloriesVal, foodFatVal, foodCarbsVal, foodProteinVal;
     private String entryIDString;
+    private DietCalendar dietCalendar;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -37,6 +38,7 @@ public class FoodDBItemPage extends AppCompatActivity implements ActivityFinishL
         setContentView(R.layout.activity_food_db_item_page_layout);
 
         databaseHelper = new DatabaseHelper(getApplicationContext());
+        dietCalendar = new DietCalendar();
 
         nameDB = findViewById(R.id.itemMealName);
         caloriesDB = findViewById(R.id.itemMealCalories);
@@ -61,7 +63,6 @@ public class FoodDBItemPage extends AppCompatActivity implements ActivityFinishL
         submit.setOnClickListener(v -> {
         Intent intentAddToOverallTotal = new Intent(FoodDBItemPage.this, MainActivity.class);
 
-        //The line currently does nothing but is here for an upcoming feature
         String foodNameToString = nameDB.getText().toString();
 
         String foodCaloriesToString = caloriesDB.getText().toString();
@@ -82,9 +83,8 @@ public class FoodDBItemPage extends AppCompatActivity implements ActivityFinishL
 
             CalendarFoodModel calendarFoodModel;
 
-            String date = String.valueOf(java.time.LocalDate.now());
-            String time = String.valueOf(java.time.LocalTime.now());
-            time = time.substring(0, time.indexOf("."));
+            String date = dietCalendar.getCurrentDate();
+            String time = dietCalendar.getCurrentTime();
 
             try {
                 calendarFoodModel = new CalendarFoodModel(-1, foodNameToString, foodCaloriesVal, foodFatVal, foodCarbsVal, foodProteinVal, 0f, date, time);

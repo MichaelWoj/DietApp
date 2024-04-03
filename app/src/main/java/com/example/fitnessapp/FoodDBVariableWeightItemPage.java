@@ -29,7 +29,7 @@ public class FoodDBVariableWeightItemPage extends AppCompatActivity implements A
     private String entryIDString, itemSetDisplayWeight;
     private FoodDBAddItemVariableWeight foodDBAddItemVariableWeight;
     private FoodDBItemPage foodDBItemPage;
-    private DatabaseHelper databaseHelper;
+    private DietCalendar dietCalendar;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -37,7 +37,7 @@ public class FoodDBVariableWeightItemPage extends AppCompatActivity implements A
 
         foodDBAddItemVariableWeight = new FoodDBAddItemVariableWeight();
         foodDBItemPage = new FoodDBItemPage();
-        databaseHelper = new DatabaseHelper(getApplicationContext());
+        dietCalendar = new DietCalendar();
 
         nameDB = findViewById(R.id.variableWeightItemMealName);
         caloriesDB = findViewById(R.id.variableWeightItemMealCalories);
@@ -68,7 +68,6 @@ public class FoodDBVariableWeightItemPage extends AppCompatActivity implements A
             } else {
                 Intent intentAddToOverallTotal = new Intent(FoodDBVariableWeightItemPage.this, MainActivity.class);
 
-                //The line currently does nothing but is here for an upcoming feature
                 String foodNameToString = nameDB.getText().toString();
 
                 foodDisplayWeight = Integer.parseInt(itemSetDisplayWeight);
@@ -100,9 +99,8 @@ public class FoodDBVariableWeightItemPage extends AppCompatActivity implements A
 
                 CalendarFoodModel calendarFoodModel;
 
-                String date = String.valueOf(java.time.LocalDate.now());
-                String time = String.valueOf(java.time.LocalTime.now());
-                time = time.substring(0, time.indexOf("."));
+                String date = dietCalendar.getCurrentDate();
+                String time = dietCalendar.getCurrentTime();
 
                 try {
                     calendarFoodModel = new CalendarFoodModel(-1, foodNameToString, foodCaloriesVal, foodFatVal, foodCarbsVal, foodProteinVal, foodTargetWeightVal, date, time);

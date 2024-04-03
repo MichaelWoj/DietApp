@@ -18,6 +18,7 @@ public class ManuallyAdd extends AppCompatActivity {
 
     private EditText foodName, foodCalories, foodFat, foodCarbs, foodProtein;
     private TextView tvMealName;
+    private DietCalendar dietCalendar;
     private Switch db_switch;
 
     @SuppressLint("NewApi")
@@ -25,6 +26,8 @@ public class ManuallyAdd extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_manually_add);
+
+        dietCalendar = new DietCalendar();
 
         tvMealName = findViewById(R.id.manualMealNameTV);
         foodName = findViewById(R.id.manualMealName);
@@ -34,24 +37,6 @@ public class ManuallyAdd extends AppCompatActivity {
         foodProtein = findViewById(R.id.manualMealProtein);
         db_switch = findViewById(R.id.saveToDBSwitch);
         Button submit = findViewById(R.id.manualAddFood);
-
-       // tvMealName.setTextColor(ContextCompat.getColor(this, R.color.gray));
-       // foodName.setBackgroundTintList(ContextCompat.getColorStateList(getApplicationContext(), R.color.gray));
-
-       // KeyListener keyListener = foodName.getKeyListener();
-       // foodName.setKeyListener(null);
-       // db_switch.setOnClickListener(v -> {
-       //     if (db_switch.isChecked()){
-       //         foodName.setKeyListener(keyListener);
-       //         foodName.setBackgroundTintList(ContextCompat.getColorStateList(getApplicationContext(), R.color.black));
-       //         tvMealName.setTextColor(ContextCompat.getColor(ManuallyAdd.this, R.color.black));
-       //     }
-       //     else{
-       //         foodName.setKeyListener(null);
-       //         tvMealName.setTextColor(ContextCompat.getColor(ManuallyAdd.this, R.color.gray));
-       //         foodName.setBackgroundTintList(ContextCompat.getColorStateList(getApplicationContext(), R.color.gray));
-       //     }
-        //});
 
         submit.setOnClickListener(view -> {
 
@@ -97,9 +82,8 @@ public class ManuallyAdd extends AppCompatActivity {
 
                 CalendarFoodModel calendarFoodModel;
 
-                String date = String.valueOf(java.time.LocalDate.now());
-                String time = String.valueOf(java.time.LocalTime.now());
-                time = time.substring(0, time.indexOf("."));
+                String date = dietCalendar.getCurrentDate();
+                String time = dietCalendar.getCurrentTime();
 
                 try {
                     calendarFoodModel = new CalendarFoodModel(-1, foodNameToString, foodCaloriesVal, foodFatVal, foodCarbsVal, foodProteinVal, 0f, date, time);
