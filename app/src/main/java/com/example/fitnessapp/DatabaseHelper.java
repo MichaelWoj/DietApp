@@ -1,6 +1,7 @@
 package com.example.fitnessapp;
 
 
+import android.annotation.SuppressLint;
 import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
@@ -8,6 +9,10 @@ import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 
 import androidx.annotation.Nullable;
+
+import java.sql.ResultSet;
+import java.util.ArrayList;
+import java.util.List;
 
 
 public class DatabaseHelper extends SQLiteOpenHelper {
@@ -178,5 +183,43 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         Cursor cursor = db.rawQuery(queryString, null);
 
         return cursor;
+    }
+
+    public int getNewestEntry(){
+        SQLiteDatabase db = this.getWritableDatabase();
+
+        queryString = "SELECT " + CALENDAR_COLUMN_FOOD_ID + " FROM " + CALENDAR_FOOD_TABLE + " WHERE "+ CALENDAR_COLUMN_FOOD_ID +" = (SELECT MAX("+ CALENDAR_COLUMN_FOOD_ID +") FROM " + CALENDAR_FOOD_TABLE + ")";
+        Cursor cursor = db.rawQuery(queryString, null);
+
+        int id = 0;
+
+        if (cursor != null && cursor.moveToFirst()) {
+            // Check if the column exists in the cursor
+            int columnIndex = cursor.getColumnIndex(CALENDAR_COLUMN_FOOD_ID);
+            if (columnIndex != -1) {
+                // Retrieve the integer value from the cursor
+                id = cursor.getInt(columnIndex);
+            }
+            cursor.close();
+        }
+
+        return id;
+    }
+
+    public List<String> findEntry(int id){
+        SQLiteDatabase db = this.getWritableDatabase();
+
+        queryString = "SELECT * FROM " + CALENDAR_FOOD_TABLE + " WHERE "+ CALENDAR_COLUMN_FOOD_ID + " = " + id;
+        Cursor cursor = db.rawQuery(queryString, null);
+
+        List<String> entryNumber = new ArrayList<String>();
+        while (cursor.moveToNext()){
+            entryNumber.add(cursor.getString(2));
+            entryNumber.add(cursor.getString(3));
+            entryNumber.add(cursor.getString(4));
+            entryNumber.add(cursor.getString(5));
+            }
+
+        return entryNumber;
     }
 }
