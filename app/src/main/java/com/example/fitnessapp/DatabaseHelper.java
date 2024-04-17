@@ -212,7 +212,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         queryString = "SELECT * FROM " + CALENDAR_FOOD_TABLE + " WHERE "+ CALENDAR_COLUMN_FOOD_ID + " = " + id;
         Cursor cursor = db.rawQuery(queryString, null);
 
-        List<String> entryNumber = new ArrayList<String>();
+        List<String> entryNumber = new ArrayList<>();
         while (cursor.moveToNext()){
             entryNumber.add(cursor.getString(2));
             entryNumber.add(cursor.getString(3));
@@ -221,5 +221,10 @@ public class DatabaseHelper extends SQLiteOpenHelper {
             }
 
         return entryNumber;
+    }
+    public void deleteCalendarEntry(int foodId){
+        SQLiteDatabase db = this.getWritableDatabase();
+        db.delete(CALENDAR_FOOD_TABLE,CALENDAR_COLUMN_FOOD_ID +" = "+ foodId,null);
+
     }
 }

@@ -1,8 +1,17 @@
 package com.example.fitnessapp;
 
+import android.app.Dialog;
+import android.content.Context;
+import android.content.Intent;
 import android.database.Cursor;
+import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
+import android.view.Gravity;
+import android.view.ViewGroup;
+import android.view.Window;
 import android.widget.CalendarView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -23,16 +32,20 @@ public class DietCalendar extends AppCompatActivity implements RecyclerViewInter
     private CalendarView calendarView;
     private DatabaseHelper dataBaseHelper;
     private Calendar calendar;
+    private DatabaseHelper databaseHelper;
     private DietCalendarRecycleViewAdapter calendarAdapter;
     private int day, month, year;
     private String str_month, str_day;
+    private MainActivity mainActivity;
     private TextView weightTV, weightTVDescription;
-
+    //Remember about the date changing back to OG. Do time check and if diff bigger than X amount of time, go back to normal
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_calendar);
         calendar = Calendar.getInstance();
+        databaseHelper = new DatabaseHelper(getApplicationContext());
+        mainActivity = new MainActivity();
 
         calendarView = findViewById(R.id.calendarView);
 
@@ -122,7 +135,9 @@ public class DietCalendar extends AppCompatActivity implements RecyclerViewInter
     }
     @Override
     public void onItemClick(int position) {
-
+        int calFoodId = Integer.parseInt(calendarFoodID.get(position));
+        Intent intent = new Intent(DietCalendar.this, MainActivity.class);
+        calendarDeleteConfirmationWindow(intent, calFoodId,this);
     }
 
     private void updateRecyclerView(String userSelectedDate){
@@ -157,5 +172,30 @@ public class DietCalendar extends AppCompatActivity implements RecyclerViewInter
 
             }
         }
+    }
+
+    public void calendarDeleteConfirmationWindow(Intent intent,Integer idOfEntry, Context context) {
+
+        final Dialog confirmationDialog = new Dialog(context);
+        databaseHelper = new DatabaseHelper(context.getApplicationContext());
+        confirmationDialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
+        confirmationDialog.setContentView(R.layout.activity_db_settings_delete_popup);
+
+        LinearLayout confirmDelete = confirmationDialog.findViewById(R.id.layoutConfirmDelete);
+        LinearLayout confirmCancel = confirmationDialog.findViewById(R.id.layoutConfirmCancel);
+
+        confirmDelete.setOnClickListener(v -> {
+            intent.addFlags(Intent.FLAG_ACTIVITY_FORWARD_RESULT);
+            intent.putExtra("idForRemoval",idOfEntry);
+            setResult(RESULT_OK, intent);
+            confirmationDialog.dismiss();
+            finish();
+        });
+        confirmCancel.setOnClickListener(v -> confirmationDialog.dismiss());
+
+        confirmationDialog.show();
+        confirmationDialog.getWindow().setLayout(ViewGroup.LayoutParams.MATCH_PARENT,ViewGroup.LayoutParams.WRAP_CONTENT);
+        confirmationDialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+        confirmationDialog.getWindow().setGravity(Gravity.CENTER);
     }
 }

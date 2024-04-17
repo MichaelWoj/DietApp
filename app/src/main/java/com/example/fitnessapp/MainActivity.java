@@ -171,7 +171,8 @@ import java.util.List;
         Button calendarBtn = findViewById(R.id.calendarButton);
         calendarBtn.setOnClickListener(view -> {
             Intent intent = new Intent(MainActivity.this, DietCalendar.class);
-            startActivity(intent);
+            intent.putExtra("id",addedFoodIDs);
+            startForReload.launch(intent);
         });
 
         Button undoFoodBtn = findViewById(R.id.undoFood);
@@ -205,8 +206,8 @@ import java.util.List;
                 proteinVal = proteinVal - foodProteinVal;
                 proteinVal = (float) (Math.round(proteinVal * 100) / 100);
 
-                //DO the DB remove somewhere here
                 addedFoodIDs.remove(foodIDArraySize);
+                databaseHelper.deleteCalendarEntry(foodID);
 
                 setValues();
                 saveSharedUndoPreferences();
@@ -340,5 +341,60 @@ import java.util.List;
             userTargetFat.setEnabled(true);
             userTargetCarbs.setEnabled(true);
             userTargetProtein.setEnabled(true);
+        }
+
+        ActivityResultLauncher<Intent> startForReload = registerForActivityResult(new ActivityResultContracts.StartActivityForResult(), new ActivityResultCallback<ActivityResult>() {
+            @Override
+            public void onActivityResult(ActivityResult result) {
+                if(result.getResultCode() == RESULT_OK){
+                    Intent gettingIntentData = result.getData();
+                    int idForRemoval = gettingIntentData.getIntExtra("idForRemoval", 0);
+                    undoFoodIfInList(idForRemoval);
+
+                    Intent sendingIntentData = new Intent(MainActivity.this, DietCalendar.class);
+                    sendingIntentData.putExtra("id",addedFoodIDs);
+                    startForReload.launch(sendingIntentData);
+                }
+            }
+        });
+
+
+
+    public void undoFoodIfInList(int id){
+            if(addedFoodIDs.contains(id)){
+
+                List<String> entryNumber = databaseHelper.findEntry(id);
+
+                float calorieNum = Float.parseFloat(entryNumber.get(0));
+                float fatNum = Float.parseFloat(entryNumber.get(1));
+                float carbsNum = Float.parseFloat(entryNumber.get(2));
+                float proteinNum = Float.parseFloat(entryNumber.get(3));
+
+                foodCaloriesVal = calorieNum;
+                caloriesVal = caloriesVal - foodCaloriesVal;
+                caloriesVal = (float) (Math.round(caloriesVal * 100) / 100);
+
+                foodFatVal = fatNum;
+                fatVal = fatVal - foodFatVal;
+                fatVal = (float) (Math.round(fatVal * 100) / 100);
+
+                foodCarbsVal = carbsNum;
+                carbsVal = carbsVal - foodCarbsVal;
+                carbsVal = (float) (Math.round(carbsVal * 100) / 100);
+
+                foodProteinVal = proteinNum;
+                proteinVal = proteinVal - foodProteinVal;
+                proteinVal = (float) (Math.round(proteinVal * 100) / 100);
+
+                int indexOfId = addedFoodIDs.indexOf(id);
+                addedFoodIDs.remove(indexOfId);
+                databaseHelper.deleteCalendarEntry(id);
+
+                setValues();
+                saveSharedPreferences();
+            }
+            else{
+                databaseHelper.deleteCalendarEntry(id);
+            }
         }
     }
