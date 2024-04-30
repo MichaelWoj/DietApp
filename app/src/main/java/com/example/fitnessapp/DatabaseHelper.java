@@ -176,7 +176,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     }
     public Cursor getFoodFromDate(String dateAdded){
 
-        queryString = "SELECT * FROM " + CALENDAR_FOOD_TABLE + " WHERE " + CALENDAR_DATE_ADDED + " = '" + dateAdded + "'";
+        queryString = "SELECT * FROM " + CALENDAR_FOOD_TABLE + " WHERE " + CALENDAR_DATE_ADDED + " = '" + dateAdded + "'"+"ORDER BY "+CALENDAR_TIME_ADDED+" DESC";
 
         SQLiteDatabase db = this.getReadableDatabase();
 

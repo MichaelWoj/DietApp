@@ -3,6 +3,7 @@ package com.example.fitnessapp;
 import android.app.Dialog;
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.database.Cursor;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
@@ -22,6 +23,10 @@ import androidx.recyclerview.widget.RecyclerView;
 
 
 import java.text.SimpleDateFormat;
+import java.time.Duration;
+import java.time.LocalDate;
+import java.time.LocalTime;
+import java.time.Period;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Locale;
@@ -35,7 +40,9 @@ public class DietCalendar extends AppCompatActivity implements RecyclerViewInter
     private DatabaseHelper databaseHelper;
     private DietCalendarRecycleViewAdapter calendarAdapter;
     private int day, month, year;
-    private String str_month, str_day;
+    private String str_month, str_day, str_time;
+    public static final String savedCalendarEntryTime = "time";
+    public static final String savedCalendarDate = "date";
     private MainActivity mainActivity;
     private TextView weightTV, weightTVDescription;
     //Remember about the date changing back to OG. Do time check and if diff bigger than X amount of time, go back to normal
@@ -66,9 +73,11 @@ public class DietCalendar extends AppCompatActivity implements RecyclerViewInter
         caledarRecyclerView.setAdapter(calendarAdapter);
         caledarRecyclerView.setLayoutManager(new LinearLayoutManager(this));
 
-        getCurrentDate();
+        str_time = getCurrentTime();
 
-        setCurrentDate(day, month, year);
+        str_day = getCurrentDate();
+        checkTimeDiff(str_time, str_day);
+
 
         if(month < 10){
             str_month = "0" + month;
@@ -101,7 +110,7 @@ public class DietCalendar extends AppCompatActivity implements RecyclerViewInter
                 }
 
                 String selectedDate = year + "-" + str_month + "-" + str_day;
-
+                saveDateSharedPreferences(selectedDate);
                 updateRecyclerView(selectedDate);
             }
         });
@@ -133,12 +142,66 @@ public class DietCalendar extends AppCompatActivity implements RecyclerViewInter
         time = hourFromTime +":"+minutesFromTime;
         return time;
     }
+    private void saveTimeSharedPreferences(){
+        SharedPreferences sharedPreferences = getSharedPreferences("SHARED_PREFS_TIME", MODE_PRIVATE);
+        SharedPreferences.Editor editor = sharedPreferences.edit();
+        editor.putString(savedCalendarEntryTime, str_time);
+
+        editor.apply();
+    }
+    private void saveDateSharedPreferences(String str_date){
+        SharedPreferences sharedPreferences = getSharedPreferences("SHARED_PREFS_TIME", MODE_PRIVATE);
+        SharedPreferences.Editor editor = sharedPreferences.edit();
+        editor.putString(savedCalendarDate, str_date);
+
+        editor.apply();
+    }
     @Override
     public void onItemClick(int position) {
         int calFoodId = Integer.parseInt(calendarFoodID.get(position));
         Intent intent = new Intent(DietCalendar.this, MainActivity.class);
         calendarDeleteConfirmationWindow(intent, calFoodId,this);
     }
+
+    private void checkTimeDiff(String entryTime, String currDate) {
+        SharedPreferences sharedPreferences = getSharedPreferences("SHARED_PREFS_TIME", MODE_PRIVATE);
+
+        String previousEntryTime = sharedPreferences.getString(savedCalendarEntryTime,"00:00");
+        String previousSetDate = sharedPreferences.getString(savedCalendarDate,"1970-01-01");
+
+        LocalTime pastTime = LocalTime.parse(previousEntryTime);
+        LocalTime currentTime = LocalTime.parse(entryTime);
+
+        LocalDate pastDate = LocalDate.parse(previousSetDate, java.time.format.DateTimeFormatter.ofPattern("yyyy-MM-dd"));
+        LocalDate currentDate = LocalDate.parse(currDate, java.time.format.DateTimeFormatter.ofPattern("yyyy-MM-dd"));
+
+        // Calculate the period between the dates
+        Period period = Period.between(pastDate, currentDate);
+
+        // Output the time difference
+        int years = period.getYears();
+        int months = period.getMonths();
+        int days = period.getDays();
+
+        System.out.println("Time difference: " + years + " years, " + months + " months, and " + days + " days");
+
+        // Calculate the duration between the times
+        Duration duration = Duration.between(pastTime, currentTime);
+
+        // Output the time difference
+        long hours = duration.toHours();
+        long minutes = duration.toMinutes() % 60; // Remaining minutes after hours
+
+        if(hours == 0 & minutes<5 || days<1){
+            updateRecyclerView(previousSetDate);
+        }
+        else{
+            getCurrentDate();
+
+            setCurrentDate(day, month, year);
+        }
+    }
+
 
     private void updateRecyclerView(String userSelectedDate){
         clearRecycleView();
