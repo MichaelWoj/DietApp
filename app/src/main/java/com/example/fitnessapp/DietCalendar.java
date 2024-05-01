@@ -45,7 +45,7 @@ public class DietCalendar extends AppCompatActivity implements RecyclerViewInter
     public static final String savedCalendarDate = "date";
     private MainActivity mainActivity;
     private TextView weightTV, weightTVDescription;
-    //Remember about the date changing back to OG. Do time check and if diff bigger than X amount of time, go back to normal
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -75,9 +75,9 @@ public class DietCalendar extends AppCompatActivity implements RecyclerViewInter
 
         str_time = getCurrentTime();
 
-        str_day = getCurrentDate();
-        checkTimeDiff(str_time, str_day);
+        checkTimeDiff(str_time);
 
+        saveTimeSharedPreferences();
 
         if(month < 10){
             str_month = "0" + month;
@@ -163,7 +163,7 @@ public class DietCalendar extends AppCompatActivity implements RecyclerViewInter
         calendarDeleteConfirmationWindow(intent, calFoodId,this);
     }
 
-    private void checkTimeDiff(String entryTime, String currDate) {
+    private void checkTimeDiff(String entryTime) {
         SharedPreferences sharedPreferences = getSharedPreferences("SHARED_PREFS_TIME", MODE_PRIVATE);
 
         String previousEntryTime = sharedPreferences.getString(savedCalendarEntryTime,"00:00");
@@ -172,28 +172,18 @@ public class DietCalendar extends AppCompatActivity implements RecyclerViewInter
         LocalTime pastTime = LocalTime.parse(previousEntryTime);
         LocalTime currentTime = LocalTime.parse(entryTime);
 
-        LocalDate pastDate = LocalDate.parse(previousSetDate, java.time.format.DateTimeFormatter.ofPattern("yyyy-MM-dd"));
-        LocalDate currentDate = LocalDate.parse(currDate, java.time.format.DateTimeFormatter.ofPattern("yyyy-MM-dd"));
-
-        // Calculate the period between the dates
-        Period period = Period.between(pastDate, currentDate);
-
-        // Output the time difference
-        int years = period.getYears();
-        int months = period.getMonths();
-        int days = period.getDays();
-
-        System.out.println("Time difference: " + years + " years, " + months + " months, and " + days + " days");
-
-        // Calculate the duration between the times
         Duration duration = Duration.between(pastTime, currentTime);
 
-        // Output the time difference
+
         long hours = duration.toHours();
         long minutes = duration.toMinutes() % 60; // Remaining minutes after hours
 
-        if(hours == 0 & minutes<5 || days<1){
-            updateRecyclerView(previousSetDate);
+        if(hours < 1 & minutes<=5 ){
+            String[] current_date_array = previousSetDate.split("-+");
+            year = Integer.parseInt(current_date_array[0]);
+            month = Integer.parseInt(current_date_array[1]);
+            day = Integer.parseInt(current_date_array[2]);
+            setCurrentDate(day, month, year);
         }
         else{
             getCurrentDate();
