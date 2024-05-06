@@ -11,6 +11,7 @@ import android.database.sqlite.SQLiteOpenHelper;
 import androidx.annotation.Nullable;
 
 import java.sql.ResultSet;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -40,30 +41,31 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
     private String queryString;
 
+
     public DatabaseHelper(@Nullable Context context) {
         super(context, "food.db", null, DATABASE_VERSION);
     }
 
     @Override
     public void onCreate(SQLiteDatabase db) {
-        String createFoodStorageTableStatement = "CREATE TABLE " + FOOD_TABLE + " ("+COLUMN_FOOD_ID+" INTEGER PRIMARY KEY AUTOINCREMENT, " + COLUMN_FOOD_NAME + " TEXT, " + COLUMN_FOOD_CALORIES + " DOUBLE, " + COLUMN_FOOD_FAT + " DOUBLE, " + COLUMN_FOOD_CARBS + " DOUBLE, " +  COLUMN_FOOD_PROTEIN + " DOUBLE, " + COLUMN_FOOD_DISPLAY_WEIGHT + " INTEGER, " + COLUMN_FOOD_VARIABLE_SAVE_TYPE+ " INTEGER)";
+        String createFoodStorageTableStatement = "CREATE TABLE " + FOOD_TABLE + " (" + COLUMN_FOOD_ID + " INTEGER PRIMARY KEY AUTOINCREMENT, " + COLUMN_FOOD_NAME + " TEXT, " + COLUMN_FOOD_CALORIES + " DOUBLE, " + COLUMN_FOOD_FAT + " DOUBLE, " + COLUMN_FOOD_CARBS + " DOUBLE, " + COLUMN_FOOD_PROTEIN + " DOUBLE, " + COLUMN_FOOD_DISPLAY_WEIGHT + " INTEGER, " + COLUMN_FOOD_VARIABLE_SAVE_TYPE + " INTEGER)";
         db.execSQL(createFoodStorageTableStatement);
 
-        String createCalendarFoodStorageTableStatement = "CREATE TABLE " + CALENDAR_FOOD_TABLE + " ("+CALENDAR_COLUMN_FOOD_ID+" INTEGER PRIMARY KEY AUTOINCREMENT, " + CALENDAR_COLUMN_FOOD_NAME + " TEXT, " + CALENDAR_COLUMN_FOOD_CALORIES + " DOUBLE, " + CALENDAR_COLUMN_FOOD_FAT + " DOUBLE, " + CALENDAR_COLUMN_FOOD_CARBS + " DOUBLE, " +  CALENDAR_COLUMN_FOOD_PROTEIN + " DOUBLE, " + CALENDAR_COLUMN_FOOD_WEIGHT + " DOUBLE," + CALENDAR_DATE_ADDED + " STRING, " + CALENDAR_TIME_ADDED+ " STRING)";
+        String createCalendarFoodStorageTableStatement = "CREATE TABLE " + CALENDAR_FOOD_TABLE + " (" + CALENDAR_COLUMN_FOOD_ID + " INTEGER PRIMARY KEY AUTOINCREMENT, " + CALENDAR_COLUMN_FOOD_NAME + " TEXT, " + CALENDAR_COLUMN_FOOD_CALORIES + " DOUBLE, " + CALENDAR_COLUMN_FOOD_FAT + " DOUBLE, " + CALENDAR_COLUMN_FOOD_CARBS + " DOUBLE, " + CALENDAR_COLUMN_FOOD_PROTEIN + " DOUBLE, " + CALENDAR_COLUMN_FOOD_WEIGHT + " DOUBLE," + CALENDAR_DATE_ADDED + " STRING, " + CALENDAR_TIME_ADDED + " STRING)";
         db.execSQL(createCalendarFoodStorageTableStatement);
     }
 
-    @Override 
+    @Override
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
-        if(oldVersion < newVersion) {
-            db.execSQL("ALTER TABLE "+FOOD_TABLE+" ADD COLUMN "+COLUMN_FOOD_DISPLAY_WEIGHT+" INTEGER;");
-            db.execSQL("ALTER TABLE "+FOOD_TABLE+" ADD COLUMN "+COLUMN_FOOD_VARIABLE_SAVE_TYPE+" INTEGER;");
-            db.execSQL("UPDATE "+FOOD_TABLE+" SET "+COLUMN_FOOD_VARIABLE_SAVE_TYPE+" = 0;");
+        if (oldVersion < newVersion) {
+            db.execSQL("ALTER TABLE " + FOOD_TABLE + " ADD COLUMN " + COLUMN_FOOD_DISPLAY_WEIGHT + " INTEGER;");
+            db.execSQL("ALTER TABLE " + FOOD_TABLE + " ADD COLUMN " + COLUMN_FOOD_VARIABLE_SAVE_TYPE + " INTEGER;");
+            db.execSQL("UPDATE " + FOOD_TABLE + " SET " + COLUMN_FOOD_VARIABLE_SAVE_TYPE + " = 0;");
         }
     }
 
     //Everything below is for the " FOOD_TABLE " table in the DB
-    public boolean addOne(FoodModel foodModel){
+    public boolean addOne(FoodModel foodModel) {
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues cv = new ContentValues();
 
@@ -85,44 +87,44 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
     }
 
-    public Cursor getAllFoods(int sortType){
+    public Cursor getAllFoods(int sortType) {
 
-        switch (sortType){
+        switch (sortType) {
             case 1:
-                queryString = "SELECT * FROM " +FOOD_TABLE+" ORDER BY "+COLUMN_FOOD_ID+" ASC";
+                queryString = "SELECT * FROM " + FOOD_TABLE + " ORDER BY " + COLUMN_FOOD_ID + " ASC";
                 break;
             case 2:
-                queryString = "SELECT * FROM "+FOOD_TABLE+" ORDER BY "+COLUMN_FOOD_ID+" DESC";
+                queryString = "SELECT * FROM " + FOOD_TABLE + " ORDER BY " + COLUMN_FOOD_ID + " DESC";
                 break;
             case 3:
-                queryString = "SELECT * FROM "+FOOD_TABLE+" ORDER BY "+COLUMN_FOOD_NAME+" ASC";
+                queryString = "SELECT * FROM " + FOOD_TABLE + " ORDER BY " + COLUMN_FOOD_NAME + " ASC";
                 break;
             case 4:
-                queryString = "SELECT * FROM "+FOOD_TABLE+" ORDER BY "+COLUMN_FOOD_NAME+" DESC";
+                queryString = "SELECT * FROM " + FOOD_TABLE + " ORDER BY " + COLUMN_FOOD_NAME + " DESC";
                 break;
             case 5:
-                queryString = "SELECT * FROM "+FOOD_TABLE+" ORDER BY "+COLUMN_FOOD_CALORIES+" ASC";
+                queryString = "SELECT * FROM " + FOOD_TABLE + " ORDER BY " + COLUMN_FOOD_CALORIES + " ASC";
                 break;
             case 6:
-                queryString = "SELECT * FROM "+FOOD_TABLE+" ORDER BY "+COLUMN_FOOD_CALORIES+" DESC";
+                queryString = "SELECT * FROM " + FOOD_TABLE + " ORDER BY " + COLUMN_FOOD_CALORIES + " DESC";
                 break;
             case 7:
-                queryString = "SELECT * FROM "+FOOD_TABLE+" ORDER BY "+COLUMN_FOOD_FAT+" ASC";
+                queryString = "SELECT * FROM " + FOOD_TABLE + " ORDER BY " + COLUMN_FOOD_FAT + " ASC";
                 break;
             case 8:
-                queryString = "SELECT * FROM "+FOOD_TABLE+" ORDER BY "+COLUMN_FOOD_FAT+" DESC";
+                queryString = "SELECT * FROM " + FOOD_TABLE + " ORDER BY " + COLUMN_FOOD_FAT + " DESC";
                 break;
             case 9:
-                queryString = "SELECT * FROM "+FOOD_TABLE+" ORDER BY "+COLUMN_FOOD_CARBS+" ASC";
+                queryString = "SELECT * FROM " + FOOD_TABLE + " ORDER BY " + COLUMN_FOOD_CARBS + " ASC";
                 break;
             case 10:
-                queryString = "SELECT * FROM "+FOOD_TABLE+" ORDER BY "+COLUMN_FOOD_CARBS+" DESC";
+                queryString = "SELECT * FROM " + FOOD_TABLE + " ORDER BY " + COLUMN_FOOD_CARBS + " DESC";
                 break;
             case 11:
-                queryString = "SELECT * FROM "+FOOD_TABLE+" ORDER BY "+COLUMN_FOOD_PROTEIN+" ASC";
+                queryString = "SELECT * FROM " + FOOD_TABLE + " ORDER BY " + COLUMN_FOOD_PROTEIN + " ASC";
                 break;
             case 12:
-                queryString = "SELECT * FROM "+FOOD_TABLE+" ORDER BY "+COLUMN_FOOD_PROTEIN+" DESC";
+                queryString = "SELECT * FROM " + FOOD_TABLE + " ORDER BY " + COLUMN_FOOD_PROTEIN + " DESC";
                 break;
         }
 
@@ -133,27 +135,27 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         return cursor;
     }
 
-    public void editEntry(int id, String name, float calories, float fat, float carbs, float protein, int displayWeight){
+    public void editEntry(int id, String name, float calories, float fat, float carbs, float protein, int displayWeight) {
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues values = new ContentValues();
 
         values.put(COLUMN_FOOD_NAME, name);
         values.put(COLUMN_FOOD_CALORIES, calories);
         values.put(COLUMN_FOOD_FAT, fat);
-        values.put(COLUMN_FOOD_CARBS,carbs);
+        values.put(COLUMN_FOOD_CARBS, carbs);
         values.put(COLUMN_FOOD_PROTEIN, protein);
         values.put(COLUMN_FOOD_DISPLAY_WEIGHT, displayWeight);
 
-        db.update(FOOD_TABLE, values, "id = "+ id, null);
+        db.update(FOOD_TABLE, values, "id = " + id, null);
     }
 
-    public void deleteEntry(int foodId){
+    public void deleteEntry(int foodId) {
         SQLiteDatabase db = this.getWritableDatabase();
-        db.delete(FOOD_TABLE,"id = "+ foodId,null);
+        db.delete(FOOD_TABLE, "id = " + foodId, null);
 
     }
 
-    public boolean calendarAddOne(CalendarFoodModel calendarFoodModel){
+    public boolean calendarAddOne(CalendarFoodModel calendarFoodModel) {
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues cv = new ContentValues();
 
@@ -174,9 +176,10 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         else
             return true;
     }
-    public Cursor getFoodFromDate(String dateAdded){
 
-        queryString = "SELECT * FROM " + CALENDAR_FOOD_TABLE + " WHERE " + CALENDAR_DATE_ADDED + " = '" + dateAdded + "'"+"ORDER BY "+CALENDAR_TIME_ADDED+" DESC";
+    public Cursor getFoodFromDate(String dateAdded) {
+
+        queryString = "SELECT * FROM " + CALENDAR_FOOD_TABLE + " WHERE " + CALENDAR_DATE_ADDED + " = '" + dateAdded + "'" + "ORDER BY " + CALENDAR_TIME_ADDED + " DESC";
 
         SQLiteDatabase db = this.getReadableDatabase();
 
@@ -185,10 +188,10 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         return cursor;
     }
 
-    public int getNewestEntry(){
+    public int getNewestEntry() {
         SQLiteDatabase db = this.getWritableDatabase();
 
-        queryString = "SELECT " + CALENDAR_COLUMN_FOOD_ID + " FROM " + CALENDAR_FOOD_TABLE + " WHERE "+ CALENDAR_COLUMN_FOOD_ID +" = (SELECT MAX("+ CALENDAR_COLUMN_FOOD_ID +") FROM " + CALENDAR_FOOD_TABLE + ")";
+        queryString = "SELECT " + CALENDAR_COLUMN_FOOD_ID + " FROM " + CALENDAR_FOOD_TABLE + " WHERE " + CALENDAR_COLUMN_FOOD_ID + " = (SELECT MAX(" + CALENDAR_COLUMN_FOOD_ID + ") FROM " + CALENDAR_FOOD_TABLE + ")";
         Cursor cursor = db.rawQuery(queryString, null);
 
         int id = 0;
@@ -206,25 +209,48 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         return id;
     }
 
-    public List<String> findEntry(int id){
+    public List<String> findEntry(int id) {
         SQLiteDatabase db = this.getWritableDatabase();
 
-        queryString = "SELECT * FROM " + CALENDAR_FOOD_TABLE + " WHERE "+ CALENDAR_COLUMN_FOOD_ID + " = " + id;
+        queryString = "SELECT * FROM " + CALENDAR_FOOD_TABLE + " WHERE " + CALENDAR_COLUMN_FOOD_ID + " = " + id;
         Cursor cursor = db.rawQuery(queryString, null);
 
         List<String> entryNumber = new ArrayList<>();
-        while (cursor.moveToNext()){
+        while (cursor.moveToNext()) {
             entryNumber.add(cursor.getString(2));
             entryNumber.add(cursor.getString(3));
             entryNumber.add(cursor.getString(4));
             entryNumber.add(cursor.getString(5));
-            }
+        }
 
         return entryNumber;
     }
-    public void deleteCalendarEntry(int foodId){
-        SQLiteDatabase db = this.getWritableDatabase();
-        db.delete(CALENDAR_FOOD_TABLE,CALENDAR_COLUMN_FOOD_ID +" = "+ foodId,null);
 
+    public void deleteCalendarEntry(int foodId) {
+        SQLiteDatabase db = this.getWritableDatabase();
+        db.delete(CALENDAR_FOOD_TABLE, CALENDAR_COLUMN_FOOD_ID + " = " + foodId, null);
+
+    }
+
+    public void deleteOldEntries(int olderThanNumber, String dayOrMonth) {
+        SQLiteDatabase db = this.getWritableDatabase();
+
+        String currentDate = String.valueOf(java.time.LocalDate.now());
+        String[] current_date_array = currentDate.split("-+");
+        int year = Integer.parseInt(current_date_array[0]);
+        int month = Integer.parseInt(current_date_array[1]);
+        int day = Integer.parseInt(current_date_array[2]);
+
+        LocalDate currDate = LocalDate.of(year,month,day);
+
+        LocalDate thresholdDate;
+
+        if(dayOrMonth == "Day"){
+            thresholdDate = currDate.minusDays(olderThanNumber);
+        }else{
+            thresholdDate = currDate.minusMonths(olderThanNumber);
+        }
+
+        db.delete(CALENDAR_COLUMN_FOOD_ID, CALENDAR_DATE_ADDED+" < " + thresholdDate, null);
     }
 }

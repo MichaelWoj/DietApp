@@ -1,3 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="app_name">FitnessApp</string>
+    <string-array name="day_month">
+        <item>Day</item>
+        <item>Month</item>
+    </string-array>
+
 </resources>

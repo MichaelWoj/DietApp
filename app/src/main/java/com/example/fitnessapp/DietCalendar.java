@@ -9,10 +9,16 @@ import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.view.Gravity;
+import android.view.View;
 import android.view.ViewGroup;
 import android.view.Window;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.CalendarView;
+import android.widget.EditText;
+import android.widget.ImageButton;
 import android.widget.LinearLayout;
+import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -22,14 +28,10 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 
-import java.text.SimpleDateFormat;
 import java.time.Duration;
-import java.time.LocalDate;
 import java.time.LocalTime;
-import java.time.Period;
 import java.util.ArrayList;
 import java.util.Calendar;
-import java.util.Locale;
 
 public class DietCalendar extends AppCompatActivity implements RecyclerViewInterface{
 
@@ -38,12 +40,14 @@ public class DietCalendar extends AppCompatActivity implements RecyclerViewInter
     private DatabaseHelper dataBaseHelper;
     private Calendar calendar;
     private DatabaseHelper databaseHelper;
+    private ImageButton settings;
     private DietCalendarRecycleViewAdapter calendarAdapter;
     private int day, month, year;
     private String str_month, str_day, str_time;
     public static final String savedCalendarEntryTime = "time";
     public static final String savedCalendarDate = "date";
     private MainActivity mainActivity;
+    private String dayOrMonthSpinner = "Day";
     private TextView weightTV, weightTVDescription;
 
     @Override
@@ -55,6 +59,8 @@ public class DietCalendar extends AppCompatActivity implements RecyclerViewInter
         mainActivity = new MainActivity();
 
         calendarView = findViewById(R.id.calendarView);
+
+        settings = findViewById(R.id.itemSettingsBtn);
 
         dataBaseHelper = new DatabaseHelper(DietCalendar.this);
 
@@ -93,6 +99,10 @@ public class DietCalendar extends AppCompatActivity implements RecyclerViewInter
 
         String selectedDate = year + "-" + str_month + "-" + str_day;
         displayData(selectedDate);
+
+        settings.setOnClickListener(view -> {
+            calendarRemoveOldEntriesPopup(this);
+        });
 
         calendarView.setOnDateChangeListener(new CalendarView.OnDateChangeListener() {
             @Override
@@ -250,5 +260,54 @@ public class DietCalendar extends AppCompatActivity implements RecyclerViewInter
         confirmationDialog.getWindow().setLayout(ViewGroup.LayoutParams.MATCH_PARENT,ViewGroup.LayoutParams.WRAP_CONTENT);
         confirmationDialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
         confirmationDialog.getWindow().setGravity(Gravity.CENTER);
+    }
+
+    public void calendarRemoveOldEntriesPopup(Context context) {
+
+        final Dialog timeDialog = new Dialog(context);
+        databaseHelper = new DatabaseHelper(context.getApplicationContext());
+        timeDialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
+        timeDialog.setContentView(R.layout.calendar_remove_old_entries_popup);
+
+        EditText olderThanNumberET = findViewById(R.id.olderThanNumber);
+
+        LinearLayout confirmDelete = timeDialog.findViewById(R.id.layoutConfirmDeleteCalendar);
+        LinearLayout confirmCancel = timeDialog.findViewById(R.id.layoutConfirmCancelCalendar);
+
+        Spinner spinner = findViewById(R.id.dayMonthSpinner);
+
+        ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(
+                context,
+                R.array.day_month,
+                android.R.layout.simple_spinner_item
+        );
+        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        spinner.setAdapter(adapter);
+        spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> adapterView, View view, int position, long l) {
+                dayOrMonthSpinner = adapterView.getItemAtPosition(position).toString();
+
+
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> adapterView) {
+
+            }
+        });
+
+
+        confirmDelete.setOnClickListener(v -> {
+            int olderThanNumberInt = Integer.parseInt(String.valueOf(olderThanNumberET));
+            DatabaseHelper.deleteOldEntries(olderThanNumberInt,dayOrMonthSpinner);
+            finish();
+        });
+        confirmCancel.setOnClickListener(v -> timeDialog.dismiss());
+
+
+        timeDialog.getWindow().setLayout(ViewGroup.LayoutParams.MATCH_PARENT,ViewGroup.LayoutParams.WRAP_CONTENT);
+        timeDialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+        timeDialog.getWindow().setGravity(Gravity.CENTER);
     }
 }
