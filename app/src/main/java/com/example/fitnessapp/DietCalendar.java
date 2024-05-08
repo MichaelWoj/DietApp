@@ -274,7 +274,7 @@ public class DietCalendar extends AppCompatActivity implements RecyclerViewInter
         LinearLayout confirmDelete = timeDialog.findViewById(R.id.layoutConfirmDeleteCalendar);
         LinearLayout confirmCancel = timeDialog.findViewById(R.id.layoutConfirmCancelCalendar);
 
-        Spinner spinner = findViewById(R.id.dayMonthSpinner);
+        Spinner spinner = timeDialog.findViewById(R.id.dayMonthSpinner);
 
         ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(
                 context,
@@ -300,12 +300,12 @@ public class DietCalendar extends AppCompatActivity implements RecyclerViewInter
 
         confirmDelete.setOnClickListener(v -> {
             int olderThanNumberInt = Integer.parseInt(String.valueOf(olderThanNumberET));
-            DatabaseHelper.deleteOldEntries(olderThanNumberInt,dayOrMonthSpinner);
+            dataBaseHelper.deleteOldEntries(olderThanNumberInt,dayOrMonthSpinner);
             finish();
         });
         confirmCancel.setOnClickListener(v -> timeDialog.dismiss());
 
-
+        timeDialog.show();
         timeDialog.getWindow().setLayout(ViewGroup.LayoutParams.MATCH_PARENT,ViewGroup.LayoutParams.WRAP_CONTENT);
         timeDialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
         timeDialog.getWindow().setGravity(Gravity.CENTER);
