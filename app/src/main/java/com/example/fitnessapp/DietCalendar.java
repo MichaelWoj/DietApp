@@ -308,7 +308,7 @@ public class DietCalendar extends AppCompatActivity implements RecyclerViewInter
         ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(
                 context,
                 R.array.day_month,
-                android.R.layout.simple_spinner_item
+                R.layout.spinner_item_layout
         );
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         spinner.setAdapter(adapter);

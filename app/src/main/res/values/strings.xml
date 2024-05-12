@@ -2,8 +2,8 @@
 <resources>
     <string name="app_name">FitnessApp</string>
     <string-array name="day_month">
-        <item>Day</item>
-        <item>Month</item>
+        <item>Month/s</item>
+        <item>Day/s</item>
     </string-array>
 
 </resources>
