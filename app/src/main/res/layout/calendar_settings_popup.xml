@@ -8,7 +8,7 @@
     android:background="@color/green">
 
     <TextView
-        android:id="@+id/settingPopupDescriptionTV"
+        android:id="@+id/settingCalendarPopupDescriptionTV"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Choose"
@@ -22,7 +22,7 @@
         app:layout_constraintVertical_bias="0.022" />
 
     <LinearLayout
-        android:id="@+id/layoutSettingsEdit"
+        android:id="@+id/layoutCalendarSettingsEnterWeight"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
@@ -31,11 +31,11 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/settingPopupDescriptionTV"
+        app:layout_constraintTop_toBottomOf="@+id/settingCalendarPopupDescriptionTV"
         app:layout_constraintVertical_bias="0.061">
 
         <ImageView
-            android:id="@+id/editEntryImg"
+            android:id="@+id/enterWeightImg"
             android:layout_width="30dp"
             android:layout_height="30dp"
             app:layout_constraintBottom_toBottomOf="parent"
@@ -48,11 +48,11 @@
             tools:ignore="VectorDrawableCompat" />
 
         <TextView
-            android:id="@+id/editEntryTV"
-            android:layout_width="111dp"
+            android:id="@+id/enterWeightTV"
+            android:layout_width="wrap_content"
             android:layout_height="30dp"
             android:layout_marginLeft="30dp"
-            android:text="Edit"
+            android:text="Enter Your Weight for the Day"
             android:textColor="@color/eggshell"
             android:textSize="24sp"
             tools:layout_editor_absoluteX="79dp"
@@ -60,7 +60,7 @@
     </LinearLayout>
 
     <LinearLayout
-        android:id="@+id/layoutSettingsDelete"
+        android:id="@+id/layoutCalendarSettingsDeleteOldEntries"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="16dp"
@@ -70,11 +70,11 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/layoutSettingsEdit"
+        app:layout_constraintTop_toBottomOf="@+id/layoutCalendarSettingsEnterWeight"
         app:layout_constraintVertical_bias="0.0">
 
         <ImageView
-            android:id="@+id/deleteEntryImg"
+            android:id="@+id/calendarDeleteEntriesImg"
             android:layout_width="30dp"
             android:layout_height="30dp"
             app:layout_constraintBottom_toBottomOf="parent"
@@ -88,11 +88,11 @@
 
 
         <TextView
-            android:id="@+id/deleteEntryTV"
-            android:layout_width="111dp"
+            android:id="@+id/calendarDeleteEntriesTV"
+            android:layout_width="wrap_content"
             android:layout_height="30dp"
             android:layout_marginLeft="30dp"
-            android:text="Delete"
+            android:text="Delete Old Entries"
             android:textColor="@color/eggshell"
             android:textSize="24sp"
             tools:layout_editor_absoluteX="79dp"

@@ -235,22 +235,18 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     public void deleteOldEntries(int olderThanNumber, String dayOrMonth) {
         SQLiteDatabase db = this.getWritableDatabase();
 
-        String currentDate = String.valueOf(java.time.LocalDate.now());
-        String[] current_date_array = currentDate.split("-+");
-        int year = Integer.parseInt(current_date_array[0]);
-        int month = Integer.parseInt(current_date_array[1]);
-        int day = Integer.parseInt(current_date_array[2]);
+        LocalDate currDate = java.time.LocalDate.now();
 
-        LocalDate currDate = LocalDate.of(year,month,day);
-
-        LocalDate thresholdDate;
+        String thresholdDate;
 
         if(dayOrMonth == "Day"){
-            thresholdDate = currDate.minusDays(olderThanNumber);
+            thresholdDate = (currDate.minusDays(olderThanNumber)).toString();
         }else{
-            thresholdDate = currDate.minusMonths(olderThanNumber);
+            thresholdDate = (currDate.minusMonths(olderThanNumber)).toString();
+
         }
 
-        db.delete(CALENDAR_COLUMN_FOOD_ID, CALENDAR_DATE_ADDED+" < " + thresholdDate, null);
+        String[] selectionArgs = { thresholdDate };
+        db.delete(CALENDAR_FOOD_TABLE, CALENDAR_DATE_ADDED+" <?" , selectionArgs);
     }
 }

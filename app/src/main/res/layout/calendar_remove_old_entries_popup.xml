@@ -34,32 +34,33 @@
                 app:layout_constraintHorizontal_bias="0.0"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintVertical_bias="0.172" />
+                app:layout_constraintVertical_bias="0.172"/>
 
 
             <Spinner
                 android:id="@+id/dayMonthSpinner"
-                android:layout_width="114dp"
-                android:layout_height="35dp"
+                android:layout_width="110dp"
+                android:layout_height="53dp"
                 app:layout_constraintBottom_toTopOf="@+id/layoutConfirmDeleteCalendar"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toEndOf="@+id/olderThanNumber"
                 app:layout_constraintTop_toBottomOf="@+id/confirmPopupDescriptionTV"
-                app:layout_constraintVertical_bias="0.311" />
+                app:layout_constraintVertical_bias="0.37" />
 
             <EditText
                 android:id="@+id/olderThanNumber"
-                android:layout_width="93dp"
-                android:layout_height="36dp"
+                android:layout_width="97dp"
+                android:layout_height="54dp"
                 android:backgroundTint="@color/eggshell"
                 android:ems="10"
                 android:inputType="number"
                 android:textColor="@color/eggshell"
+                android:textSize="24sp"
                 app:layout_constraintBottom_toTopOf="@+id/layoutConfirmDeleteCalendar"
                 app:layout_constraintEnd_toStartOf="@+id/dayMonthSpinner"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/confirmPopupDescriptionTV"
-                app:layout_constraintVertical_bias="0.34" />
+                app:layout_constraintVertical_bias="0.461" />
 
             <LinearLayout
                 android:id="@+id/layoutConfirmDeleteCalendar"

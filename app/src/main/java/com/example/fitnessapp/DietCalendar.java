@@ -101,7 +101,7 @@ public class DietCalendar extends AppCompatActivity implements RecyclerViewInter
         displayData(selectedDate);
 
         settings.setOnClickListener(view -> {
-            calendarRemoveOldEntriesPopup(this);
+            showCalendarSettings(this);
         });
 
         calendarView.setOnDateChangeListener(new CalendarView.OnDateChangeListener() {
@@ -262,6 +262,35 @@ public class DietCalendar extends AppCompatActivity implements RecyclerViewInter
         confirmationDialog.getWindow().setGravity(Gravity.CENTER);
     }
 
+    private void showCalendarSettings(Context context) {
+
+        final Dialog dialog = new Dialog(this);
+        dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
+        dialog.setContentView(R.layout.calendar_settings_popup);
+
+        LinearLayout settingsEnterWeight = dialog.findViewById(R.id.layoutCalendarSettingsEnterWeight);
+        LinearLayout settingsDeleteOldEntries = dialog.findViewById(R.id.layoutCalendarSettingsDeleteOldEntries);
+
+
+        settingsEnterWeight.setOnClickListener(v -> {
+
+            dialog.dismiss();
+        });
+
+        settingsDeleteOldEntries.setOnClickListener(v -> {
+            calendarRemoveOldEntriesPopup(context);
+            dialog.dismiss();
+        });
+
+        dialog.show();
+        dialog.getWindow().setLayout(ViewGroup.LayoutParams.MATCH_PARENT,ViewGroup.LayoutParams.WRAP_CONTENT);
+        dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+        dialog.getWindow().getAttributes().windowAnimations = R.style.DialogAnimation;
+        dialog.getWindow().setGravity(Gravity.BOTTOM);
+
+    }
+
+
     public void calendarRemoveOldEntriesPopup(Context context) {
 
         final Dialog timeDialog = new Dialog(context);
@@ -269,7 +298,7 @@ public class DietCalendar extends AppCompatActivity implements RecyclerViewInter
         timeDialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
         timeDialog.setContentView(R.layout.calendar_remove_old_entries_popup);
 
-        EditText olderThanNumberET = findViewById(R.id.olderThanNumber);
+        EditText olderThanNumberET = timeDialog.findViewById(R.id.olderThanNumber);
 
         LinearLayout confirmDelete = timeDialog.findViewById(R.id.layoutConfirmDeleteCalendar);
         LinearLayout confirmCancel = timeDialog.findViewById(R.id.layoutConfirmCancelCalendar);
@@ -288,7 +317,6 @@ public class DietCalendar extends AppCompatActivity implements RecyclerViewInter
             public void onItemSelected(AdapterView<?> adapterView, View view, int position, long l) {
                 dayOrMonthSpinner = adapterView.getItemAtPosition(position).toString();
 
-
             }
 
             @Override
@@ -299,9 +327,10 @@ public class DietCalendar extends AppCompatActivity implements RecyclerViewInter
 
 
         confirmDelete.setOnClickListener(v -> {
-            int olderThanNumberInt = Integer.parseInt(String.valueOf(olderThanNumberET));
+            String olderThanNumberToString = olderThanNumberET.getText().toString();
+            int olderThanNumberInt = Integer.parseInt(olderThanNumberToString);
             dataBaseHelper.deleteOldEntries(olderThanNumberInt,dayOrMonthSpinner);
-            finish();
+            timeDialog.dismiss();
         });
         confirmCancel.setOnClickListener(v -> timeDialog.dismiss());
 
