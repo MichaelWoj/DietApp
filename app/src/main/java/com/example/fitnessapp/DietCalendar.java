@@ -43,7 +43,7 @@ public class DietCalendar extends AppCompatActivity implements RecyclerViewInter
     private ImageButton settings;
     private DietCalendarRecycleViewAdapter calendarAdapter;
     private int day, month, year;
-    private String str_month, str_day, str_time;
+    private String str_month, str_day, str_time, selectedDate;
     public static final String savedCalendarEntryTime = "time";
     public static final String savedCalendarDate = "date";
     private MainActivity mainActivity;
@@ -97,7 +97,7 @@ public class DietCalendar extends AppCompatActivity implements RecyclerViewInter
             str_day = String.valueOf(day);
         }
 
-        String selectedDate = year + "-" + str_month + "-" + str_day;
+        selectedDate = year + "-" + str_month + "-" + str_day;
         displayData(selectedDate);
 
         settings.setOnClickListener(view -> {
@@ -119,9 +119,10 @@ public class DietCalendar extends AppCompatActivity implements RecyclerViewInter
                     str_day = String.valueOf(day);
                 }
 
-                String selectedDate = year + "-" + str_month + "-" + str_day;
+                selectedDate = year + "-" + str_month + "-" + str_day;
                 saveDateSharedPreferences(selectedDate);
                 updateRecyclerView(selectedDate);
+                setWeightOnDay();
             }
         });
     }
@@ -194,11 +195,14 @@ public class DietCalendar extends AppCompatActivity implements RecyclerViewInter
             month = Integer.parseInt(current_date_array[1]);
             day = Integer.parseInt(current_date_array[2]);
             setCurrentDate(day, month, year);
+            selectedDate = previousSetDate;
+            setWeightOnDay();
         }
         else{
-            getCurrentDate();
+            selectedDate = getCurrentDate();
 
             setCurrentDate(day, month, year);
+            setWeightOnDay();
         }
     }
 
@@ -234,6 +238,16 @@ public class DietCalendar extends AppCompatActivity implements RecyclerViewInter
                 calendarFoodTime.add(cursor.getString(8));
 
             }
+        }
+    }
+
+    private void setWeightOnDay(){
+        TextView calendarWeightTV = findViewById(R.id.calendarWeight);
+        String selectedDateWeight = dataBaseHelper.findDailyWeight(selectedDate);
+        if(selectedDateWeight == null){
+            calendarWeightTV.setText("Not Entered");
+        }else{
+            calendarWeightTV.setText(selectedDateWeight);
         }
     }
 
@@ -273,7 +287,7 @@ public class DietCalendar extends AppCompatActivity implements RecyclerViewInter
 
 
         settingsEnterWeight.setOnClickListener(v -> {
-
+            calendarDailyWeightPopup(context);
             dialog.dismiss();
         });
 
@@ -288,6 +302,35 @@ public class DietCalendar extends AppCompatActivity implements RecyclerViewInter
         dialog.getWindow().getAttributes().windowAnimations = R.style.DialogAnimation;
         dialog.getWindow().setGravity(Gravity.BOTTOM);
 
+    }
+    public void calendarDailyWeightPopup(Context context) {
+
+        final Dialog weightDialog = new Dialog(context);
+        databaseHelper = new DatabaseHelper(context.getApplicationContext());
+        weightDialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
+        weightDialog.setContentView(R.layout.calendar_set_weight_popup);
+
+        EditText olderThanNumberET = weightDialog.findViewById(R.id.dailyWeight);
+
+        LinearLayout confirmDelete = weightDialog.findViewById(R.id.layoutConfirmWeight);
+        LinearLayout confirmCancel = weightDialog.findViewById(R.id.layoutCancelWeight);
+
+        confirmDelete.setOnClickListener(v -> {
+            if(olderThanNumberET.getText().toString().isEmpty()){
+                Toast.makeText(DietCalendar.this, "Please weight", Toast.LENGTH_SHORT).show();
+            }else{
+                String dailyWeightToString = olderThanNumberET.getText().toString();
+                double dailyWeightToDouble = Double.parseDouble(dailyWeightToString);
+                dataBaseHelper.addDailyWeight(dailyWeightToDouble, selectedDate);
+                setWeightOnDay();
+                weightDialog.dismiss();
+            }
+        });
+        confirmCancel.setOnClickListener(v -> weightDialog.dismiss());
+
+        weightDialog.show();
+        weightDialog.getWindow().setLayout(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
+        weightDialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
     }
 
 
