@@ -57,6 +57,7 @@
             android:textSize="24sp"
             tools:layout_editor_absoluteX="79dp"
             tools:layout_editor_absoluteY="88dp" />
+
     </LinearLayout>
 
     <LinearLayout
@@ -97,6 +98,37 @@
             android:textSize="24sp"
             tools:layout_editor_absoluteX="79dp"
             tools:layout_editor_absoluteY="144dp" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/kgOrLbsLayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:orientation="horizontal"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/layoutCalendarSettingsDeleteOldEntries"
+        app:layout_constraintVertical_bias="0.0">
+
+        <Button
+            android:id="@+id/setToKg"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:background="@drawable/left_side_button_border"
+            android:text="Set to Kg"
+            android:textColor="@color/eggshell" />
+
+        <Button
+            android:id="@+id/setToLbs"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:background="@drawable/right_side_button_border"
+            android:text="Set to Lbs"
+            android:textColor="@color/eggshell" />
     </LinearLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

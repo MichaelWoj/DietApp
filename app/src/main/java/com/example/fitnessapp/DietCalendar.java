@@ -14,13 +14,16 @@ import android.view.ViewGroup;
 import android.view.Window;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.CalendarView;
+import android.widget.CompoundButton;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.LinearLayout;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
+import android.widget.ToggleButton;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -46,9 +49,10 @@ public class DietCalendar extends AppCompatActivity implements RecyclerViewInter
     private String str_month, str_day, str_time, selectedDate;
     public static final String savedCalendarEntryTime = "time";
     public static final String savedCalendarDate = "date";
+    public static final String savedToggleButtonState = "toggleButton";
     private MainActivity mainActivity;
     private String dayOrMonthSpinner = "Day";
-    private TextView weightTV, weightTVDescription;
+    private TextView weightTV, weightKgOrLbsTV;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -73,6 +77,8 @@ public class DietCalendar extends AppCompatActivity implements RecyclerViewInter
         calendarFoodProteinNum = new ArrayList<>();
         calendarFoodWeightNum = new ArrayList<>();
 
+        weightKgOrLbsTV = findViewById(R.id.calendarWeightKgOrLbs);
+
         RecyclerView caledarRecyclerView = findViewById(R.id.recyclerViewCalendarList);
         calendarAdapter = new DietCalendarRecycleViewAdapter(this, calendarFoodName, calendarFoodTime, calendarFoodCaloriesNum, calendarFoodFatNum, calendarFoodCarbsNum, calendarFoodProteinNum, calendarFoodWeightNum, this);
         calendarAdapter.notifyDataSetChanged();
@@ -84,6 +90,7 @@ public class DietCalendar extends AppCompatActivity implements RecyclerViewInter
         checkTimeDiff(str_time);
 
         saveTimeSharedPreferences();
+        loadToggleButtonSharedPreferences();
 
         if(month < 10){
             str_month = "0" + month;
@@ -167,6 +174,21 @@ public class DietCalendar extends AppCompatActivity implements RecyclerViewInter
 
         editor.apply();
     }
+    private void savedToggleButtonSharedPreferences(String kgOrLbs){
+        SharedPreferences sharedPreferences = getSharedPreferences("SHARED_PREFS_BUTTON_MODE", MODE_PRIVATE);
+        SharedPreferences.Editor editor = sharedPreferences.edit();
+        editor.putString(savedToggleButtonState, kgOrLbs);
+
+        editor.apply();
+    }
+
+    private void loadToggleButtonSharedPreferences(){
+        SharedPreferences sharedPreferences = getSharedPreferences("SHARED_PREFS_BUTTON_MODE", MODE_PRIVATE);
+        String loadKgOrLbs = sharedPreferences.getString(savedToggleButtonState, "kg");
+        weightKgOrLbsTV.setText(loadKgOrLbs);
+
+    }
+
     @Override
     public void onItemClick(int position) {
         int calFoodId = Integer.parseInt(calendarFoodID.get(position));
@@ -205,7 +227,6 @@ public class DietCalendar extends AppCompatActivity implements RecyclerViewInter
             setWeightOnDay();
         }
     }
-
 
     private void updateRecyclerView(String userSelectedDate){
         clearRecycleView();
@@ -284,6 +305,8 @@ public class DietCalendar extends AppCompatActivity implements RecyclerViewInter
 
         LinearLayout settingsEnterWeight = dialog.findViewById(R.id.layoutCalendarSettingsEnterWeight);
         LinearLayout settingsDeleteOldEntries = dialog.findViewById(R.id.layoutCalendarSettingsDeleteOldEntries);
+        Button setToKg = dialog.findViewById(R.id.setToKg);
+        Button setToLbs = dialog.findViewById(R.id.setToLbs);
 
 
         settingsEnterWeight.setOnClickListener(v -> {
@@ -296,6 +319,15 @@ public class DietCalendar extends AppCompatActivity implements RecyclerViewInter
             dialog.dismiss();
         });
 
+        setToKg.setOnClickListener(view -> {
+            weightKgOrLbsTV.setText("kg");
+            savedToggleButtonSharedPreferences("kg");
+        });
+
+        setToLbs.setOnClickListener(view -> {
+            weightKgOrLbsTV.setText("lbs");
+            savedToggleButtonSharedPreferences("lbs");
+        });
         dialog.show();
         dialog.getWindow().setLayout(ViewGroup.LayoutParams.MATCH_PARENT,ViewGroup.LayoutParams.WRAP_CONTENT);
         dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
@@ -303,6 +335,7 @@ public class DietCalendar extends AppCompatActivity implements RecyclerViewInter
         dialog.getWindow().setGravity(Gravity.BOTTOM);
 
     }
+
     public void calendarDailyWeightPopup(Context context) {
 
         final Dialog weightDialog = new Dialog(context);
@@ -332,7 +365,6 @@ public class DietCalendar extends AppCompatActivity implements RecyclerViewInter
         weightDialog.getWindow().setLayout(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
         weightDialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
     }
-
 
     public void calendarRemoveOldEntriesPopup(Context context) {
 
