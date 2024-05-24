@@ -16,6 +16,10 @@
         android:theme="@style/Calendar">
     </CalendarView>
 
+    <ViewFlipper
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
     <androidx.cardview.widget.CardView
         android:id="@+id/calendarWeightCard"
         android:layout_width="match_parent"
@@ -40,8 +44,51 @@
                 app:layout_constraintTop_toTopOf="parent"
                 app:layout_constraintVertical_bias="0.55" />
 
+            <TextView
+                android:id="@+id/calendarWeight"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Not Entered"
+                android:textColor="@color/eggshell"
+                android:textSize="24sp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toStartOf="@+id/itemSettingsBtn"
+                app:layout_constraintHorizontal_bias="0.07"
+                app:layout_constraintStart_toEndOf="@+id/calendarWeightTV"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintVertical_bias="0.55" />
+
+
+            <TextView
+                android:id="@+id/calendarWeightKgOrLbs"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="kg"
+                android:textColor="@color/eggshell"
+                android:textSize="24sp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.055"
+                app:layout_constraintStart_toEndOf="@+id/calendarWeight"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintVertical_bias="0.55" />
+
             <ImageButton
                 android:id="@+id/itemSettingsBtn"
+                android:layout_width="47dp"
+                android:layout_height="37dp"
+                android:background="@null"
+                android:scaleType="fitCenter"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.804"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintVertical_bias="0.533"
+                app:srcCompat="@drawable/ic_settings" />
+
+            <ImageButton
+                android:id="@+id/swapToNutritionAndBackWeight"
                 android:layout_width="47dp"
                 android:layout_height="37dp"
                 android:background="@null"
@@ -52,40 +99,145 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
                 app:layout_constraintVertical_bias="0.533"
-                app:srcCompat="@drawable/ic_settings" />
-
-            <TextView
-                android:id="@+id/calendarWeight"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Not Entered"
-                android:textColor="@color/eggshell"
-                android:textSize="24sp"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toStartOf="@+id/itemSettingsBtn"
-                app:layout_constraintHorizontal_bias="0.125"
-                app:layout_constraintStart_toEndOf="@+id/calendarWeightTV"
-                app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintVertical_bias="0.55" />
-
-            <TextView
-                android:id="@+id/calendarWeightKgOrLbs"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="kg"
-                android:textColor="@color/eggshell"
-                android:textSize="24sp"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toStartOf="@+id/itemSettingsBtn"
-                app:layout_constraintHorizontal_bias="0.075"
-                app:layout_constraintStart_toEndOf="@+id/calendarWeight"
-                app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintVertical_bias="0.55" />
+                app:srcCompat="@drawable/ic_swap" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 
     </androidx.cardview.widget.CardView>
+        <androidx.cardview.widget.CardView
+            android:id="@+id/calendarNutritionCard"
+            android:layout_width="match_parent"
+            android:layout_height="52dp"
+            app:cardBackgroundColor="@color/green" >
 
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+
+                <TextView
+                    android:id="@+id/dailyCalendarCalories"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="14dp"
+                    android:text="Cal:"
+                    android:textColor="@color/eggshell"
+                    android:textSize="24sp"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toStartOf="@+id/dailyCalendarCaloriesNumber"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <TextView
+                    android:id="@+id/dailyCalendarCaloriesNumber"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="14dp"
+                    android:text="0.0"
+                    android:textColor="@color/eggshell"
+                    android:textSize="24sp"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toStartOf="@+id/dailyCalendarFat"
+                    app:layout_constraintStart_toEndOf="@+id/dailyCalendarCalories"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <TextView
+                    android:id="@+id/dailyCalendarFat"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="F:"
+                    android:textColor="@color/eggshell"
+                    android:textSize="24sp"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toStartOf="@+id/dailyCalendarFatNumber"
+                    app:layout_constraintStart_toEndOf="@+id/dailyCalendarCaloriesNumber"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <TextView
+                    android:id="@+id/dailyCalendarFatNumber"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="14dp"
+                    android:text="0.0"
+                    android:textColor="@color/eggshell"
+                    android:textSize="24sp"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toStartOf="@+id/dailyCalendarCarbs"
+                    app:layout_constraintHorizontal_bias="0.0"
+                    app:layout_constraintStart_toEndOf="@+id/dailyCalendarFat"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <TextView
+                    android:id="@+id/dailyCalendarCarbs"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="C:"
+                    android:textColor="@color/eggshell"
+                    android:textSize="24sp"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toStartOf="@+id/dailyCalendarCarbsNumber"
+                    app:layout_constraintStart_toEndOf="@+id/dailyCalendarFatNumber"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <TextView
+                    android:id="@+id/dailyCalendarCarbsNumber"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="14dp"
+                    android:text="0.0"
+                    android:textColor="@color/eggshell"
+                    android:textSize="24sp"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toStartOf="@+id/dailyCalendarProtein"
+                    app:layout_constraintStart_toEndOf="@+id/dailyCalendarCarbs"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <TextView
+                    android:id="@+id/dailyCalendarProtein"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="P:"
+                    android:textColor="@color/eggshell"
+                    android:textSize="24sp"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toStartOf="@+id/dailyCalendarProteinNumber"
+                    app:layout_constraintStart_toEndOf="@+id/dailyCalendarCarbsNumber"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <TextView
+                    android:id="@+id/dailyCalendarProteinNumber"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="14dp"
+                    android:text="0.0"
+                    android:textColor="@color/eggshell"
+                    android:textSize="24sp"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toStartOf="@+id/swapToNutritionAndBackNutrition"
+                    app:layout_constraintStart_toEndOf="@+id/dailyCalendarProtein"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <ImageButton
+                    android:id="@+id/swapToNutritionAndBackNutrition"
+                    android:layout_width="47dp"
+                    android:layout_height="37dp"
+                    android:layout_marginEnd="14dp"
+                    android:background="@null"
+                    android:scaleType="fitCenter"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toEndOf="@+id/dailyCalendarProteinNumber"
+                    app:layout_constraintHorizontal_bias="0.956"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintVertical_bias="0.533"
+                    app:srcCompat="@drawable/ic_swap"
+                    tools:ignore="DuplicateIds" />
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+        </androidx.cardview.widget.CardView>
+    </ViewFlipper>
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recyclerViewCalendarList"
         android:layout_width="match_parent"

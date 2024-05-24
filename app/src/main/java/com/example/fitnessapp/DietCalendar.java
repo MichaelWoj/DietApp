@@ -27,6 +27,7 @@ import android.widget.ToggleButton;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -39,11 +40,13 @@ import java.util.Calendar;
 public class DietCalendar extends AppCompatActivity implements RecyclerViewInterface{
 
     private ArrayList<String> calendarFoodID, calendarFoodName, calendarFoodTime, calendarFoodCaloriesNum, calendarFoodFatNum, calendarFoodCarbsNum, calendarFoodProteinNum, calendarFoodWeightNum;
+    private ArrayList<Double> calendarDailyNutritionCalories, calendarDailyNutritionFat, calendarDailyNutritionCarbs, calendarDailyNutritionProtein;
     private CalendarView calendarView;
     private DatabaseHelper dataBaseHelper;
     private Calendar calendar;
     private DatabaseHelper databaseHelper;
-    private ImageButton settings;
+    private ImageButton settings, swapCardsWeight, swapCardsNutrition;
+    private CardView weightCard, nutritionCard;
     private DietCalendarRecycleViewAdapter calendarAdapter;
     private int day, month, year;
     private String str_month, str_day, str_time, selectedDate;
@@ -52,7 +55,7 @@ public class DietCalendar extends AppCompatActivity implements RecyclerViewInter
     public static final String savedToggleButtonState = "toggleButton";
     private MainActivity mainActivity;
     private String dayOrMonthSpinner = "Day";
-    private TextView weightTV, weightKgOrLbsTV;
+    private TextView weightKgOrLbsTV;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -65,6 +68,8 @@ public class DietCalendar extends AppCompatActivity implements RecyclerViewInter
         calendarView = findViewById(R.id.calendarView);
 
         settings = findViewById(R.id.itemSettingsBtn);
+        swapCardsWeight = findViewById(R.id.swapToNutritionAndBackWeight);
+        swapCardsNutrition = findViewById(R.id.swapToNutritionAndBackNutrition);
 
         dataBaseHelper = new DatabaseHelper(DietCalendar.this);
 
@@ -79,6 +84,9 @@ public class DietCalendar extends AppCompatActivity implements RecyclerViewInter
 
         weightKgOrLbsTV = findViewById(R.id.calendarWeightKgOrLbs);
 
+        weightCard = findViewById(R.id.calendarWeightCard);
+        nutritionCard = findViewById(R.id.calendarNutritionCard);
+
         RecyclerView caledarRecyclerView = findViewById(R.id.recyclerViewCalendarList);
         calendarAdapter = new DietCalendarRecycleViewAdapter(this, calendarFoodName, calendarFoodTime, calendarFoodCaloriesNum, calendarFoodFatNum, calendarFoodCarbsNum, calendarFoodProteinNum, calendarFoodWeightNum, this);
         calendarAdapter.notifyDataSetChanged();
@@ -91,6 +99,7 @@ public class DietCalendar extends AppCompatActivity implements RecyclerViewInter
 
         saveTimeSharedPreferences();
         loadToggleButtonSharedPreferences();
+
 
         if(month < 10){
             str_month = "0" + month;
@@ -107,8 +116,21 @@ public class DietCalendar extends AppCompatActivity implements RecyclerViewInter
         selectedDate = year + "-" + str_month + "-" + str_day;
         displayData(selectedDate);
 
+        setNutritionOnDay(selectedDate);
+
         settings.setOnClickListener(view -> {
             showCalendarSettings(this);
+        });
+
+        swapCardsWeight.setOnClickListener(view -> {
+            weightCard.setVisibility(View.GONE);
+            nutritionCard.setVisibility(View.VISIBLE);
+
+        });
+        swapCardsNutrition.setOnClickListener(view -> {
+            weightCard.setVisibility(View.VISIBLE);
+            nutritionCard.setVisibility(View.GONE);
+
         });
 
         calendarView.setOnDateChangeListener(new CalendarView.OnDateChangeListener() {
@@ -160,6 +182,7 @@ public class DietCalendar extends AppCompatActivity implements RecyclerViewInter
         time = hourFromTime +":"+minutesFromTime;
         return time;
     }
+
     private void saveTimeSharedPreferences(){
         SharedPreferences sharedPreferences = getSharedPreferences("SHARED_PREFS_TIME", MODE_PRIVATE);
         SharedPreferences.Editor editor = sharedPreferences.edit();
@@ -167,6 +190,7 @@ public class DietCalendar extends AppCompatActivity implements RecyclerViewInter
 
         editor.apply();
     }
+
     private void saveDateSharedPreferences(String str_date){
         SharedPreferences sharedPreferences = getSharedPreferences("SHARED_PREFS_TIME", MODE_PRIVATE);
         SharedPreferences.Editor editor = sharedPreferences.edit();
@@ -174,6 +198,7 @@ public class DietCalendar extends AppCompatActivity implements RecyclerViewInter
 
         editor.apply();
     }
+
     private void savedToggleButtonSharedPreferences(String kgOrLbs){
         SharedPreferences sharedPreferences = getSharedPreferences("SHARED_PREFS_BUTTON_MODE", MODE_PRIVATE);
         SharedPreferences.Editor editor = sharedPreferences.edit();
@@ -269,6 +294,38 @@ public class DietCalendar extends AppCompatActivity implements RecyclerViewInter
             calendarWeightTV.setText("Not Entered");
         }else{
             calendarWeightTV.setText(selectedDateWeight);
+        }
+    }
+
+    private void setNutritionOnDay(String dateAdded) {
+        TextView dailyCalendarCalories = findViewById(R.id.dailyCalendarCaloriesNumber);
+        TextView dailyCalendarFat = findViewById(R.id.dailyCalendarFatNumber);
+        TextView dailyCalendarCarbs = findViewById(R.id.dailyCalendarCarbsNumber);
+        TextView dailyCalendarProtein = findViewById(R.id.dailyCalendarProteinNumber);
+
+        Cursor cursor = dataBaseHelper.findDailyNutrition(dateAdded);
+
+        if (cursor.getCount() == 0) {
+            Toast.makeText(DietCalendar.this, "No Entry Found", Toast.LENGTH_SHORT).show();
+        } else {
+            while (cursor.moveToNext()) {
+                calendarDailyNutritionCalories.add(cursor.getDouble(0));
+                calendarDailyNutritionFat.add(cursor.getDouble(1));
+                calendarDailyNutritionCarbs.add(cursor.getDouble(2));
+                calendarDailyNutritionProtein.add(cursor.getDouble(3));
+
+            }
+            double calendarDailyNutritionCaloriesDouble = calendarDailyNutritionCalories.stream().mapToDouble(Double::doubleValue).sum();
+            dailyCalendarCalories.setText(Double.toString((calendarDailyNutritionCaloriesDouble)));
+
+            double calendarDailyNutritionFatDouble = calendarDailyNutritionFat.stream().mapToDouble(Double::doubleValue).sum();
+            dailyCalendarFat.setText(Double.toString((calendarDailyNutritionFatDouble)));
+
+            double calendarDailyNutritionCarbsDouble = calendarDailyNutritionCarbs.stream().mapToDouble(Double::doubleValue).sum();
+            dailyCalendarCarbs.setText(Double.toString((calendarDailyNutritionCarbsDouble)));
+
+            double calendarDailyNutritionProteinDouble = calendarDailyNutritionProtein.stream().mapToDouble(Double::doubleValue).sum();
+            dailyCalendarProtein.setText(Double.toString((calendarDailyNutritionProteinDouble)));
         }
     }
 

@@ -296,4 +296,14 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         }
         return weightDaily;
     }
+
+    public Cursor findDailyNutrition(String date){
+        SQLiteDatabase db = this.getWritableDatabase();
+
+        queryString = "SELECT "+CALENDAR_COLUMN_FOOD_CALORIES+", "+CALENDAR_COLUMN_FOOD_FAT+", "+CALENDAR_COLUMN_FOOD_CARBS+", "+CALENDAR_COLUMN_FOOD_PROTEIN+" FROM " + CALENDAR_FOOD_TABLE + " WHERE " + CALENDAR_DATE_ADDED + " = ?";
+
+        Cursor cursor = db.rawQuery(queryString, new String[]{date});
+
+        return cursor;
+    }
 }
