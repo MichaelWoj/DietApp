@@ -297,13 +297,22 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         return weightDaily;
     }
 
-    public Cursor findDailyNutrition(String date){
+    public List<String> findDailyNutrition(String date){
         SQLiteDatabase db = this.getWritableDatabase();
 
-        queryString = "SELECT "+CALENDAR_COLUMN_FOOD_CALORIES+", "+CALENDAR_COLUMN_FOOD_FAT+", "+CALENDAR_COLUMN_FOOD_CARBS+", "+CALENDAR_COLUMN_FOOD_PROTEIN+" FROM " + CALENDAR_FOOD_TABLE + " WHERE " + CALENDAR_DATE_ADDED + " = ?";
+        //date = "2024-05-27";
+        queryString = "SELECT sum("+CALENDAR_COLUMN_FOOD_CALORIES+"), sum("+CALENDAR_COLUMN_FOOD_FAT+"), sum("+CALENDAR_COLUMN_FOOD_CARBS+"), sum("+CALENDAR_COLUMN_FOOD_PROTEIN+") FROM " + CALENDAR_FOOD_TABLE + " WHERE " + CALENDAR_DATE_ADDED + " = ?";
 
         Cursor cursor = db.rawQuery(queryString, new String[]{date});
+        List<String> dailyNutrition = new ArrayList<>();
 
-        return cursor;
+        while (cursor.moveToNext()) {
+            dailyNutrition.add(cursor.getString(0));
+            dailyNutrition.add(cursor.getString(1));
+            dailyNutrition.add(cursor.getString(2));
+            dailyNutrition.add(cursor.getString(3));
+        }
+
+        return dailyNutrition;
     }
 }

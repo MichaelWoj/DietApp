@@ -36,6 +36,7 @@ import java.time.Duration;
 import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.List;
 
 public class DietCalendar extends AppCompatActivity implements RecyclerViewInterface{
 
@@ -152,6 +153,8 @@ public class DietCalendar extends AppCompatActivity implements RecyclerViewInter
                 saveDateSharedPreferences(selectedDate);
                 updateRecyclerView(selectedDate);
                 setWeightOnDay();
+                setNutritionOnDay(selectedDate);
+
             }
         });
     }
@@ -303,29 +306,24 @@ public class DietCalendar extends AppCompatActivity implements RecyclerViewInter
         TextView dailyCalendarCarbs = findViewById(R.id.dailyCalendarCarbsNumber);
         TextView dailyCalendarProtein = findViewById(R.id.dailyCalendarProteinNumber);
 
-        Cursor cursor = dataBaseHelper.findDailyNutrition(dateAdded);
+        List<String> dailyNutrition= dataBaseHelper.findDailyNutrition(dateAdded);
 
-        if (cursor.getCount() == 0) {
-            Toast.makeText(DietCalendar.this, "No Entry Found", Toast.LENGTH_SHORT).show();
-        } else {
-            while (cursor.moveToNext()) {
-                calendarDailyNutritionCalories.add(cursor.getDouble(0));
-                calendarDailyNutritionFat.add(cursor.getDouble(1));
-                calendarDailyNutritionCarbs.add(cursor.getDouble(2));
-                calendarDailyNutritionProtein.add(cursor.getDouble(3));
+        if (dailyNutrition.get(0) != null) {
 
-            }
-            double calendarDailyNutritionCaloriesDouble = calendarDailyNutritionCalories.stream().mapToDouble(Double::doubleValue).sum();
-            dailyCalendarCalories.setText(Double.toString((calendarDailyNutritionCaloriesDouble)));
+            String calorieNum = dailyNutrition.get(0);
+            String fatNum = dailyNutrition.get(1);
+            String carbsNum = dailyNutrition.get(2);
+            String proteinNum = dailyNutrition.get(3);
 
-            double calendarDailyNutritionFatDouble = calendarDailyNutritionFat.stream().mapToDouble(Double::doubleValue).sum();
-            dailyCalendarFat.setText(Double.toString((calendarDailyNutritionFatDouble)));
-
-            double calendarDailyNutritionCarbsDouble = calendarDailyNutritionCarbs.stream().mapToDouble(Double::doubleValue).sum();
-            dailyCalendarCarbs.setText(Double.toString((calendarDailyNutritionCarbsDouble)));
-
-            double calendarDailyNutritionProteinDouble = calendarDailyNutritionProtein.stream().mapToDouble(Double::doubleValue).sum();
-            dailyCalendarProtein.setText(Double.toString((calendarDailyNutritionProteinDouble)));
+            dailyCalendarCalories.setText(calorieNum);
+            dailyCalendarFat.setText(fatNum);
+            dailyCalendarCarbs.setText(carbsNum);
+            dailyCalendarProtein.setText(proteinNum);
+        }else{
+            dailyCalendarCalories.setText("0.0");
+            dailyCalendarFat.setText("0.0");
+            dailyCalendarCarbs.setText("0.0");
+            dailyCalendarProtein.setText("0.0");
         }
     }
 
