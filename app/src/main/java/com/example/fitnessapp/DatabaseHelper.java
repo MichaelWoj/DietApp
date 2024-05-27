@@ -300,7 +300,6 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     public List<String> findDailyNutrition(String date){
         SQLiteDatabase db = this.getWritableDatabase();
 
-        //date = "2024-05-27";
         queryString = "SELECT sum("+CALENDAR_COLUMN_FOOD_CALORIES+"), sum("+CALENDAR_COLUMN_FOOD_FAT+"), sum("+CALENDAR_COLUMN_FOOD_CARBS+"), sum("+CALENDAR_COLUMN_FOOD_PROTEIN+") FROM " + CALENDAR_FOOD_TABLE + " WHERE " + CALENDAR_DATE_ADDED + " = ?";
 
         Cursor cursor = db.rawQuery(queryString, new String[]{date});

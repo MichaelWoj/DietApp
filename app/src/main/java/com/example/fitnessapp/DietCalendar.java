@@ -41,7 +41,6 @@ import java.util.List;
 public class DietCalendar extends AppCompatActivity implements RecyclerViewInterface{
 
     private ArrayList<String> calendarFoodID, calendarFoodName, calendarFoodTime, calendarFoodCaloriesNum, calendarFoodFatNum, calendarFoodCarbsNum, calendarFoodProteinNum, calendarFoodWeightNum;
-    private ArrayList<Double> calendarDailyNutritionCalories, calendarDailyNutritionFat, calendarDailyNutritionCarbs, calendarDailyNutritionProtein;
     private CalendarView calendarView;
     private DatabaseHelper dataBaseHelper;
     private Calendar calendar;
@@ -235,11 +234,12 @@ public class DietCalendar extends AppCompatActivity implements RecyclerViewInter
 
         Duration duration = Duration.between(pastTime, currentTime);
 
-
+        long days = duration.toDays();
         long hours = duration.toHours();
         long minutes = duration.toMinutes() % 60; // Remaining minutes after hours
 
-        if(hours < 1 & minutes<=5 ){
+
+        if(days == 0 & hours < 1 & minutes<=5 ){
             String[] current_date_array = previousSetDate.split("-+");
             year = Integer.parseInt(current_date_array[0]);
             month = Integer.parseInt(current_date_array[1]);
@@ -247,8 +247,7 @@ public class DietCalendar extends AppCompatActivity implements RecyclerViewInter
             setCurrentDate(day, month, year);
             selectedDate = previousSetDate;
             setWeightOnDay();
-        }
-        else{
+        }else{
             selectedDate = getCurrentDate();
 
             setCurrentDate(day, month, year);
