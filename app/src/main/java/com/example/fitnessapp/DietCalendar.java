@@ -88,19 +88,21 @@ public class DietCalendar extends AppCompatActivity implements RecyclerViewInter
         nutritionCard = findViewById(R.id.calendarNutritionCard);
 
         RecyclerView caledarRecyclerView = findViewById(R.id.recyclerViewCalendarList);
+        //Populate the Recycler View
         calendarAdapter = new DietCalendarRecycleViewAdapter(this, calendarFoodName, calendarFoodTime, calendarFoodCaloriesNum, calendarFoodFatNum, calendarFoodCarbsNum, calendarFoodProteinNum, calendarFoodWeightNum, this);
         calendarAdapter.notifyDataSetChanged();
         caledarRecyclerView.setAdapter(calendarAdapter);
         caledarRecyclerView.setLayoutManager(new LinearLayoutManager(this));
 
+        //Check when was the last time the user entered the calendar to see if the app should open on the current date or the date they last selected
         str_time = getCurrentTime();
-
         checkTimeDiff(str_time);
 
         saveTimeSharedPreferences();
         loadToggleButtonSharedPreferences();
 
-
+        //When the calendar is first loaded in, this gets the current date to be able to display the food, weight and nutrients for the day.
+        // The 0 is added in front of single digit months and days to keep the MM-DD format
         if(month < 10){
             str_month = "0" + month;
         }else{
@@ -115,8 +117,8 @@ public class DietCalendar extends AppCompatActivity implements RecyclerViewInter
 
         selectedDate = year + "-" + str_month + "-" + str_day;
         displayData(selectedDate);
-
-        setNutritionOnDay(selectedDate);
+        setWeightOnDay();
+        setNutritionOnDay();
 
         settings.setOnClickListener(view -> {
             showCalendarSettings(this);
@@ -150,9 +152,9 @@ public class DietCalendar extends AppCompatActivity implements RecyclerViewInter
 
                 selectedDate = year + "-" + str_month + "-" + str_day;
                 saveDateSharedPreferences(selectedDate);
-                updateRecyclerView(selectedDate);
+                updateRecyclerView();
                 setWeightOnDay();
-                setNutritionOnDay(selectedDate);
+                setNutritionOnDay();
 
             }
         });
@@ -161,6 +163,7 @@ public class DietCalendar extends AppCompatActivity implements RecyclerViewInter
     public String getCurrentDate(){
         String date = String.valueOf(java.time.LocalDate.now());
         String[] current_date_array = date.split("-+");
+        // Although individual year, month and day aren't returned, they're used all over the class so they're set when the date changes.
         year = Integer.parseInt(current_date_array[0]);
         month = Integer.parseInt(current_date_array[1]);
         day = Integer.parseInt(current_date_array[2]);
@@ -178,6 +181,7 @@ public class DietCalendar extends AppCompatActivity implements RecyclerViewInter
 
     public String getCurrentTime(){
         String time = String.valueOf(java.time.LocalTime.now());
+        //Removes milliseconds
         time = time.substring(0, time.indexOf("."));
         String hourFromTime = time.substring(0, time.indexOf(":"));
         String minutesFromTime = time.substring(time.indexOf(":") + 1, time.lastIndexOf(":"));
@@ -238,27 +242,25 @@ public class DietCalendar extends AppCompatActivity implements RecyclerViewInter
         long hours = duration.toHours();
         long minutes = duration.toMinutes() % 60; // Remaining minutes after hours
 
-
-        if(days == 0 & hours < 1 & minutes<=5 ){
+        //The calendar stays on the same date as the user selected for 5 minutes before going back to the current date when the calendar is reopened.
+        if(days == 0 & hours == 0 & minutes<=5 ){
             String[] current_date_array = previousSetDate.split("-+");
             year = Integer.parseInt(current_date_array[0]);
             month = Integer.parseInt(current_date_array[1]);
             day = Integer.parseInt(current_date_array[2]);
             setCurrentDate(day, month, year);
             selectedDate = previousSetDate;
-            setWeightOnDay();
         }else{
             selectedDate = getCurrentDate();
 
             setCurrentDate(day, month, year);
-            setWeightOnDay();
         }
     }
 
-    private void updateRecyclerView(String userSelectedDate){
+    private void updateRecyclerView(){
         clearRecycleView();
         calendarAdapter.notifyDataSetChanged();
-        displayData(userSelectedDate);
+        displayData(selectedDate);
     }
     private void clearRecycleView(){
         calendarFoodName.clear();
@@ -299,13 +301,13 @@ public class DietCalendar extends AppCompatActivity implements RecyclerViewInter
         }
     }
 
-    private void setNutritionOnDay(String dateAdded) {
+    private void setNutritionOnDay() {
         TextView dailyCalendarCalories = findViewById(R.id.dailyCalendarCaloriesNumber);
         TextView dailyCalendarFat = findViewById(R.id.dailyCalendarFatNumber);
         TextView dailyCalendarCarbs = findViewById(R.id.dailyCalendarCarbsNumber);
         TextView dailyCalendarProtein = findViewById(R.id.dailyCalendarProteinNumber);
 
-        List<String> dailyNutrition= dataBaseHelper.findDailyNutrition(dateAdded);
+        List<String> dailyNutrition= dataBaseHelper.findDailyNutrition(selectedDate);
 
         if (dailyNutrition.get(0) != null) {
 

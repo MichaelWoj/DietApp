@@ -1,7 +1,6 @@
 package com.example.fitnessapp;
 
 
-import android.annotation.SuppressLint;
 import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
@@ -10,7 +9,6 @@ import android.database.sqlite.SQLiteOpenHelper;
 
 import androidx.annotation.Nullable;
 
-import java.sql.ResultSet;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
@@ -96,11 +94,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
 
         long insert = db.insert(FOOD_TABLE, null, cv);
-        if (insert == -1)
-            return false;
-
-        else
-            return true;
+        return insert != -1;
 
     }
 
@@ -188,11 +182,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
 
         long insert = db.insert(CALENDAR_FOOD_TABLE, null, cv);
-        if (insert == -1)
-            return false;
-
-        else
-            return true;
+        return insert != -1;
     }
 
     public Cursor getFoodFromDate(String dateAdded) {
@@ -221,7 +211,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
                 // Retrieve the integer value from the cursor
                 id = cursor.getInt(columnIndex);
             }
-            cursor.close();
+
         }
 
         return id;
@@ -240,6 +230,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
             entryNumber.add(cursor.getString(4));
             entryNumber.add(cursor.getString(5));
         }
+
 
         return entryNumber;
     }
@@ -276,6 +267,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         cv.put(CALENDAR_WEIGHT_NUMBER, weight);
         cv.put(CALENDAR_WEIGHT_DATE_ENTERED, dateToAddOn);
 
+        //Only a single weight entry per day is allowed, so if one is already present then it gets replaced with the new value
         long insert = db.insert(CALENDAR_WEIGHT_TABLE, null, cv);
         if (insert == -1){
             db.replace(CALENDAR_WEIGHT_TABLE, null, cv);
@@ -294,6 +286,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         while (cursor.moveToNext()) {
             weightDaily = cursor.getString(0);
         }
+
         return weightDaily;
     }
 
@@ -311,6 +304,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
             dailyNutrition.add(cursor.getString(2));
             dailyNutrition.add(cursor.getString(3));
         }
+
 
         return dailyNutrition;
     }
