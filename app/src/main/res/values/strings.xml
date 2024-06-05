@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="app_name">FitnessApp</string>
+    <string name="app_name">Diet Tracking App</string>
     <string-array name="day_month">
         <item>Month/s</item>
         <item>Day/s</item>
