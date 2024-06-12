@@ -78,6 +78,34 @@ D2. Brings the user to a popup which allows the user to input the display weight
 
 D3. Switch which determines if the added food will just be added to the total count shown in 1. or added to the count and saved in the database for future use. If the switch is flipped then the user must provide a name for the food, otherwise the name option will be unavailable.
 
+## Calendar
+
+![E Calendar](https://github.com/MichaelWoj/DietTrackingApp/assets/43684434/0cdee6bd-8616-4a74-adda-be69cda1644d)
+
+E1. Calendar widget that works like any other.
+
+E2. User entered weight for that day. 
+
+E3. Turns on Calendar Settings
+
+E4. Changes the card from displaying the user set weight to the sum of each nutrient added on that day
+
+E5. Clicking an entry will show up popup asking if you want to delete the entry. If you chose yes, the entry will be deleted and if it is currently the same day as when the entry was added, the entry's nutrition will be subtracted from the daily total in the main screen. 
+
+![E Calendar Nutrition](https://github.com/MichaelWoj/DietTrackingApp/assets/43684434/87efc522-c270-4e46-bf37-0e8905706c69)
+
+![E Calendar Settings](https://github.com/MichaelWoj/DietTrackingApp/assets/43684434/b1cccefa-6612-4096-8c19-1248c88d180f)
+
+E6. Brings up a popup for the user to enter the weight for the day the calendar is currently on. Only one weight will be saved for day so if weight is entered more than once, the one entered later will override the previous one.
+
+E7. Brings up a popup which allows the user to enter a number and select if its that may days or hours, and delete all entires older than that date.
+
+![E Calendar Mass Delete](https://github.com/MichaelWoj/DietTrackingApp/assets/43684434/61aba659-6b8e-4f2c-b7ff-6d6e24c2f55d)
+
+E8. Changes the text beside user set weight to KG or LBS.
+
+E9. Drops down a window allowing users to select "Month/s" or "Day/s"
+
 # Known Issues
 
 Sometimes when the database is sorted using the sorts shown in 9. the name of the food doesn't move with the nutrient values. I am unsure what causes it and the bug is not easily replicable. A simple fix is just to go back to the main menu and re enter the Local Food Database.
