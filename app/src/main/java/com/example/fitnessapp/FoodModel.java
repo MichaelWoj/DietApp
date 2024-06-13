@@ -1,4 +1,5 @@
 package com.example.fitnessapp;
+import java.time.LocalDateTime;
 
 public class FoodModel {
     private int id;
@@ -92,5 +93,4 @@ public class FoodModel {
     public void setSaveType(int saveType){
         this.saveType = saveType;
     }
-
 }

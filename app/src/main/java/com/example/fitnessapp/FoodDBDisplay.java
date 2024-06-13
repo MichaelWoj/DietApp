@@ -30,15 +30,13 @@ import java.util.ArrayList;
 
 public class FoodDBDisplay extends AppCompatActivity implements RecyclerViewInterface {
 
-    private ArrayList<String> foodID, foodNameDB, foodCaloriesNum, foodFatNum, foodCarbsNum, foodProteinNum, foodDisplayWeightNum, foodSaveType;
+    private ArrayList<String> foodID, foodNameDB, foodCaloriesNum, foodFatNum, foodCarbsNum, foodProteinNum, foodDisplayWeightNum, foodSaveType, filteredListCopy;
     private DatabaseHelper dataBaseHelper;
     private SearchView searchView;
-
     private int sortType;
     public static final String savedSearchType = "search_type";
     public FoodDBRecycleViewAdapter adapter;
 
-    @SuppressLint("WrongViewCast")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -72,9 +70,10 @@ public class FoodDBDisplay extends AppCompatActivity implements RecyclerViewInte
         foodProteinNum = new ArrayList<>();
         foodDisplayWeightNum = new ArrayList<>();
         foodSaveType = new ArrayList<>();
+        filteredListCopy = new ArrayList<>();
 
         RecyclerView recyclerView = findViewById(R.id.recyclerViewFoodList);
-        adapter = new FoodDBRecycleViewAdapter(this,foodNameDB, foodCaloriesNum, foodFatNum, foodCarbsNum, foodProteinNum, this);
+        adapter = new FoodDBRecycleViewAdapter(this, foodNameDB, foodCaloriesNum, foodFatNum, foodCarbsNum, foodProteinNum, this);
         adapter.notifyDataSetChanged();
         recyclerView.setAdapter(adapter);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
@@ -94,8 +93,12 @@ public class FoodDBDisplay extends AppCompatActivity implements RecyclerViewInte
     }
 
     @Override
-    public void onItemClick(int position) {
+        public void onItemClick(int position) {
         Intent intent = null;
+
+        String filteredFoodName = filteredListCopy.get(position);
+        position = foodNameDB.indexOf(filteredFoodName);
+
         if(foodSaveType.get(position).equals("0")){
             intent = new Intent(FoodDBDisplay.this, FoodDBItemPage.class);
         } else if (foodSaveType.get(position).equals("1")) {
@@ -120,6 +123,9 @@ public class FoodDBDisplay extends AppCompatActivity implements RecyclerViewInte
             }
         }
         adapter.filteredList(filteredList);
+        // A copy of the filtered list that can be used in the class to find the position of the item in unfiltered lists
+        filteredListCopy.clear();
+        filteredListCopy = filteredList;
     }
 
     private void displayData(int sortType) {

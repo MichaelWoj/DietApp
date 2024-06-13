@@ -14,6 +14,8 @@ import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import java.time.LocalDateTime;
+
 
 import androidx.activity.result.ActivityResult;
 import androidx.activity.result.ActivityResultCallback;
@@ -28,6 +30,7 @@ public class FoodDBItemPage extends AppCompatActivity implements ActivityFinishL
     private int entryID;
     private float foodCaloriesVal, foodFatVal, foodCarbsVal, foodProteinVal;
     private String entryIDString;
+    private DietCalendar dietCalendar;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -35,6 +38,7 @@ public class FoodDBItemPage extends AppCompatActivity implements ActivityFinishL
         setContentView(R.layout.activity_food_db_item_page_layout);
 
         databaseHelper = new DatabaseHelper(getApplicationContext());
+        dietCalendar = new DietCalendar();
 
         nameDB = findViewById(R.id.itemMealName);
         caloriesDB = findViewById(R.id.itemMealCalories);
@@ -59,7 +63,6 @@ public class FoodDBItemPage extends AppCompatActivity implements ActivityFinishL
         submit.setOnClickListener(v -> {
         Intent intentAddToOverallTotal = new Intent(FoodDBItemPage.this, MainActivity.class);
 
-        //The line currently does nothing but is here for an upcoming feature
         String foodNameToString = nameDB.getText().toString();
 
         String foodCaloriesToString = caloriesDB.getText().toString();
@@ -77,6 +80,20 @@ public class FoodDBItemPage extends AppCompatActivity implements ActivityFinishL
         String foodProteinToString = proteinDB.getText().toString();
         foodProteinVal = Float.parseFloat(foodProteinToString);
         intentAddToOverallTotal.putExtra("foodProtein", foodProteinVal);
+
+            CalendarFoodModel calendarFoodModel;
+
+            String date = dietCalendar.getCurrentDate();
+            String time = dietCalendar.getCurrentTime();
+
+            try {
+                calendarFoodModel = new CalendarFoodModel(-1, foodNameToString, foodCaloriesVal, foodFatVal, foodCarbsVal, foodProteinVal, 0f, date, time);
+            } catch (Exception e) {
+                calendarFoodModel = new CalendarFoodModel(-1, "Error", 0f, 0f, 0f, 0f, 0f,"Error", "Error");
+            }
+
+            DatabaseHelper dataBaseHelper = new DatabaseHelper(FoodDBItemPage.this);
+            dataBaseHelper.calendarAddOne(calendarFoodModel);
 
         setResult(RESULT_OK, intentAddToOverallTotal);
         finish();

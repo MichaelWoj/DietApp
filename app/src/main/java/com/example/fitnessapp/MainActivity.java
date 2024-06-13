@@ -22,11 +22,14 @@ import android.widget.TextView;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.List;
 
-public class MainActivity extends AppCompatActivity{
+            public class MainActivity extends AppCompatActivity{
     private TextView setCalories, setFat, setCarbs, setProtein ;
     private EditText userTargetCalories, userTargetFat, userTargetCarbs, userTargetProtein;
-    private ArrayList<Float> addedFoodCaloriesList, addedFoodFatList, addedFoodCarbsList, addedFoodProteinList;
+    public ArrayList<Integer> addedFoodIDs;
+
+    DatabaseHelper databaseHelper;
 
     ImageButton lockBtn;
 
@@ -42,7 +45,6 @@ public class MainActivity extends AppCompatActivity{
     private float userTargetFatVal = 0f;
     private float userTargetCarbsVal = 0f;
     private float userTargetProteinVal = 0f;
-
     private float userTargetNutrientVal = 0f;
 
     public static final String savedValCalories = "calories";
@@ -55,10 +57,7 @@ public class MainActivity extends AppCompatActivity{
     public static final String savedUserTargetCarbs = "target_carbs";
     public static final String savedUserTargetProtein = "target_protein";
 
-    public static final String undoCaloriesList = "undo_calorie_list";
-    public static final String undoFatList = "undo_fat_list";
-    public static final String undoCarbList = "undo_carbs_list";
-    public static final String undoProteinList = "undo_protein_list";
+    public static final String undoFoodIDList = "undo_food_id_list";
 
     private float foodCaloriesVal, foodFatVal, foodCarbsVal, foodProteinVal;
 
@@ -73,22 +72,20 @@ public class MainActivity extends AppCompatActivity{
                     caloriesVal = caloriesVal + foodCaloriesVal;
                     // Its first multiplied by 100, rounded and then divided by 100 because its its just rounded it'll get rid of the decimal places
                     caloriesVal = (float) (Math.round(caloriesVal * 100.0) / 100.0);
-                    addedFoodCaloriesList.add(foodCaloriesVal);
 
                     foodFatVal = intent.getFloatExtra("foodFat", 0f);
                     fatVal = fatVal + foodFatVal;
                     fatVal = (float) (Math.round(fatVal * 100.0) / 100.0);
-                    addedFoodFatList.add(foodFatVal);
 
                     foodCarbsVal = intent.getFloatExtra("foodCarbs", 0f);
                     carbsVal = carbsVal + foodCarbsVal;
                     carbsVal = (float) (Math.round(carbsVal * 100.0) / 100.0);
-                    addedFoodCarbsList.add(foodCarbsVal);
 
                     foodProteinVal = intent.getFloatExtra("foodProtein", 0f);
                     proteinVal = proteinVal + foodProteinVal;
                     proteinVal = (float) (Math.round(proteinVal * 100.0) / 100.0);
-                    addedFoodProteinList.add(foodProteinVal);
+
+                    addedFoodIDs.add(databaseHelper.getNewestEntry());
 
                     setValues();
                     saveSharedPreferences();
@@ -101,11 +98,9 @@ public class MainActivity extends AppCompatActivity{
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        databaseHelper = new DatabaseHelper(MainActivity.this);
 
-        addedFoodCaloriesList = new ArrayList<>();
-        addedFoodFatList = new ArrayList<>();
-        addedFoodCarbsList = new ArrayList<>();
-        addedFoodProteinList = new ArrayList<>();
+        addedFoodIDs = new ArrayList<>();
 
         loadData();
 
@@ -173,41 +168,51 @@ public class MainActivity extends AppCompatActivity{
             startForResult.launch(intent);
         });
 
+        Button calendarBtn = findViewById(R.id.calendarButton);
+        calendarBtn.setOnClickListener(view -> {
+            Intent intent = new Intent(MainActivity.this, DietCalendar.class);
+            intent.putExtra("id",addedFoodIDs);
+            startForReload.launch(intent);
+        });
+
         Button undoFoodBtn = findViewById(R.id.undoFood);
         undoFoodBtn.setOnClickListener(v -> {
             if (caloriesVal != 0 ){
                 // The values were put into variables to help with code readability
-                float calorieNum = addedFoodCaloriesList.get(addedFoodCaloriesList.size() -1);
-                float fatNum = addedFoodFatList.get(addedFoodFatList.size() -1);
-                float carbsNum = addedFoodCarbsList.get(addedFoodCarbsList.size() -1);
-                float proteinNum = addedFoodProteinList.get(addedFoodProteinList.size() -1);
 
-                int listIndex = addedFoodCaloriesList.size() -1;
+                int foodIDArraySize = addedFoodIDs.size()-1;
+                int foodID = addedFoodIDs.get(foodIDArraySize);
+                List<String> entryNumber = databaseHelper.findEntry(foodID);
+
+                float calorieNum = Float.parseFloat(entryNumber.get(0));
+                float fatNum = Float.parseFloat(entryNumber.get(1));
+                float carbsNum = Float.parseFloat(entryNumber.get(2));
+                float proteinNum = Float.parseFloat(entryNumber.get(3));
+
 
                 foodCaloriesVal = calorieNum;
                 caloriesVal = caloriesVal - foodCaloriesVal;
                 caloriesVal = (float) (Math.round(caloriesVal * 100) / 100);
-                addedFoodCaloriesList.remove(listIndex);
 
                 foodFatVal = fatNum;
                 fatVal = fatVal - foodFatVal;
                 fatVal = (float) (Math.round(fatVal * 100) / 100);
-                addedFoodFatList.remove(listIndex);
 
                 foodCarbsVal = carbsNum;
                 carbsVal = carbsVal - foodCarbsVal;
                 carbsVal = (float) (Math.round(carbsVal * 100) / 100);
-                addedFoodCarbsList.remove(listIndex);
 
                 foodProteinVal = proteinNum;
                 proteinVal = proteinVal - foodProteinVal;
                 proteinVal = (float) (Math.round(proteinVal * 100) / 100);
-                addedFoodProteinList.remove(listIndex);
+
+                addedFoodIDs.remove(foodIDArraySize);
+                databaseHelper.deleteCalendarEntry(foodID);
 
                 setValues();
                 saveSharedUndoPreferences();
 
-            };
+            }
         });
 
 
@@ -218,10 +223,7 @@ public class MainActivity extends AppCompatActivity{
              carbsVal = 0;
              proteinVal = 0;
 
-             addedFoodCaloriesList.clear();
-             addedFoodFatList.clear();
-             addedFoodCarbsList.clear();
-             addedFoodProteinList.clear();
+             addedFoodIDs.clear();
 
              setValues();
              saveSharedPreferences();
@@ -246,15 +248,9 @@ public class MainActivity extends AppCompatActivity{
             SharedPreferences.Editor editor = sharedPreferences.edit();
 
             Gson gson = new Gson();
-            String caloriesJson = gson.toJson(addedFoodCaloriesList);
-            String fatJson = gson.toJson(addedFoodFatList);
-            String carbsJson = gson.toJson(addedFoodCarbsList);
-            String proteinJson = gson.toJson(addedFoodProteinList);
+            String foodIDs = gson.toJson(addedFoodIDs);
 
-            editor.putString(undoCaloriesList, caloriesJson);
-            editor.putString(undoFatList, fatJson);
-            editor.putString(undoCarbList, carbsJson);
-            editor.putString(undoProteinList, proteinJson);
+            editor.putString(undoFoodIDList, foodIDs);
 
             editor.apply();
         }
@@ -284,18 +280,13 @@ public class MainActivity extends AppCompatActivity{
             userTargetCarbsVal = sharedPreferences.getFloat(savedUserTargetCarbs, 0f);
             userTargetProteinVal = sharedPreferences.getFloat(savedUserTargetProtein, 0f);
 
-            String caloriesJson = sharedPreferences.getString(undoCaloriesList, null);
-            String fatJson = sharedPreferences.getString(undoFatList, null);
-            String carbsJson = sharedPreferences.getString(undoCarbList, null);
-            String proteinJson = sharedPreferences.getString(undoProteinList, null);
+            String caloriesJson = sharedPreferences.getString(undoFoodIDList, null);
 
-            undoJsonStringToFloatList(caloriesJson, addedFoodCaloriesList);
-            undoJsonStringToFloatList(fatJson, addedFoodFatList);
-            undoJsonStringToFloatList(carbsJson, addedFoodCarbsList);
-            undoJsonStringToFloatList(proteinJson, addedFoodProteinList);
+            undoJsonStringToIntList(caloriesJson, addedFoodIDs);
+
         }
 
-        private void undoJsonStringToFloatList(String loadedJsonString, ArrayList<Float> targetFloatList){
+        private void undoJsonStringToIntList(String loadedJsonString, ArrayList<Integer> targetFloatList){
             if(loadedJsonString == null){
                 loadedJsonString = "";
             }
@@ -308,7 +299,7 @@ public class MainActivity extends AppCompatActivity{
                 ArrayList<String> inputStringList = new ArrayList(Arrays.asList(loadedJsonString.split(",")));
 
                 for (int i = 0; i < inputStringList.size(); ++i) {
-                    float number = Float.parseFloat(inputStringList.get(i));
+                    int number = Integer.parseInt(inputStringList.get(i));
                     targetFloatList.add(number);
                     }
             }
@@ -326,7 +317,6 @@ public class MainActivity extends AppCompatActivity{
             userTargetProtein.setText(String.valueOf(userTargetProteinVal));
         }
 
-        @SuppressLint("NewApi")
         public void setTargetNutrients(EditText userTargetNutrient){
             userTargetNutrient.setBackgroundTintList(ContextCompat.getColorStateList(getApplicationContext(), R.color.transparent));
             String userTargetNutrientToString = userTargetNutrient.getText().toString();
@@ -351,5 +341,60 @@ public class MainActivity extends AppCompatActivity{
             userTargetFat.setEnabled(true);
             userTargetCarbs.setEnabled(true);
             userTargetProtein.setEnabled(true);
+        }
+
+        ActivityResultLauncher<Intent> startForReload = registerForActivityResult(new ActivityResultContracts.StartActivityForResult(), new ActivityResultCallback<ActivityResult>() {
+            @Override
+            public void onActivityResult(ActivityResult result) {
+                if(result.getResultCode() == RESULT_OK){
+                    Intent gettingIntentData = result.getData();
+                    int idForRemoval = gettingIntentData.getIntExtra("idForRemoval", 0);
+                    undoFoodIfInList(idForRemoval);
+
+                    Intent sendingIntentData = new Intent(MainActivity.this, DietCalendar.class);
+                    sendingIntentData.putExtra("id",addedFoodIDs);
+                    startForReload.launch(sendingIntentData);
+                }
+            }
+        });
+
+
+
+    public void undoFoodIfInList(int id){
+            if(addedFoodIDs.contains(id)){
+
+                List<String> entryNumber = databaseHelper.findEntry(id);
+
+                float calorieNum = Float.parseFloat(entryNumber.get(0));
+                float fatNum = Float.parseFloat(entryNumber.get(1));
+                float carbsNum = Float.parseFloat(entryNumber.get(2));
+                float proteinNum = Float.parseFloat(entryNumber.get(3));
+
+                foodCaloriesVal = calorieNum;
+                caloriesVal = caloriesVal - foodCaloriesVal;
+                caloriesVal = (float) (Math.round(caloriesVal * 100) / 100);
+
+                foodFatVal = fatNum;
+                fatVal = fatVal - foodFatVal;
+                fatVal = (float) (Math.round(fatVal * 100) / 100);
+
+                foodCarbsVal = carbsNum;
+                carbsVal = carbsVal - foodCarbsVal;
+                carbsVal = (float) (Math.round(carbsVal * 100) / 100);
+
+                foodProteinVal = proteinNum;
+                proteinVal = proteinVal - foodProteinVal;
+                proteinVal = (float) (Math.round(proteinVal * 100) / 100);
+
+                int indexOfId = addedFoodIDs.indexOf(id);
+                addedFoodIDs.remove(indexOfId);
+                databaseHelper.deleteCalendarEntry(id);
+
+                setValues();
+                saveSharedPreferences();
+            }
+            else{
+                databaseHelper.deleteCalendarEntry(id);
+            }
         }
     }

@@ -1,0 +1,155 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:paddingTop="40px">
+
+    <androidx.cardview.widget.CardView
+        android:id="@+id/cardViewLayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:cardBackgroundColor="@color/green"
+        app:cardCornerRadius="20dp"
+        app:cardElevation="8dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="102dp">
+
+            <TextView
+                android:id="@+id/recyclerViewFoodName"
+                android:layout_width="391dp"
+                android:layout_height="35dp"
+                android:text="Food Name"
+                android:textColor="@color/eggshell"
+                android:textSize="28sp"
+                android:textStyle="bold"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.551"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintVertical_bias="0.225" />
+
+            <TextView
+                android:id="@+id/recyclerViewCalories"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Calories"
+                android:textColor="@color/eggshell"
+                android:textStyle="bold"
+                app:layout_constraintBottom_toTopOf="@+id/recyclerViewCaloriesNum"
+                app:layout_constraintEnd_toStartOf="@+id/recyclerViewFat"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/recyclerViewFoodName" />
+
+            <TextView
+                android:id="@+id/recyclerViewFat"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Fat"
+                android:textColor="@color/eggshell"
+                android:textStyle="bold"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toStartOf="@+id/recyclerViewCarbs"
+                app:layout_constraintStart_toEndOf="@+id/recyclerViewCalories"
+                app:layout_constraintTop_toBottomOf="@+id/recyclerViewFoodName"
+                app:layout_constraintVertical_bias="0.138" />
+
+            <TextView
+                android:id="@+id/recyclerViewCarbs"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Carbs"
+                android:textColor="@color/eggshell"
+                android:textStyle="bold"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toStartOf="@+id/recyclerViewProtein"
+                app:layout_constraintStart_toEndOf="@+id/recyclerViewFat"
+                app:layout_constraintTop_toBottomOf="@+id/recyclerViewFoodName"
+                app:layout_constraintVertical_bias="0.138" />
+
+            <TextView
+                android:id="@+id/recyclerViewProtein"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Protein"
+                android:textColor="@color/eggshell"
+                android:textStyle="bold"
+                app:layout_constraintBottom_toTopOf="@+id/recyclerViewProteinNum"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@+id/recyclerViewCarbs"
+                app:layout_constraintTop_toBottomOf="@+id/recyclerViewFoodName"
+                app:layout_constraintVertical_bias="0.454" />
+
+            <TextView
+                android:id="@+id/recyclerViewCaloriesNum"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="0"
+                android:textColor="@color/eggshell"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toStartOf="@+id/recyclerViewFatNum"
+                app:layout_constraintHorizontal_bias="0.313"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/recyclerViewCalories" />
+
+            <TextView
+                android:id="@+id/recyclerViewFatNum"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="0"
+                android:textColor="@color/eggshell"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toStartOf="@+id/recyclerViewCarbsNum"
+                app:layout_constraintStart_toEndOf="@+id/recyclerViewCaloriesNum"
+                app:layout_constraintTop_toBottomOf="@+id/recyclerViewFat" />
+
+            <TextView
+                android:id="@+id/recyclerViewCarbsNum"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="0"
+                android:textColor="@color/eggshell"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toStartOf="@+id/recyclerViewProteinNum"
+                app:layout_constraintStart_toEndOf="@+id/recyclerViewFatNum"
+                app:layout_constraintTop_toBottomOf="@+id/recyclerViewCarbs" />
+
+            <TextView
+                android:id="@+id/recyclerViewProteinNum"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="0"
+                android:textColor="@color/eggshell"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@+id/recyclerViewCarbsNum"
+                app:layout_constraintTop_toBottomOf="@+id/recyclerViewProtein" />
+
+            <TextView
+                android:id="@+id/recyclerViewId"
+                android:layout_width="1dp"
+                android:layout_height="1dp"
+                android:layout_marginStart="124dp"
+                android:layout_marginLeft="124dp"
+                android:layout_marginTop="62dp"
+                android:layout_marginEnd="286dp"
+                android:layout_marginRight="286dp"
+                android:layout_marginBottom="39dp"
+                android:text="TextView"
+                android:textColor="@color/green"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </androidx.cardview.widget.CardView>
+</androidx.constraintlayout.widget.ConstraintLayout>

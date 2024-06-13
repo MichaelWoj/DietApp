@@ -9,7 +9,7 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="#337357"
+        android:background="@color/green"
         tools:layout_editor_absoluteX="0dp"
         tools:layout_editor_absoluteY="0dp">
 
@@ -18,7 +18,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Choose Sort Type"
-            android:textColor="#E4E3D3"
+            android:textColor="@color/eggshell"
             android:textSize="24sp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
@@ -58,7 +58,7 @@
                 android:layout_height="30dp"
                 android:layout_marginLeft="30dp"
                 android:text="Date"
-                android:textColor="#E4E3D3"
+                android:textColor="@color/eggshell"
                 android:textSize="24sp"
                 tools:layout_editor_absoluteX="79dp"
                 tools:layout_editor_absoluteY="88dp" />
@@ -97,7 +97,7 @@
                 android:layout_height="30dp"
                 android:layout_marginLeft="30dp"
                 android:text="Alphabetic"
-                android:textColor="#E4E3D3"
+                android:textColor="@color/eggshell"
                 android:textSize="24sp"
                 tools:layout_editor_absoluteX="79dp"
                 tools:layout_editor_absoluteY="144dp" />
@@ -135,7 +135,7 @@
                 android:layout_height="30dp"
                 android:layout_marginLeft="30dp"
                 android:text="Calories"
-                android:textColor="#E4E3D3"
+                android:textColor="@color/eggshell"
                 android:textSize="24sp" />
         </LinearLayout>
 
@@ -170,7 +170,7 @@
                 android:layout_height="30dp"
                 android:layout_marginLeft="30dp"
                 android:text="Fat"
-                android:textColor="#E4E3D3"
+                android:textColor="@color/eggshell"
                 android:textSize="24sp" />
         </LinearLayout>
 
@@ -205,7 +205,7 @@
                 android:layout_height="30dp"
                 android:layout_marginLeft="30dp"
                 android:text="Carbs"
-                android:textColor="#E4E3D3"
+                android:textColor="@color/eggshell"
                 android:textSize="24sp" />
         </LinearLayout>
 
@@ -240,7 +240,7 @@
                 android:layout_height="30dp"
                 android:layout_marginLeft="30dp"
                 android:text="Protein"
-                android:textColor="#E4E3D3"
+                android:textColor="@color/eggshell"
                 android:textSize="24sp" />
         </LinearLayout>
 

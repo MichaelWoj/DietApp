@@ -217,12 +217,10 @@
 
         <TextView
             android:id="@+id/itemMealName"
-            android:layout_width="240dp"
+            android:layout_width="250dp"
             android:layout_height="51dp"
             android:layout_marginStart="20dp"
-            android:layout_marginLeft="20dp"
             android:layout_marginEnd="24dp"
-            android:layout_marginRight="24dp"
             android:ems="10"
             android:gravity="end"
             android:textColor="@color/black"
@@ -257,8 +255,8 @@
                 android:layout_marginStart="12dp"
                 android:layout_marginLeft="12dp"
                 android:text="Add Food"
-                android:textColor="#E4E3D3"
-                app:backgroundTint="#337357" />
+                android:textColor="@color/eggshell"
+                app:backgroundTint="@color/green" />
 
             <Button
                 android:id="@+id/itemCancel"
@@ -267,8 +265,8 @@
                 android:layout_marginStart="16dp"
                 android:layout_marginLeft="16dp"
                 android:text="Cancel"
-                android:textColor="#E4E3D3"
-                app:backgroundTint="#337357" />
+                android:textColor="@color/eggshell"
+                app:backgroundTint="@color/green" />
         </LinearLayout>
 
         <ImageButton

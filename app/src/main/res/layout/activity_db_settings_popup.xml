@@ -5,14 +5,14 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#337357">
+    android:background="@color/green">
 
     <TextView
         android:id="@+id/settingPopupDescriptionTV"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Choose"
-        android:textColor="#E4E3D3"
+        android:textColor="@color/eggshell"
         android:textSize="24sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
@@ -35,7 +35,7 @@
         app:layout_constraintVertical_bias="0.061">
 
         <ImageView
-            android:id="@+id/sortAscImage"
+            android:id="@+id/editEntryImg"
             android:layout_width="30dp"
             android:layout_height="30dp"
             app:layout_constraintBottom_toBottomOf="parent"
@@ -48,12 +48,12 @@
             tools:ignore="VectorDrawableCompat" />
 
         <TextView
-            android:id="@+id/sortAscText"
+            android:id="@+id/editEntryTV"
             android:layout_width="111dp"
             android:layout_height="30dp"
             android:layout_marginLeft="30dp"
             android:text="Edit"
-            android:textColor="#E4E3D3"
+            android:textColor="@color/eggshell"
             android:textSize="24sp"
             tools:layout_editor_absoluteX="79dp"
             tools:layout_editor_absoluteY="88dp" />
@@ -74,7 +74,7 @@
         app:layout_constraintVertical_bias="0.0">
 
         <ImageView
-            android:id="@+id/sortDescImage"
+            android:id="@+id/deleteEntryImg"
             android:layout_width="30dp"
             android:layout_height="30dp"
             app:layout_constraintBottom_toBottomOf="parent"
@@ -88,12 +88,12 @@
 
 
         <TextView
-            android:id="@+id/sortDescText"
+            android:id="@+id/deleteEntryTV"
             android:layout_width="111dp"
             android:layout_height="30dp"
             android:layout_marginLeft="30dp"
             android:text="Delete"
-            android:textColor="#E4E3D3"
+            android:textColor="@color/eggshell"
             android:textSize="24sp"
             tools:layout_editor_absoluteX="79dp"
             tools:layout_editor_absoluteY="144dp" />

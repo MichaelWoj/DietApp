@@ -29,7 +29,7 @@ public class FoodDBVariableWeightItemPage extends AppCompatActivity implements A
     private String entryIDString, itemSetDisplayWeight;
     private FoodDBAddItemVariableWeight foodDBAddItemVariableWeight;
     private FoodDBItemPage foodDBItemPage;
-    private DatabaseHelper databaseHelper;
+    private DietCalendar dietCalendar;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -37,7 +37,7 @@ public class FoodDBVariableWeightItemPage extends AppCompatActivity implements A
 
         foodDBAddItemVariableWeight = new FoodDBAddItemVariableWeight();
         foodDBItemPage = new FoodDBItemPage();
-        databaseHelper = new DatabaseHelper(getApplicationContext());
+        dietCalendar = new DietCalendar();
 
         nameDB = findViewById(R.id.variableWeightItemMealName);
         caloriesDB = findViewById(R.id.variableWeightItemMealCalories);
@@ -68,7 +68,6 @@ public class FoodDBVariableWeightItemPage extends AppCompatActivity implements A
             } else {
                 Intent intentAddToOverallTotal = new Intent(FoodDBVariableWeightItemPage.this, MainActivity.class);
 
-                //The line currently does nothing but is here for an upcoming feature
                 String foodNameToString = nameDB.getText().toString();
 
                 foodDisplayWeight = Integer.parseInt(itemSetDisplayWeight);
@@ -91,12 +90,26 @@ public class FoodDBVariableWeightItemPage extends AppCompatActivity implements A
                 foodCaloriesVal = variableResultArray[0];
                 foodFatVal = variableResultArray[1];
                 foodCarbsVal = variableResultArray[2];
-                foodTargetWeightVal = variableResultArray[3];
+                foodProteinVal = variableResultArray[3];
 
                 intentAddToOverallTotal.putExtra("foodCalories", foodCaloriesVal);
                 intentAddToOverallTotal.putExtra("foodFat", foodFatVal);
                 intentAddToOverallTotal.putExtra("foodCarbs", foodCarbsVal);
                 intentAddToOverallTotal.putExtra("foodProtein", foodProteinVal);
+
+                CalendarFoodModel calendarFoodModel;
+
+                String date = dietCalendar.getCurrentDate();
+                String time = dietCalendar.getCurrentTime();
+
+                try {
+                    calendarFoodModel = new CalendarFoodModel(-1, foodNameToString, foodCaloriesVal, foodFatVal, foodCarbsVal, foodProteinVal, foodTargetWeightVal, date, time);
+                } catch (Exception e) {
+                    calendarFoodModel = new CalendarFoodModel(-1, "Error", 0f, 0f, 0f, 0f, 0f,"Error", "Error");
+                }
+
+                DatabaseHelper dataBaseHelper = new DatabaseHelper(FoodDBVariableWeightItemPage.this);
+                dataBaseHelper.calendarAddOne(calendarFoodModel);
 
                 setResult(RESULT_OK, intentAddToOverallTotal);
                 finish();

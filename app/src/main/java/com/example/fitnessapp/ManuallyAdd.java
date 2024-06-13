@@ -18,6 +18,7 @@ public class ManuallyAdd extends AppCompatActivity {
 
     private EditText foodName, foodCalories, foodFat, foodCarbs, foodProtein;
     private TextView tvMealName;
+    private DietCalendar dietCalendar;
     private Switch db_switch;
 
     @SuppressLint("NewApi")
@@ -25,6 +26,8 @@ public class ManuallyAdd extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_manually_add);
+
+        dietCalendar = new DietCalendar();
 
         tvMealName = findViewById(R.id.manualMealNameTV);
         foodName = findViewById(R.id.manualMealName);
@@ -35,29 +38,9 @@ public class ManuallyAdd extends AppCompatActivity {
         db_switch = findViewById(R.id.saveToDBSwitch);
         Button submit = findViewById(R.id.manualAddFood);
 
-        tvMealName.setTextColor(ContextCompat.getColor(this, R.color.gray));
-        foodName.setBackgroundTintList(ContextCompat.getColorStateList(getApplicationContext(), R.color.gray));
-
-        KeyListener keyListener = foodName.getKeyListener();
-        foodName.setKeyListener(null);
-        db_switch.setOnClickListener(v -> {
-            if (db_switch.isChecked()){
-                foodName.setKeyListener(keyListener);
-                foodName.setBackgroundTintList(ContextCompat.getColorStateList(getApplicationContext(), R.color.black));
-                tvMealName.setTextColor(ContextCompat.getColor(ManuallyAdd.this, R.color.black));
-            }
-            else{
-                foodName.setKeyListener(null);
-                tvMealName.setTextColor(ContextCompat.getColor(ManuallyAdd.this, R.color.gray));
-                foodName.setBackgroundTintList(ContextCompat.getColorStateList(getApplicationContext(), R.color.gray));
-            }
-        });
-
         submit.setOnClickListener(view -> {
 
-            if (foodCalories.getText().toString().isEmpty() || foodFat.getText().toString().isEmpty() || foodCarbs.getText().toString().isEmpty() || foodProtein.getText().toString().isEmpty()) {
-                Toast.makeText(ManuallyAdd.this, "Please insert all info", Toast.LENGTH_SHORT).show();
-            }else if (db_switch.isChecked() && foodName.getText().toString().isEmpty()){
+            if ( foodName.getText().toString().isEmpty()||foodCalories.getText().toString().isEmpty() || foodFat.getText().toString().isEmpty() || foodCarbs.getText().toString().isEmpty() || foodProtein.getText().toString().isEmpty()) {
                 Toast.makeText(ManuallyAdd.this, "Please insert all info", Toast.LENGTH_SHORT).show();
             }else{
 
@@ -96,6 +79,20 @@ public class ManuallyAdd extends AppCompatActivity {
                     DatabaseHelper dataBaseHelper = new DatabaseHelper(ManuallyAdd.this);
                     boolean success = dataBaseHelper.addOne(foodModel);
                 }
+
+                CalendarFoodModel calendarFoodModel;
+
+                String date = dietCalendar.getCurrentDate();
+                String time = dietCalendar.getCurrentTime();
+
+                try {
+                    calendarFoodModel = new CalendarFoodModel(-1, foodNameToString, foodCaloriesVal, foodFatVal, foodCarbsVal, foodProteinVal, 0f, date, time);
+                } catch (Exception e) {
+                    calendarFoodModel = new CalendarFoodModel(-1, "Error", 0f, 0f, 0f, 0f, 0f,"Error", "Error");
+                }
+
+                DatabaseHelper dataBaseHelperForCalendar = new DatabaseHelper(ManuallyAdd.this);
+                dataBaseHelperForCalendar.calendarAddOne(calendarFoodModel);
 
                 setResult(RESULT_OK, intent);
                 finish();
