@@ -96,9 +96,10 @@ public class FoodDBDisplay extends AppCompatActivity implements RecyclerViewInte
         public void onItemClick(int position) {
         Intent intent = null;
 
-        String filteredFoodName = filteredListCopy.get(position);
-        position = foodNameDB.indexOf(filteredFoodName);
-
+        if(filteredListCopy.size() != 0){
+            String filteredFoodName = filteredListCopy.get(position);
+            position = foodNameDB.indexOf(filteredFoodName);
+        }
         if(foodSaveType.get(position).equals("0")){
             intent = new Intent(FoodDBDisplay.this, FoodDBItemPage.class);
         } else if (foodSaveType.get(position).equals("1")) {
